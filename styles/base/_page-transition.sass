@@ -1,0 +1,26 @@
+.curve
+  .svg,
+  .background
+    z-index: 500
+    position: fixed
+    height: calc(100vh + 600px)
+    width: 100vw
+    pointer-events: none
+    left: 0
+    top: 0
+
+  .svg
+    fill: $color-black
+
+  .background
+    background-color: $color-black
+    transition: opacity 0s linear 0.1s
+
+  .route
+    z-index: 600
+    position: fixed
+    left: 50%
+    top: 40%
+    color: $color-white
+    transform: translateX(-50%)
+    text-align: center

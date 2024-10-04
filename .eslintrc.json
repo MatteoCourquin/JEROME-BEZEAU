@@ -1,3 +1,61 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ],
+        "@typescript-eslint/no-inferrable-types": "warn",
+        "@typescript-eslint/ban-tslint-comment": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "no-nested-ternary": "warn",
+        "no-console": ["warn", { "allow": ["warn", "error", "assert", "info"] }],
+        "react/jsx-curly-brace-presence": ["warn", { "props": "never", "children": "never" }],
+        "@typescript-eslint/naming-convention": [
+          "warn",
+          {
+            "selector": "enum",
+            "format": ["UPPER_CASE"]
+          },
+          {
+            "selector": "enumMember",
+            "format": ["UPPER_CASE"]
+          },
+          {
+            "selector": "variable",
+            "format": ["camelCase", "UPPER_CASE", "PascalCase"]
+          },
+          {
+            "selector": "function",
+            "format": ["camelCase", "PascalCase"]
+          },
+          {
+            "selector": "typeLike",
+            "format": ["PascalCase"]
+          },
+          {
+            "selector": "interface",
+            "format": ["PascalCase"]
+          }
+        ],
+        "eslint/no-extra-boolean-cast": "off",
+        "react-hooks/rules-of-hooks": "off",
+        "react/no-unescaped-entities": "off",
+        "react-hooks/exhaustive-deps": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/display-name": "off"
+      }
+    }
+  ]
 }

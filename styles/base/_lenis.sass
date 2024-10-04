@@ -1,0 +1,16 @@
+html.lenis,
+html.lenis body
+  height: auto
+
+.lenis
+  &-smooth
+    scroll-behavior: auto !important
+
+    [data-lenis-prevent]
+      overscroll-behavior: contain
+
+    &-stopped
+      overflow: hidden
+
+    &-scrolling iframe
+      pointer-events: none
