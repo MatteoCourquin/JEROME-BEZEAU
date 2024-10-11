@@ -23,6 +23,18 @@ const config: Config = {
       padding: {
         ...defaultScaping,
       },
+      margin: {
+        ...defaultScaping,
+      },
+      width: {
+        ...defaultScaping,
+      },
+      height: {
+        ...defaultScaping,
+      },
+      inset: {
+        ...defaultScaping,
+      },
     },
   },
   plugins: [],

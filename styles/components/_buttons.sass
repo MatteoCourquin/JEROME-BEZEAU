@@ -1,0 +1,25 @@
+.button
+  display: flex
+  height: 40px
+  flex-wrap: nowrap
+  align-items: center
+  gap: 10px
+  overflow: hidden
+  white-space: nowrap
+  border-radius: 9999px
+  border: 1px solid $color-white-80
+  padding: 0px 20px
+  color: $color-white-80
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s
+
+  &:hover
+    border-color: transparent
+    background-color: $color-white-40
+    color: $color-black !important
+
+    svg
+      fill: $color-black !important
+
+  svg
+    transform: rotate(-45deg)
+    transition: fill 0.3s
