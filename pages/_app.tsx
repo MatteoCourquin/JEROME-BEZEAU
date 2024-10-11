@@ -1,3 +1,4 @@
+import Layout from '@/layout/default';
 import SmoothScrolling from '@/layout/lenis';
 import '@/styles/main.sass';
 import type { AppProps } from 'next/app';
@@ -11,9 +12,11 @@ export default function App({ Component, pageProps }: AppProps) {
       {pathname?.includes('studio') ? (
         <Component {...pageProps} />
       ) : (
-        <SmoothScrolling>
-          <Component {...pageProps} />
-        </SmoothScrolling>
+        <Layout>
+          <SmoothScrolling>
+            <Component {...pageProps} />
+          </SmoothScrolling>
+        </Layout>
       )}
     </>
   );

@@ -1,24 +1,34 @@
-.heading1
+.heading1, h1
   font-size: clamp(3rem, 6vw, 8rem)
+  line-height: clamp(3rem, 6vw, 8rem)
 
-.heading2
+.heading2, h2
   font-size: clamp(2rem, 4.5vw, 6rem)
+  line-height: clamp(2rem, 4.5vw, 6rem)
 
-.heading3
+.heading3, h3
   font-size: clamp(1.5rem, 4vw, 5rem)
+  line-height: clamp(1.5rem, 4vw, 5rem)
 
-.heading4
+.heading4, h4
   font-size: clamp(1.4rem, 3.5vw, 4rem)
+  line-height: clamp(1.4rem, 3.5vw, 4rem)
 
-.heading5
+.heading5, h5
   font-size: clamp(1.3rem, 3vw, 2rem)
   line-height: clamp(1.3rem, 3vw, 2rem)
 
-.heading6
+.heading6, h6
   font-size: 20px
 
 .subtitle
   font-size: clamp(1.3rem, 3vw, 2rem)
+  line-height: clamp(1.3rem, 3vw, 2rem)
+  color: $color-white-40
+
+.paragraph, p, .link
+  font-size: normal
+  line-height: 1.5
 
 .link
   position: relative
@@ -27,7 +37,7 @@
   &::after
     content: ''
     position: absolute
-    bottom: 0
+    bottom: -2px
     left: 0
     right: 0
     scale: 0 1
@@ -43,9 +53,9 @@
       scale: 1 1
 
   &_white
-    color: $color-white
+    color: $color-white-80
     &::after
-      background-color: $color-white
+      background-color: $color-white-80
 
   &_black
     color: $color-black

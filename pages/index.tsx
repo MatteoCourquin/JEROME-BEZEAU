@@ -1,11 +1,30 @@
+import Image from 'next/image';
+
 export default function Home() {
   return (
-    <div>
-      <h1>JÉRÔME BEZEAU</h1>
-      <p className="flex items-end bg-red-100 opacity-0">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias voluptate error
-        consequatur repellendus vel cumque magni accusantium non ut.
-      </p>
-    </div>
+    <>
+      <section className="relative flex h-screen flex-col items-center justify-center">
+        <Image
+          src="/images/JB.jpeg"
+          width={1920}
+          height={1080}
+          alt=""
+          className="absolute inset-0  h-screen w-screen -z-[1] object-cover"
+        />
+        <h1>JÉRÔME BEZEAU</h1>
+        <p className="subtitle">Art Director & Digital designer</p>
+      </section>
+      <section className="relative flex h-screen flex-col items-center justify-center">
+        <Image
+          src="/images/JB.jpeg"
+          width={1920}
+          height={1080}
+          alt=""
+          className="absolute inset-0 -z-10 h-screen w-screen"
+        />
+        <h1>JÉRÔME BEZEAU</h1>
+        <p className="subtitle">Art Director & Digital designer</p>
+      </section>
+    </>
   );
 }
