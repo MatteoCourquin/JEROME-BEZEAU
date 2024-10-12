@@ -46,6 +46,19 @@ const SocialMedia = () => {
         )
         .add(
           gsap.fromTo(
+            wrapperSocialRef.current,
+            {
+              width: 58,
+            },
+            {
+              width: 470,
+              duration: 0.3,
+              ease: 'power3.inOut',
+            },
+          ),
+        )
+        .add(
+          gsap.fromTo(
             IconShareRef.current,
             {
               scale: 1,
@@ -53,6 +66,7 @@ const SocialMedia = () => {
             {
               scale: 0,
               duration: 0.15,
+              ease: 'power3.out',
             },
           ),
         )
@@ -68,57 +82,21 @@ const SocialMedia = () => {
         )
         .add(
           gsap.fromTo(
-            wrapperSocialRef.current,
-            {
-              width: 58,
-            },
-            {
-              width: 470,
-              duration: 0.3,
-              ease: 'power3.inOut',
-            },
-          ),
-        )
-        .add(
-          gsap.fromTo(
             wrapperIconRef.current,
             {
+              width: 54,
               paddingLeft: 0,
               paddingRight: 0,
             },
             {
+              width: 300,
               paddingLeft: 30,
               paddingRight: 30,
               duration: 0.3,
               ease: 'power3.inOut',
             },
           ),
-        )
-        .add(
-          gsap.fromTo(
-            textRef.current,
-            {
-              opacity: 0,
-            },
-            {
-              opacity: 1,
-              duration: 0.15,
-            },
-          ),
-        )
-        .add(
-          gsap.fromTo(
-            wrapperIconRef.current,
-            {
-              width: 54,
-            },
-            {
-              width: 300,
-              duration: 0.3,
-              ease: 'power3.out',
-            },
-          ),
-          '-=0.15',
+          '-=0.10',
         )
         .add(
           gsap.fromTo(
@@ -135,7 +113,37 @@ const SocialMedia = () => {
               stagger: -0.1,
             },
           ),
-          '-=0.15',
+          '-=0.14',
+        )
+        .add(
+          gsap.fromTo(
+            iconsChildren,
+            {
+              x: 10,
+            },
+            {
+              x: 0,
+              duration: 1.3,
+              ease: 'elastic.out',
+              stagger: -0.1,
+            },
+          ),
+          '-=0.75',
+        )
+        .add(
+          gsap.fromTo(
+            textRef.current,
+            {
+              opacity: 0,
+              x: 10,
+            },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.4,
+            },
+          ),
+          '-=1.2',
         ),
     )();
   }, [contextSafe]);
