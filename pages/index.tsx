@@ -55,7 +55,7 @@ export default function Home({ projects }: { projects: Project[] }) {
                 key={index}
                 className={clsx(
                   'scale-0',
-                  index === 0 && 'origin-top-left',
+                  // index === 0 && 'origin-top-left',
                   index !== 0 && index % 2 === 0 && 'origin-top-right md:col-start-1',
                   index !== 0 && index % 2 !== 0 && 'origin-top-left md:col-start-2',
                 )}
