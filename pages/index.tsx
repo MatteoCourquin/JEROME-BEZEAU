@@ -1,7 +1,6 @@
 import Button from '@/components/Button';
 import CardProject from '@/components/CardProject';
 import { IconArrow } from '@/components/Icons';
-import SocialMedia from '@/components/SocialMedia';
 import { fetchProjects, Project } from '@/services/projects.sevices';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -19,12 +18,11 @@ export default function Home({ projects }: { projects: Project[] }) {
         />
         <h1>JÉRÔME BEZEAU</h1>
         <p className="subtitle">Art Director & Digital designer</p>
-        <IconArrow
+        <div
+          className="absolute bottom-y-default flex h-[58px] w-[58px] cursor-pointer items-center justify-center"
           onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-          className="absolute bottom-y-default w-fit rotate-90 cursor-pointer px-4"
-        />
-        <div className="absolute bottom-y-default right-x-default">
-          <SocialMedia />
+        >
+          <IconArrow className="w-fit rotate-90" />
         </div>
       </section>
       <section className="relative flex h-screen flex-col items-center justify-center gap-10 px-x-default py-y-default text-center">

@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import Link from 'next/link';
 import { ForwardedRef, forwardRef, ReactNode, useRef } from 'react';
 import { IconArrow } from './Icons';
+import { useMagnet, useResetMagnet } from '@/utils/animations';
 
 export enum BUTTON_SIZE {
   S = 's',
@@ -89,6 +90,8 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
             target={target}
             onMouseEnter={animArrow}
             className={clsx('button', className)}
+            onMouseOver={(e) => useMagnet(e, 1)}
+            onMouseOut={(e) => useResetMagnet(e)}
           >
             <span className="pt-0.5">{children}</span>
             <div ref={arrowRef}>
@@ -103,6 +106,8 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
             type={inForm ? 'submit' : 'button'}
             onMouseEnter={animArrow}
             className={clsx('button', className)}
+            onMouseOver={(e) => useMagnet(e, 1)}
+            onMouseOut={(e) => useResetMagnet(e)}
           >
             <span className="pt-0.5">{children}</span>
             <div ref={arrowRef}>

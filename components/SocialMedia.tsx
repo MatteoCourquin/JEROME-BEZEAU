@@ -1,5 +1,5 @@
+import { useMagnet, useResetMagnet } from '@/utils/animations';
 import { useGSAP } from '@gsap/react';
-import clsx from 'clsx';
 import gsap from 'gsap';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
@@ -18,7 +18,6 @@ const SocialMedia = () => {
 
   const wrapperSocialRef = useRef(null);
   const wrapperIconRef = useRef<HTMLDivElement>(null);
-  const IconShareRef = useRef(null);
   const textRef = useRef(null);
 
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
@@ -52,21 +51,8 @@ const SocialMedia = () => {
             },
             {
               width: 470,
-              duration: 0.3,
-              ease: 'power3.inOut',
-            },
-          ),
-        )
-        .add(
-          gsap.fromTo(
-            IconShareRef.current,
-            {
-              scale: 1,
-            },
-            {
-              scale: 0,
-              duration: 0.15,
-              ease: 'power3.out',
+              duration: 0.2,
+              ease: 'power1.inOut',
             },
           ),
         )
@@ -79,6 +65,7 @@ const SocialMedia = () => {
               duration: 0.3,
             },
           ),
+          '-=0.10',
         )
         .add(
           gsap.fromTo(
@@ -90,13 +77,13 @@ const SocialMedia = () => {
             },
             {
               width: 300,
-              paddingLeft: 30,
-              paddingRight: 30,
+              paddingLeft: 18,
+              paddingRight: 18,
               duration: 0.3,
-              ease: 'power3.inOut',
+              ease: 'power1.inOut',
             },
           ),
-          '-=0.10',
+          '-=0.15',
         )
         .add(
           gsap.fromTo(
@@ -153,10 +140,7 @@ const SocialMedia = () => {
       ref={wrapperSocialRef}
       onMouseEnter={() => timelineRef.current?.play()}
       onMouseLeave={() => timelineRef.current?.reverse()}
-      className={clsx(
-        'relative flex h-[58px] items-center justify-end overflow-hidden rounded-full border p-1 transition-all duration-300 hover:border-transparent hover:bg-white-40',
-        'border-white-80',
-      )}
+      className="fixed bottom-y-default right-x-default z-50 flex h-[58px] items-center justify-end overflow-hidden rounded-full border border-white-80 p-1 backdrop-blur-lg"
     >
       <Link
         ref={textRef}
@@ -168,28 +152,55 @@ const SocialMedia = () => {
       </Link>
       <div
         ref={wrapperIconRef}
-        className="absolute right-[1px] flex h-[54px] w-[54px] scale-0 items-center gap-[30px] overflow-hidden rounded-full bg-black"
+        className="absolute right-[1px] z-10 flex h-[54px] w-[54px] scale-0 items-center gap-[6px] overflow-hidden rounded-full bg-black"
       >
-        <Link href="/" className="scale-0 opacity-0">
+        <Link
+          target="_blank"
+          href="https://www.linkedin.com/in/jerome-bezeau/"
+          className="scale-0 p-3 opacity-0"
+          onMouseOver={(e) => useMagnet(e, 1)}
+          onMouseOut={(e) => useResetMagnet(e)}
+        >
           <IconLinkedin />
         </Link>
-        <Link href="/" className="scale-0 opacity-0">
+        <Link
+          target="_blank"
+          href="https://www.behance.net/jeromebezeb4eb"
+          className="scale-0 p-3 opacity-0"
+          onMouseOver={(e) => useMagnet(e, 1)}
+          onMouseOut={(e) => useResetMagnet(e)}
+        >
           <IconBehance />
         </Link>
-        <Link href="/" className="scale-0 opacity-0">
+        <Link
+          target="_blank"
+          href="https://www.instagram.com/jeromebezeau/"
+          className="scale-0 p-3 opacity-0"
+          onMouseOver={(e) => useMagnet(e, 1)}
+          onMouseOut={(e) => useResetMagnet(e)}
+        >
           <IconInstagram />
         </Link>
-        <Link href="/" className="scale-0 opacity-0">
+        <Link
+          target="_blank"
+          href="https://dribbble.com/jeromebezeau"
+          className="scale-0 p-3 opacity-0"
+          onMouseOver={(e) => useMagnet(e, 1)}
+          onMouseOut={(e) => useResetMagnet(e)}
+        >
           <IconDribbble />
         </Link>
-        <Link href="/" className="scale-0 opacity-0">
+        <Link
+          target="_blank"
+          href="https://bento.me/jeromebezeau"
+          className="scale-0 p-3 opacity-0"
+          onMouseOver={(e) => useMagnet(e, 1)}
+          onMouseOut={(e) => useResetMagnet(e)}
+        >
           <IconBento />
         </Link>
       </div>
-      <div
-        ref={IconShareRef}
-        className="flex h-[50px] w-[50px] shrink-0 items-center justify-center duration-300"
-      >
+      <div className="flex h-[50px] w-[50px] shrink-0 items-center justify-center duration-300">
         <IconShare className="fill-white-80 transition-colors duration-300" />
       </div>
     </div>

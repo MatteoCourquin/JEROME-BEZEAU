@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import SocialMedia from '@/components/SocialMedia';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Head from 'next/head';
 import { ReactNode } from 'react';
@@ -39,6 +40,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      <SocialMedia />
       {/* <Cursor /> */}
       {/* <ScrollTop /> */}
       {/* <Burger /> */}
