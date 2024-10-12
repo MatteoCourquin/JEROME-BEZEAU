@@ -1,6 +1,7 @@
 export type Project = {
   tile: string;
-  imageCover: string;
+  imageCover?: string;
+  videoCover?: string;
   type: string[];
 };
 
@@ -8,7 +9,7 @@ export const fetchProjects = async () => {
   const projects = [
     {
       tile: 'pregen',
-      imageCover: '/images/projects/project1.jpeg',
+      videoCover: '/video/video.webm',
       type: ['branding', 'branding', 'branding'],
     },
     {

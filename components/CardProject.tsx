@@ -28,13 +28,24 @@ const CardProject = ({ project, className }: { project: Project; className?: str
 
   return (
     <div ref={cardRef} className={clsx('relative aspect-square', className)}>
-      <Image
-        className="absolute h-full w-full object-cover"
-        src={project.imageCover}
-        width={1080}
-        height={1080}
-        alt=""
-      />
+      {project.imageCover && (
+        <Image
+          className="absolute h-full w-full object-cover"
+          src={project.imageCover}
+          width={1080}
+          height={1080}
+          alt=""
+        />
+      )}
+      {project.videoCover && (
+        <video
+          className="absolute h-full w-full object-cover"
+          src={project.videoCover}
+          autoPlay
+          muted
+          loop
+        />
+      )}
     </div>
   );
 };

@@ -35,6 +35,9 @@ const config: Config = {
       inset: {
         ...defaultScaping,
       },
+      gap: {
+        ...defaultScaping,
+      },
     },
   },
   plugins: [],

@@ -4,7 +4,7 @@ import { IconJB } from './Icons';
 
 const Header = () => {
   return (
-    <header className="fixed left-0 top-0 z-[900] w-screen border-b border-b-white-12 px-x-default mix-blend- difference backdrop-blur-xl">
+    <header className="mix-blend- difference fixed left-0 top-0 z-[900] w-screen border-b border-b-white-12 px-x-default backdrop-blur-lg">
       <div className="flex h-24 items-center justify-between">
         <Link href="/">
           <IconJB className="fill-white opacity-80" />
