@@ -24,6 +24,8 @@ const SocialMedia = () => {
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
+    if (!wrapperIconRef.current) return;
+    const iconsChildren = wrapperIconRef.current.children;
     timelineRef.current = contextSafe(() =>
       gsap
         .timeline({ paused: true })
@@ -120,7 +122,7 @@ const SocialMedia = () => {
         )
         .add(
           gsap.fromTo(
-            wrapperIconRef.current?.children,
+            iconsChildren,
             {
               scale: 0,
               opacity: 0,
@@ -148,13 +150,14 @@ const SocialMedia = () => {
         'border-white-80',
       )}
     >
-      <div
+      <Link
         ref={textRef}
+        href="/contact"
         className="absolute left-0.5 flex items-center gap-[10px] px-5 text-black opacity-0"
       >
         <span className="whitespace-nowrap pt-0.5">I'M SOCIAL</span>
         <IconArrow className="!fill-black" />
-      </div>
+      </Link>
       <div
         ref={wrapperIconRef}
         className="absolute right-[1px] flex h-[54px] w-[54px] scale-0 items-center gap-[30px] overflow-hidden rounded-full bg-black"

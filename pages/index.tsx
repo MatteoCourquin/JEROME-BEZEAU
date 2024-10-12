@@ -1,9 +1,12 @@
 import Button from '@/components/Button';
+import CardProject from '@/components/CardProject';
 import { IconArrow } from '@/components/Icons';
 import SocialMedia from '@/components/SocialMedia';
+import { fetchProjects, Project } from '@/services/projects.sevices';
+import clsx from 'clsx';
 import Image from 'next/image';
 
-export default function Home() {
+export default function Home({ projects }: { projects: Project[] }) {
   return (
     <>
       <section className="relative flex h-screen flex-col items-center justify-center px-x-default py-y-default text-center">
@@ -18,9 +21,9 @@ export default function Home() {
         <p className="subtitle">Art Director & Digital designer</p>
         <IconArrow
           onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-          className="bottom-y-default absolute w-fit rotate-90 cursor-pointer px-4"
+          className="absolute bottom-y-default w-fit rotate-90 cursor-pointer px-4"
         />
-        <div className="right-x-default bottom-y-default absolute">
+        <div className="absolute bottom-y-default right-x-default">
           <SocialMedia />
         </div>
       </section>
@@ -45,7 +48,35 @@ export default function Home() {
       </section>
       <section className="min-h-screen px-x-default py-y-default">
         <h2 className="heading1">CURATED WORKS</h2>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {projects.map((project, index) => (
+            <>
+              <CardProject
+                key={index}
+                className={clsx(
+                  'scale-0',
+                  index === 0 && 'origin-top-left',
+                  index % 2 === 0
+                    ? 'origin-top-right md:col-start-1'
+                    : 'origin-top-left md:col-start-2',
+                )}
+                project={project}
+              />
+              <div />
+            </>
+          ))}
+        </div>
       </section>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const projects = await fetchProjects();
+
+  return {
+    props: {
+      projects,
+    },
+  };
 }
