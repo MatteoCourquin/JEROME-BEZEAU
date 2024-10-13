@@ -33,7 +33,7 @@ export default function Home({ projects }: { projects: Project[] }) {
           Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem
           consectetur semper pellentesque diam molestie sodales sit.
         </p>
-        <Button as="a" href="/work">
+        <Button as="a" href="/about">
           MORE ABOUT ME
         </Button>
         <div
@@ -44,18 +44,21 @@ export default function Home({ projects }: { projects: Project[] }) {
           <p className="text-white-80">MY WORK</p>
         </div>
       </section>
-      <section className="min-h-screen px-x-default py-y-default flex flex-col gap-y-default">
+      <section className="gap-y-default flex min-h-screen flex-col px-x-default py-y-default">
         <h2 className="heading1">CURATED WORKS</h2>
         <div className="grid grid-cols-1 gap-x-5 md:grid-cols-2">
           {projects.map((project, index) => (
             <>
               <CardProject
                 key={index}
-                className={clsx(
-                  'scale-0',
+                originTrasnform={clsx(
                   index === 0 && 'origin-top-left',
-                  index !== 0 && index % 2 === 0 && 'origin-top-right md:col-start-1',
-                  index !== 0 && index % 2 !== 0 && 'origin-top-left md:col-start-2',
+                  index !== 0 && index % 2 === 0 && 'origin-top-right',
+                  index !== 0 && index % 2 !== 0 && 'origin-top-left',
+                )}
+                className={clsx(
+                  index !== 0 && index % 2 === 0 && 'md:col-start-1',
+                  index !== 0 && index % 2 !== 0 && 'md:col-start-2',
                 )}
                 project={project}
               />
@@ -64,6 +67,9 @@ export default function Home({ projects }: { projects: Project[] }) {
             </>
           ))}
         </div>
+        <Button as="a" href="/work" className="mx-auto w-fit">
+          MORE WORKS
+        </Button>
       </section>
     </>
   );

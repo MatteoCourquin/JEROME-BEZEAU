@@ -1,31 +1,31 @@
 export type Project = {
-  tile: string;
+  title: string;
   imageCover?: string;
   videoCover?: string;
-  type: string[];
+  types: string[];
 };
 
 export const fetchProjects = async () => {
   const projects = [
     {
-      tile: 'pregen',
+      title: 'pregen',
       videoCover: '/video/video.webm',
-      type: ['branding', 'branding', 'branding'],
+      types: ['branding', 'branding', 'branding'],
     },
     {
-      tile: 'pregen',
+      title: 'pregen',
       imageCover: '/images/projects/project2.jpeg',
-      type: ['branding', 'branding', 'branding'],
+      types: ['branding', 'branding', 'branding'],
     },
     {
-      tile: 'pregen',
+      title: 'pregen',
       imageCover: '/images/projects/project3.jpeg',
-      type: ['branding', 'branding', 'branding'],
+      types: ['branding', 'branding', 'branding'],
     },
     {
-      tile: 'pregen',
+      title: 'pregen',
       imageCover: '/images/projects/project4.jpeg',
-      type: ['branding', 'branding', 'branding'],
+      types: ['branding', 'branding', 'branding'],
     },
   ];
 

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export const IconJB = ({ className }: { className: string }) => (
+export const IconJB = ({ className }: { className?: string }) => (
   <svg
     className={className}
     width="57"
