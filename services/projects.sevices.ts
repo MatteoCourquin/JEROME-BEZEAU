@@ -10,22 +10,22 @@ export const fetchProjects = async () => {
     {
       title: 'pregen',
       videoCover: '/video/video.webm',
-      types: ['branding', 'branding', 'branding'],
+      types: ['branding', 'dev', 'design'],
     },
     {
       title: 'pregen',
       imageCover: '/images/projects/project2.jpeg',
-      types: ['branding', 'branding', 'branding'],
+      types: ['branding'],
     },
     {
       title: 'pregen',
       imageCover: '/images/projects/project3.jpeg',
-      types: ['branding', 'branding', 'branding'],
+      types: ['dev', 'design'],
     },
     {
       title: 'pregen',
       imageCover: '/images/projects/project4.jpeg',
-      types: ['branding', 'branding', 'branding'],
+      types: ['dev', 'design', 'branding'],
     },
   ];
 

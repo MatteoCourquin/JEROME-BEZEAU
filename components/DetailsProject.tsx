@@ -1,38 +1,42 @@
+import clsx from 'clsx';
 import Link from 'next/link';
 import { IconArrow } from './Icons';
-import clsx from 'clsx';
-import { forwardRef } from 'react';
 
-type TypographyProps = {
+const DetailsProject = ({
+  isRight,
+  title,
+  types,
+}: {
+  isRight: boolean;
   title: string;
   types: string[];
-  className?: string;
-};
-
-const DetailsProject = forwardRef<HTMLDivElement, TypographyProps>(
-  ({ title, types, className }, ref) => {
-    return (
-      <div
-        ref={ref}
+}) => {
+  return (
+    <div
+      className={clsx(
+        'flex h-20 w-fit items-center justify-end overflow-hidden rounded-t-full bg-white-40 p-1 backdrop-blur-lg',
+        isRight ? 'flex-row rounded-br-full' : '-translate-x-full flex-row-reverse rounded-bl-full',
+      )}
+    >
+      <Link
+        href="/contact"
         className={clsx(
-          className,
-          'z-50 flex h-20 w-fit scale-0 items-center justify-end overflow-hidden rounded-t-full rounded-br-full bg-white-40 p-1 backdrop-blur-lg',
+          'flex items-center gap-[10px] px-10 text-black',
+          isRight ? 'flex-row' : 'flex-row-reverse',
         )}
       >
-        <Link href="/contact" className="flex items-center gap-[10px] px-10 text-black">
-          <span className="whitespace-nowrap pt-0.5">{title}</span>
-          <IconArrow className="!fill-black" />
-        </Link>
-        <div className="flex gap-[5px]">
-          {types.map((type, index) => (
-            <p key={index} className="tag">
-              {type}
-            </p>
-          ))}
-        </div>
+        <IconArrow className={clsx('!fill-black', isRight ? 'rotate-0' : 'rotate-180')} />
+        <span className="whitespace-nowrap pt-0.5">{title}</span>
+      </Link>
+      <div className={clsx('flex gap-[5px]', isRight ? 'flex-row' : 'flex-row-reverse')}>
+        {types.map((type, index) => (
+          <p key={index} className="tag">
+            {type}
+          </p>
+        ))}
       </div>
-    );
-  },
-);
+    </div>
+  );
+};
 
 export default DetailsProject;

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Image from 'next/image';
-import { MouseEvent, useRef } from 'react';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,15 +12,38 @@ gsap.registerPlugin(ScrollTrigger);
 const CardProject = ({
   project,
   className,
-  originTrasnform,
+  originTransform,
 }: {
   project: Project;
   className?: string;
-  originTrasnform: string;
+  originTransform: string;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const wrapperImageRef = useRef<HTMLDivElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
+
+  const [isRight, setIsRight] = useState(false);
+
+  const { contextSafe } = useGSAP();
+
+  useEffect(() => {
+    const updateIsRight = () => {
+      if (!cardRef.current) return;
+
+      const rect = cardRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const windowCenterX = window.innerWidth / 2;
+
+      setIsRight(centerX < windowCenterX);
+    };
+
+    updateIsRight();
+    window.addEventListener('resize', updateIsRight);
+
+    return () => {
+      window.removeEventListener('resize', updateIsRight);
+    };
+  }, []);
 
   useGSAP(() => {
     if (!wrapperImageRef.current) return;
@@ -37,20 +60,18 @@ const CardProject = ({
     });
   }, [wrapperImageRef]);
 
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!detailsRef.current || !cardRef.current) return;
-
-    const { left, top } = cardRef.current.getBoundingClientRect();
+  const handleMouseMove = contextSafe((e: MouseEvent<HTMLDivElement>) => {
+    if (!detailsRef.current) return;
 
     gsap.to(detailsRef.current, {
-      x: e.clientX - left + 10,
-      y: e.clientY - top - 90,
-      duration: 0.2,
-      ease: 'power2.out',
+      left: e.clientX + (isRight ? 10 : -10),
+      top: e.clientY - 90,
+      duration: 0.8,
+      ease: 'power4.out',
     });
-  };
+  });
 
-  const handleMouseOut = () => {
+  const handleMouseOut = contextSafe(() => {
     if (!detailsRef.current) return;
 
     gsap.to(detailsRef.current, {
@@ -58,36 +79,36 @@ const CardProject = ({
       duration: 0.2,
       ease: 'power2.out',
     });
-  };
+  });
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = contextSafe((e: MouseEvent<HTMLDivElement>) => {
     if (!detailsRef.current) return;
+
+    detailsRef.current.style.left = e.clientX + (isRight ? 10 : -10) + 'px';
+    detailsRef.current.style.top = e.clientY - 90 + 'px';
 
     gsap.to(detailsRef.current, {
       scale: 1,
       duration: 0.2,
       ease: 'power2.out',
     });
-  };
+  });
 
   return (
     <div
       onMouseMove={(e) => {
         handleMouseMove(e);
-        handleMouseEnter();
+        handleMouseEnter(e);
       }}
-      onMouseOut={() => handleMouseOut()}
+      onMouseOut={handleMouseOut}
       ref={cardRef}
       className={clsx('group/card-project relative aspect-square', className)}
     >
-      <DetailsProject
-        className="absolute origin-bottom-left scale-0"
-        ref={detailsRef}
-        title={project.title}
-        types={project.types}
-      />
+      <div ref={detailsRef} className="pointer-events-none fixed z-50 origin-bottom-left scale-0">
+        <DetailsProject isRight={isRight} title={project.title} types={project.types} />
+      </div>
       <div
-        className={clsx(originTrasnform, 'absolute -z-10 h-full w-full scale-0 object-cover')}
+        className={clsx(originTransform, 'absolute -z-10 h-full w-full scale-0 object-cover')}
         ref={wrapperImageRef}
       >
         {project.imageCover && (

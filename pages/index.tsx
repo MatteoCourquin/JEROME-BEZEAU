@@ -44,27 +44,29 @@ export default function Home({ projects }: { projects: Project[] }) {
           <p className="text-white-80">MY WORK</p>
         </div>
       </section>
-      <section className="gap-y-default flex min-h-screen flex-col px-x-default py-y-default">
+      <section className="flex min-h-screen flex-col gap-y-default px-x-default py-y-default">
         <h2 className="heading1">CURATED WORKS</h2>
-        <div className="grid grid-cols-1 gap-x-5 md:grid-cols-2">
+        <div className="flex flex-col">
           {projects.map((project, index) => (
-            <>
+            <div
+              key={project.title + index}
+              className={clsx(
+                'flex gap-x-5',
+                index % 2 === 0 && 'flex-row',
+                index % 2 !== 0 && 'flex-row-reverse',
+              )}
+            >
               <CardProject
-                key={index}
-                originTrasnform={clsx(
+                className="grow"
+                originTransform={clsx(
                   index === 0 && 'origin-top-left',
                   index !== 0 && index % 2 === 0 && 'origin-top-right',
                   index !== 0 && index % 2 !== 0 && 'origin-top-left',
                 )}
-                className={clsx(
-                  index !== 0 && index % 2 === 0 && 'md:col-start-1',
-                  index !== 0 && index % 2 !== 0 && 'md:col-start-2',
-                )}
                 project={project}
               />
-
-              <div />
-            </>
+              <div className="grow"></div>
+            </div>
           ))}
         </div>
         <Button as="a" href="/work" className="mx-auto w-fit">
