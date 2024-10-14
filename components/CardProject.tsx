@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Image from 'next/image';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
+import { useTouchDevice } from '@/utils/states';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -61,7 +62,7 @@ const CardProject = ({
   }, [wrapperImageRef]);
 
   const handleMouseMove = contextSafe((e: MouseEvent<HTMLDivElement>) => {
-    if (!detailsRef.current) return;
+    if (!detailsRef.current || useTouchDevice()) return;
 
     gsap.to(detailsRef.current, {
       left: e.clientX + (isRight ? 10 : -10),
@@ -72,7 +73,7 @@ const CardProject = ({
   });
 
   const handleMouseOut = contextSafe(() => {
-    if (!detailsRef.current) return;
+    if (!detailsRef.current || useTouchDevice()) return;
 
     gsap.to(detailsRef.current, {
       scale: 0,
@@ -82,7 +83,7 @@ const CardProject = ({
   });
 
   const handleMouseEnter = contextSafe((e: MouseEvent<HTMLDivElement>) => {
-    if (!detailsRef.current) return;
+    if (!detailsRef.current || useTouchDevice()) return;
 
     detailsRef.current.style.left = e.clientX + (isRight ? 10 : -10) + 'px';
     detailsRef.current.style.top = e.clientY - 90 + 'px';
@@ -123,7 +124,7 @@ const CardProject = ({
         {project.videoCover && (
           <video
             className="h-full w-full object-cover"
-            src={project.videoCover}
+            src={project.videoCover.webm}
             autoPlay
             muted
             loop

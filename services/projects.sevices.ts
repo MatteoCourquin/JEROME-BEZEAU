@@ -1,7 +1,12 @@
+export type Video = {
+  webm?: string;
+  mp4?: string;
+};
+
 export type Project = {
   title: string;
   imageCover?: string;
-  videoCover?: string;
+  videoCover?: Video;
   types: string[];
 };
 
@@ -9,7 +14,10 @@ export const fetchProjects = async () => {
   const projects = [
     {
       title: 'pregen',
-      videoCover: '/video/video.webm',
+      videoCover: {
+        webm: '/video/video.webm',
+        mp4: '/video/video.mp4',
+      },
       types: ['branding', 'dev', 'design'],
     },
     {

@@ -22,21 +22,17 @@ export const useResetMagnet = (event: MouseEvent<HTMLElement>) => {
   });
 };
 
-export const useRotateHover = (element: HTMLDivElement, speed: number) => {
-  gsap.to(element, {
-    rotation: '+=360',
-    ease: 'power1.inOut',
-    duration: speed,
-    repeat: 0,
-  });
-};
-
-export const useParallax = (element: HTMLDivElement | null, speed: number) => {
+export const useParallax = (
+  element: HTMLDivElement | null,
+  speed: number,
+  direction?: 'bottom' | 'top',
+  deplacement?: number,
+) => {
   if (!element) return;
   const updateParallax = () => {
-    const scrollY = window.scrollY;
+    const scrollY = deplacement || window.scrollY;
     gsap.to(element, {
-      y: -scrollY * speed,
+      y: direction === 'bottom' ? scrollY * speed : -(scrollY * speed),
       ease: 'power1.out',
     });
   };
