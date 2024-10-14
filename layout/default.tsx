@@ -44,7 +44,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       {/* <Cursor /> */}
       {/* <ScrollTop /> */}
       {/* <Burger /> */}
-      {children}
+      <main>{children}</main>
       <Footer />
       {/* <Analytics /> */}
       {/* <SpeedInsights /> */}

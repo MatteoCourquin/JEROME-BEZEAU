@@ -20,7 +20,7 @@ export default function Home({ projects }: { projects: Project[] }) {
   });
   return (
     <>
-      <section className="relative flex h-screen flex-col items-center justify-center overflow-hidden px-x-default py-y-default text-center">
+      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-x-default py-y-default text-center">
         <Image
           src="/images/JB.jpeg"
           width={1920}
@@ -40,7 +40,7 @@ export default function Home({ projects }: { projects: Project[] }) {
           <IconArrow className="w-fit rotate-90" />
         </div>
       </section>
-      <section className="relative flex h-screen flex-col justify-center gap-10 px-x-default py-y-default md:items-center md:text-center">
+      <section className="relative flex min-h-screen flex-col justify-center gap-10 px-x-default py-y-default md:items-center md:text-center">
         <h2 className="subtitle !text-white-80">
           Hey, I’m Jérôme, a Digital Art Director from Paris.
         </h2>
@@ -52,7 +52,7 @@ export default function Home({ projects }: { projects: Project[] }) {
           MORE ABOUT ME
         </Button>
         <div
-          className="absolute bottom-[20%] flex cursor-pointer self-center flex-col items-center gap-2"
+          className="absolute bottom-[20%] flex cursor-pointer flex-col items-center gap-2 self-center"
           onClick={() => window.scrollTo({ top: window.innerHeight * 1.9, behavior: 'smooth' })}
         >
           <IconArrow className="rotate-90" />
@@ -87,6 +87,9 @@ export default function Home({ projects }: { projects: Project[] }) {
         <Button as="a" href="/work" className="mx-auto w-fit">
           MORE WORKS
         </Button>
+      </section>
+      <section className="flex min-h-screen flex-col gap-y-default px-x-default py-y-default">
+        <h2 className="heading1">CONTACT ME</h2>
       </section>
     </>
   );
