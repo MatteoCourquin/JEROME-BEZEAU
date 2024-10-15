@@ -70,6 +70,8 @@ export default function PagePhotography({ photos }: { photos: Photo[] }) {
   }, [isScrollRight]);
 
   useGSAP(() => {
+    animateInfinite(scrollContainer1Ref, !isScrollRight);
+    animateInfinite(scrollContainer2Ref, isScrollRight);
     animateScroll();
   }, []);
 
