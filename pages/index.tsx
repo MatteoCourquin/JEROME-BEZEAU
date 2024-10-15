@@ -18,6 +18,7 @@ export default function Home({ projects }: { projects: Project[] }) {
     useParallax(subtitleRef.current, 0.2);
     useParallax(imageRef.current, 0.2, 'bottom');
   });
+
   return (
     <>
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-x-default py-y-default text-center">

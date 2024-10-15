@@ -26,11 +26,10 @@ export const useParallax = (
   element: HTMLDivElement | null,
   speed: number,
   direction?: 'bottom' | 'top',
-  deplacement?: number,
 ) => {
   if (!element) return;
   const updateParallax = () => {
-    const scrollY = deplacement || window.scrollY;
+    const scrollY = window.scrollY;
     gsap.to(element, {
       y: direction === 'bottom' ? scrollY * speed : -(scrollY * speed),
       ease: 'power1.out',

@@ -1,5 +1,12 @@
 import type { Config } from 'tailwindcss';
 
+export enum BREAKPOINTS {
+  SM = 640,
+  MD = 768,
+  MG = 1024,
+  XL = 1280,
+}
+
 const defaultScaping = {
   'x-default': 'clamp(20px, 8vw, 100px)',
   'y-default': 'clamp(20px, 8vh, 100px)',
