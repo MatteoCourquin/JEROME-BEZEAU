@@ -3,7 +3,7 @@ import { IconJB } from './Icons';
 
 const Footer = () => {
   return (
-    <footer className="gap-y-default md:gap-x-x-default flex flex-col justify-between border-t border-t-white-12 px-x-default py-y-default md:flex-row">
+    <footer className="flex flex-col justify-between gap-y-default border-t border-t-white-12 px-x-default py-y-default md:flex-row md:gap-x-x-default">
       <div className="grow">
         <IconJB className="fill-white-80" />
         <div className="py-8">
