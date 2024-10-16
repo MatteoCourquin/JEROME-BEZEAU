@@ -26,6 +26,7 @@ const CardProject = ({
   const detailsRef = useRef<HTMLDivElement>(null);
 
   const [isRight, setIsRight] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   const { contextSafe } = useGSAP();
 
@@ -82,28 +83,28 @@ const CardProject = ({
     });
   });
 
-  const handleMouseOut = contextSafe(() => {
-    if (!detailsRef.current || useTouchDevice() || window.innerWidth <= BREAKPOINTS.MD) return;
+  // const handleMouseOut = contextSafe(() => {
+  //   if (!detailsRef.current || useTouchDevice() || window.innerWidth <= BREAKPOINTS.MD) return;
 
-    gsap.to(detailsRef.current, {
-      scale: 0,
-      duration: 0.2,
-      ease: 'power2.out',
-    });
-  });
+  //   gsap.to(detailsRef.current, {
+  //     scale: 0,
+  //     duration: 0.2,
+  //     ease: 'power2.out',
+  //   });
+  // });
 
-  const handleMouseEnter = contextSafe((e: MouseEvent<HTMLDivElement>) => {
-    if (!detailsRef.current || useTouchDevice() || window.innerWidth <= BREAKPOINTS.MD) return;
+  // const handleMouseEnter = contextSafe((e: MouseEvent<HTMLDivElement>) => {
+  //   if (!detailsRef.current || useTouchDevice() || window.innerWidth <= BREAKPOINTS.MD) return;
 
-    detailsRef.current.style.left = e.clientX + (isRight ? 10 : -10) + 'px';
-    detailsRef.current.style.top = e.clientY - 90 + 'px';
+  //   detailsRef.current.style.left = e.clientX + (isRight ? 10 : -10) + 'px';
+  //   detailsRef.current.style.top = e.clientY - 90 + 'px';
 
-    gsap.to(detailsRef.current, {
-      scale: 1,
-      duration: 0.2,
-      ease: 'power2.out',
-    });
-  });
+  //   gsap.to(detailsRef.current, {
+  //     scale: 1,
+  //     duration: 0.2,
+  //     ease: 'power2.out',
+  //   });
+  // });
 
   useGSAP(() => {
     if (!imageRef.current) return;
@@ -124,17 +125,29 @@ const CardProject = ({
     <div
       ref={cardRef}
       className={clsx('group/card-project relative aspect-square overflow-hidden', className)}
+      onClick={() => setIsActive(!isActive)}
     >
-      <div ref={detailsRef} className="pointer-events-none fixed z-50 origin-bottom-left scale-0">
-        <DetailsProject isRight={isRight} title={project.title} types={project.types} />
+      <div
+        ref={detailsRef}
+        className={clsx(
+          isRight ? '-translate-x-0 justify-start' : '-translate-x-full justify-end',
+          'pointer-events-none fixed z-50 flex',
+        )}
+      >
+        <DetailsProject
+          isActive={isActive}
+          isRight={isRight}
+          title={project.title}
+          types={project.types}
+        />
       </div>
       <div
         ref={wrapperImageRef}
         className={clsx(originTransform, 'absolute h-full w-full scale-0 overflow-hidden')}
-        onMouseOut={handleMouseOut}
+        onMouseOut={() => setIsActive(false)}
         onMouseMove={(e) => {
           handleMouseMove(e);
-          handleMouseEnter(e);
+          setIsActive(true);
         }}
       >
         {project.imageCover && (
