@@ -3,6 +3,7 @@
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
     "prettier"
   ],
   "overrides": [
@@ -22,6 +23,18 @@
         "no-nested-ternary": "warn",
         "no-console": ["warn", { "allow": ["warn", "error", "assert", "info"] }],
         "react/jsx-curly-brace-presence": ["warn", { "props": "never", "children": "never" }],
+        "react/jsx-sort-props": [
+          "warn",
+          {
+            "callbacksLast": true,
+            "shorthandLast": true,
+            "multiline": "last",
+            "ignoreCase": true,
+            "noSortAlphabetically": false,
+            "reservedFirst": true,
+            "locale": "auto"
+          }
+        ],
         "@typescript-eslint/naming-convention": [
           "warn",
           {

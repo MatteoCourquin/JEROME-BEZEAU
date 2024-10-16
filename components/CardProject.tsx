@@ -129,22 +129,22 @@ const CardProject = ({
         <DetailsProject isRight={isRight} title={project.title} types={project.types} />
       </div>
       <div
+        ref={wrapperImageRef}
+        className={clsx(originTransform, 'absolute h-full w-full scale-0 overflow-hidden')}
+        onMouseOut={handleMouseOut}
         onMouseMove={(e) => {
           handleMouseMove(e);
           handleMouseEnter(e);
         }}
-        onMouseOut={handleMouseOut}
-        className={clsx(originTransform, 'absolute h-full w-full scale-0 overflow-hidden')}
-        ref={wrapperImageRef}
       >
         {project.imageCover && (
           <Image
-            className="absolute bottom-0 h-[calc(100%+200px)] w-full object-cover"
             ref={imageRef}
+            alt=""
+            className="absolute bottom-0 h-[calc(100%+200px)] w-full object-cover"
+            height={1080}
             src={project.imageCover}
             width={1080}
-            height={1080}
-            alt=""
           />
         )}
         {project.videoCover && (
@@ -152,8 +152,8 @@ const CardProject = ({
             className="h-full w-full object-cover"
             src={project.videoCover.webm}
             autoPlay
-            muted
             loop
+            muted
           />
         )}
       </div>

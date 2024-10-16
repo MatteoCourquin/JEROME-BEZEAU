@@ -10,7 +10,7 @@ const Footer = () => {
           <p>Designed with love by me.</p>
           <p>
             Developped from scratch by{' '}
-            <a href="https://matteo.courqu.in/" target="_blank" className="link link_white">
+            <a className="link link_white" href="https://matteo.courqu.in/" target="_blank">
               Matteo Courquin
             </a>
             .

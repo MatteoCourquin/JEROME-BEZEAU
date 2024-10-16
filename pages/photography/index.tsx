@@ -91,18 +91,18 @@ export default function PagePhotography({ photos }: { photos: Photo[] }) {
       <div className="flex w-screen flex-col gap-4">
         <div ref={scrollContainer1Ref} className="flex w-full justify-center">
           {Array.from({ length: 3 }).map((_, index) => (
-            <div className="flex shrink-0 gap-4 pl-4" key={index}>
+            <div key={index} className="flex shrink-0 gap-4 pl-4">
               {photos.map((photo, index) => (
                 <div
                   key={photo.title + index}
                   className="relative aspect-video h-64 w-auto min-w-[25vw] shrink-0 grow"
                 >
                   <Image
-                    src={photo.imageCover}
-                    width={1080}
-                    height={920}
                     alt={photo.title}
                     className="h-full w-full object-cover"
+                    height={920}
+                    src={photo.imageCover}
+                    width={1080}
                   />
                 </div>
               ))}
@@ -111,18 +111,18 @@ export default function PagePhotography({ photos }: { photos: Photo[] }) {
         </div>
         <div ref={scrollContainer2Ref} className="flex w-full justify-center">
           {Array.from({ length: 3 }).map((_, index) => (
-            <div className="flex shrink-0 gap-4 pl-4" key={index}>
+            <div key={index} className="flex shrink-0 gap-4 pl-4">
               {photos.map((photo, index) => (
                 <div
                   key={photo.title + index}
                   className="relative aspect-video h-64 w-auto min-w-[25vw] shrink-0 grow"
                 >
                   <Image
-                    src={photo.imageCover}
-                    width={1080}
-                    height={920}
                     alt={photo.title}
                     className="h-full w-full object-cover"
+                    height={920}
+                    src={photo.imageCover}
+                    width={1080}
                   />
                 </div>
               ))}

@@ -155,17 +155,17 @@ const SocialMedia = () => {
   return (
     <div
       ref={wrapperSocialRef}
-      onMouseEnter={() => timelineRef.current?.play()}
-      onMouseLeave={() => timelineRef.current?.reverse()}
       className={clsx(
         isNearBottom ? 'scale-0' : 'scale-0 md:scale-100',
         'fixed bottom-y-default right-x-default z-50 flex h-[58px] items-center justify-end overflow-hidden rounded-full border border-white-80 p-1 backdrop-blur-lg transition-transform',
       )}
+      onMouseEnter={() => timelineRef.current?.play()}
+      onMouseLeave={() => timelineRef.current?.reverse()}
     >
       <Link
         ref={textRef}
-        href="/contact"
         className="absolute left-0.5 flex items-center gap-[10px] px-5 text-black opacity-0"
+        href="/contact"
       >
         <span className="whitespace-nowrap pt-0.5">I'M SOCIAL</span>
         <IconArrow className="!fill-black" />
@@ -175,47 +175,47 @@ const SocialMedia = () => {
         className="absolute right-[1px] z-10 flex h-[54px] w-[54px] scale-0 items-center gap-[6px] overflow-hidden rounded-full bg-black"
       >
         <Link
-          target="_blank"
-          href="https://www.linkedin.com/in/jerome-bezeau/"
           className="scale-0 p-3 opacity-0"
-          onMouseOver={(e) => useMagnet(e, 1)}
+          href="https://www.linkedin.com/in/jerome-bezeau/"
+          target="_blank"
           onMouseOut={(e) => useResetMagnet(e)}
+          onMouseOver={(e) => useMagnet(e, 1)}
         >
           <IconLinkedin />
         </Link>
         <Link
-          target="_blank"
-          href="https://www.behance.net/jeromebezeb4eb"
           className="scale-0 p-3 opacity-0"
-          onMouseOver={(e) => useMagnet(e, 1)}
+          href="https://www.behance.net/jeromebezeb4eb"
+          target="_blank"
           onMouseOut={(e) => useResetMagnet(e)}
+          onMouseOver={(e) => useMagnet(e, 1)}
         >
           <IconBehance />
         </Link>
         <Link
-          target="_blank"
-          href="https://www.instagram.com/jeromebezeau/"
           className="scale-0 p-3 opacity-0"
-          onMouseOver={(e) => useMagnet(e, 1)}
+          href="https://www.instagram.com/jeromebezeau/"
+          target="_blank"
           onMouseOut={(e) => useResetMagnet(e)}
+          onMouseOver={(e) => useMagnet(e, 1)}
         >
           <IconInstagram />
         </Link>
         <Link
-          target="_blank"
-          href="https://dribbble.com/jeromebezeau"
           className="scale-0 p-3 opacity-0"
-          onMouseOver={(e) => useMagnet(e, 1)}
+          href="https://dribbble.com/jeromebezeau"
+          target="_blank"
           onMouseOut={(e) => useResetMagnet(e)}
+          onMouseOver={(e) => useMagnet(e, 1)}
         >
           <IconDribbble />
         </Link>
         <Link
-          target="_blank"
-          href="https://bento.me/jeromebezeau"
           className="scale-0 p-3 opacity-0"
-          onMouseOver={(e) => useMagnet(e, 1)}
+          href="https://bento.me/jeromebezeau"
+          target="_blank"
           onMouseOut={(e) => useResetMagnet(e)}
+          onMouseOver={(e) => useMagnet(e, 1)}
         >
           <IconBento />
         </Link>

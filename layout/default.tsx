@@ -32,12 +32,12 @@ const Layout = ({ children }: { children: ReactNode }) => {
       {/* <LanguageContext.Provider value={{ language, setLanguage, data }}> */}
       <Head>
         <title>Jérôme Bezeau</title>
-        <meta name="description" content="Art Director & Digital designer" />
+        <meta content="Art Director & Digital designer" name="description" />
         <meta
-          name="keywords"
           content="Art Director, Digital designer, Web designer, Graphic designer, UI/UX designer, Front-end developer"
+          name="keywords"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link href="/favicon.ico" rel="icon" />
       </Head>
       <Header />
       <SocialMedia />

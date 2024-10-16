@@ -84,14 +84,14 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
       <>
         {as === 'a' && href && (
           <Link
-            scroll={false}
             ref={ref as ForwardedRef<HTMLAnchorElement>}
+            className={clsx('button', className)}
             href={href}
+            scroll={false}
             target={target}
             onMouseEnter={animArrow}
-            className={clsx('button', className)}
-            onMouseOver={(e) => useMagnet(e, 1)}
             onMouseOut={(e) => useResetMagnet(e)}
+            onMouseOver={(e) => useMagnet(e, 1)}
           >
             <span className="pt-0.5">{children}</span>
             <div ref={arrowRef}>
@@ -102,12 +102,12 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
         {as === 'button' && (
           <button
             ref={ref as ForwardedRef<HTMLButtonElement>}
-            onClick={onClick}
-            type={inForm ? 'submit' : 'button'}
-            onMouseEnter={animArrow}
             className={clsx('button', className)}
-            onMouseOver={(e) => useMagnet(e, 1)}
+            type={inForm ? 'submit' : 'button'}
+            onClick={onClick}
+            onMouseEnter={animArrow}
             onMouseOut={(e) => useResetMagnet(e)}
+            onMouseOver={(e) => useMagnet(e, 1)}
           >
             <span className="pt-0.5">{children}</span>
             <div ref={arrowRef}>

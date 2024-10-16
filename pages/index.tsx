@@ -23,12 +23,12 @@ export default function Home({ projects }: { projects: Project[] }) {
     <>
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-x-default py-y-default text-center">
         <Image
-          src="/images/JB.jpeg"
-          width={1920}
-          height={1080}
           ref={imageRef}
           alt=""
           className="absolute inset-0 -z-[1] h-screen w-screen object-cover"
+          height={1080}
+          src="/images/JB.jpeg"
+          width={1920}
         />
         <h1 ref={titleRef}>JÉRÔME BEZEAU</h1>
         <p ref={subtitleRef} className="subtitle">
@@ -49,7 +49,7 @@ export default function Home({ projects }: { projects: Project[] }) {
           Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem
           consectetur semper pellentesque diam molestie sodales sit.
         </p>
-        <Button as="a" href="/about" className="w-fit">
+        <Button as="a" className="w-fit" href="/about">
           MORE ABOUT ME
         </Button>
         <div
@@ -74,18 +74,18 @@ export default function Home({ projects }: { projects: Project[] }) {
             >
               <CardProject
                 className="grow"
+                project={project}
                 originTransform={clsx(
                   index === 0 && 'origin-top-left',
                   index !== 0 && index % 2 === 0 && 'origin-top-left md:origin-top-right',
                   index !== 0 && index % 2 !== 0 && 'origin-top-left',
                 )}
-                project={project}
               />
               <div className="hidden grow md:block"></div>
             </div>
           ))}
         </div>
-        <Button as="a" href="/work" className="mx-auto w-fit">
+        <Button as="a" className="mx-auto w-fit" href="/work">
           MORE WORKS
         </Button>
       </section>
