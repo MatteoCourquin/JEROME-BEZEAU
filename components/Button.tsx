@@ -1,10 +1,10 @@
+import { useMagnet, useResetMagnet } from '@/utils/animations';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import Link from 'next/link';
 import { ForwardedRef, forwardRef, ReactNode, useRef } from 'react';
 import { IconArrow } from './Icons';
-import { useMagnet, useResetMagnet } from '@/utils/animations';
 
 export enum BUTTON_SIZE {
   S = 's',

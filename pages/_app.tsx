@@ -1,6 +1,6 @@
 import Layout from '@/layout/default';
 import SmoothScrolling from '@/layout/lenis';
-import '@/styles/main.sass';
+import '@/styles/main.scss';
 import type { AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
 
