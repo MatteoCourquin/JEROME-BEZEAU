@@ -1,8 +1,9 @@
 import { useMagnet, useResetMagnet } from '@/utils/animations';
 import { useGSAP } from '@gsap/react';
+import clsx from 'clsx';
 import gsap from 'gsap';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   IconArrow,
   IconBehance,
@@ -22,7 +23,15 @@ const SocialMedia = () => {
 
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
-  useEffect(() => {
+  const [isNearBottom, setIsNearBottom] = useState(false);
+
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const threshold = document.documentElement.scrollHeight - 300;
+    setIsNearBottom(scrollPosition >= threshold);
+  };
+
+  useGSAP(() => {
     if (!wrapperIconRef.current) return;
     const iconsChildren = wrapperIconRef.current.children;
     timelineRef.current = contextSafe(() =>
@@ -135,12 +144,23 @@ const SocialMedia = () => {
     )();
   }, [contextSafe]);
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div
       ref={wrapperSocialRef}
       onMouseEnter={() => timelineRef.current?.play()}
       onMouseLeave={() => timelineRef.current?.reverse()}
-      className="fixed bottom-y-default right-x-default z-50 flex h-[58px] items-center justify-end overflow-hidden rounded-full border border-white-80 p-1 backdrop-blur-lg"
+      className={clsx(
+        isNearBottom ? 'scale-0' : 'scale-0 md:scale-100',
+        'fixed bottom-y-default right-x-default z-50 flex h-[58px] items-center justify-end overflow-hidden rounded-full border border-white-80 p-1 backdrop-blur-lg transition-transform',
+      )}
     >
       <Link
         ref={textRef}

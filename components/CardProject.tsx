@@ -122,11 +122,6 @@ const CardProject = ({
 
   return (
     <div
-      onMouseMove={(e) => {
-        handleMouseMove(e);
-        handleMouseEnter(e);
-      }}
-      onMouseOut={handleMouseOut}
       ref={cardRef}
       className={clsx('group/card-project relative aspect-square overflow-hidden', className)}
     >
@@ -134,7 +129,12 @@ const CardProject = ({
         <DetailsProject isRight={isRight} title={project.title} types={project.types} />
       </div>
       <div
-        className={clsx(originTransform, 'absolute -z-10 h-full w-full scale-0 overflow-hidden')}
+        onMouseMove={(e) => {
+          handleMouseMove(e);
+          handleMouseEnter(e);
+        }}
+        onMouseOut={handleMouseOut}
+        className={clsx(originTransform, 'absolute h-full w-full scale-0 overflow-hidden')}
         ref={wrapperImageRef}
       >
         {project.imageCover && (
