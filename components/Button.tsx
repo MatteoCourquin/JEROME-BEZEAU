@@ -93,7 +93,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
             onMouseOut={(e) => useResetMagnet(e)}
             onMouseOver={(e) => useMagnet(e, 1)}
           >
-            <span className="pt-0.5">{children}</span>
+            <div className="pt-0.5">{children}</div>
             <div ref={arrowRef}>
               <IconArrow />
             </div>
@@ -109,7 +109,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
             onMouseOut={(e) => useResetMagnet(e)}
             onMouseOver={(e) => useMagnet(e, 1)}
           >
-            <span className="pt-0.5">{children}</span>
+            <div className="pt-0.5">{children}</div>
             <div ref={arrowRef}>
               <IconArrow />
             </div>
