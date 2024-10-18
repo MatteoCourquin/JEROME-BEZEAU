@@ -72,39 +72,16 @@ const CardProject = ({
     });
   }, [wrapperImageRef]);
 
-  const handleMouseMove = contextSafe((e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = contextSafe((e: MouseEvent<HTMLDivElement>, duration: number) => {
     if (!detailsRef.current || useTouchDevice() || window.innerWidth <= BREAKPOINTS.MD) return;
 
     gsap.to(detailsRef.current, {
       left: e.clientX + (isRight ? 10 : -10),
       top: e.clientY - 90,
-      duration: 0.8,
+      duration: duration,
       ease: 'power4.out',
     });
   });
-
-  // const handleMouseOut = contextSafe(() => {
-  //   if (!detailsRef.current || useTouchDevice() || window.innerWidth <= BREAKPOINTS.MD) return;
-
-  //   gsap.to(detailsRef.current, {
-  //     scale: 0,
-  //     duration: 0.2,
-  //     ease: 'power2.out',
-  //   });
-  // });
-
-  // const handleMouseEnter = contextSafe((e: MouseEvent<HTMLDivElement>) => {
-  //   if (!detailsRef.current || useTouchDevice() || window.innerWidth <= BREAKPOINTS.MD) return;
-
-  //   detailsRef.current.style.left = e.clientX + (isRight ? 10 : -10) + 'px';
-  //   detailsRef.current.style.top = e.clientY - 90 + 'px';
-
-  //   gsap.to(detailsRef.current, {
-  //     scale: 1,
-  //     duration: 0.2,
-  //     ease: 'power2.out',
-  //   });
-  // });
 
   useGSAP(() => {
     if (!imageRef.current) return;
@@ -145,8 +122,12 @@ const CardProject = ({
         ref={wrapperImageRef}
         className={clsx(originTransform, 'absolute h-full w-full scale-0 overflow-hidden')}
         onMouseOut={() => setIsActive(false)}
+        onMouseEnter={(e) => {
+          handleMouseMove(e, 0);
+          setIsActive(true);
+        }}
         onMouseMove={(e) => {
-          handleMouseMove(e);
+          handleMouseMove(e, 0.8);
           setIsActive(true);
         }}
       >

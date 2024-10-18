@@ -47,7 +47,7 @@ const DetailsProject = ({ isRight, isActive, title, types }: DetailsProjectProps
           gsap.fromTo(
             arrowRef.current,
             {
-              x: isRight ? -10 : 10,
+              x: isRight ? -20 : 20,
               opacity: 0,
             },
             {
