@@ -37,20 +37,26 @@ const Header = () => {
         <nav ref={navRef}>
           <ul className="flex items-center gap-10">
             <li className="overflow-hidden py-0.5">
-              <Link className="anim-items-header link link_white inline-block pt-0.5" href="/work">
+              <Link
+                className="anim-items-header link link_white-80 inline-block pt-0.5"
+                href="/work"
+              >
                 Work
               </Link>
             </li>
             <li className="overflow-hidden py-0.5">
               <Link
-                className="anim-items-header link link_white inline-block pt-0.5"
+                className="anim-items-header link link_white-80 inline-block pt-0.5"
                 href="/photography"
               >
                 Photography
               </Link>
             </li>
             <li className="overflow-hidden py-0.5">
-              <Link className="anim-items-header link link_white inline-block pt-0.5" href="/about">
+              <Link
+                className="anim-items-header link link_white-80 inline-block pt-0.5"
+                href="/about"
+              >
                 About
               </Link>
             </li>

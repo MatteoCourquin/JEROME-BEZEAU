@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './abstracts/variables';
 @import './abstracts/keyrames';
+@import './abstracts/variables';
 
-@import './base/page-transition';
-@import './base/reset';
 @import './base/lenis';
-@import './base/txt';
+@import './base/reset';
+@import './base/page-transition';
 
-@import './components/tag';
 @import './components/buttons';
+@import './components/tag';
+@import './components/txt';

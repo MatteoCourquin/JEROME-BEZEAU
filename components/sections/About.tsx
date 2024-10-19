@@ -17,8 +17,6 @@ const About = () => {
     const titleWords = titleRef.current.querySelectorAll('.anim-text');
     const descriptionWords = descriptionRef.current.querySelectorAll('.anim-text');
 
-    gsap.set([...titleWords, ...descriptionWords], { y: 100 });
-
     gsap
       .timeline({
         scrollTrigger: {
@@ -70,8 +68,8 @@ const About = () => {
       ease: 'power2.out',
       scrollTrigger: {
         trigger: wrapperSectionRef.current,
-        start: 'top 10%',
-        end: 'bottom 90%',
+        start: 'top top',
+        end: 'bottom 80%',
         scrub: true,
       },
     });
@@ -80,7 +78,7 @@ const About = () => {
   useGSAP(() => {
     scrollTriggerAnim();
     scrollScrubAnim();
-  }, [wrapperSectionRef.current, descriptionRef.current, titleRef.current]);
+  }, []);
 
   const title = 'Hey, I’m Jérôme, a Digital Art Director from Paris.';
   const text =

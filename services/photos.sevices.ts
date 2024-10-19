@@ -6,19 +6,19 @@ export type Photo = {
 export const fetchPhotos = async () => {
   const photos = [
     {
-      title: 'pregen',
+      title: 'projet 1',
       imageCover: '/images/projects/project1.jpeg',
     },
     {
-      title: 'pregen',
+      title: 'projet au titre long',
       imageCover: '/images/projects/project2.jpeg',
     },
     {
-      title: 'pregen',
+      title: 'super projet',
       imageCover: '/images/projects/project3.jpeg',
     },
     {
-      title: 'pregen',
+      title: 'Lorem',
       imageCover: '/images/projects/project4.jpeg',
     },
   ];

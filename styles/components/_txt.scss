@@ -71,7 +71,14 @@ p,
     }
   }
 
-  &_white {
+  &_white-40 {
+    color: $color-white-40;
+
+    &::after {
+      background-color: $color-white-40;
+    }
+  }
+  &_white-80 {
     color: $color-white-80;
 
     &::after {

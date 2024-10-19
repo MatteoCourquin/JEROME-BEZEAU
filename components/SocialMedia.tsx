@@ -68,9 +68,10 @@ const SocialMedia = () => {
         .add(
           gsap.fromTo(
             wrapperIconRef.current,
-            { scale: 0 },
+            { scale: 0, opacity: 0 },
             {
               scale: 1,
+              opacity: 1,
               duration: 0.3,
             },
           ),
@@ -172,7 +173,7 @@ const SocialMedia = () => {
       </Link>
       <div
         ref={wrapperIconRef}
-        className="absolute right-[1px] z-10 flex h-[54px] w-[54px] scale-0 items-center gap-[6px] overflow-hidden rounded-full bg-black"
+        className="absolute right-[1px] z-10 flex h-[54px] w-[54px] scale-0 items-center gap-[6px] overflow-hidden rounded-full bg-black opacity-0"
       >
         <Link
           className="scale-0 p-3 opacity-0"
