@@ -1,7 +1,7 @@
 import { Project } from '@/services/projects.sevices';
 import clsx from 'clsx';
 import CardProject from '../CardProject';
-import Button from '../Button';
+import Button from '../atoms/Button';
 
 const Projects = ({ projects }: { projects: Project[] }) => {
   return (

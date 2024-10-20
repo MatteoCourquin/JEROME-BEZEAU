@@ -5,9 +5,9 @@ import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import Image from 'next/image';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
+import Media from './atoms/Media';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -132,19 +132,22 @@ const CardProject = ({
         }}
       >
         {project.imageCover && (
-          <Image
+          <Media
             ref={imageRef}
-            alt=""
-            className="absolute bottom-0 h-[calc(100%+200px)] w-full object-cover"
-            height={1080}
+            alt={project.title}
+            className="absolute bottom-0 !h-[calc(100%+200px)] w-full object-cover"
+            ratio="square"
+            sizes="xl"
             src={project.imageCover}
-            width={1080}
+            type="image"
           />
         )}
         {project.videoCover && (
-          <video
+          <Media
+            alt="video"
             className="h-full w-full object-cover"
-            src={project.videoCover.webm}
+            src={project.videoCover.webm || project.videoCover.mp4}
+            type="video"
             autoPlay
             loop
             muted

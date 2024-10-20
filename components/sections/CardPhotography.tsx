@@ -1,36 +1,37 @@
 import clsx from 'clsx';
-import Image from 'next/image';
+import { HTMLProps } from 'react';
+import Media from '../atoms/Media';
 
-interface CardPhotographyProps extends React.HTMLProps<HTMLDivElement> {
+interface CardPhotographyProps extends HTMLProps<HTMLDivElement> {
   indexId: string;
   photo: { title: string; imageCover: string };
   isIndexActive: (id: string) => boolean;
   className: string;
 }
 
-const CardPhotography: React.FC<CardPhotographyProps> = ({
+const CardPhotography = ({
   indexId,
   photo,
   isIndexActive,
   className,
   ...props
-}) => {
+}: CardPhotographyProps) => {
   return (
     <div
       key={indexId}
       className={clsx(
         isIndexActive(indexId) ? 'opacity-100' : 'opacity-20',
-        'relative aspect-[4/3] h-[25vh] shrink-0 grow transition-[opacity,filter] duration-300',
+        'relative h-[25vh] w-auto shrink-0 grow transition-[opacity,filter] duration-300',
         className,
       )}
       {...props}
     >
-      <Image
+      <Media
         alt={photo.title}
         className="h-full w-full object-cover"
-        height={920}
+        ratio="rectangle"
         src={photo.imageCover}
-        width={1080}
+        type="image"
       />
     </div>
   );

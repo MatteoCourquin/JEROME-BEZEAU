@@ -1,8 +1,8 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
-import Button from '../Button';
-import { IconArrow } from '../Icons';
+import { IconArrow } from '../atoms/Icons';
+import Button from '../atoms/Button';
 
 const About = () => {
   const wrapperSectionRef = useRef(null);

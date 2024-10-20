@@ -12,7 +12,7 @@ import {
   IconInstagram,
   IconLinkedin,
   IconShare,
-} from './Icons';
+} from './atoms/Icons';
 
 const SocialMedia = () => {
   const { contextSafe } = useGSAP();

@@ -1,16 +1,16 @@
 import Link from 'next/link';
-import { IconJB } from './Icons';
+import { IconJB } from './atoms/Icons';
 
 const Footer = () => {
   return (
     <footer className="flex flex-col-reverse justify-between gap-y-default border-t border-t-white-12 px-x-default py-y-default md:flex-row md:gap-x-x-default">
       <div className="flex grow flex-col justify-between">
         <IconJB className="fill-white-80" />
-        <div>
+        <div className="py-8">
           <p>Designed with love by me.</p>
           <p>
             Developped from scratch by{' '}
-            <a className="link link_white" href="https://matteo.courqu.in/" target="_blank">
+            <a className="link link_white-80" href="https://matteo.courqu.in/" target="_blank">
               Matteo Courquin
             </a>
             .

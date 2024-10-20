@@ -1,14 +1,13 @@
 import Link from 'next/link';
-import Button from './Button';
-import { IconJB } from './Icons';
+import { IconJB } from './atoms/Icons';
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import Button from './atoms/Button';
 
 const Header = () => {
   const timeline = useRef(gsap.timeline({ paused: true }));
   const navRef = useRef<HTMLBodyElement>(null);
-  // const buttonRef = useRef(null);
 
   useGSAP(() => {
     if (!navRef.current) return;
@@ -17,14 +16,6 @@ const Header = () => {
 
     timeline.current
       .add(gsap.fromTo(links, { y: 100 }, { y: 0, duration: 1, ease: 'power3.out', stagger: 0.1 }))
-      // .add(
-      //   gsap.fromTo(
-      //     buttonRef.current,
-      //     { x: 50, opacity: 0 },
-      //     { x: 0, opacity: 1, duration: 1, ease: 'elastic.out' },
-      //   ),
-      //   '-=0.4',
-      // )
       .play();
   });
 
@@ -61,12 +52,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Button
-                // ref={buttonRef}
-                as="a"
-                className="overflow-hidden"
-                href="/contact"
-              >
+              <Button as="a" className="overflow-hidden" href="/contact">
                 <span className="anim-items-header inline-block">Contact</span>
               </Button>
             </li>

@@ -2,7 +2,7 @@ import { useParallax } from '@/utils/animations';
 import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
 import { useRef } from 'react';
-import { IconArrow } from '../Icons';
+import { IconArrow } from '../atoms/Icons';
 import gsap from 'gsap';
 
 const Hero = () => {

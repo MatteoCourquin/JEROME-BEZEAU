@@ -1,6 +1,6 @@
 export type Video = {
-  webm?: string;
-  mp4?: string;
+  webm: string;
+  mp4: string;
 };
 
 export type Project = {

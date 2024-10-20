@@ -148,9 +148,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
         onMouseOver={() => controlAnimation('pause')}
         onMouseLeave={() => {
           controlAnimation('play');
-          if (!hoverTimeoutRef.current) {
-            changeTitle('PHOTOGRAPHY');
-          }
+          changeTitle('PHOTOGRAPHY');
         }}
       >
         {[scrollContainer1Ref, scrollContainer2Ref].map((scrollContainerRef, refIndex) => (

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import Link from 'next/link';
 import { useRef } from 'react';
-import { IconArrow } from './Icons';
+import { IconArrow } from './atoms/Icons';
 
 type DetailsProjectProps = {
   isRight: boolean;
