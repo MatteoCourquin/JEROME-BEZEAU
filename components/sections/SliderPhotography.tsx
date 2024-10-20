@@ -18,6 +18,8 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
   const animationQueue = useRef<string[]>([]);
   const isAnimating = useRef(false);
 
+  const hoverTimeoutRef = useRef<NodeJS.Timeout>();
+
   const [activePhotoIndex, setActivePhotoIndex] = useState<string | undefined>(undefined);
   const [activeTitle, setActiveTitle] = useState('PHOTOGRAPHY');
   const [isScrollRight, setIsScrollRight] = useState(false);
@@ -26,6 +28,10 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
   const detectScrollDirection = () => {
     setIsScrollRight(window.scrollY < lastScrollY);
     setLastScrollY(window.scrollY);
+
+    if (activePhotoIndex) return;
+    animateInfinite(scrollContainer1Ref, window.scrollY > lastScrollY);
+    animateInfinite(scrollContainer2Ref, window.scrollY < lastScrollY);
   };
 
   const animateScroll = () => {
@@ -54,7 +60,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
 
     const tween = gsap.to(element.current.children, {
       x: isScrollRight ? '100%' : '-100%',
-      duration: 40,
+      duration: 100,
       repeat: -1,
       ease: 'none',
       paused: false,
@@ -67,7 +73,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
     infiniteAnimationRef.current.map((animation) => {
       gsap.to(animation, {
         timeScale: action === 'play' ? 1 : 0,
-        duration: 0.5, // Modifier en fonction de quelle animation c'est
+        duration: 0.5,
         ease: 'power.out',
         overwrite: true,
       });
@@ -80,9 +86,8 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
   const changeTitle = (newTitle: string) => {
     animationQueue.current = [newTitle];
 
-    if (!isAnimating.current) {
-      animateNextTitle();
-    }
+    if (isAnimating.current) return;
+    animateNextTitle();
   };
 
   const animateNextTitle = () => {
@@ -118,12 +123,6 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
   };
 
   useGSAP(() => {
-    if (!scrollContainer1Ref.current || !scrollContainer2Ref.current) return;
-    animateInfinite(scrollContainer1Ref, !isScrollRight);
-    animateInfinite(scrollContainer2Ref, isScrollRight);
-  }, [isScrollRight]);
-
-  useGSAP(() => {
     animateInfinite(scrollContainer1Ref, !isScrollRight);
     animateInfinite(scrollContainer2Ref, isScrollRight);
     animateScroll();
@@ -145,34 +144,45 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
         </div>
       </div>
       <div
-        className="flex w-screen flex-col"
+        className="flex w-screen flex-col overflow-hidden"
+        onMouseOver={() => controlAnimation('pause')}
         onMouseLeave={() => {
           controlAnimation('play');
-          changeTitle('PHOTOGRAPHY');
+          if (!hoverTimeoutRef.current) {
+            changeTitle('PHOTOGRAPHY');
+          }
         }}
       >
         {[scrollContainer1Ref, scrollContainer2Ref].map((scrollContainerRef, refIndex) => (
           <div key={refIndex} ref={scrollContainerRef} className="flex w-full justify-center">
             {Array.from({ length: 3 }).map((_, indexWrapper) => (
               <div key={indexWrapper} className="flex shrink-0">
-                {photos.map((photo, indexItem) => {
-                  const indexId = `${photo.title}-${indexWrapper}-${indexItem}-${refIndex}`;
-                  return (
-                    <CardPhotography
-                      key={indexId}
-                      className={clsx(refIndex === 0 ? 'pb-2' : 'pt-2', 'px-2')}
-                      indexId={indexId}
-                      isIndexActive={isIndexActive}
-                      photo={photo}
-                      onMouseEnter={() => changeTitle(photo.title)}
-                      onMouseLeave={() => setActivePhotoIndex(undefined)}
-                      onMouseOver={() => {
-                        controlAnimation('pause');
-                        setActivePhotoIndex(indexId);
-                      }}
-                    />
-                  );
-                })}
+                {photos
+                  .slice(refIndex * (photos.length / 2), (refIndex + 1) * (photos.length / 2))
+                  .map((photo, indexItem) => {
+                    const indexId = `${photo.title}-${indexWrapper}-${indexItem}-${refIndex}`;
+                    return (
+                      <CardPhotography
+                        key={indexId}
+                        className={clsx(refIndex === 0 ? 'pb-2' : 'pt-2', 'px-2')}
+                        indexId={indexId}
+                        isIndexActive={isIndexActive}
+                        photo={photo}
+                        onMouseEnter={() => {
+                          setActivePhotoIndex(indexId);
+                          hoverTimeoutRef.current = setTimeout(() => {
+                            changeTitle(photo.title);
+                          }, 150);
+                        }}
+                        onMouseLeave={() => {
+                          setActivePhotoIndex(undefined);
+                          if (hoverTimeoutRef.current) {
+                            clearTimeout(hoverTimeoutRef.current);
+                          }
+                        }}
+                      />
+                    );
+                  })}
               </div>
             ))}
           </div>

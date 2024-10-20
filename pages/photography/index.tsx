@@ -14,7 +14,9 @@ export default function PagePhotography({ photos }: { photos: Photo[] }) {
 }
 
 export async function getStaticProps() {
-  const photos = await fetchPhotos();
+  const photosSingle = await fetchPhotos();
+
+  const photos = Array.from({ length: 30 }, (_, i) => photosSingle[i % photosSingle.length]);
 
   return {
     props: {

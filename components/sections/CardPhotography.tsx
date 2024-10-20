@@ -20,7 +20,7 @@ const CardPhotography: React.FC<CardPhotographyProps> = ({
       key={indexId}
       className={clsx(
         isIndexActive(indexId) ? 'opacity-100' : 'opacity-20',
-        'relative aspect-[4/3] h-64 w-auto min-w-[25vw] shrink-0 grow transition-[opacity,filter] duration-300',
+        'relative aspect-[4/3] h-[25vh] shrink-0 grow transition-[opacity,filter] duration-300',
         className,
       )}
       {...props}
