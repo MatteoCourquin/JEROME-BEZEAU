@@ -4,12 +4,13 @@ import { useTouchDevice } from '@/utils/states';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import CustomEase from 'gsap/dist/CustomEase';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
 import Media from './atoms/Media';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 const CardProject = ({
   project,
@@ -62,10 +63,15 @@ const CardProject = ({
 
     gsap.to(wrapperImageRef.current, {
       scale: 1,
-      ease: 'power2.out',
+      ease: CustomEase.create(
+        'custom',
+        'M0,0 C-0.017,0.362 0.253,0.691 0.44,0.822 0.655,0.972 0.818,1.001 1,1 ',
+      ),
+      // ease: 'power2.out',
       scrollTrigger: {
         trigger: cardRef.current,
-        start: 'top 80%',
+        start: 'top 70%',
+        end: 'bottom 50%',
         toggleActions: 'play none none reverse',
         scrub: true,
       },
