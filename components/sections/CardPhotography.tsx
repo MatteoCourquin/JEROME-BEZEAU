@@ -21,7 +21,7 @@ const CardPhotography = ({
       key={indexId}
       className={clsx(
         isIndexActive(indexId) ? 'opacity-100' : 'opacity-20',
-        'relative h-[25vh] w-auto shrink-0 grow transition-[opacity,filter] duration-300',
+        'see-more relative h-[25vh] w-auto shrink-0 grow transition-[opacity,filter] duration-300',
         className,
       )}
       {...props}

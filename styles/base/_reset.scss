@@ -3,16 +3,17 @@ body {
   color: $color-white-80;
   font-size: 16px;
   font-family: $font-neue-machina;
-  cursor: none;
   scrollbar-width: thin;
 }
 
-*::-moz-selection {
-  background: $color-white-80;
-  color: $color-black;
-}
-
-*::selection {
-  background: $color-white-80;
-  color: $color-black;
+html {
+  cursor: none;
+  &::-moz-selection {
+    background: $color-white-80;
+    color: $color-black;
+  }
+  &::selection {
+    background: $color-white-80;
+    color: $color-black;
+  }
 }
