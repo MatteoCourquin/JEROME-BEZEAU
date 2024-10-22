@@ -36,27 +36,19 @@ const Cursor = () => {
     pointerRef.current.style.opacity = '0';
   };
 
-  const changeCursorState = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (target.closest('.see-more')) {
-      setCursorState(CURSOR_STATE.SEE_MORE);
-    } else if (target.closest('a')) {
-      setCursorState(CURSOR_STATE.LINK);
-    } else {
-      setCursorState(CURSOR_STATE.DEFAULT);
-    }
-  };
-
   useEffect(() => {
     window.addEventListener('mousemove', moveCursor);
     window.addEventListener('mouseout', hideCursor);
-    window.addEventListener('mouseover', changeCursorState); // Detect hover state
 
-    return () => {
-      window.removeEventListener('mousemove', moveCursor);
-      window.removeEventListener('mouseout', hideCursor);
-      window.removeEventListener('mouseover', changeCursorState);
-    };
+    document.querySelectorAll('.see-more').forEach((el) => {
+      el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.SEE_MORE));
+      el.addEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
+    });
+
+    document.querySelectorAll('a').forEach((el) => {
+      el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.LINK));
+      el.addEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
+    });
   }, []);
 
   return (
@@ -66,7 +58,7 @@ const Cursor = () => {
           className={clsx(
             'absolute h-[120px] w-[120px] -translate-x-1/2 -translate-y-1/2 transition-[transform,border-radius,backdrop-filter,filter]',
             cursorState === CURSOR_STATE.DEFAULT && 'scale-[0.1] grayscale backdrop-invert',
-            cursorState === CURSOR_STATE.LINK && 'scale-50 rounded-full border-2',
+            cursorState === CURSOR_STATE.LINK && 'scale-50 rounded-full border-2 border-white-80',
             cursorState === CURSOR_STATE.SEE_MORE &&
               'scale-[1] rounded-full bg-white-40 backdrop-blur-lg',
           )}

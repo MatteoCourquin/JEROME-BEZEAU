@@ -23,7 +23,7 @@ const Footer = () => {
           <ul className="flex flex-col gap-2">
             <li className="pb-2 uppercase text-white-12">Menu</li>
             <li>
-              <Link className="link link_white-40" href="/work">
+              <Link className="link link_white-40" href="/">
                 Home
               </Link>
             </li>

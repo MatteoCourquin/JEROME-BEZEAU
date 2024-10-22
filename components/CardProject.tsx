@@ -107,7 +107,7 @@ const CardProject = ({
   return (
     <div
       ref={cardRef}
-      className={clsx('group/card-project relative aspect-square overflow-hidden', className)}
+      className={clsx('relative aspect-square overflow-hidden', className)}
       onClick={() => setIsActive(!isActive)}
     >
       <div
