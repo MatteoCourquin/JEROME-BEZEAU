@@ -2,29 +2,23 @@ import { useTouchDevice } from '@/utils/states';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
-
-enum CURSOR_STATE {
-  DEFAULT = 'DEFAULT',
-  SEE_MORE = 'SEE_MORE',
-  LINK = 'LINK',
-}
+import { useEffect, useRef } from 'react';
 
 const Cursor = () => {
   if (useTouchDevice()) return null;
 
   const { contextSafe } = useGSAP();
 
+  const cursorRef = useRef<HTMLDivElement>(null);
   const pointerRef = useRef<HTMLDivElement>(null);
-
-  const [cursorState, setCursorState] = useState(CURSOR_STATE.DEFAULT);
+  const textRef = useRef<HTMLSpanElement>(null);
 
   const moveCursor = contextSafe((e: MouseEvent) => {
-    if (!pointerRef.current) return;
+    if (!cursorRef.current) return;
 
-    pointerRef.current.style.opacity = '1';
+    cursorRef.current.style.opacity = '1';
 
-    gsap.to(pointerRef.current, {
+    gsap.to(cursorRef.current, {
       duration: 0.1,
       x: e.clientX,
       y: e.clientY,
@@ -32,8 +26,87 @@ const Cursor = () => {
   });
 
   const hideCursor = () => {
-    if (!pointerRef.current) return;
-    pointerRef.current.style.opacity = '0';
+    if (!cursorRef.current) return;
+    cursorRef.current.style.opacity = '0';
+  };
+
+  const handleHoverLink = () => {
+    gsap
+      .timeline()
+      .to(pointerRef.current, {
+        rotation: -90,
+        x: -12,
+        duration: 0.3,
+      })
+      .to(pointerRef.current, {
+        width: 60,
+        height: 60,
+        x: -30,
+        y: -30,
+        borderRadius: 999,
+        border: '1px solid #ffffffcc',
+        filter: 'grayscale(0%)',
+        backdropFilter: 'invert(0%)',
+        duration: 0.3,
+        delay: 0.2,
+        ease: 'power3.out',
+      });
+  };
+
+  const handleHoverSeeMore = () => {
+    gsap
+      .timeline()
+      .to(pointerRef.current, {
+        rotation: -90,
+        x: -12,
+        duration: 0.3,
+      })
+      .to(pointerRef.current, {
+        width: 120,
+        height: 120,
+        x: -60,
+        y: -60,
+        borderRadius: 999,
+        filter: 'grayscale(0%)',
+        backdropFilter: 'blur(16px) invert(0%)',
+        background: '#ffffff66',
+        duration: 0.3,
+        delay: 0.2,
+        ease: 'power3.out',
+      })
+      .to(
+        textRef.current,
+        {
+          opacity: 1,
+          duration: 0.3,
+          ease: 'power3.out',
+        },
+        // '-=0.3',
+      );
+  };
+
+  const resetCursorState = () => {
+    gsap
+      .timeline()
+      .to(textRef.current, {
+        opacity: 0,
+        duration: 0.2,
+        ease: 'power2.out',
+      })
+      .to(pointerRef.current, {
+        rotation: 0,
+        x: -6,
+        y: -6,
+        width: 12,
+        height: 12,
+        borderRadius: 0,
+        background: '#ffffff00',
+        border: 'none',
+        filter: 'grayscale(100%)',
+        backdropFilter: 'invert(100%)',
+        duration: 0.3,
+        ease: 'power2.out',
+      });
   };
 
   useEffect(() => {
@@ -41,33 +114,31 @@ const Cursor = () => {
     window.addEventListener('mouseout', hideCursor);
 
     document.querySelectorAll('.see-more').forEach((el) => {
-      el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.SEE_MORE));
-      el.addEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
+      el.addEventListener('mouseover', handleHoverSeeMore);
+      el.addEventListener('mouseleave', resetCursorState);
     });
 
     document.querySelectorAll('a').forEach((el) => {
-      el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.LINK));
-      el.addEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
+      el.addEventListener('mouseover', handleHoverLink);
+      el.addEventListener('mouseleave', resetCursorState);
     });
   }, []);
 
   return (
     <>
-      <div ref={pointerRef} className="pointer-events-none fixed left-0 top-0 z-[9999] opacity-0">
+      <div
+        ref={cursorRef}
+        className="pointer-events-none fixed left-0 top-0 z-[9999] -translate-x-1/2 -translate-y-1/2 opacity-0"
+      >
         <div
+          ref={pointerRef}
           className={clsx(
-            'absolute h-[120px] w-[120px] -translate-x-1/2 -translate-y-1/2 transition-[transform,border-radius,backdrop-filter,filter]',
-            cursorState === CURSOR_STATE.DEFAULT && 'scale-[0.1] grayscale backdrop-invert',
-            cursorState === CURSOR_STATE.LINK && 'scale-50 rounded-full border-2 border-white-80',
-            cursorState === CURSOR_STATE.SEE_MORE &&
-              'scale-[1] rounded-full bg-white-40 backdrop-blur-lg',
+            'pointer-events-none absolute h-[12px] w-[12px] grayscale backdrop-invert',
           )}
         >
           <span
-            className={clsx(
-              cursorState === CURSOR_STATE.SEE_MORE ? 'scale-100' : 'scale-0',
-              'inline-block w-full text-center leading-[120px]',
-            )}
+            ref={textRef}
+            className="inline-block w-full rotate-90 text-center leading-[120px] opacity-0"
           >
             SEE MORE
           </span>
