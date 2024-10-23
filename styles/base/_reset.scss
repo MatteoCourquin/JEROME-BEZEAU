@@ -7,7 +7,7 @@ body {
 }
 
 html {
-  cursor: none;
+  // cursor: none;
   &::-moz-selection {
     background: $color-white-80;
     color: $color-black;

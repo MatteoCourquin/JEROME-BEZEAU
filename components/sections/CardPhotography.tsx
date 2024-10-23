@@ -1,10 +1,12 @@
 import clsx from 'clsx';
 import { HTMLProps } from 'react';
 import Media from '../atoms/Media';
+import Link from 'next/link';
+import { Photo } from '@/services/photos.sevices';
 
-interface CardPhotographyProps extends HTMLProps<HTMLDivElement> {
+interface CardPhotographyProps extends HTMLProps<HTMLAnchorElement> {
   indexId: string;
-  photo: { title: string; imageCover: string };
+  photo: Photo;
   isIndexActive: (id: string) => boolean;
   className: string;
 }
@@ -17,8 +19,9 @@ const CardPhotography = ({
   ...props
 }: CardPhotographyProps) => {
   return (
-    <div
+    <Link
       key={indexId}
+      href={`/photography/${photo.slug}`}
       className={clsx(
         isIndexActive(indexId) ? 'opacity-100' : 'opacity-20',
         'see-more relative h-[25vh] w-auto shrink-0 grow transition-[opacity,filter] duration-300',
@@ -33,7 +36,7 @@ const CardPhotography = ({
         src={photo.imageCover}
         type="image"
       />
-    </div>
+    </Link>
   );
 };
 
