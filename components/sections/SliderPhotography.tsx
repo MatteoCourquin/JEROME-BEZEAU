@@ -73,7 +73,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
     infiniteAnimationRef.current.map((animation) => {
       gsap.to(animation, {
         timeScale: action === 'play' ? 1 : 0,
-        duration: 0.5,
+        duration: 1,
         ease: 'power.out',
         overwrite: true,
       });

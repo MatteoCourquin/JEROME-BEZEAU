@@ -68,7 +68,6 @@ const CardProject = ({
         'custom',
         'M0,0 C-0.017,0.362 0.253,0.691 0.44,0.822 0.655,0.972 0.818,1.001 1,1 ',
       ),
-      // ease: 'power2.out',
       scrollTrigger: {
         trigger: cardRef.current,
         start: 'top 70%',

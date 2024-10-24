@@ -5,6 +5,7 @@ import { GetStaticPropsContext } from 'next';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Page({ photo }: { photo: Photo }) {
+  const wrapperGridRef = useRef(null);
   const gridRef = useRef(null);
 
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
@@ -17,7 +18,21 @@ export default function Page({ photo }: { photo: Photo }) {
   };
 
   const onMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
+    gsap.to(wrapperGridRef.current, {
+      x: -(e.clientX / 10),
+      y: -(e.clientY / 10),
+      ease: 'power2.out',
+      duration: 0.8,
+    });
+    // gsap.to(wrapperGridRef.current, {
+    //   x: -(e.clientX - window.innerWidth / 2) / 20,
+    //   y: -(e.clientY - window.innerHeight / 2) / 20,
+    //   ease: 'power2.out',
+    //   duration: 1,
+    // });
+
+    if (!isDragging || !gridRef.current) return;
+
     const newX = e.clientX - startPosition.x;
     const newY = e.clientY - startPosition.y;
 
@@ -46,24 +61,26 @@ export default function Page({ photo }: { photo: Photo }) {
       onMouseMove={onMouseMove}
       onMouseUp={() => setIsDragging(false)}
     >
-      <h1 className="absolute top-y-default z-10 w-full select-none px-x-default py-y-default text-center">
+      <h1 className="text-shadow absolute top-y-default z-10 w-full select-none px-x-default py-y-default text-center">
         {photo.title}
       </h1>
 
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pt-header">
-        <div
-          ref={gridRef}
-          className="-z-10 grid grid-cols-[repeat(4,28vw)] grid-rows-[repeat(3,28vw)] gap-[50px]"
-        >
-          {new Array(12).fill(photo.mainImage).map((image, index) => (
-            <img
-              key={index}
-              alt={photo.title}
-              className="h-auto w-full select-none"
-              draggable={false}
-              src={urlFor(image).toString()}
-            />
-          ))}
+        <div ref={wrapperGridRef}>
+          <div
+            ref={gridRef}
+            className="-z-10 grid grid-cols-[repeat(4,28vw)] grid-rows-[repeat(3,28vw)] gap-[50px]"
+          >
+            {new Array(12).fill(photo.mainImage).map((image, index) => (
+              <img
+                key={index}
+                alt={photo.title + index}
+                className="h-auto w-full select-none"
+                draggable={false}
+                src={urlFor(image).toString()}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
