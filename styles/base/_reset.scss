@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
+
 body {
   background: $color-black;
   color: $color-white-80;
@@ -7,7 +13,6 @@ body {
 }
 
 html {
-  // cursor: none;
   &::-moz-selection {
     background: $color-white-80;
     color: $color-black;

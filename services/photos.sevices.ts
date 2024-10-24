@@ -1,32 +1,60 @@
+import { client } from '@/sanity/lib/client';
+import { ParsedUrlQuery } from 'querystring';
+import { Image, Slug } from 'sanity';
+
 export type Photo = {
   title: string;
-  slug: string;
-  imageCover: string;
+  slug: Slug;
+  mainImage: Image;
+  gallery: Image[];
 };
 
-export const photos = [
-  {
-    title: 'projet 1',
-    slug: 'projet-1',
-    imageCover: '/images/projects/project1.jpeg',
-  },
-  {
-    title: 'projet au titre long',
-    slug: 'projet-au-titre-long',
-    imageCover: '/images/projects/project2.jpeg',
-  },
-  {
-    title: 'super projet',
-    slug: 'super-projet',
-    imageCover: '/images/projects/project3.jpeg',
-  },
-  {
-    title: 'Lorem',
-    slug: 'lorem',
-    imageCover: '/images/projects/project4.jpeg',
-  },
-];
+export const fetchPaths = async () => {
+  const query = `
+    *[_type == "photos"] {
+      slug,
+      title
+    }
+  `;
+
+  const photos = await client.fetch(query);
+
+  const paths = photos.map((photo: Photo) => ({
+    slug: photo.slug.current,
+    title: photo.title,
+  }));
+
+  return paths;
+};
 
 export const fetchPhotos = async () => {
+  const query = `
+    *[_type == "photos"] {
+      title,
+      slug,
+      mainImage,
+      gallery
+    }
+  `;
+
+  const photos = await client.fetch(query);
+
   return photos;
+};
+
+export const fetchSinglePhoto = async (params: ParsedUrlQuery | undefined) => {
+  const query = `
+    *[_type == "photos" && slug.current == $photo][0] {
+      title,
+      slug,
+      mainImage,
+      gallery
+    }
+  `;
+
+  const photo = await client.fetch(query, {
+    photo: params?.photo,
+  });
+
+  return photo;
 };

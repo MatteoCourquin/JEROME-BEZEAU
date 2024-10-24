@@ -35,7 +35,7 @@ const Hero = () => {
       )
       .play();
 
-    useParallax(titleRef.current, 0.3);
+    useParallax(titleRef.current, 0.2);
     useParallax(subtitleRef.current, 0.2);
     useParallax(imageRef.current, 0.2, 'bottom');
   });
@@ -57,7 +57,7 @@ const Hero = () => {
         <span className="inline-block">Art Director & Digital designer</span>
       </p>
       <div
-        className="absolute bottom-y-default flex h-[58px] w-[58px] cursor-pointer items-center justify-center"
+        className="cursor-button absolute bottom-y-default flex h-[58px] w-[58px] items-center justify-center"
         onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
       >
         <IconArrow className="w-fit rotate-90" />

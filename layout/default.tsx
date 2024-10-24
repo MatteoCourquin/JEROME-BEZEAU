@@ -1,4 +1,3 @@
-import Cursor from '@/components/Cursor';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SocialMedia from '@/components/SocialMedia';
@@ -42,10 +41,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
       </Head>
       <Header />
       <SocialMedia />
-      <Cursor />
       {/* <ScrollTop /> */}
       {/* <Burger /> */}
-      <main>{children}</main>
+      <main className="min-h-screen">{children}</main>
       <Footer />
       {/* <Analytics /> */}
       {/* <SpeedInsights /> */}

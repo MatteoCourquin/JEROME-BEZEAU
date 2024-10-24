@@ -8,23 +8,23 @@ export const projects = defineType({
   icon: RocketIcon,
   fieldsets: [
     {
-      name: 'titleInfo',
-      title: 'Title Information 🚀',
+      name: 'projectInfo',
+      title: 'Project Information 🚀',
       options: { collapsible: true, collapsed: false },
     },
     {
       name: 'descriptionInfo',
-      title: 'Description Information 📝',
+      title: 'Description 📝',
       options: { collapsible: true, collapsed: false },
     },
     {
       name: 'mediaInfo',
-      title: 'Media Information 📸',
+      title: 'Media 📸',
       options: { collapsible: true, collapsed: false },
     },
     {
       name: 'sectionsInfo',
-      title: 'Sections Information 📑',
+      title: 'Sections 📑',
       options: { collapsible: true, collapsed: false },
     },
   ],
@@ -39,7 +39,7 @@ export const projects = defineType({
           .min(1)
           .max(100)
           .error('The title is required and should be between 1 and 100 characters.'),
-      fieldset: 'titleInfo',
+      fieldset: 'projectInfo',
     }),
     defineField({
       name: 'slug',
@@ -50,31 +50,47 @@ export const projects = defineType({
         slugify: (input: string) =>
           input
             .toLowerCase()
-            .replace(/ /g, '-')
-            .replace(/[^\w-]+/g, ''),
+            .replace(/\s+/g, '-')
+            .replace(/[^\w-]+/g, '')
+            .replace(/--+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .slice(0, 200),
       },
       description: 'Slug for the project based on the title.',
       validation: (Rule) => Rule.required(),
-      fieldset: 'titleInfo',
+      fieldset: 'projectInfo',
     }),
     defineField({
-      name: 'descriptionFr',
-      title: 'Description 🇫🇷',
-      type: 'blockContent',
-      description: 'Une brève description du projet en français.',
+      name: 'projectTypes',
+      title: 'Types 🏷️',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'projectTypes' }] }],
       validation: (Rule) =>
-        Rule.required().max(500).warning('A shorter description is more engaging.'),
-      fieldset: 'descriptionInfo',
+        Rule.required()
+          .min(1)
+          .max(3)
+          .error('At least one type is required and a maximum of 3 types are allowed.'),
+      description: 'Select the type(s) of the project.',
+      fieldset: 'projectInfo',
     }),
-    defineField({
-      name: 'descriptionEn',
-      title: 'Description 🇬🇧',
-      type: 'blockContent',
-      description: 'A brief description of the project in English.',
-      validation: (Rule) =>
-        Rule.required().max(500).warning('A shorter description is more engaging.'),
-      fieldset: 'descriptionInfo',
-    }),
+    // defineField({
+    //   name: 'descriptionFr',
+    //   title: 'Description 🇫🇷',
+    //   type: 'blockContent',
+    //   description: 'Une brève description du projet en français.',
+    //   validation: (Rule) =>
+    //     Rule.required().max(500).warning('A shorter description is more engaging.'),
+    //   fieldset: 'descriptionInfo',
+    // }),
+    // defineField({
+    //   name: 'descriptionEn',
+    //   title: 'Description 🇬🇧',
+    //   type: 'blockContent',
+    //   description: 'A brief description of the project in English.',
+    //   validation: (Rule) =>
+    //     Rule.required().max(500).warning('A shorter description is more engaging.'),
+    //   fieldset: 'descriptionInfo',
+    // }),
     defineField({
       name: 'ogImage',
       title: 'Open Graph Image 🌐',
@@ -86,7 +102,7 @@ export const projects = defineType({
       fieldset: 'mediaInfo',
     }),
     defineField({
-      name: 'mainImageDesktop',
+      name: 'mainImage',
       title: 'Main Image 💻',
       type: 'image',
       options: {
@@ -95,38 +111,29 @@ export const projects = defineType({
       validation: (Rule) => Rule.required(),
       fieldset: 'mediaInfo',
     }),
+    // defineField({
+    //   name: 'mainVideo',
+    //   title: 'Main Video 💻',
+    //   type: '???',
+    //   // validation: (Rule) => Rule.required(),
+    //   fieldset: 'mediaInfo',
+    // }),
+    // defineField({
+    //   name: 'mainImageMobile',
+    //   title: 'Main Image 📱',
+    //   type: 'image',
+    //   options: {
+    //     hotspot: true,
+    //   },
+    //   validation: (Rule) => Rule.required(),
+    //   fieldset: 'mediaInfo',
+    // }),
     defineField({
-      name: 'mainImageMobile',
-      title: 'Main Image 📱',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      validation: (Rule) => Rule.required(),
-      fieldset: 'mediaInfo',
-    }),
-    defineField({
-      name: 'gallery',
-      title: 'Gallery 📸',
-      type: 'array',
-      of: [{ type: 'image' }],
-      options: {
-        layout: 'grid',
-      },
-    }),
-    defineField({
-      name: 'websiteUrl',
-      title: 'Link to Website 🔗',
+      name: 'projectUrl',
+      title: 'Link to Project 🔗',
       type: 'url',
-      description: 'Optional URL to the project website.',
+      description: 'Optional URL to the project.',
       validation: (Rule) => Rule.uri({ scheme: ['http', 'https'] }),
-    }),
-    defineField({
-      name: 'projectTypes',
-      title: 'Types 🏷️',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'projectTypes' }] }],
-      description: 'Select the type(s) of the project.',
     }),
     defineField({
       name: 'sections',
@@ -193,7 +200,7 @@ export const projects = defineType({
     select: {
       title: 'title',
       subtitle: 'slug.current',
-      media: 'mainImageDesktop',
+      media: 'mainImage',
     },
   },
 });

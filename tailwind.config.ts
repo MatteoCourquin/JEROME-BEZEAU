@@ -29,6 +29,7 @@ const config: Config = {
       },
       padding: {
         ...defaultScaping,
+        header: '100px',
       },
       margin: {
         ...defaultScaping,

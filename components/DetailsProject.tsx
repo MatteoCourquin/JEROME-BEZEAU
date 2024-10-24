@@ -1,3 +1,4 @@
+import { ProjectType } from '@/services/projectTypes.services';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -9,7 +10,7 @@ type DetailsProjectProps = {
   isRight: boolean;
   isActive: boolean;
   title: string;
-  types: string[];
+  types: ProjectType[];
 };
 
 const DetailsProject = ({ isRight, isActive, title, types }: DetailsProjectProps) => {
@@ -140,7 +141,7 @@ const DetailsProject = ({ isRight, isActive, title, types }: DetailsProjectProps
             key={index}
             className={clsx(isRight ? 'origin-left' : 'origin-right', 'tag opacity-0')}
           >
-            {type}
+            {type.labelEn}
           </p>
         ))}
       </div>

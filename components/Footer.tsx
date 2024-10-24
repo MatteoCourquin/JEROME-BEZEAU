@@ -5,12 +5,18 @@ const Footer = () => {
   return (
     <footer className="flex flex-col-reverse justify-between gap-y-default border-t border-t-white-12 px-x-default py-y-default md:flex-row md:gap-x-x-default">
       <div className="flex grow flex-col justify-between">
-        <IconJB className="fill-white-80" />
+        <Link className="cursor-button w-fit" href="/" scroll={false}>
+          <IconJB className="fill-white-80" />
+        </Link>
         <div className="py-8">
           <p>Designed with love by me.</p>
           <p>
             Developped from scratch by{' '}
-            <a className="link link_white-80" href="https://matteo.courqu.in/" target="_blank">
+            <a
+              className="link cursor-button link_white-80"
+              href="https://matteo.courqu.in/"
+              target="_blank"
+            >
               Matteo Courquin
             </a>
             .
@@ -23,27 +29,27 @@ const Footer = () => {
           <ul className="flex flex-col gap-2">
             <li className="pb-2 uppercase text-white-12">Menu</li>
             <li>
-              <Link className="link link_white-40" href="/">
+              <Link className="link cursor-button link_white-40" href="/">
                 Home
               </Link>
             </li>
             <li>
-              <Link className="link link_white-40" href="/work">
+              <Link className="link cursor-button link_white-40" href="/work">
                 Work
               </Link>
             </li>
             <li>
-              <Link className="link link_white-40" href="/photography">
+              <Link className="link cursor-button link_white-40" href="/photography">
                 Photography
               </Link>
             </li>
             <li>
-              <Link className="link link_white-40" href="/about">
+              <Link className="link cursor-button link_white-40" href="/about">
                 About
               </Link>
             </li>
             <li>
-              <Link className="link link_white-40" href="/contact">
+              <Link className="link cursor-button link_white-40" href="/contact">
                 Contact
               </Link>
             </li>
@@ -53,27 +59,39 @@ const Footer = () => {
           <ul className="flex flex-col gap-2">
             <li className="pb-2 uppercase text-white-12">Socials</li>
             <li>
-              <a className="link link_white-40" href="https://www.linkedin.com/in/jerome-bezeau/">
+              <a
+                className="link cursor-button link_white-40"
+                href="https://www.linkedin.com/in/jerome-bezeau/"
+              >
                 Linkedin
               </a>
             </li>
             <li>
-              <a className="link link_white-40" href="https://www.behance.net/jeromebezeb4eb">
+              <a
+                className="link cursor-button link_white-40"
+                href="https://www.behance.net/jeromebezeb4eb"
+              >
                 Behance
               </a>
             </li>
             <li>
-              <a className="link link_white-40" href="https://www.instagram.com/jeromebezeau/">
+              <a
+                className="link cursor-button link_white-40"
+                href="https://www.instagram.com/jeromebezeau/"
+              >
                 Instagram
               </a>
             </li>
             <li>
-              <a className="link link_white-40" href="https://dribbble.com/jeromebezeau">
+              <a
+                className="link cursor-button link_white-40"
+                href="https://dribbble.com/jeromebezeau"
+              >
                 Dribbble
               </a>
             </li>
             <li>
-              <a className="link link_white-40" href="https://bento.me/jeromebezeau">
+              <a className="link cursor-button link_white-40" href="https://bento.me/jeromebezeau">
                 Bento
               </a>
             </li>

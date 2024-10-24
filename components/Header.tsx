@@ -22,37 +22,40 @@ const Header = () => {
   return (
     <header className="mix-blend- difference fixed left-0 top-0 z-[900] h-[100px] w-screen overflow-hidden border-b border-b-white-12 px-x-default backdrop-blur-lg">
       <div className="flex h-24 items-center justify-between">
-        <Link href="/">
+        <Link className="cursor-button" href="/" scroll={false}>
           <IconJB className="fill-white opacity-80" />
         </Link>
         <nav ref={navRef}>
           <ul className="flex items-center gap-10">
             <li className="overflow-hidden py-0.5">
               <Link
-                className="anim-items-header link link_white-80 inline-block pt-0.5"
+                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5"
                 href="/work"
+                scroll={false}
               >
                 Work
               </Link>
             </li>
             <li className="overflow-hidden py-0.5">
               <Link
-                className="anim-items-header link link_white-80 inline-block pt-0.5"
+                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5"
                 href="/photography"
+                scroll={false}
               >
                 Photography
               </Link>
             </li>
             <li className="overflow-hidden py-0.5">
               <Link
-                className="anim-items-header link link_white-80 inline-block pt-0.5"
+                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5"
                 href="/about"
+                scroll={false}
               >
                 About
               </Link>
             </li>
             <li>
-              <Button as="a" className="overflow-hidden" href="/contact">
+              <Button as="a" href="/contact">
                 <span className="anim-items-header inline-block">Contact</span>
               </Button>
             </li>

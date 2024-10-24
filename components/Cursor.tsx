@@ -7,8 +7,8 @@ import { useEffect, useRef, useState } from 'react';
 
 enum CURSOR_STATE {
   DEFAULT = 'DEFAULT',
-  SEE_MORE = 'SEE_MORE',
-  LINK = 'LINK',
+  CONTENT = 'CONTENT',
+  BUTTON = 'BUTTON',
 }
 
 const Cursor = () => {
@@ -39,16 +39,18 @@ const Cursor = () => {
   };
 
   useEffect(() => {
+    setCursorState(CURSOR_STATE.DEFAULT);
+
     window.addEventListener('mousemove', moveCursor);
     window.addEventListener('mouseout', hideCursor);
 
-    document.querySelectorAll('.see-more').forEach((el) => {
-      el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.SEE_MORE));
+    document.querySelectorAll('.cursor-content').forEach((el) => {
+      el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.CONTENT));
       el.addEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
     });
 
-    document.querySelectorAll('a').forEach((el) => {
-      el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.LINK));
+    document.querySelectorAll('.cursor-button').forEach((el) => {
+      el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.BUTTON));
       el.addEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
     });
 
@@ -56,13 +58,13 @@ const Cursor = () => {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseout', hideCursor);
 
-      document.querySelectorAll('.see-more').forEach((el) => {
-        el.removeEventListener('mouseover', () => setCursorState(CURSOR_STATE.SEE_MORE));
+      document.querySelectorAll('.cursor-content').forEach((el) => {
+        el.removeEventListener('mouseover', () => setCursorState(CURSOR_STATE.CONTENT));
         el.removeEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
       });
 
-      document.querySelectorAll('a').forEach((el) => {
-        el.removeEventListener('mouseover', () => setCursorState(CURSOR_STATE.LINK));
+      document.querySelectorAll('.cursor-button').forEach((el) => {
+        el.removeEventListener('mouseover', () => setCursorState(CURSOR_STATE.BUTTON));
         el.removeEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
       });
     };
@@ -75,14 +77,14 @@ const Cursor = () => {
           className={clsx(
             'pointer-events-none absolute h-[120px] w-[120px] -translate-x-1/2 -translate-y-1/2 transition-all',
             cursorState === CURSOR_STATE.DEFAULT && 'scale-[0.1] grayscale backdrop-invert',
-            cursorState === CURSOR_STATE.LINK && 'scale-50 rounded-full border-2 border-white-80',
-            cursorState === CURSOR_STATE.SEE_MORE &&
+            cursorState === CURSOR_STATE.BUTTON && 'scale-50 rounded-full border-2 border-white-80',
+            cursorState === CURSOR_STATE.CONTENT &&
               'scale-[1] rounded-full bg-white-40 backdrop-blur-lg',
           )}
         >
           <span
             className={clsx(
-              cursorState === CURSOR_STATE.SEE_MORE ? 'scale-100' : 'scale-0',
+              cursorState === CURSOR_STATE.CONTENT ? 'scale-100' : 'scale-0',
               'pointer-events-none inline-block w-full text-center leading-[120px]',
             )}
           >

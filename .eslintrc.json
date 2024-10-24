@@ -63,6 +63,7 @@
           }
         ],
         "eslint/no-extra-boolean-cast": "off",
+        "@next/next/no-img-element": "off",
         "react-hooks/rules-of-hooks": "off",
         "react/no-unescaped-entities": "off",
         "react-hooks/exhaustive-deps": "off",

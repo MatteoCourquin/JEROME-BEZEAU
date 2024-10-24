@@ -1,3 +1,4 @@
+import { urlFor } from '@/sanity/lib/image';
 import { Project } from '@/services/projects.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { useTouchDevice } from '@/utils/states';
@@ -121,12 +122,15 @@ const CardProject = ({
           isActive={isActive}
           isRight={isRight}
           title={project.title}
-          types={project.types}
+          types={project.projectTypes}
         />
       </div>
       <div
         ref={wrapperImageRef}
-        className={clsx(originTransform, 'absolute h-full w-full scale-0 overflow-hidden')}
+        className={clsx(
+          originTransform,
+          'cursor-button absolute h-full w-full scale-0 overflow-hidden',
+        )}
         onMouseOut={() => setIsActive(false)}
         onMouseEnter={(e) => {
           handleMouseMove(e, 0);
@@ -137,26 +141,26 @@ const CardProject = ({
           setIsActive(true);
         }}
       >
-        {project.imageCover && (
+        {/* {project.mainVideo && (
+          <Media
+            alt="video"
+            className="h-full w-full object-cover"
+            src={project.mainVideo}
+            type="video"
+            autoPlay
+            loop
+            muted
+          />
+        )} */}
+        {project.mainImage && (
           <Media
             ref={imageRef}
             alt={project.title}
             className="absolute bottom-0 !h-[calc(100%+200px)] w-full object-cover"
             ratio="square"
             sizes="xl"
-            src={project.imageCover}
+            src={urlFor(project.mainImage).toString()}
             type="image"
-          />
-        )}
-        {project.videoCover && (
-          <Media
-            alt="video"
-            className="h-full w-full object-cover"
-            src={project.videoCover.webm || project.videoCover.mp4}
-            type="video"
-            autoPlay
-            loop
-            muted
           />
         )}
       </div>

@@ -35,7 +35,7 @@ export const projectTypes = defineType({
       title: 'Value',
       type: 'slug',
       options: {
-        source: 'labelFr',
+        source: 'labelEn',
         slugify: (input) =>
           input
             .toLowerCase()

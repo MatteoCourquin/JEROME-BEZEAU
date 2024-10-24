@@ -176,7 +176,7 @@ const SocialMedia = () => {
         className="absolute right-[1px] z-10 flex h-[54px] w-[54px] scale-0 items-center gap-[6px] overflow-hidden rounded-full bg-black opacity-0"
       >
         <Link
-          className="scale-0 p-3 opacity-0"
+          className="cursor-button scale-0 p-3 opacity-0"
           href="https://www.linkedin.com/in/jerome-bezeau/"
           target="_blank"
           onMouseOut={(e) => useResetMagnet(e)}
@@ -185,7 +185,7 @@ const SocialMedia = () => {
           <IconLinkedin />
         </Link>
         <Link
-          className="scale-0 p-3 opacity-0"
+          className="cursor-button scale-0 p-3 opacity-0"
           href="https://www.behance.net/jeromebezeb4eb"
           target="_blank"
           onMouseOut={(e) => useResetMagnet(e)}
@@ -194,7 +194,7 @@ const SocialMedia = () => {
           <IconBehance />
         </Link>
         <Link
-          className="scale-0 p-3 opacity-0"
+          className="cursor-button scale-0 p-3 opacity-0"
           href="https://www.instagram.com/jeromebezeau/"
           target="_blank"
           onMouseOut={(e) => useResetMagnet(e)}
@@ -203,7 +203,7 @@ const SocialMedia = () => {
           <IconInstagram />
         </Link>
         <Link
-          className="scale-0 p-3 opacity-0"
+          className="cursor-button scale-0 p-3 opacity-0"
           href="https://dribbble.com/jeromebezeau"
           target="_blank"
           onMouseOut={(e) => useResetMagnet(e)}
@@ -212,7 +212,7 @@ const SocialMedia = () => {
           <IconDribbble />
         </Link>
         <Link
-          className="scale-0 p-3 opacity-0"
+          className="cursor-button scale-0 p-3 opacity-0"
           href="https://bento.me/jeromebezeau"
           target="_blank"
           onMouseOut={(e) => useResetMagnet(e)}

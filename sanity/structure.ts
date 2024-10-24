@@ -8,6 +8,7 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('projects').title('PROJECTS'),
       S.documentTypeListItem('projectTypes').title('PROJECT TYPES'),
       S.divider(),
+      S.documentTypeListItem('photos').title('PHOTOS'),
       // ...S.documentTypeListItems().filter((item) => {
       //   return item.getId() && !['category'].includes(item.getId()!);
       // }),

@@ -85,7 +85,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
         {as === 'a' && href && (
           <Link
             ref={ref as ForwardedRef<HTMLAnchorElement>}
-            className={clsx('button', className)}
+            className={clsx('button cursor-button', className)}
             href={href}
             scroll={false}
             target={target}
@@ -102,7 +102,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
         {as === 'button' && (
           <button
             ref={ref as ForwardedRef<HTMLButtonElement>}
-            className={clsx('button', className)}
+            className={clsx('button cursor-button', className)}
             type={inForm ? 'submit' : 'button'}
             onClick={onClick}
             onMouseEnter={animArrow}

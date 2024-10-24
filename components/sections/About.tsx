@@ -112,7 +112,7 @@ const About = () => {
         MORE ABOUT ME
       </Button>
       <div
-        className="absolute bottom-[20%] flex cursor-pointer flex-col items-center gap-2 self-center"
+        className="cursor-button absolute bottom-[20%] flex flex-col items-center gap-2 self-center"
         onClick={() => window.scrollTo({ top: window.innerHeight * 1.9, behavior: 'smooth' })}
       >
         <IconArrow className="rotate-90" />

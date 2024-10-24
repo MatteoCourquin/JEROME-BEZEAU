@@ -51,8 +51,8 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
       },
     });
 
-    timeline.to(scrollContainer1, { x: 200, ease: 'none' });
-    timeline.to(scrollContainer2, { x: -200, ease: 'none' }, '<');
+    timeline.to(scrollContainer1, { x: 1000, ease: 'none' });
+    timeline.to(scrollContainer2, { x: -1000, ease: 'none' }, '<');
   };
 
   const animateInfinite = (element: RefObject<HTMLDivElement>, isScrollRight: boolean) => {
@@ -130,7 +130,6 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
 
   useEffect(() => {
     window.addEventListener('scroll', detectScrollDirection);
-
     return () => {
       window.removeEventListener('scroll', detectScrollDirection);
     };
