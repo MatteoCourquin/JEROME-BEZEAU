@@ -25,7 +25,7 @@ const CardPhotography = ({
       href={`/photography/${photo.slug.current}`}
       className={clsx(
         isIndexActive(indexId) ? 'opacity-100' : 'opacity-20',
-        'cursor-content relative h-[25vh] w-auto shrink-0 grow transition-[opacity,filter] duration-300',
+        'cursor-see-more relative h-[25vh] w-auto shrink-0 grow transition-[opacity,filter] duration-300',
         className,
       )}
       {...props}

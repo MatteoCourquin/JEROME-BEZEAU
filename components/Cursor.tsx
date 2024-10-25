@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 
 enum CURSOR_STATE {
   DEFAULT = 'DEFAULT',
-  CONTENT = 'CONTENT',
+  SEE_MORE = 'SEE_MORE',
   BUTTON = 'BUTTON',
 }
 
@@ -44,8 +44,8 @@ const Cursor = () => {
     window.addEventListener('mousemove', moveCursor);
     window.addEventListener('mouseout', hideCursor);
 
-    document.querySelectorAll('.cursor-content').forEach((el) => {
-      el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.CONTENT));
+    document.querySelectorAll('.cursor-see-more').forEach((el) => {
+      el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.SEE_MORE));
       el.addEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
     });
 
@@ -58,8 +58,8 @@ const Cursor = () => {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseout', hideCursor);
 
-      document.querySelectorAll('.cursor-content').forEach((el) => {
-        el.removeEventListener('mouseover', () => setCursorState(CURSOR_STATE.CONTENT));
+      document.querySelectorAll('.cursor-see-more').forEach((el) => {
+        el.removeEventListener('mouseover', () => setCursorState(CURSOR_STATE.SEE_MORE));
         el.removeEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
       });
 
@@ -78,13 +78,13 @@ const Cursor = () => {
             'pointer-events-none absolute h-[120px] w-[120px] -translate-x-1/2 -translate-y-1/2 transition-all',
             cursorState === CURSOR_STATE.DEFAULT && 'scale-[0.1] grayscale backdrop-invert',
             cursorState === CURSOR_STATE.BUTTON && 'scale-50 rounded-full border-2 border-white-80',
-            cursorState === CURSOR_STATE.CONTENT &&
+            cursorState === CURSOR_STATE.SEE_MORE &&
               'scale-[1] rounded-full bg-white-40 backdrop-blur-lg',
           )}
         >
           <span
             className={clsx(
-              cursorState === CURSOR_STATE.CONTENT ? 'scale-100' : 'scale-0',
+              cursorState === CURSOR_STATE.SEE_MORE ? 'scale-100' : 'scale-0',
               'pointer-events-none inline-block w-full text-center leading-[120px]',
             )}
           >

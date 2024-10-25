@@ -1,28 +1,19 @@
-.curve {
-  .svg,
-  .background {
-    z-index: 500;
+.stairs {
+  .transition-container {
+    display: grid;
+    z-index: 910;
     position: fixed;
     top: 0;
     left: 0;
+    grid-template-columns: repeat(6, 1fr);
     width: 100vw;
-    height: calc(100vh + 600px);
+    height: 100vh;
     pointer-events: none;
-  }
-  .svg {
-    fill: $color-black;
-  }
-  .background {
-    background-color: $color-black;
-    transition: opacity 0s linear 0.1s;
-  }
-  .route {
-    z-index: 600;
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: $color-white;
-    text-align: center;
+    div {
+      position: relative;
+      width: 101%;
+      height: 100%;
+      background-color: $color-white;
+    }
   }
 }
