@@ -1,5 +1,6 @@
 import Cursor from '@/components/Cursor';
 import PageTransition from '@/components/PageTransition';
+import ScreenLoader from '@/components/ScreenLoader';
 import Layout from '@/layout/default';
 import SmoothScrolling from '@/layout/lenis';
 import '@/styles/main.scss';
@@ -18,11 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
       ) : (
         <Layout>
           <SmoothScrolling>
+            <ScreenLoader />
             <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
-              <PageTransition
-                key={pathname}
-                // backgroundColor={pathname === '/' ? '#000000' : '#ffffff'}
-              >
+              <PageTransition key={pathname}>
                 <Component {...pageProps} />
               </PageTransition>
             </AnimatePresence>

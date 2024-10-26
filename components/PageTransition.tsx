@@ -17,8 +17,8 @@ export default function PageTransition({ children }: { children: ReactNode }) {
     enter: (i: number) => ({
       scaleY: 0,
       transition: {
-        duration: 0.8,
-        delay: 0.05 * i,
+        duration: 0.4,
+        delay: 0.04 * i,
         ease: [0.72, 0, 0.3, 0.99],
         transformOrigin: 'bottom',
       },
@@ -30,8 +30,8 @@ export default function PageTransition({ children }: { children: ReactNode }) {
     exit: (i: number) => ({
       scaleY: 1,
       transition: {
-        duration: 0.8,
-        delay: 0.05 * i,
+        duration: 0.4,
+        delay: 0.04 * i,
         ease: [0.72, 0, 0.3, 0.99],
       },
     }),
@@ -53,7 +53,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <div className="page stairs">
+      <div className="page-transition stairs">
         <div className="transition-container">
           {[...Array(NB_OF_COLUMNS)].map((_, i) => {
             return <motion.div key={i} {...anim(expand, NB_OF_COLUMNS - i * -2)} />;

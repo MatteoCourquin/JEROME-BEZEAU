@@ -3,26 +3,45 @@ import gsap from 'gsap';
 import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import JBLottie from '../public/lottie/JB.json';
 import Button from './atoms/Button';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const Header = () => {
-  const timeline = useRef(gsap.timeline({ paused: true }));
   const navRef = useRef<HTMLBodyElement>(null);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
+
+  useEffect(() => {
+    const checkLottie = setInterval(() => {
+      if (lottieRef.current) {
+        lottieRef.current.stop();
+        clearInterval(checkLottie);
+      }
+    }, 50);
+
+    return () => clearInterval(checkLottie);
+  }, []);
 
   useGSAP(() => {
     if (!navRef.current) return;
 
     const links = navRef.current.querySelectorAll('.anim-items-header');
 
-    timeline.current
-      .add(gsap.fromTo(links, { y: 100 }, { y: 0, duration: 1, ease: 'power3.out', stagger: 0.1 }))
-      .add(() => lottieRef.current && lottieRef.current.play())
+    gsap
+      .timeline({
+        delay: 4.8,
+      })
+      .add(
+        gsap.fromTo(
+          links,
+          { y: 100 },
+          { y: 0, duration: 1, delay: 1, ease: 'power3.out', stagger: 0.1 },
+        ),
+      )
+      .add(() => lottieRef.current && lottieRef.current.play(), '-=0.6')
       .play();
-  });
+  }, []);
 
   return (
     <header className="mix-blend- difference fixed left-0 top-0 z-[800] h-[100px] w-screen overflow-hidden border-b border-b-white-12 px-x-default backdrop-blur-lg">
