@@ -4,12 +4,14 @@ import ScreenLoader from '@/components/ScreenLoader';
 import Layout from '@/layout/default';
 import SmoothScrolling from '@/layout/lenis';
 import '@/styles/main.scss';
+import { useIsScreenLoader } from '@/utils/states';
 import { AnimatePresence } from 'framer-motion';
 import type { AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
 
 export default function App({ Component, pageProps }: AppProps) {
   const pathname = usePathname();
+  const isScreenLoader = useIsScreenLoader();
 
   return (
     <>
@@ -19,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
       ) : (
         <Layout>
           <SmoothScrolling>
-            <ScreenLoader />
+            {isScreenLoader && <ScreenLoader />}
             <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
               <PageTransition key={pathname}>
                 <Component {...pageProps} />

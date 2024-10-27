@@ -13,11 +13,11 @@ body {
 }
 
 html {
-  &::-moz-selection {
+  ::-moz-selection {
     background: $color-white-80;
     color: $color-black;
   }
-  &::selection {
+  ::selection {
     background: $color-white-80;
     color: $color-black;
   }

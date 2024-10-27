@@ -1,7 +1,7 @@
 import { motion, TargetAndTransition } from 'framer-motion';
 import { ReactNode } from 'react';
 
-const NB_OF_COLUMNS = 6;
+const NB_OF_COLUMNS = 12;
 
 type CustomVariants = {
   initial?: TargetAndTransition;
@@ -17,8 +17,8 @@ export default function PageTransition({ children }: { children: ReactNode }) {
     enter: (i: number) => ({
       scaleY: 0,
       transition: {
-        duration: 0.4,
-        delay: 0.04 * i,
+        duration: 0.5,
+        delay: 0.02 * i,
         ease: [0.72, 0, 0.3, 0.99],
         transformOrigin: 'bottom',
       },
@@ -30,8 +30,8 @@ export default function PageTransition({ children }: { children: ReactNode }) {
     exit: (i: number) => ({
       scaleY: 1,
       transition: {
-        duration: 0.4,
-        delay: 0.04 * i,
+        duration: 0.5,
+        delay: 0.02 * i,
         ease: [0.72, 0, 0.3, 0.99],
       },
     }),
@@ -53,12 +53,16 @@ export default function PageTransition({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <div className="page-transition stairs">
-        <div className="transition-container">
-          {[...Array(NB_OF_COLUMNS)].map((_, i) => {
-            return <motion.div key={i} {...anim(expand, NB_OF_COLUMNS - i * -2)} />;
-          })}
-        </div>
+      <div className="pointer-events-none fixed inset-0 z-[910] grid h-screen w-screen grid-cols-12">
+        {[...Array(NB_OF_COLUMNS)].map((_, i) => {
+          return (
+            <motion.div
+              key={i}
+              className="relative h-full w-[101%] bg-white"
+              {...anim(expand, NB_OF_COLUMNS - i * -2)}
+            />
+          );
+        })}
       </div>
       {children}
     </>

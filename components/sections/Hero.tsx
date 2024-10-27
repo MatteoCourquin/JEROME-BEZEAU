@@ -51,7 +51,7 @@ const Hero = () => {
         width={1920}
       />
       <h1 ref={titleRef} className="overflow-hidden">
-        <span className="inline-block pt-4">JÉRÔME BEZEAU</span>
+        <span className="inline-block pt-5">JÉRÔME BEZEAU</span>
       </h1>
       <p ref={subtitleRef} className="subtitle overflow-hidden">
         <span className="inline-block">Art Director & Digital designer</span>

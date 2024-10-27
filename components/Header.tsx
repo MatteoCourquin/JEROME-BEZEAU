@@ -6,9 +6,12 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import JBLottie from '../public/lottie/JB.json';
 import Button from './atoms/Button';
+import { useIsScreenLoader } from '@/utils/states';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const Header = () => {
+  const isScreenLoader = useIsScreenLoader();
+
   const navRef = useRef<HTMLBodyElement>(null);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
@@ -30,7 +33,7 @@ const Header = () => {
 
     gsap
       .timeline({
-        delay: 4.8,
+        delay: isScreenLoader ? 4.8 : 0,
       })
       .add(
         gsap.fromTo(
@@ -41,7 +44,7 @@ const Header = () => {
       )
       .add(() => lottieRef.current && lottieRef.current.play(), '-=0.6')
       .play();
-  }, []);
+  }, [isScreenLoader]);
 
   return (
     <header className="mix-blend- difference fixed left-0 top-0 z-[800] h-[100px] w-screen overflow-hidden border-b border-b-white-12 px-x-default backdrop-blur-lg">

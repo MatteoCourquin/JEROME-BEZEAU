@@ -2,7 +2,6 @@ import { useTouchDevice } from '@/utils/states';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
 enum CURSOR_STATE {
@@ -14,11 +13,8 @@ enum CURSOR_STATE {
 const Cursor = () => {
   if (useTouchDevice()) return null;
 
-  const router = useRouter();
   const { contextSafe } = useGSAP();
-
   const pointerRef = useRef<HTMLDivElement>(null);
-
   const [cursorState, setCursorState] = useState(CURSOR_STATE.DEFAULT);
 
   const moveCursor = contextSafe((e: MouseEvent) => {
@@ -38,12 +34,7 @@ const Cursor = () => {
     pointerRef.current.style.opacity = '0';
   };
 
-  useEffect(() => {
-    setCursorState(CURSOR_STATE.DEFAULT);
-
-    window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mouseout', hideCursor);
-
+  const attachCursorEvents = () => {
     document.querySelectorAll('.cursor-see-more').forEach((el) => {
       el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.SEE_MORE));
       el.addEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
@@ -53,22 +44,42 @@ const Cursor = () => {
       el.addEventListener('mouseover', () => setCursorState(CURSOR_STATE.BUTTON));
       el.addEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
     });
+  };
+
+  const detachCursorEvents = () => {
+    document.querySelectorAll('.cursor-see-more').forEach((el) => {
+      el.removeEventListener('mouseover', () => setCursorState(CURSOR_STATE.SEE_MORE));
+      el.removeEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
+    });
+
+    document.querySelectorAll('.cursor-button').forEach((el) => {
+      el.removeEventListener('mouseover', () => setCursorState(CURSOR_STATE.BUTTON));
+      el.removeEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
+    });
+  };
+
+  useEffect(() => {
+    setCursorState(CURSOR_STATE.DEFAULT);
+    window.addEventListener('mousemove', moveCursor);
+    window.addEventListener('mouseout', hideCursor);
+
+    attachCursorEvents();
+
+    const observer = new MutationObserver(() => {
+      detachCursorEvents();
+      attachCursorEvents();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseout', hideCursor);
 
-      document.querySelectorAll('.cursor-see-more').forEach((el) => {
-        el.removeEventListener('mouseover', () => setCursorState(CURSOR_STATE.SEE_MORE));
-        el.removeEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
-      });
-
-      document.querySelectorAll('.cursor-button').forEach((el) => {
-        el.removeEventListener('mouseover', () => setCursorState(CURSOR_STATE.BUTTON));
-        el.removeEventListener('mouseleave', () => setCursorState(CURSOR_STATE.DEFAULT));
-      });
+      detachCursorEvents();
+      observer.disconnect();
     };
-  }, [router]);
+  }, []);
 
   return (
     <>
