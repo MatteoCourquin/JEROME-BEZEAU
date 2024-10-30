@@ -49,7 +49,7 @@ const ProjectsWork = ({ projects }: { projects: Project[] }) => {
   const getColumnSpan = (index: number) => sequence[index % sequence.length];
 
   return (
-    <section className="px-x-default py-y-default">
+    <section className="px-x-default">
       {projects.map((project, index) => {
         const { before, size, origin } = getColumnSpan(index);
         return (

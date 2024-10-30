@@ -1,11 +1,35 @@
-import Link from 'next/link';
-import { IconJB } from './atoms/Icons';
-import { useContext } from 'react';
 import { LanguageContext } from '@/layout/default';
 import clsx from 'clsx';
+import gsap from 'gsap';
+import Link from 'next/link';
+import { useContext, useRef } from 'react';
+import { IconJB } from './atoms/Icons';
 
 const Footer = () => {
   const { isFrench, setIsFrench } = useContext(LanguageContext);
+  const timelineArrow = useRef(gsap.timeline({ paused: true }));
+  const slashRef = useRef(null);
+
+  const handleMouseEnter = (toRight: boolean) => {
+    timelineArrow.current
+      .add(
+        gsap.to(slashRef.current, {
+          rotate: 0,
+          opacity: 1,
+          transformOrigin: toRight ? 'left' : 'right',
+          duration: 0.05,
+        }),
+      )
+      .add(gsap.to(slashRef.current, { scaleX: 35, duration: 0.1 }))
+      .play();
+  };
+  const handleMouseOut = () => {
+    timelineArrow.current
+      .add(gsap.to(slashRef.current, { scaleX: 1, duration: 0.1 }))
+      .add(gsap.to(slashRef.current, { rotate: 12, opacity: 0.4, duration: 0.05 }))
+      .play();
+  };
+
   return (
     <footer className="flex flex-col-reverse justify-between gap-y-default border-t border-t-white-12 px-x-default py-y-default md:flex-row md:gap-x-x-default">
       <div className="flex grow flex-col justify-between">
@@ -13,15 +37,39 @@ const Footer = () => {
           <IconJB className="fill-white-80" />
         </Link>
         <div className="pt-8">
-          <button className="cursor-button text-white-40" onClick={() => setIsFrench(!isFrench)}>
-            <span className={clsx(isFrench && 'text-white-80')}>FR </span>/{' '}
-            <span className={clsx(!isFrench && 'text-white-80')}>EN</span>
-          </button>
+          <div className="cursor-button flex text-white-40" onMouseOut={handleMouseOut}>
+            <button
+              className={clsx(
+                isFrench && 'text-white-80',
+                'pr-2 transition-colors delay-100 hover:text-black active:opacity-60',
+              )}
+              onClick={() => setIsFrench(true)}
+              onMouseOver={() => handleMouseEnter(false)}
+            >
+              FR
+            </button>
+            <div className="relative w-0 pt-0.5">
+              <div
+                ref={slashRef}
+                className="pointer-events-none absolute -z-10 h-5 w-px rotate-12 bg-white opacity-40"
+              ></div>
+            </div>
+            <button
+              className={clsx(
+                !isFrench && 'text-white-80',
+                'pl-2 transition-colors delay-100 hover:text-black active:opacity-60',
+              )}
+              onClick={() => setIsFrench(false)}
+              onMouseOver={() => handleMouseEnter(true)}
+            >
+              EN
+            </button>
+          </div>
         </div>
         <div className="py-8">
           <p>Designed with love by me.</p>
           <p>
-            Developped from scratch by{' '}
+            Developed from scratch by{' '}
             <a
               className="link cursor-button link_white-80"
               href="https://matteo.courqu.in/"
