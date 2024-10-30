@@ -48,6 +48,17 @@ const config: Config = {
       },
     },
   },
+  safelist: [
+    'col-span-3',
+    'col-span-4',
+    'col-span-5',
+    'col-start-1',
+    'col-start-4',
+    'col-start-8',
+    'col-start-9',
+    'origin-top-right',
+    'origin-top-left',
+  ],
   plugins: [],
 };
 export default config;

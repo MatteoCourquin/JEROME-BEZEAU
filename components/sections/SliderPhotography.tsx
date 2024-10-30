@@ -136,8 +136,8 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
   }, [lastScrollY]);
 
   return (
-    <section ref={sectionContainerRef} className="relative min-h-screen pt-[100px]">
-      <div className="flex h-[30vh] items-center justify-center">
+    <section ref={sectionContainerRef} className="relative min-h-screen pt-header">
+      <div className="flex items-center justify-center px-x-default py-y-default">
         <div className="h-fit overflow-hidden text-center uppercase">
           <h1 ref={titleRef}>{activeTitle}</h1>
         </div>

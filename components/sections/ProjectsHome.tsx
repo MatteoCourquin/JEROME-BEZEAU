@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import CardProject from '../CardProject';
 import Button from '../atoms/Button';
 
-const Projects = ({ projects }: { projects: Project[] }) => {
+const ProjectsHome = ({ projects }: { projects: Project[] }) => {
   return (
     <section className="flex min-h-screen flex-col gap-y-default px-x-default py-y-default">
       <h2 className="heading1">CURATED WORKS</h2>
@@ -37,4 +37,4 @@ const Projects = ({ projects }: { projects: Project[] }) => {
   );
 };
 
-export default Projects;
+export default ProjectsHome;
