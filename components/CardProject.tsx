@@ -70,8 +70,9 @@ const CardProject = ({
       ),
       scrollTrigger: {
         trigger: cardRef.current,
-        start: 'top 70%',
-        end: 'bottom 50%',
+        start: 'top 80%',
+        end: 'bottom 60%',
+        markers: true,
         toggleActions: 'play none none reverse',
         scrub: true,
       },

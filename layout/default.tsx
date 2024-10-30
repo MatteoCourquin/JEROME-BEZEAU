@@ -3,24 +3,24 @@ import Header from '@/components/Header';
 import SocialMedia from '@/components/SocialMedia';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Head from 'next/head';
-import { ReactNode } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 
-// type TypeLanguageContext = {
-//   language: string;
-//   setLanguage: (language: string) => void;
-//   data: Language;
-// };
+type TypeLanguageContext = {
+  isFrench: boolean;
+  setIsFrench: (isFrench: boolean) => void;
+  // data: Language;
+};
 
-// export const LanguageContext = createContext<TypeLanguageContext>({
-//   language: 'en',
-//   setLanguage: () => {},
-//   data: english,
-// });
+export const LanguageContext = createContext<TypeLanguageContext>({
+  isFrench: false,
+  setIsFrench: () => {},
+  // data: english,
+});
 
 const queryClient = new QueryClient();
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  // const [language, setLanguage] = useState('en');
+  const [isFrench, setIsFrench] = useState(false);
   // const data = language === 'en' ? english : french;
 
   // useEffect(() => {
@@ -30,24 +30,25 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       {/* <LanguageContext.Provider value={{ language, setLanguage, data }}> */}
-      <Head>
-        <title>Jérôme Bezeau</title>
-        <meta content="Art Director & Digital designer" name="description" />
-        <meta
-          content="Art Director, Digital designer, Web designer, Graphic designer, UI/UX designer, Front-end developer"
-          name="keywords"
-        />
-        <link href="/favicon.ico" rel="icon" />
-      </Head>
-      <Header />
-      <SocialMedia />
-      {/* <ScrollTop /> */}
-      {/* <Burger /> */}
-      <main className="min-h-screen">{children}</main>
-      <Footer />
-      {/* <Analytics /> */}
-      {/* <SpeedInsights /> */}
-      {/* </LanguageContext.Provider> */}
+      <LanguageContext.Provider value={{ isFrench, setIsFrench }}>
+        <Head>
+          <title>Jérôme Bezeau</title>
+          <meta content="Art Director & Digital designer" name="description" />
+          <meta
+            content="Art Director, Digital designer, Web designer, Graphic designer, UI/UX designer, Front-end developer"
+            name="keywords"
+          />
+          <link href="/favicon.ico" rel="icon" />
+        </Head>
+        <Header />
+        <SocialMedia />
+        {/* <ScrollTop /> */}
+        {/* <Burger /> */}
+        <main className="min-h-screen">{children}</main>
+        <Footer />
+        {/* <Analytics /> */}
+        {/* <SpeedInsights /> */}
+      </LanguageContext.Provider>
     </QueryClientProvider>
   );
 };

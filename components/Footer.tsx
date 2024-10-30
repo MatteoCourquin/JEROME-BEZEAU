@@ -1,13 +1,23 @@
 import Link from 'next/link';
 import { IconJB } from './atoms/Icons';
+import { useContext } from 'react';
+import { LanguageContext } from '@/layout/default';
+import clsx from 'clsx';
 
 const Footer = () => {
+  const { isFrench, setIsFrench } = useContext(LanguageContext);
   return (
     <footer className="flex flex-col-reverse justify-between gap-y-default border-t border-t-white-12 px-x-default py-y-default md:flex-row md:gap-x-x-default">
       <div className="flex grow flex-col justify-between">
         <Link className="cursor-button w-fit" href="/" scroll={false}>
           <IconJB className="fill-white-80" />
         </Link>
+        <div className="pt-8">
+          <button className="cursor-button text-white-40" onClick={() => setIsFrench(!isFrench)}>
+            <span className={clsx(isFrench && 'text-white-80')}>FR </span>/{' '}
+            <span className={clsx(!isFrench && 'text-white-80')}>EN</span>
+          </button>
+        </div>
         <div className="py-8">
           <p>Designed with love by me.</p>
           <p>

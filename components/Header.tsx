@@ -62,7 +62,7 @@ const Header = () => {
           <ul className="flex items-center gap-10">
             <li className="overflow-hidden py-0.5">
               <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5"
+                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5 uppercase"
                 href="/work"
                 scroll={false}
               >
@@ -71,7 +71,7 @@ const Header = () => {
             </li>
             <li className="overflow-hidden py-0.5">
               <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5"
+                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5 uppercase"
                 href="/photography"
                 scroll={false}
               >
@@ -80,7 +80,7 @@ const Header = () => {
             </li>
             <li className="overflow-hidden py-0.5">
               <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5"
+                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5 uppercase"
                 href="/about"
                 scroll={false}
               >
@@ -89,7 +89,7 @@ const Header = () => {
             </li>
             <li>
               <Button as="a" href="/contact">
-                <span className="anim-items-header inline-block">Contact</span>
+                <span className="anim-items-header inline-block uppercase">Contact</span>
               </Button>
             </li>
           </ul>
