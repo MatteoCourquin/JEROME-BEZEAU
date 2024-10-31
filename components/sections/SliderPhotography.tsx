@@ -69,7 +69,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
     infiniteAnimationRef.current.push(tween);
   };
 
-  const controlAnimation = (action: 'play' | 'pause') => {
+  const controlScroll = (action: 'play' | 'pause') => {
     infiniteAnimationRef.current.map((animation) => {
       gsap.to(animation, {
         timeScale: action === 'play' ? 1 : 0,
@@ -144,9 +144,9 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
       </div>
       <div
         className="flex w-screen flex-col overflow-hidden"
-        onMouseOver={() => controlAnimation('pause')}
+        onMouseOver={() => controlScroll('pause')}
         onMouseLeave={() => {
-          controlAnimation('play');
+          controlScroll('play');
           changeTitle('PHOTOGRAPHY');
         }}
       >
