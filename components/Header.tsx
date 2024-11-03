@@ -3,13 +3,15 @@ import gsap from 'gsap';
 import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import JBLottie from '../public/lottie/JB.json';
 import Button from './atoms/Button';
 import { useIsScreenLoader } from '@/utils/states';
+import { LanguageContext } from '@/layout/default';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const Header = () => {
+  const { isFrench } = useContext(LanguageContext);
   const isScreenLoader = useIsScreenLoader();
 
   const navRef = useRef<HTMLBodyElement>(null);
@@ -66,7 +68,7 @@ const Header = () => {
                 href="/work"
                 scroll={false}
               >
-                Work
+                {isFrench ? 'Projets' : 'Work'}
               </Link>
             </li>
             <li className="overflow-hidden py-0.5">
@@ -75,7 +77,7 @@ const Header = () => {
                 href="/photography"
                 scroll={false}
               >
-                Photography
+                {isFrench ? 'Photographie' : 'Photography'}
               </Link>
             </li>
             <li className="overflow-hidden py-0.5">
@@ -84,12 +86,14 @@ const Header = () => {
                 href="/about"
                 scroll={false}
               >
-                About
+                {isFrench ? 'À propos' : 'About'}
               </Link>
             </li>
             <li>
               <Button as="a" href="/contact">
-                <span className="anim-items-header inline-block">Contact</span>
+                <span className="anim-items-header inline-block">
+                  {isFrench ? 'Contact' : 'Contact'}
+                </span>
               </Button>
             </li>
           </ul>

@@ -1,10 +1,13 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { IconArrow } from '../atoms/Icons';
 import Button from '../atoms/Button';
+import { LanguageContext } from '@/layout/default';
 
 const About = () => {
+  const { isFrench } = useContext(LanguageContext);
+
   const wrapperSectionRef = useRef(null);
   const titleRef = useRef<HTMLParagraphElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
@@ -80,9 +83,12 @@ const About = () => {
     scrollScrubAnim();
   }, []);
 
-  const title = 'Hey, I’m Jérôme, a Digital Art Director from Paris.';
-  const text =
-    'Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem consectetur semper pellentesque diam molestie sodales sit.';
+  const title = isFrench
+    ? 'Salut, je suis Jérôme, un Directeur Artistique Digital de Paris.'
+    : 'Hey, I’m Jérôme, a Digital Art Director from Paris.';
+  const text = isFrench
+    ? 'Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem consectetur semper pellentesque diam molestie sodales sit.'
+    : 'Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem consectetur semper pellentesque diam molestie sodales sit.';
   return (
     <section
       ref={wrapperSectionRef}

@@ -1,11 +1,14 @@
 import { useParallax } from '@/utils/animations';
 import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { IconArrow } from '../atoms/Icons';
 import gsap from 'gsap';
+import { LanguageContext } from '@/layout/default';
 
 const Hero = () => {
+  const { isFrench } = useContext(LanguageContext);
+
   const imageRef = useRef(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLHeadingElement>(null);
@@ -54,7 +57,9 @@ const Hero = () => {
         <span className="inline-block pt-5">JÉRÔME BEZEAU</span>
       </h1>
       <p ref={subtitleRef} className="subtitle overflow-hidden">
-        <span className="inline-block">Art Director & Digital designer</span>
+        <span className="inline-block">
+          {isFrench ? 'Directeur artistique & Designer digital' : 'Art Director & Digital designer'}
+        </span>
       </p>
       <div
         className="cursor-button absolute bottom-y-default flex h-[58px] w-[58px] items-center justify-center"

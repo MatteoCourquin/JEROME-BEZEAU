@@ -38,3 +38,7 @@ export const calculatePadding = () =>
   window.innerWidth > RESPONSIVE_WIDTH
     ? (window.innerWidth - MAX_WIDTH) / 2
     : calculateClamp(20, 8, 100);
+
+export const getTextLanguage = (isFrench: boolean, french: string, english: string) => {
+  return isFrench ? french : english;
+};

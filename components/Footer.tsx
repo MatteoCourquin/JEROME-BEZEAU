@@ -67,9 +67,9 @@ const Footer = () => {
           </div>
         </div>
         <div className="py-8">
-          <p>Designed with love by me.</p>
+          <p>{isFrench ? 'Conçu avec amour par moi.' : 'Designed with love by me.'}</p>
           <p>
-            Developed from scratch by{' '}
+            {isFrench ? 'Développé de zéro par ' : 'Developed from scratch by '}
             <a
               className="link cursor-button link_white-80"
               href="https://matteo.courqu.in/"
@@ -88,34 +88,34 @@ const Footer = () => {
             <li className="pb-2 uppercase text-white-12">Menu</li>
             <li>
               <Link className="link cursor-button link_white-40" href="/">
-                Home
+                {isFrench ? 'Accueil' : 'Home'}
               </Link>
             </li>
             <li>
               <Link className="link cursor-button link_white-40" href="/work">
-                Work
+                {isFrench ? 'Projets' : 'Work'}
               </Link>
             </li>
             <li>
               <Link className="link cursor-button link_white-40" href="/photography">
-                Photography
+                {isFrench ? 'Photographie' : 'Photography'}
               </Link>
             </li>
             <li>
               <Link className="link cursor-button link_white-40" href="/about">
-                About
+                {isFrench ? 'À propos' : 'About'}
               </Link>
             </li>
             <li>
               <Link className="link cursor-button link_white-40" href="/contact">
-                Contact
+                {isFrench ? 'Contact' : 'Contact'}
               </Link>
             </li>
           </ul>
         </nav>
         <nav className="grow">
           <ul className="flex flex-col gap-2">
-            <li className="pb-2 uppercase text-white-12">Socials</li>
+            <li className="pb-2 uppercase text-white-12">{isFrench ? 'Réseaux' : 'Socials'}</li>
             <li>
               <a
                 className="link cursor-button link_white-40"

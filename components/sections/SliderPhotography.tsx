@@ -3,12 +3,15 @@ import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { RefObject, useContext, useEffect, useRef, useState } from 'react';
 import CardPhotography from './CardPhotography';
+import { LanguageContext } from '@/layout/default';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
+  const { isFrench } = useContext(LanguageContext);
+
   const sectionContainerRef = useRef(null);
   const scrollContainer1Ref = useRef<HTMLDivElement>(null);
   const scrollContainer2Ref = useRef<HTMLDivElement>(null);
@@ -21,7 +24,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
   const hoverTimeoutRef = useRef<NodeJS.Timeout>();
 
   const [activePhotoIndex, setActivePhotoIndex] = useState<string | undefined>(undefined);
-  const [activeTitle, setActiveTitle] = useState('PHOTOGRAPHY');
+  const [activeTitle, setActiveTitle] = useState(isFrench ? 'PHOTOGRAPHY' : 'PHOTOGRAPHIE');
   const [isScrollRight, setIsScrollRight] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -147,7 +150,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
         onMouseOver={() => controlScroll('pause')}
         onMouseLeave={() => {
           controlScroll('play');
-          changeTitle('PHOTOGRAPHY');
+          changeTitle(isFrench ? 'PHOTOGRAPHIE' : 'PHOTOGRAPHY');
         }}
       >
         {[scrollContainer1Ref, scrollContainer2Ref].map((scrollContainerRef, refIndex) => (
