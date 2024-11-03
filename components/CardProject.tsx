@@ -10,6 +10,7 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
 import Media from './atoms/Media';
+import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
@@ -23,7 +24,7 @@ const CardProject = ({
   originTransform: string;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const wrapperImageRef = useRef<HTMLDivElement>(null);
+  const wrapperImageRef = useRef<HTMLAnchorElement>(null);
   const imageRef = useRef(null);
   const detailsRef = useRef<HTMLDivElement>(null);
 
@@ -78,7 +79,7 @@ const CardProject = ({
     });
   }, [wrapperImageRef]);
 
-  const handleMouseMove = contextSafe((e: MouseEvent<HTMLDivElement>, duration: number) => {
+  const handleMouseMove = contextSafe((e: MouseEvent<HTMLAnchorElement>, duration: number) => {
     if (!detailsRef.current || useTouchDevice() || window.innerWidth <= BREAKPOINTS.MD) return;
 
     gsap.to(detailsRef.current, {
@@ -124,8 +125,9 @@ const CardProject = ({
           types={project.projectTypes}
         />
       </div>
-      <div
+      <Link
         ref={wrapperImageRef}
+        href={`/work/${project.slug.current}`}
         className={clsx(
           originTransform,
           'cursor-button absolute h-full w-full scale-0 overflow-hidden',
@@ -162,7 +164,7 @@ const CardProject = ({
             type="image"
           />
         )}
-      </div>
+      </Link>
     </div>
   );
 };

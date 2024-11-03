@@ -12,6 +12,7 @@ export type Project = {
   title: string;
   slug: Slug;
   projectTypes: ProjectType[];
+  date: string;
   ogImage: Image;
   mainImage: Image;
   // mainVideo: ???;
@@ -62,6 +63,7 @@ export const fetchSingleProject = async (params: ParsedUrlQuery | undefined) => 
     *[_type == "projects" && slug.current == $project][0] {
       title,
       slug,
+      date,
       "projectTypes": projectTypes[]->{
         labelFr,
         labelEn,

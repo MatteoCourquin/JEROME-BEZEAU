@@ -73,24 +73,35 @@ export const projects = defineType({
       description: 'Select the type(s) of the project.',
       fieldset: 'projectInfo',
     }),
-    // defineField({
-    //   name: 'descriptionFr',
-    //   title: 'Description 🇫🇷',
-    //   type: 'blockContent',
-    //   description: 'Une brève description du projet en français.',
-    //   validation: (Rule) =>
-    //     Rule.required().max(500).warning('A shorter description is more engaging.'),
-    //   fieldset: 'descriptionInfo',
-    // }),
-    // defineField({
-    //   name: 'descriptionEn',
-    //   title: 'Description 🇬🇧',
-    //   type: 'blockContent',
-    //   description: 'A brief description of the project in English.',
-    //   validation: (Rule) =>
-    //     Rule.required().max(500).warning('A shorter description is more engaging.'),
-    //   fieldset: 'descriptionInfo',
-    // }),
+    defineField({
+      name: 'date',
+      title: 'Date 📅',
+      type: 'date',
+      description: 'The date of the project.',
+      validation: (Rule) => Rule.required(),
+      fieldset: 'projectInfo',
+      options: {
+        dateFormat: 'YYYY-MM-DD',
+      },
+    }),
+    defineField({
+      name: 'descriptionFr',
+      title: 'Description 🇫🇷',
+      type: 'blockContent',
+      description: 'Une brève description du projet en français.',
+      validation: (Rule) =>
+        Rule.required().max(500).warning('A shorter description is more engaging.'),
+      fieldset: 'descriptionInfo',
+    }),
+    defineField({
+      name: 'descriptionEn',
+      title: 'Description 🇬🇧',
+      type: 'blockContent',
+      description: 'A brief description of the project in English.',
+      validation: (Rule) =>
+        Rule.required().max(500).warning('A shorter description is more engaging.'),
+      fieldset: 'descriptionInfo',
+    }),
     defineField({
       name: 'ogImage',
       title: 'Open Graph Image 🌐',

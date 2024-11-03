@@ -1,9 +1,10 @@
+import { LanguageContext } from '@/layout/default';
 import { ProjectType } from '@/services/projectTypes.services';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { IconArrow } from './atoms/Icons';
 
 type DetailsProjectProps = {
@@ -14,6 +15,7 @@ type DetailsProjectProps = {
 };
 
 const DetailsProject = ({ isRight, isActive, title, types }: DetailsProjectProps) => {
+  const { isFrench } = useContext(LanguageContext);
   const { contextSafe } = useGSAP();
 
   const wrapperDetailRef = useRef(null);
@@ -141,7 +143,7 @@ const DetailsProject = ({ isRight, isActive, title, types }: DetailsProjectProps
             key={index}
             className={clsx(isRight ? 'origin-left' : 'origin-right', 'tag opacity-0')}
           >
-            {type.labelEn}
+            {isFrench ? type.labelFr : type.labelEn}
           </p>
         ))}
       </div>
