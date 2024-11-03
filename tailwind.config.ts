@@ -22,6 +22,7 @@ const config: Config = {
     extend: {
       colors: {
         black: '#0e0e0e',
+        green: '#27FF56',
         white: '#ffffff',
         'white-80': '#ffffffcc',
         'white-40': '#ffffff66',
