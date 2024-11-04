@@ -1,7 +1,7 @@
 import { client } from '@/sanity/lib/client';
 import { ParsedUrlQuery } from 'querystring';
 import { Image, Slug } from 'sanity';
-import { ProjectType } from './projectTypes.services';
+import { Tags } from './tags.services';
 
 export type Video = {
   webm: string;
@@ -11,7 +11,7 @@ export type Video = {
 export type Project = {
   title: string;
   slug: Slug;
-  projectTypes: ProjectType[];
+  tags: Tags[];
   date: string;
   ogImage: Image;
   mainImage: Image;
@@ -42,7 +42,7 @@ export const fetchProjects = async () => {
     *[_type == "projects"] {
       title,
       slug,
-      "projectTypes": projectTypes[]->{
+      "tags": tags[]->{
         labelFr,
         labelEn,
         value
@@ -64,7 +64,7 @@ export const fetchSingleProject = async (params: ParsedUrlQuery | undefined) => 
       title,
       slug,
       date,
-      "projectTypes": projectTypes[]->{
+      "tags": tags[]->{
         labelFr,
         labelEn,
         value

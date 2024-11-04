@@ -1,16 +1,19 @@
+import { LanguageContext } from '@/layout/default';
 import { fetchPaths, fetchSingleProject, Project } from '@/services/projects.sevices';
 import { formatDateToYear } from '@/utils/functions';
 import { GetStaticPropsContext } from 'next';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 export default function Page({ project }: { project: Project }) {
+  const { isFrench } = useContext(LanguageContext);
+
   useEffect(() => {
     console.info(formatDateToYear(project.date));
   }, []);
 
   return (
     <section className="pt-header">
-      <div className="grid grid-cols-2 px-x-default py-y-default">
+      <div className="grid grid-cols-2 gap-5 px-x-default py-y-default">
         <div className="flex flex-col gap-y-y-default">
           <h1 className="uppercase">{project.title}</h1>
           <p className="text-white-80">{formatDateToYear(project.date)}</p>
@@ -23,6 +26,16 @@ export default function Page({ project }: { project: Project }) {
               adipiscing tempor.
             </p>
           </div>
+        </div>
+        <div className="flex flex-col">
+          <p>CREDITS</p>
+          <ul>
+            <li className="flex items-center gap-x-5">
+              <span className="text-white-40">CODE</span>
+              <div className="h-px grow bg-white-12"></div>
+              <a href="">Matteo Courquin</a>
+            </li>
+          </ul>
         </div>
       </div>
     </section>

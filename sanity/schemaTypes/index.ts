@@ -1,9 +1,10 @@
 import { type SchemaTypeDefinition } from 'sanity';
 import { blockContent } from './blockContent';
-import { projectTypes } from './projectTypes';
 import { projects } from './projects';
 import { photos } from './photos';
+import { tags } from './tags';
+import authors from './authors';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [projectTypes, projects, photos, blockContent],
+  types: [tags, projects, authors, photos, blockContent],
 };

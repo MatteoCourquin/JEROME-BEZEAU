@@ -1,9 +1,9 @@
 import { TagIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
-export const projectTypes = defineType({
-  name: 'projectTypes',
-  title: 'PROJECT TYPES',
+export const tags = defineType({
+  name: 'tags',
+  title: 'TAGS',
   type: 'document',
   icon: TagIcon,
   fieldsets: [
@@ -18,7 +18,7 @@ export const projectTypes = defineType({
       name: 'labelFr',
       title: 'Label 🇫🇷',
       type: 'string',
-      description: 'The project type label in French.',
+      description: 'The tag label in French.',
       validation: (Rule) => Rule.required().error('The French label is required.'),
       fieldset: 'labels',
     }),
@@ -26,7 +26,7 @@ export const projectTypes = defineType({
       name: 'labelEn',
       title: 'Label 🇬🇧',
       type: 'string',
-      description: 'The project type label in English.',
+      description: 'The tag label in English.',
       validation: (Rule) => Rule.required().error('The English label is required.'),
       fieldset: 'labels',
     }),

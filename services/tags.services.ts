@@ -1,22 +1,22 @@
 import { client } from '@/sanity/lib/client';
 import { Slug } from 'sanity';
 
-export type ProjectType = {
+export type Tags = {
   labelFr: string;
   labelEn: string;
   value: Slug;
 };
 
-export const fetchProjectTypes = async () => {
+export const fetchTags = async () => {
   const query = `
-    *[_type == "projectTypes"] {
+    *[_type == "tags"] {
       labelFr,
       labelEn,
       value
     }
   `;
 
-  const projectTypes = await client.fetch(query);
+  const tags = await client.fetch(query);
 
-  return projectTypes;
+  return tags;
 };

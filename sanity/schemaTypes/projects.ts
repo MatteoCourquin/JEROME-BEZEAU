@@ -61,10 +61,10 @@ export const projects = defineType({
       fieldset: 'projectInfo',
     }),
     defineField({
-      name: 'projectTypes',
+      name: 'tags',
       title: 'Types 🏷️',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'projectTypes' }] }],
+      of: [{ type: 'reference', to: [{ type: 'tags' }] }],
       validation: (Rule) =>
         Rule.required()
           .min(1)

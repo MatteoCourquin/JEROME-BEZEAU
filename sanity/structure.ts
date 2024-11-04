@@ -6,7 +6,8 @@ export const structure: StructureResolver = (S) =>
     .title('PORTFOLIO')
     .items([
       S.documentTypeListItem('projects').title('PROJECTS'),
-      S.documentTypeListItem('projectTypes').title('PROJECT TYPES'),
+      S.documentTypeListItem('tags').title('TAGS'),
+      S.documentTypeListItem('authors').title('AUTHORS'),
       S.divider(),
       S.documentTypeListItem('photos').title('PHOTOS'),
       // ...S.documentTypeListItems().filter((item) => {

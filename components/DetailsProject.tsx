@@ -1,17 +1,17 @@
 import { LanguageContext } from '@/layout/default';
-import { ProjectType } from '@/services/projectTypes.services';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import Link from 'next/link';
 import { useContext, useRef } from 'react';
 import { IconArrow } from './atoms/Icons';
+import { Tags } from '@/services/tags.services';
 
 type DetailsProjectProps = {
   isRight: boolean;
   isActive: boolean;
   title: string;
-  types: ProjectType[];
+  types: Tags[];
 };
 
 const DetailsProject = ({ isRight, isActive, title, types }: DetailsProjectProps) => {
@@ -134,19 +134,21 @@ const DetailsProject = ({ isRight, isActive, title, types }: DetailsProjectProps
         </div>
         <span className="whitespace-nowrap pt-0.5">{title}</span>
       </Link>
-      <div
-        ref={wrapperTagRef}
-        className={clsx('flex gap-[5px]', isRight ? 'flex-row' : 'flex-row-reverse')}
-      >
-        {types.map((type, index) => (
-          <p
-            key={index}
-            className={clsx(isRight ? 'origin-left' : 'origin-right', 'tag opacity-0')}
-          >
-            {isFrench ? type.labelFr : type.labelEn}
-          </p>
-        ))}
-      </div>
+      {types && (
+        <div
+          ref={wrapperTagRef}
+          className={clsx('flex gap-[5px]', isRight ? 'flex-row' : 'flex-row-reverse')}
+        >
+          {types.map((type, index) => (
+            <p
+              key={index}
+              className={clsx(isRight ? 'origin-left' : 'origin-right', 'tag opacity-0')}
+            >
+              {isFrench ? type.labelFr : type.labelEn}
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

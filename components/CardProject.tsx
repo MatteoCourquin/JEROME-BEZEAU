@@ -122,12 +122,13 @@ const CardProject = ({
           isActive={isActive}
           isRight={isRight}
           title={project.title}
-          types={project.projectTypes}
+          types={project.tags}
         />
       </div>
       <Link
         ref={wrapperImageRef}
         href={`/work/${project.slug.current}`}
+        scroll={false}
         className={clsx(
           originTransform,
           'cursor-button absolute h-full w-full scale-0 overflow-hidden',

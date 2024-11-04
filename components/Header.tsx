@@ -91,9 +91,7 @@ const Header = () => {
             </li>
             <li>
               <Button as="a" href="/contact">
-                <span className="anim-items-header inline-block">
-                  {isFrench ? 'Contact' : 'Contact'}
-                </span>
+                <span className="anim-items-header inline-block">Contact</span>
               </Button>
             </li>
           </ul>

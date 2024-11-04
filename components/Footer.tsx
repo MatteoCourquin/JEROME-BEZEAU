@@ -108,7 +108,7 @@ const Footer = () => {
             </li>
             <li>
               <Link className="link cursor-button link_white-40" href="/contact">
-                {isFrench ? 'Contact' : 'Contact'}
+                Contact
               </Link>
             </li>
           </ul>
