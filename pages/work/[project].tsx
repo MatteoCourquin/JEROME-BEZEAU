@@ -8,35 +8,63 @@ export default function Page({ project }: { project: Project }) {
   const { isFrench } = useContext(LanguageContext);
 
   useEffect(() => {
-    console.info(formatDateToYear(project.date));
+    console.info(project.tags);
   }, []);
 
   return (
     <section className="pt-header">
-      <div className="grid grid-cols-2 gap-5 px-x-default py-y-default">
-        <div className="flex flex-col gap-y-y-default">
-          <h1 className="uppercase">{project.title}</h1>
+      <div className="grid grid-cols-[6fr,4fr] gap-x-[20%] gap-y-y-half-default px-x-default py-y-default">
+        <h1 className="uppercase">{project.title}</h1>
+        <div className="mt-auto pb-[3%]">
           <p className="text-white-80">{formatDateToYear(project.date)}</p>
-          <div>
-            <h3 className="heading5">Egestas sit non elementum etiam viverra volut magna ?</h3>
-            <p className="pt-7">
-              Adipiscing aenean integer mattis aliquam proin aliquam convallis sit. Nulla pretium
-              nibh fringilla praesent mi at nunc. Mattis sit eu dignissim at. Leo facilisis justo
-              laoreet posuere nisl elementum nisi. Varius amet adipiscing eu mauris malesuada
-              adipiscing tempor.
-            </p>
+        </div>
+        <div>
+          {project.tags && (
+            <div className="flex gap-[5px] pb-y-half-default">
+              {project.tags.map((tag, index) => (
+                <span key={index} className="tag !bg-[#ffffff0a] backdrop-blur-xl">
+                  {isFrench ? tag.labelFr : tag.labelEn}
+                </span>
+              ))}
+            </div>
+          )}
+          <h3 className="heading5">Egestas sit non elementum etiam viverra volut magna ?</h3>
+          <p className="pt-7">
+            Adipiscing aenean integer mattis aliquam proin aliquam convallis sit. Nulla pretium nibh
+            fringilla praesent mi at nunc. Mattis sit eu dignissim at. Leo facilisis justo laoreet
+            posuere nisl elementum nisi. Varius amet adipiscing eu mauris malesuada adipiscing
+            tempor.
+          </p>
+        </div>
+        {project.credits && (
+          <div className="flex flex-col">
+            <p className="pb-10">CREDITS :</p>
+            <ul className="flex flex-col gap-3">
+              {project.credits.map((credit, index) => (
+                <li
+                  key={index}
+                  className="flex items-center gap-x-5 transition-[padding-left] hover:pl-3"
+                >
+                  <span className="uppercase text-white-40">
+                    {isFrench ? credit.role.labelFr : credit.role.labelEn}
+                  </span>
+                  <div className="h-px grow bg-white-12"></div>
+                  {credit.author.websiteUrl ? (
+                    <a
+                      className="link link_white-80"
+                      href={credit.author.websiteUrl}
+                      target="_blank"
+                    >
+                      {credit.author.name}
+                    </a>
+                  ) : (
+                    <p className="text-white-80">{credit.author.name}</p>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-        <div className="flex flex-col">
-          <p>CREDITS</p>
-          <ul>
-            <li className="flex items-center gap-x-5">
-              <span className="text-white-40">CODE</span>
-              <div className="h-px grow bg-white-12"></div>
-              <a href="">Matteo Courquin</a>
-            </li>
-          </ul>
-        </div>
+        )}
       </div>
     </section>
   );

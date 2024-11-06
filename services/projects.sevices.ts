@@ -8,6 +8,16 @@ export type Video = {
   mp4: string;
 };
 
+export type Author = {
+  name: string;
+  websiteUrl: string;
+};
+
+export type Credit = {
+  author: Author;
+  role: Tags;
+};
+
 export type Project = {
   title: string;
   slug: Slug;
@@ -15,6 +25,7 @@ export type Project = {
   date: string;
   ogImage: Image;
   mainImage: Image;
+  credits: Credit[];
   // mainVideo: ???;
   projectUrl: string;
 };
@@ -68,6 +79,17 @@ export const fetchSingleProject = async (params: ParsedUrlQuery | undefined) => 
         labelFr,
         labelEn,
         value
+      },
+      credits[]{
+        "author": author->{
+          name,
+          websiteUrl
+        },
+        "role": role->{
+          labelEn,
+          labelFr,
+          value
+        }
       },
       ogImage,
       mainImage,

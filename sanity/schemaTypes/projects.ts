@@ -140,6 +140,40 @@ export const projects = defineType({
     //   fieldset: 'mediaInfo',
     // }),
     defineField({
+      name: 'credits',
+      title: 'Credits 🙏',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'author',
+              title: 'Author',
+              type: 'reference',
+              to: [{ type: 'authors' }],
+              description: 'The author of the project.',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'role',
+              title: 'Role',
+              type: 'reference',
+              to: [{ type: 'tags' }],
+              description: 'The role of the person in the project.',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'author.name',
+              subtitle: 'role.labelEn',
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
       name: 'projectUrl',
       title: 'Link to Project 🔗',
       type: 'url',

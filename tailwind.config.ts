@@ -7,9 +7,14 @@ export enum BREAKPOINTS {
   XL = 1280,
 }
 
-const defaultScaping = {
+const defaultSpacing = {
   'x-default': 'clamp(20px, 8vw, 100px)',
   'y-default': 'clamp(20px, 8vh, 100px)',
+};
+
+const defaultSpacingHalf = {
+  'x-half-default': 'clamp(10px, 4vw, 50px)',
+  'y-half-default': 'clamp(10px, 4vh, 50px)',
 };
 
 const config: Config = {
@@ -29,23 +34,29 @@ const config: Config = {
         'white-12': '#ffffff1f',
       },
       padding: {
-        ...defaultScaping,
+        ...defaultSpacing,
+        ...defaultSpacingHalf,
         header: '100px',
       },
       margin: {
-        ...defaultScaping,
+        ...defaultSpacing,
+        ...defaultSpacingHalf,
       },
       width: {
-        ...defaultScaping,
+        ...defaultSpacing,
+        ...defaultSpacingHalf,
       },
       height: {
-        ...defaultScaping,
+        ...defaultSpacing,
+        ...defaultSpacingHalf,
       },
       inset: {
-        ...defaultScaping,
+        ...defaultSpacing,
+        ...defaultSpacingHalf,
       },
       gap: {
-        ...defaultScaping,
+        ...defaultSpacing,
+        ...defaultSpacingHalf,
       },
     },
   },

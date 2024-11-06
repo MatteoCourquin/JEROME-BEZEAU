@@ -25,19 +25,11 @@ export default defineType({
       description: "Author's personal or professional website URL.",
       validation: (Rule) => Rule.uri({ scheme: ['http', 'https'] }),
     }),
-    defineField({
-      name: 'tag',
-      title: 'Tag',
-      type: 'reference',
-      to: [{ type: 'tags' }],
-      description: 'The tag associated with the author.',
-      validation: (Rule) => Rule.required(),
-    }),
   ],
   preview: {
     select: {
       title: 'name',
-      subtitle: 'websiteUrl',
+      subtitle: 'tag.labelEn',
     },
   },
 });
