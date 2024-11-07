@@ -7,7 +7,10 @@ export const blockContent = defineType({
   of: [
     defineArrayMember({
       type: 'block',
-      styles: [{ title: 'Normal', value: 'normal' }],
+      styles: [
+        { title: 'Normal', value: 'normal' },
+        { title: 'Title', value: 'h5' },
+      ],
       lists: [{ title: 'Bullet', value: 'bullet' }],
       marks: {
         decorators: [

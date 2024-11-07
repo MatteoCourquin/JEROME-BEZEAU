@@ -1,25 +1,38 @@
 import { client } from '@/sanity/lib/client';
 import { ParsedUrlQuery } from 'querystring';
-import { Image, Slug } from 'sanity';
+import { Image, Slug, TypedObject } from 'sanity';
 import { Tags } from './tags.services';
 
-export type Video = {
-  webm: string;
-  mp4: string;
-};
+export enum SECTIONS_TYPES {
+  TEXT = 'text',
+  IMAGE = 'image',
+  // VIDEO = 'video',
+}
 
-export type Author = {
+type Author = {
   name: string;
   websiteUrl: string;
 };
 
-export type Credit = {
+type Credit = {
   author: Author;
   role: Tags;
 };
 
+type Sections = {
+  sectionType: string;
+  text: {
+    contentFr: TypedObject[];
+    contentEn: TypedObject[];
+  };
+  image: Image;
+  // video: Video;
+};
+
 export type Project = {
   title: string;
+  descriptionFr: TypedObject[];
+  descriptionEn: TypedObject[];
   slug: Slug;
   tags: Tags[];
   date: string;
@@ -28,6 +41,7 @@ export type Project = {
   credits: Credit[];
   // mainVideo: ???;
   projectUrl: string;
+  sections: Sections[];
 };
 
 export const fetchPaths = async () => {
@@ -75,6 +89,8 @@ export const fetchSingleProject = async (params: ParsedUrlQuery | undefined) => 
       title,
       slug,
       date,
+      descriptionFr,
+      descriptionEn,
       "tags": tags[]->{
         labelFr,
         labelEn,
@@ -93,7 +109,15 @@ export const fetchSingleProject = async (params: ParsedUrlQuery | undefined) => 
       },
       ogImage,
       mainImage,
-      projectUrl
+      projectUrl,
+      sections[]{
+        sectionType,
+        "text": {
+          "contentFr": contentFr[],
+          "contentEn": contentEn[]
+        },
+        "image": image.asset->url
+      }
     }
   `;
 

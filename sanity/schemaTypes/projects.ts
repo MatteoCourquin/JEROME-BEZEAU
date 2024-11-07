@@ -1,4 +1,4 @@
-import { RocketIcon } from '@sanity/icons';
+import { EditIcon, ImageIcon, RocketIcon, TextIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
 export const projects = defineType({
@@ -129,16 +129,6 @@ export const projects = defineType({
     //   // validation: (Rule) => Rule.required(),
     //   fieldset: 'mediaInfo',
     // }),
-    // defineField({
-    //   name: 'mainImageMobile',
-    //   title: 'Main Image 📱',
-    //   type: 'image',
-    //   options: {
-    //     hotspot: true,
-    //   },
-    //   validation: (Rule) => Rule.required(),
-    //   fieldset: 'mediaInfo',
-    // }),
     defineField({
       name: 'credits',
       title: 'Credits 🙏',
@@ -196,18 +186,25 @@ export const projects = defineType({
                 list: [
                   { title: 'Text', value: 'text' },
                   { title: 'Image', value: 'image' },
-                  { title: 'Video', value: 'video' },
+                  // { title: 'Video', value: 'video' },
                 ],
                 layout: 'radio',
               },
               validation: (Rule) => Rule.required(),
             }),
             defineField({
-              name: 'content',
-              title: 'Content',
+              name: 'contentEn',
+              title: 'Content 🇺🇸',
               type: 'blockContent',
               hidden: ({ parent }) => parent?.sectionType !== 'text',
-              description: 'Text content for this section.',
+              description: 'Content in English for this section.',
+            }),
+            defineField({
+              name: 'contentFr',
+              title: 'Contenu 🇫🇷',
+              type: 'blockContent',
+              hidden: ({ parent }) => parent?.sectionType !== 'text',
+              description: 'Contenu en français pour cette section.',
             }),
             defineField({
               name: 'image',
@@ -216,24 +213,45 @@ export const projects = defineType({
               hidden: ({ parent }) => parent?.sectionType !== 'image',
               description: 'Image for this section.',
             }),
-            defineField({
-              name: 'videoUrl',
-              title: 'Video URL',
-              type: 'url',
-              hidden: ({ parent }) => parent?.sectionType !== 'video',
-              description: 'URL of the video for this section.',
-            }),
+            // defineField({
+            //   name: 'videoUrl',
+            //   title: 'Video URL',
+            //   type: 'url',
+            //   hidden: ({ parent }) => parent?.sectionType !== 'video',
+            //   description: 'URL of the video for this section.',
+            // }),
           ],
           preview: {
             select: {
               title: 'sectionType',
               media: 'image',
+              contentPreview: 'contentEn',
             },
             prepare(selection) {
-              const { title, media } = selection;
+              const { title, media, contentPreview } = selection;
+              let text = '';
+              let icon;
+              switch (title) {
+                case 'text':
+                  text = contentPreview ? contentPreview[0].children[0].text : 'Text (empty)';
+                  icon = TextIcon;
+                  break;
+                case 'image':
+                  text = media ? 'Image' : 'Image (empty)';
+                  icon = ImageIcon;
+                  break;
+                // case 'video':
+                //   text = 'Vidéo';
+                //   icon = DocumentVideoIcon;
+                //   break;
+                default:
+                  text = 'Edit';
+                  icon = EditIcon;
+              }
+
               return {
-                title: title.charAt(0).toUpperCase() + title.slice(1),
-                media,
+                title: text,
+                media: media || icon,
               };
             },
           },
