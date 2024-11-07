@@ -1,6 +1,6 @@
+import Media from '@/components/atoms/Media';
 import RichText from '@/components/atoms/RichText';
 import { LanguageContext } from '@/layout/default';
-import { urlFor } from '@/sanity/lib/image';
 import {
   fetchPaths,
   fetchSingleProject,
@@ -10,14 +10,10 @@ import {
 import { useMagnet, useResetMagnet } from '@/utils/animations';
 import { formatDateToYear } from '@/utils/functions';
 import { GetStaticPropsContext } from 'next';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 export default function Page({ project }: { project: Project }) {
   const { isFrench } = useContext(LanguageContext);
-
-  useEffect(() => {
-    console.info(project);
-  }, []);
 
   return (
     <>
@@ -29,12 +25,12 @@ export default function Page({ project }: { project: Project }) {
           </div>
           <div>
             {project.tags && (
-              <div className="flex gap-[5px] pb-y-half-default">
+              <div className="flex gap-2 pb-y-half-default">
                 {project.tags.map((tag, index) => (
                   <span
                     key={index}
                     className="tag !bg-[#ffffff0a] backdrop-blur-xl"
-                    onMouseMove={(e) => useMagnet(e, 1)}
+                    onMouseMove={(e) => useMagnet(e, 0.8)}
                     onMouseOut={(e) => useResetMagnet(e)}
                   >
                     {isFrench ? tag.labelFr : tag.labelEn}
@@ -95,7 +91,21 @@ export default function Page({ project }: { project: Project }) {
                   key={section.sectionType + index}
                   alt={section.sectionType}
                   className="w-full"
-                  src={urlFor(section.image).toString()}
+                  src={section.image}
+                />
+              );
+            }
+            if (section.sectionType === SECTIONS_TYPES.VIDEO && section.video) {
+              return (
+                <Media
+                  key={section.sectionType + index}
+                  alt="video"
+                  className="h-full w-full object-cover"
+                  src={section.video}
+                  type="video"
+                  autoPlay
+                  loop
+                  muted
                 />
               );
             }

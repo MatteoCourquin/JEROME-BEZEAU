@@ -1,9 +1,8 @@
+import { Photo } from '@/services/photos.sevices';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { HTMLProps } from 'react';
 import Media from '../atoms/Media';
-import Link from 'next/link';
-import { Photo } from '@/services/photos.sevices';
-import { urlFor } from '@/sanity/lib/image';
 
 interface CardPhotographyProps extends HTMLProps<HTMLAnchorElement> {
   indexId: string;
@@ -34,7 +33,7 @@ const CardPhotography = ({
         alt={photo.title}
         className="h-full w-full object-cover"
         ratio="rectangle"
-        src={urlFor(photo.mainImage).toString()}
+        src={photo.mainImage}
         type="image"
       />
     </Link>

@@ -1,4 +1,3 @@
-import { urlFor } from '@/sanity/lib/image';
 import { Project } from '@/services/projects.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { useTouchDevice } from '@/utils/states';
@@ -7,10 +6,10 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import CustomEase from 'gsap/dist/CustomEase';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import Link from 'next/link';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
 import Media from './atoms/Media';
-import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
@@ -143,7 +142,7 @@ const CardProject = ({
           setIsActive(true);
         }}
       >
-        {/* {project.mainVideo && (
+        {project.mainVideo ? (
           <Media
             alt="video"
             className="h-full w-full object-cover"
@@ -153,15 +152,14 @@ const CardProject = ({
             loop
             muted
           />
-        )} */}
-        {project.mainImage && (
+        ) : (
           <Media
             ref={imageRef}
             alt={project.title}
             className="absolute bottom-0 !h-[calc(100%+200px)] w-full object-cover"
             ratio="square"
             sizes="xl"
-            src={urlFor(project.mainImage).toString()}
+            src={project.mainImage}
             type="image"
           />
         )}

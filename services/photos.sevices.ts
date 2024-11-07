@@ -5,7 +5,7 @@ import { Image, Slug } from 'sanity';
 export type Photo = {
   title: string;
   slug: Slug;
-  mainImage: Image;
+  mainImage: string;
   gallery: Image[];
 };
 
@@ -32,7 +32,7 @@ export const fetchPhotos = async () => {
     *[_type == "photos"] {
       title,
       slug,
-      mainImage,
+      "mainImage": mainImage.asset->url,
       gallery
     }
   `;
@@ -47,7 +47,7 @@ export const fetchSinglePhoto = async (params: ParsedUrlQuery | undefined) => {
     *[_type == "photos" && slug.current == $photo][0] {
       title,
       slug,
-      mainImage,
+      "mainImage": mainImage.asset->url,
       gallery
     }
   `;

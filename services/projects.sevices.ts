@@ -6,7 +6,7 @@ import { Tags } from './tags.services';
 export enum SECTIONS_TYPES {
   TEXT = 'text',
   IMAGE = 'image',
-  // VIDEO = 'video',
+  VIDEO = 'video',
 }
 
 type Author = {
@@ -25,8 +25,8 @@ type Sections = {
     contentFr: TypedObject[];
     contentEn: TypedObject[];
   };
-  image: Image;
-  // video: Video;
+  image: string;
+  video: string;
 };
 
 export type Project = {
@@ -37,9 +37,9 @@ export type Project = {
   tags: Tags[];
   date: string;
   ogImage: Image;
-  mainImage: Image;
+  mainImage: string;
+  mainVideo: string;
   credits: Credit[];
-  // mainVideo: ???;
   projectUrl: string;
   sections: Sections[];
 };
@@ -73,7 +73,8 @@ export const fetchProjects = async () => {
         value
       },
       ogImage,
-      mainImage,
+      "mainImage": mainImage.asset->url,
+      "mainVideo": mainVideo.asset->url,
       projectUrl
     }
   `;
@@ -108,7 +109,7 @@ export const fetchSingleProject = async (params: ParsedUrlQuery | undefined) => 
         }
       },
       ogImage,
-      mainImage,
+      "mainImage": mainImage.asset->url,
       projectUrl,
       sections[]{
         sectionType,
@@ -116,7 +117,8 @@ export const fetchSingleProject = async (params: ParsedUrlQuery | undefined) => 
           "contentFr": contentFr[],
           "contentEn": contentEn[]
         },
-        "image": image.asset->url
+        "image": image.asset->url,
+        "video": video.asset->url
       }
     }
   `;

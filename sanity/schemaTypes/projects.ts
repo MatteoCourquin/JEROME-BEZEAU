@@ -1,4 +1,4 @@
-import { EditIcon, ImageIcon, RocketIcon, TextIcon } from '@sanity/icons';
+import { DocumentVideoIcon, EditIcon, ImageIcon, RocketIcon, TextIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
 export const projects = defineType({
@@ -61,19 +61,6 @@ export const projects = defineType({
       fieldset: 'projectInfo',
     }),
     defineField({
-      name: 'tags',
-      title: 'Types 🏷️',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'tags' }] }],
-      validation: (Rule) =>
-        Rule.required()
-          .min(1)
-          .max(3)
-          .error('At least one type is required and a maximum of 3 types are allowed.'),
-      description: 'Select the type(s) of the project.',
-      fieldset: 'projectInfo',
-    }),
-    defineField({
       name: 'date',
       title: 'Date 📅',
       type: 'date',
@@ -85,22 +72,12 @@ export const projects = defineType({
       },
     }),
     defineField({
-      name: 'descriptionFr',
-      title: 'Description 🇫🇷',
-      type: 'blockContent',
-      description: 'Une brève description du projet en français.',
-      validation: (Rule) =>
-        Rule.required().max(500).warning('A shorter description is more engaging.'),
-      fieldset: 'descriptionInfo',
-    }),
-    defineField({
-      name: 'descriptionEn',
-      title: 'Description 🇬🇧',
-      type: 'blockContent',
-      description: 'A brief description of the project in English.',
-      validation: (Rule) =>
-        Rule.required().max(500).warning('A shorter description is more engaging.'),
-      fieldset: 'descriptionInfo',
+      name: 'projectUrl',
+      title: 'Link to Project 🔗',
+      type: 'url',
+      description: 'Optional URL to the project.',
+      fieldset: 'projectInfo',
+      validation: (Rule) => Rule.uri({ scheme: ['http', 'https'] }),
     }),
     defineField({
       name: 'ogImage',
@@ -110,27 +87,19 @@ export const projects = defineType({
       options: {
         hotspot: true,
       },
-      fieldset: 'mediaInfo',
+      fieldset: 'projectInfo',
     }),
     defineField({
-      name: 'mainImage',
-      title: 'Main Image 💻',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      validation: (Rule) => Rule.required(),
-      fieldset: 'mediaInfo',
-    }),
-    defineField({
-      name: 'mainVideo',
-      title: 'Main Video 💻',
-      type: 'file',
-      description: 'The main video of the project.',
-      options: {
-        accept: 'video/webm',
-      },
-      fieldset: 'mediaInfo',
+      name: 'tags',
+      title: 'Types 🏷️',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'tags' }] }],
+      validation: (Rule) =>
+        Rule.required()
+          .min(1)
+          .max(3)
+          .error('At least one type is required and a maximum of 3 types are allowed.'),
+      description: 'Select the type(s) of the project.',
     }),
     defineField({
       name: 'credits',
@@ -167,11 +136,42 @@ export const projects = defineType({
       ],
     }),
     defineField({
-      name: 'projectUrl',
-      title: 'Link to Project 🔗',
-      type: 'url',
-      description: 'Optional URL to the project.',
-      validation: (Rule) => Rule.uri({ scheme: ['http', 'https'] }),
+      name: 'descriptionFr',
+      title: 'Description 🇫🇷',
+      type: 'blockContent',
+      description: 'Une brève description du projet en français.',
+      validation: (Rule) =>
+        Rule.required().max(500).warning('A shorter description is more engaging.'),
+      fieldset: 'descriptionInfo',
+    }),
+    defineField({
+      name: 'descriptionEn',
+      title: 'Description 🇬🇧',
+      type: 'blockContent',
+      description: 'A brief description of the project in English.',
+      validation: (Rule) =>
+        Rule.required().max(500).warning('A shorter description is more engaging.'),
+      fieldset: 'descriptionInfo',
+    }),
+    defineField({
+      name: 'mainImage',
+      title: 'Main Image 💻',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.required(),
+      fieldset: 'mediaInfo',
+    }),
+    defineField({
+      name: 'mainVideo',
+      title: 'Main Video 💻',
+      type: 'file',
+      description: 'The main video of the project.',
+      options: {
+        accept: 'video/webm',
+      },
+      fieldset: 'mediaInfo',
     }),
     defineField({
       name: 'sections',
@@ -189,7 +189,7 @@ export const projects = defineType({
                 list: [
                   { title: 'Text', value: 'text' },
                   { title: 'Image', value: 'image' },
-                  // { title: 'Video', value: 'video' },
+                  { title: 'Video', value: 'video' },
                 ],
                 layout: 'radio',
               },
@@ -216,13 +216,16 @@ export const projects = defineType({
               hidden: ({ parent }) => parent?.sectionType !== 'image',
               description: 'Image for this section.',
             }),
-            // defineField({
-            //   name: 'videoUrl',
-            //   title: 'Video URL',
-            //   type: 'url',
-            //   hidden: ({ parent }) => parent?.sectionType !== 'video',
-            //   description: 'URL of the video for this section.',
-            // }),
+            defineField({
+              name: 'video',
+              title: 'Video',
+              type: 'file',
+              hidden: ({ parent }) => parent?.sectionType !== 'video',
+              description: 'Video for this section.',
+              options: {
+                accept: 'video/webm',
+              },
+            }),
           ],
           preview: {
             select: {
@@ -243,10 +246,10 @@ export const projects = defineType({
                   text = media ? 'Image' : 'Image (empty)';
                   icon = ImageIcon;
                   break;
-                // case 'video':
-                //   text = 'Vidéo';
-                //   icon = DocumentVideoIcon;
-                //   break;
+                case 'video':
+                  text = 'Video';
+                  icon = DocumentVideoIcon;
+                  break;
                 default:
                   text = 'Edit';
                   icon = EditIcon;

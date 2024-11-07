@@ -1,4 +1,3 @@
-import { urlFor } from '@/sanity/lib/image';
 import { fetchPaths, fetchSinglePhoto, Photo } from '@/services/photos.sevices';
 import gsap from 'gsap';
 import { GetStaticPropsContext } from 'next';
@@ -71,7 +70,7 @@ export default function Page({ photo }: { photo: Photo }) {
                 alt={photo.title + index}
                 className="h-auto w-full select-none"
                 draggable={false}
-                src={urlFor(image).toString()}
+                src={image}
               />
             ))}
           </div>
