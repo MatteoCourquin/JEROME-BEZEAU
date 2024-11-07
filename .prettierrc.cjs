@@ -6,6 +6,6 @@ module.exports = {
   useTabs: false,
   plugins: ['prettier-plugin-tailwindcss', 'prettier-plugin-css-order'],
   tailwindFunctions: ['clsx'],
-  cssDeclarationSorterOrder: 'alphabetical', // alphabetical || smacss || concentric-css
+  cssDeclarationSorterOrder: 'smacss', // alphabetical || smacss || concentric-css
   cssDeclarationSorterKeepOverrides: true,
 };

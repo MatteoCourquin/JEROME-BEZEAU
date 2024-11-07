@@ -24,12 +24,6 @@ export default function Page({ photo }: { photo: Photo }) {
       ease: 'power2.out',
       duration: 0.8,
     });
-    // gsap.to(wrapperGridRef.current, {
-    //   x: -(e.clientX - window.innerWidth / 2) / 20,
-    //   y: -(e.clientY - window.innerHeight / 2) / 20,
-    //   ease: 'power2.out',
-    //   duration: 1,
-    // });
 
     if (!isDragging || !gridRef.current) return;
 

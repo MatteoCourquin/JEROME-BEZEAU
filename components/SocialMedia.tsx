@@ -179,8 +179,8 @@ const SocialMedia = () => {
           className="cursor-button scale-0 p-3 opacity-0"
           href="https://www.linkedin.com/in/jerome-bezeau/"
           target="_blank"
+          onMouseMove={(e) => useMagnet(e, 1)}
           onMouseOut={(e) => useResetMagnet(e)}
-          onMouseOver={(e) => useMagnet(e, 1)}
         >
           <IconLinkedin />
         </Link>
@@ -188,8 +188,8 @@ const SocialMedia = () => {
           className="cursor-button scale-0 p-3 opacity-0"
           href="https://www.behance.net/jeromebezeb4eb"
           target="_blank"
+          onMouseMove={(e) => useMagnet(e, 1)}
           onMouseOut={(e) => useResetMagnet(e)}
-          onMouseOver={(e) => useMagnet(e, 1)}
         >
           <IconBehance />
         </Link>
@@ -197,8 +197,8 @@ const SocialMedia = () => {
           className="cursor-button scale-0 p-3 opacity-0"
           href="https://www.instagram.com/jeromebezeau/"
           target="_blank"
+          onMouseMove={(e) => useMagnet(e, 1)}
           onMouseOut={(e) => useResetMagnet(e)}
-          onMouseOver={(e) => useMagnet(e, 1)}
         >
           <IconInstagram />
         </Link>
@@ -206,8 +206,8 @@ const SocialMedia = () => {
           className="cursor-button scale-0 p-3 opacity-0"
           href="https://dribbble.com/jeromebezeau"
           target="_blank"
+          onMouseMove={(e) => useMagnet(e, 1)}
           onMouseOut={(e) => useResetMagnet(e)}
-          onMouseOver={(e) => useMagnet(e, 1)}
         >
           <IconDribbble />
         </Link>
@@ -215,8 +215,8 @@ const SocialMedia = () => {
           className="cursor-button scale-0 p-3 opacity-0"
           href="https://bento.me/jeromebezeau"
           target="_blank"
+          onMouseMove={(e) => useMagnet(e, 1)}
           onMouseOut={(e) => useResetMagnet(e)}
-          onMouseOver={(e) => useMagnet(e, 1)}
         >
           <IconBento />
         </Link>

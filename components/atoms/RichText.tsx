@@ -12,13 +12,9 @@ const RichText = ({ value, className }: { value: TypedObject[]; className?: stri
             normal: ({ children }) => <p className="mb-6">{children}</p>,
           },
           marks: {
-            strong: ({ children }) => (
-              <strong className="text-primary font-semibold">{children}</strong>
-            ),
-            em: ({ children }) => <em className="italic">{children}</em>,
             link: ({ value, children }) => (
               <a
-                className="link link_white-80"
+                className="link link_white-80 cursor-button"
                 href={value.href}
                 rel="noopener noreferrer"
                 target="_blank"

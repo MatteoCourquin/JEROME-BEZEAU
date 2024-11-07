@@ -7,6 +7,7 @@ import {
   Project,
   SECTIONS_TYPES,
 } from '@/services/projects.sevices';
+import { useMagnet, useResetMagnet } from '@/utils/animations';
 import { formatDateToYear } from '@/utils/functions';
 import { GetStaticPropsContext } from 'next';
 import { useContext, useEffect } from 'react';
@@ -30,7 +31,12 @@ export default function Page({ project }: { project: Project }) {
             {project.tags && (
               <div className="flex gap-[5px] pb-y-half-default">
                 {project.tags.map((tag, index) => (
-                  <span key={index} className="tag !bg-[#ffffff0a] backdrop-blur-xl">
+                  <span
+                    key={index}
+                    className="tag !bg-[#ffffff0a] backdrop-blur-xl"
+                    onMouseMove={(e) => useMagnet(e, 1)}
+                    onMouseOut={(e) => useResetMagnet(e)}
+                  >
                     {isFrench ? tag.labelFr : tag.labelEn}
                   </span>
                 ))}
@@ -60,7 +66,7 @@ export default function Page({ project }: { project: Project }) {
                         {credit.author.name}
                       </a>
                     ) : (
-                      <p className="text-white-80">{credit.author.name}</p>
+                      <p className="text-white-40">{credit.author.name}</p>
                     )}
                   </li>
                 ))}

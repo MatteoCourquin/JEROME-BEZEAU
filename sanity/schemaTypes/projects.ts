@@ -122,13 +122,16 @@ export const projects = defineType({
       validation: (Rule) => Rule.required(),
       fieldset: 'mediaInfo',
     }),
-    // defineField({
-    //   name: 'mainVideo',
-    //   title: 'Main Video 💻',
-    //   type: '???',
-    //   // validation: (Rule) => Rule.required(),
-    //   fieldset: 'mediaInfo',
-    // }),
+    defineField({
+      name: 'mainVideo',
+      title: 'Main Video 💻',
+      type: 'file',
+      description: 'The main video of the project.',
+      options: {
+        accept: 'video/webm',
+      },
+      fieldset: 'mediaInfo',
+    }),
     defineField({
       name: 'credits',
       title: 'Credits 🙏',

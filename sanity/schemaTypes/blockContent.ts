@@ -13,10 +13,7 @@ export const blockContent = defineType({
       ],
       lists: [{ title: 'Bullet', value: 'bullet' }],
       marks: {
-        decorators: [
-          { title: 'Strong', value: 'strong' },
-          { title: 'Emphasis', value: 'em' },
-        ],
+        decorators: [],
         annotations: [
           {
             title: 'URL',
