@@ -29,7 +29,7 @@ export const useParallax = (
 ) => {
   if (!element) return;
   const updateParallax = () => {
-    const scrollY = window.scrollY;
+    const { scrollY } = window;
     gsap.to(element, {
       y: direction === 'bottom' ? scrollY * speed : -(scrollY * speed),
       ease: 'power1.out',
