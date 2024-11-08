@@ -91,7 +91,7 @@ const Contact = () => {
         </div>
         <div className="flex flex-col gap-5">
           <h6 className="text-white-40">OR FILL THE FORM :</h6>
-          <Button as="a" className="w-fit" href="/contact">
+          <Button className="w-fit" href="/contact" type="a">
             Contact
           </Button>
         </div>

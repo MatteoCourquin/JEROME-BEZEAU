@@ -30,7 +30,7 @@ const ProjectsHome = ({ projects }: { projects: Project[] }) => {
           </div>
         ))}
       </div>
-      <Button as="a" className="mx-auto w-fit" href="/work">
+      <Button className="mx-auto w-fit" href="/work" type="a">
         MORE WORKS
       </Button>
     </section>

@@ -4,7 +4,7 @@ import Hero from '@/components/sections/Hero';
 import ProjectsHome from '@/components/sections/ProjectsHome';
 import { fetchProjects, Project } from '@/services/projects.sevices';
 
-export default function Home({ projects }: { projects: Project[] }) {
+export default function Page({ projects }: { projects: Project[] }) {
   return (
     <>
       <Hero />

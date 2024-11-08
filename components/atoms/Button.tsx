@@ -18,7 +18,7 @@ export enum BUTTON_TYPE {
 }
 
 type ButtonProps = {
-  as: 'a' | 'button';
+  type: 'a' | 'button' | 'submit';
   target?: '_blank';
   // type?: BUTTON_TYPE;
   // color?: 'black' | 'white';
@@ -26,7 +26,6 @@ type ButtonProps = {
   children: ReactNode;
   className?: string;
   onClick?: () => void;
-  inForm?: boolean;
   // size?: BUTTON_SIZE;
   isActive?: boolean;
 };
@@ -34,7 +33,7 @@ type ButtonProps = {
 const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonProps>(
   (
     {
-      as,
+      type,
       target,
       // type = BUTTON_TYPE.PRIMARY,
       // color = 'black',
@@ -42,7 +41,6 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
       children,
       className,
       onClick,
-      inForm = false,
       // size = BUTTON_SIZE.M,
     },
     ref,
@@ -82,7 +80,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
     });
     return (
       <>
-        {as === 'a' && href && (
+        {type === 'a' && href && (
           <Link
             ref={ref as ForwardedRef<HTMLAnchorElement>}
             className={clsx('button cursor-button', className)}
@@ -99,22 +97,23 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
             </div>
           </Link>
         )}
-        {as === 'button' && (
-          <button
-            ref={ref as ForwardedRef<HTMLButtonElement>}
-            className={clsx('button cursor-button', className)}
-            type={inForm ? 'submit' : 'button'}
-            onClick={onClick}
-            onMouseEnter={animArrow}
-            onMouseMove={(e) => useMagnet(e, 1)}
-            onMouseOut={(e) => useResetMagnet(e)}
-          >
-            <div className="pt-0.5">{children}</div>
-            <div ref={arrowRef}>
-              <IconArrow />
-            </div>
-          </button>
-        )}
+        {type === 'button' ||
+          (type === 'submit' && (
+            <button
+              ref={ref as ForwardedRef<HTMLButtonElement>}
+              className={clsx('button cursor-button', className)}
+              type={type}
+              onClick={onClick}
+              onMouseEnter={animArrow}
+              onMouseMove={(e) => useMagnet(e, 1)}
+              onMouseOut={(e) => useResetMagnet(e)}
+            >
+              <div className="pt-0.5">{children}</div>
+              <div ref={arrowRef}>
+                <IconArrow />
+              </div>
+            </button>
+          ))}
       </>
     );
   },

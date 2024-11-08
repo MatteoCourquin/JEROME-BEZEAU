@@ -3,7 +3,7 @@ import { LanguageContext } from '@/layout/default';
 import { fetchProjects, Project } from '@/services/projects.sevices';
 import { useContext } from 'react';
 
-export default function Work({ projects }: { projects: Project[] }) {
+export default function Page({ projects }: { projects: Project[] }) {
   const { isFrench } = useContext(LanguageContext);
 
   return (

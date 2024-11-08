@@ -114,7 +114,7 @@ const About = () => {
           </span>
         ))}
       </p>
-      <Button as="a" className="w-fit" href="/about">
+      <Button className="w-fit" href="/about" type="a">
         MORE ABOUT ME
       </Button>
       <div

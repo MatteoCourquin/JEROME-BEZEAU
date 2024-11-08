@@ -90,7 +90,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Button as="a" href="/contact">
+              <Button href="/contact" type="a">
                 <span className="anim-items-header inline-block">Contact</span>
               </Button>
             </li>

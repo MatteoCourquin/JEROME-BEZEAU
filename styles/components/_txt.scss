@@ -39,12 +39,19 @@ h6 {
   line-height: clamp(1.3rem, 3vw, 2rem);
 }
 
-.paragraph,
+.text1 {
+  font-size: 24px;
+}
+
+.text2,
 p,
 .link {
   color: $color-white-40;
-  font-size: normal;
-  line-height: 1.5;
+  font-size: 18px;
+}
+
+.text3 {
+  font-size: 16px;
 }
 
 .text-shadow {

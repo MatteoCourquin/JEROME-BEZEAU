@@ -1,12 +1,16 @@
+import Contact from '@/components/sections/Contact';
 import { LanguageContext } from '@/layout/default';
 import { useContext } from 'react';
 
-export default function About() {
+export default function Page() {
   const { isFrench } = useContext(LanguageContext);
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center">
-      <h1>{isFrench ? 'À PROPOS' : 'ABOUT'}</h1>
-    </section>
+    <>
+      <section className="relative flex flex-col px-x-default pt-header">
+        <h1>{isFrench ? 'À PROPOS' : 'ABOUT'}</h1>
+      </section>
+      <Contact />
+    </>
   );
 }

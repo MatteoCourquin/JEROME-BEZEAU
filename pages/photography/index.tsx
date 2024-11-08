@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function PagePhotography({ photos }: { photos: Photo[] }) {
+export default function Page({ photos }: { photos: Photo[] }) {
   return (
     <>
       <SliderPhotography photos={photos} />
