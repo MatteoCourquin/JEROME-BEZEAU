@@ -1,3 +1,4 @@
+import CardSkills from '@/components/CardSkills';
 import Contact from '@/components/sections/Contact';
 import { LanguageContext } from '@/layout/default';
 import { useParallax } from '@/utils/animations';
@@ -17,7 +18,7 @@ export default function Page() {
   return (
     <>
       <section className="relative grid min-h-screen grid-cols-1 gap-x-[10%] px-x-default pb-y-default pt-header lg:grid-cols-[5fr,6fr]">
-        <div ref={descriptionRef} className="flex flex-col gap-14 pt-y-default">
+        <div ref={descriptionRef} className="flex flex-col gap-14 pb-52 pt-y-default">
           <h1>{isFrench ? 'À PROPOS DE MOI' : 'ABOUT ME'}</h1>
           <div className="w-3/5">
             <h5 className="text2 uppercase !text-white-80">PROFESSIONALLY</h5>
@@ -47,6 +48,17 @@ export default function Page() {
             width={1920}
           />
         </div>
+      </section>
+      <section className="grid grid-cols-3 gap-5 px-x-default">
+        <div>
+          <h2>Skills</h2>
+          <p>What can I help you with ?</p>
+        </div>
+        <CardSkills />
+        <CardSkills />
+        <CardSkills />
+        <CardSkills />
+        <CardSkills />
       </section>
       <Contact />
     </>
