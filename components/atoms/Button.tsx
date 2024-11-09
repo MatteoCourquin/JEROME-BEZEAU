@@ -88,8 +88,8 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
             scroll={false}
             target={target}
             onMouseEnter={animArrow}
+            onMouseLeave={(e) => useResetMagnet(e)}
             onMouseMove={(e) => useMagnet(e, 1)}
-            onMouseOut={(e) => useResetMagnet(e)}
           >
             <div className="pt-0.5">{children}</div>
             <div ref={arrowRef}>
@@ -105,8 +105,8 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
               type={type}
               onClick={onClick}
               onMouseEnter={animArrow}
+              onMouseLeave={(e) => useResetMagnet(e)}
               onMouseMove={(e) => useMagnet(e, 1)}
-              onMouseOut={(e) => useResetMagnet(e)}
             >
               <div className="pt-0.5">{children}</div>
               <div ref={arrowRef}>

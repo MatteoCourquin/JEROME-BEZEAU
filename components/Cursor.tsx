@@ -2,6 +2,7 @@ import { useTouchDevice } from '@/utils/states';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
+import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 enum CURSOR_STATE {
@@ -14,6 +15,7 @@ const Cursor = () => {
   if (useTouchDevice()) return null;
 
   const { contextSafe } = useGSAP();
+  const pathname = usePathname();
   const pointerRef = useRef<HTMLDivElement>(null);
   const [cursorState, setCursorState] = useState(CURSOR_STATE.DEFAULT);
 
@@ -80,6 +82,10 @@ const Cursor = () => {
       observer.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    setCursorState(CURSOR_STATE.DEFAULT);
+  }, [pathname]);
 
   return (
     <>

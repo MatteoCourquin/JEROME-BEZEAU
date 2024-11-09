@@ -30,8 +30,8 @@ export default function Page({ project }: { project: Project }) {
                   <span
                     key={index}
                     className="tag !bg-[#ffffff0a] backdrop-blur-xl"
+                    onMouseLeave={(e) => useResetMagnet(e)}
                     onMouseMove={(e) => useMagnet(e, 0.8)}
-                    onMouseOut={(e) => useResetMagnet(e)}
                   >
                     {isFrench ? tag.labelFr : tag.labelEn}
                   </span>

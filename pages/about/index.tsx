@@ -4,15 +4,96 @@ import { LanguageContext } from '@/layout/default';
 import { useParallax } from '@/utils/animations';
 import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+
+const cardsSkills = [
+  {
+    title: {
+      en: 'BRANDING',
+      fr: 'IMAGE DE MARQUE',
+    },
+    description: {
+      en: 'Strategic brand development, visual identity creation and brand guidelines implementation.',
+      fr: "Développement stratégique de marque, création d'identité visuelle et mise en place de chartes graphiques.",
+    },
+    imageSrc: '/images/JB.jpeg',
+  },
+  {
+    title: {
+      en: 'UI DESIGN',
+      fr: "DESIGN D'INTERFACE",
+    },
+    description: {
+      en: 'Creating intuitive and aesthetic user interfaces for web and mobile applications.',
+      fr: "Création d'interfaces utilisateur intuitives et esthétiques pour applications web et mobile.",
+    },
+    imageSrc: '/images/JB.jpeg',
+  },
+  {
+    title: {
+      en: 'MOTION DESIGN',
+      fr: 'DESIGN ANIMÉ',
+    },
+    description: {
+      en: 'Dynamic visual content creation, animated logos and interactive motion graphics.',
+      fr: 'Création de contenu visuel dynamique, logos animés et graphiques interactifs en mouvement.',
+    },
+    imageSrc: '/images/JB.jpeg',
+  },
+  {
+    title: {
+      en: 'FILMMAKING',
+      fr: 'RÉALISATION',
+    },
+    description: {
+      en: 'Video production from concept to final edit, including storytelling and direction.',
+      fr: 'Production vidéo du concept au montage final, incluant narration et direction.',
+    },
+    imageSrc: '/images/JB.jpeg',
+  },
+  {
+    title: {
+      en: 'PHOTOGRAPHY',
+      fr: 'PHOTOGRAPHIE',
+    },
+    description: {
+      en: 'Professional photo shoots, post-production and artistic direction for various projects.',
+      fr: 'Séances photo professionnelles, post-production et direction artistique pour divers projets.',
+    },
+    imageSrc: '/images/JB.jpeg',
+  },
+];
 
 export default function Page() {
   const descriptionRef = useRef<HTMLDivElement>(null);
-
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const { isFrench } = useContext(LanguageContext);
 
   useGSAP(() => {
     useParallax(descriptionRef.current, 0.2, 'bottom');
+  }, []);
+
+  const startInterval = () => {
+    if (intervalRef.current) return;
+    intervalRef.current = setInterval(() => {
+      setActiveIndex((prevIndex) => {
+        if (prevIndex === null) return 0;
+        return (prevIndex + 1) % cardsSkills.length;
+      });
+    }, 4000);
+  };
+
+  const stopInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    startInterval();
+    return () => stopInterval();
   }, []);
 
   return (
@@ -50,15 +131,25 @@ export default function Page() {
         </div>
       </section>
       <section className="grid grid-cols-3 gap-5 px-x-default">
-        <div>
-          <h2>Skills</h2>
+        <div className="pt-[25%]">
+          <h2 className="heading4">Skills</h2>
           <p>What can I help you with ?</p>
         </div>
-        <CardSkills />
-        <CardSkills />
-        <CardSkills />
-        <CardSkills />
-        <CardSkills />
+        {cardsSkills.map((card, index) => (
+          <CardSkills
+            key={card.title.en + index}
+            description={card.description}
+            imageSrc={card.imageSrc}
+            isActive={index === activeIndex}
+            title={card.title}
+            onHover={() => setActiveIndex(index)}
+            onMouseEnter={stopInterval}
+            onLeave={() => {
+              setActiveIndex(null);
+              startInterval();
+            }}
+          />
+        ))}
       </section>
       <Contact />
     </>
