@@ -43,11 +43,16 @@ const CardSkills = ({
         ease: 'power2.out',
         duration: 0.6,
       },
-      paused: true,
     }),
   );
 
-  const { contextSafe } = useGSAP(() => {
+  const { contextSafe } = useGSAP();
+
+  useGSAP(() => {
+    gsap.set(cardRef.current, {
+      backgroundColor: 'rgba(255, 255, 255, 0.0)',
+      borderColor: 'rgba(255, 255, 255, 0.12)',
+    });
     gsap.set(titleRef.current, {
       opacity: 0.4,
     });
@@ -65,6 +70,14 @@ const CardSkills = ({
         opacity: 0,
         duration: 0.4,
       })
+      .to(
+        cardRef.current,
+        {
+          backgroundColor: 'rgba(255, 255, 255, 0.02)',
+          borderColor: 'rgba(255, 255, 255, 0.02)',
+        },
+        '<',
+      )
       .to(
         imageRef.current,
         {
@@ -108,7 +121,7 @@ const CardSkills = ({
   return (
     <div
       ref={cardRef}
-      className="relative flex h-[400px] cursor-pointer flex-col overflow-hidden border border-white-40 bg-black"
+      className="relative flex aspect-square h-auto cursor-pointer flex-col overflow-hidden border border-white-12"
       onMouseEnter={() => onMouseEnter?.()}
       onMouseMove={(e) => useMagnet(e, 1)}
       onMouseOver={() => onHover?.()}
@@ -128,7 +141,7 @@ const CardSkills = ({
           <p className="pt-5 text-white-40">{isFrench ? description.fr : description.en}</p>
         </div>
       </div>
-      <div className="inset-0 -z-10 flex grow flex-col justify-end">
+      <div className="inset-0 flex grow flex-col justify-end">
         <div ref={imageRef} className="w-full">
           <Image
             alt="About me"

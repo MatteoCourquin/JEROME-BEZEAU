@@ -1,8 +1,6 @@
 import CardSkills from '@/components/CardSkills';
 import Contact from '@/components/sections/Contact';
 import { LanguageContext } from '@/layout/default';
-import { useParallax } from '@/utils/animations';
-import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
 
@@ -70,18 +68,17 @@ export default function Page() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const { isFrench } = useContext(LanguageContext);
 
-  useGSAP(() => {
-    useParallax(descriptionRef.current, 0.2, 'bottom');
-  }, []);
-
   const startInterval = () => {
     if (intervalRef.current) return;
     intervalRef.current = setInterval(() => {
       setActiveIndex((prevIndex) => {
-        if (prevIndex === null) return 0;
-        return (prevIndex + 1) % cardsSkills.length;
+        let newIndex;
+        do {
+          newIndex = Math.floor(Math.random() * 5);
+        } while (newIndex === prevIndex);
+        return newIndex;
       });
-    }, 4000);
+    }, 2000);
   };
 
   const stopInterval = () => {
@@ -99,9 +96,9 @@ export default function Page() {
   return (
     <>
       <section className="relative grid min-h-screen grid-cols-1 gap-x-[10%] px-x-default pb-y-default pt-header lg:grid-cols-[5fr,6fr]">
-        <div ref={descriptionRef} className="flex flex-col gap-14 pb-52 pt-y-default">
+        <div ref={descriptionRef} className="flex flex-col gap-14 pt-y-default sm:pb-52">
           <h1>{isFrench ? 'À PROPOS DE MOI' : 'ABOUT ME'}</h1>
-          <div className="w-3/5">
+          <div className="w-full sm:w-3/5">
             <h5 className="text2 uppercase !text-white-80">PROFESSIONALLY</h5>
             <p className="text2 pt-6">
               Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est
@@ -110,7 +107,7 @@ export default function Page() {
               orci. Felis turpis ut tortor neque a.
             </p>
           </div>
-          <div className="w-3/5">
+          <div className="w-full sm:w-3/5">
             <h5 className="text2 uppercase !text-white-80">PERSONNALY</h5>
             <p className="text2 pt-6">
               Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est
@@ -130,7 +127,7 @@ export default function Page() {
           />
         </div>
       </section>
-      <section className="grid grid-cols-3 gap-5 px-x-default">
+      <section className="grid grid-cols-1 gap-5 px-x-default py-y-default sm:grid-cols-2 lg:grid-cols-3">
         <div className="pt-[25%]">
           <h2 className="heading4">Skills</h2>
           <p>What can I help you with ?</p>
