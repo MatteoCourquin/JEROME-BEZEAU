@@ -1,6 +1,8 @@
 import CardSkills from '@/components/CardSkills';
 import Contact from '@/components/sections/Contact';
 import { LanguageContext } from '@/layout/default';
+import { useParallax } from '@/utils/animations';
+import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
 
@@ -91,6 +93,10 @@ export default function Page() {
   useEffect(() => {
     startInterval();
     return () => stopInterval();
+  }, []);
+
+  useGSAP(() => {
+    useParallax(descriptionRef.current, 0.1, 'bottom', 620);
   }, []);
 
   return (

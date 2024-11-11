@@ -2,34 +2,44 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SocialMedia from '@/components/SocialMedia';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import Head from 'next/head';
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 type TypeLanguageContext = {
   isFrench: boolean;
   setIsFrench: (isFrench: boolean) => void;
-  // data: Language;
 };
 
 export const LanguageContext = createContext<TypeLanguageContext>({
   isFrench: false,
   setIsFrench: () => {},
-  // data: english,
 });
 
 const queryClient = new QueryClient();
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const [isFrench, setIsFrench] = useState(false);
-  // const data = language === 'en' ? english : french;
 
-  // useEffect(() => {
-  //   setLanguage(localStorage.getItem('language') || navigator.language.split('-')[0]);
-  // }, []);
+  const refreshScrollTrigger = () => ScrollTrigger.refresh();
+  const detectIsFrench = () =>
+    localStorage.getItem('language') === 'fr' || navigator.language.split('-')[0] === 'fr';
+
+  useEffect(() => {
+    setIsFrench(detectIsFrench);
+
+    window.addEventListener('resize', refreshScrollTrigger);
+
+    return () => {
+      window.removeEventListener('resize', refreshScrollTrigger);
+    };
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <LanguageContext.Provider value={{ language, setLanguage, data }}> */}
       <LanguageContext.Provider value={{ isFrench, setIsFrench }}>
         <Head>
           <title>Jérôme Bezeau</title>
@@ -42,12 +52,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
         </Head>
         <Header />
         <SocialMedia />
-        {/* <ScrollTop /> */}
-        {/* <Burger /> */}
         <main className="min-h-screen">{children}</main>
         <Footer />
-        {/* <Analytics /> */}
-        {/* <SpeedInsights /> */}
       </LanguageContext.Provider>
     </QueryClientProvider>
   );

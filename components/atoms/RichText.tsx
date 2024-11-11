@@ -8,7 +8,7 @@ const RichText = ({ value, className }: { value: TypedObject[]; className?: stri
         value={value}
         components={{
           block: {
-            h5: ({ children }) => <h5 className="heading5 pb-6">{children}</h5>,
+            h5: ({ children }) => <h4 className="heading4 pb-6">{children}</h4>,
             normal: ({ children }) => <p className="mb-6">{children}</p>,
           },
           marks: {

@@ -31,7 +31,7 @@ const Header = () => {
   useGSAP(() => {
     if (!navRef.current) return;
 
-    const links = navRef.current.querySelectorAll('.anim-items-header');
+    const links = navRef.current.getElementsByClassName('anim-items-header');
 
     gsap
       .timeline({

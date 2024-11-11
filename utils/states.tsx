@@ -6,7 +6,7 @@ export const useTouchDevice = () => {
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 };
 
-export const useIsScreenLoader = (): boolean => {
+export const useIsScreenLoader = () => {
   const pathname = usePathname();
   const [isScreenLoader, setIsScreenLoader] = useState(true);
 
