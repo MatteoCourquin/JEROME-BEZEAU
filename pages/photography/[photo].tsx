@@ -1,6 +1,7 @@
 import { fetchPaths, fetchSinglePhoto, Photo } from '@/services/photos.sevices';
 import gsap from 'gsap';
 import { GetStaticPropsContext } from 'next';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Page({ photo }: { photo: Photo }) {
@@ -65,12 +66,15 @@ export default function Page({ photo }: { photo: Photo }) {
             className="-z-10 grid grid-cols-[repeat(4,28vw)] grid-rows-[repeat(3,28vw)] gap-[50px]"
           >
             {new Array(12).fill(photo.mainImage).map((image, index) => (
-              <img
+              <Image
                 key={index}
                 alt={photo.title + index}
                 className="h-auto w-full select-none"
                 draggable={false}
+                height={1080}
                 src={image}
+                width={1920}
+                unoptimized
               />
             ))}
           </div>

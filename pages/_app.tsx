@@ -8,13 +8,14 @@ import { useIsScreenLoader } from '@/utils/states';
 import { AnimatePresence } from 'framer-motion';
 import type { AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
+import { StrictMode } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
   const pathname = usePathname();
   const isScreenLoader = useIsScreenLoader();
 
   return (
-    <>
+    <StrictMode>
       <Cursor />
       {pathname?.includes('studio') ? (
         <Component {...pageProps} />
@@ -30,6 +31,6 @@ export default function App({ Component, pageProps }: AppProps) {
           </SmoothScrolling>
         </Layout>
       )}
-    </>
+    </StrictMode>
   );
 }

@@ -52,6 +52,7 @@ const Hero = () => {
         height={1080}
         src="/images/JB.jpeg"
         width={1920}
+        priority
       />
       <h1 ref={titleRef} className="overflow-hidden">
         <span className="inline-block pt-5">JÉRÔME BEZEAU</span>

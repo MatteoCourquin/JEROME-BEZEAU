@@ -96,13 +96,13 @@ export default function Page() {
   }, []);
 
   useGSAP(() => {
-    useParallax(descriptionRef.current, 0.1, 'bottom', 620);
+    useParallax(descriptionRef.current, 0.1, 'bottom', 1024);
   }, []);
 
   return (
     <>
       <section className="relative grid min-h-screen grid-cols-1 gap-x-[10%] px-x-default pb-y-default pt-header lg:grid-cols-[5fr,6fr]">
-        <div ref={descriptionRef} className="flex flex-col gap-14 pt-y-default sm:pb-52">
+        <div ref={descriptionRef} className="flex flex-col gap-14 pt-y-default lg:pb-52">
           <h1>{isFrench ? 'À PROPOS DE MOI' : 'ABOUT ME'}</h1>
           <div className="w-full sm:w-3/5">
             <h5 className="text2 uppercase !text-white-80">PROFESSIONALLY</h5>
@@ -130,6 +130,7 @@ export default function Page() {
             height={1080}
             src="/images/JB.jpeg"
             width={1920}
+            priority
           />
         </div>
       </section>

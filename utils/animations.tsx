@@ -31,7 +31,7 @@ export const useParallax = (
   if (!element) return;
 
   const updateParallax = () => {
-    if (window.innerWidth <= minWidth) {
+    if (window.innerWidth < minWidth) {
       gsap.to(element, { y: 0, ease: 'none' });
       return;
     }

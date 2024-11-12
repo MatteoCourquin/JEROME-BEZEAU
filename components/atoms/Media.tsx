@@ -67,6 +67,7 @@ const Media = forwardRef<HTMLImageElement | HTMLVideoElement, MediaProps>(
               'h-full w-full object-cover',
               props.className,
             )}
+            unoptimized
           />
         )}
       </>
