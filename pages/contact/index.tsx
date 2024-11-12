@@ -17,7 +17,7 @@ export default function Page() {
 
   useGSAP(() => {
     useParallax(descriptionRef.current, 0.1, 'bottom', 1024);
-  }, []);
+  });
 
   return (
     <section className="relative grid min-h-screen grid-cols-1 gap-x-[20%] px-x-default pb-y-default pt-header lg:grid-cols-[6fr,4fr]">

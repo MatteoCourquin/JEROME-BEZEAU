@@ -76,7 +76,7 @@ const CardProject = ({
         scrub: true,
       },
     });
-  }, [wrapperImageRef]);
+  });
 
   const handleMouseMove = contextSafe((e: MouseEvent<HTMLAnchorElement>, duration: number) => {
     if (!detailsRef.current || useTouchDevice() || window.innerWidth <= BREAKPOINTS.MD) return;
@@ -102,7 +102,7 @@ const CardProject = ({
         scrub: true,
       },
     });
-  }, [imageRef]);
+  });
 
   return (
     <div
@@ -144,8 +144,9 @@ const CardProject = ({
       >
         {project.mainVideo ? (
           <Media
+            ref={imageRef}
             alt="video"
-            className="h-full w-full object-cover"
+            className="absolute bottom-0 !h-[calc(100%+200px)] w-full object-cover"
             src={project.mainVideo}
             type="video"
             autoPlay

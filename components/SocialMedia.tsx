@@ -143,7 +143,7 @@ const SocialMedia = () => {
           '-=1.2',
         ),
     )();
-  }, [contextSafe]);
+  });
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);

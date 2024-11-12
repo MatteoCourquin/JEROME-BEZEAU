@@ -3,7 +3,7 @@ import { useMagnet, useResetMagnet } from '@/utils/animations';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Image from 'next/image';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { IconArrow } from './atoms/Icons';
 
 interface CardSkillsProps {
@@ -45,8 +45,6 @@ const CardSkills = ({
       },
     }),
   );
-
-  const { contextSafe } = useGSAP();
 
   useGSAP(() => {
     gsap.set(cardRef.current, {
@@ -100,21 +98,13 @@ const CardSkills = ({
         },
         '-=0.4',
       );
-  }, []);
-
-  const handleMouseEnter = contextSafe(() => {
-    tl.current.play();
   });
 
-  const handleMouseLeave = contextSafe(() => {
-    tl.current.reverse();
-  });
-
-  useEffect(() => {
+  useGSAP(() => {
     if (isActive) {
-      handleMouseEnter();
+      tl.current.play();
     } else {
-      handleMouseLeave();
+      tl.current.reverse();
     }
   }, [isActive]);
 

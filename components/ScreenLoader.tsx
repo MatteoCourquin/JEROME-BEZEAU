@@ -26,7 +26,7 @@ export default function ScreenLoader() {
     return () => clearInterval(checkLottie);
   }, []);
 
-  const revealScreen = () => {
+  useGSAP(() => {
     if (!wrapperColumnsRef.current || !textRef.current) return;
 
     const columns = wrapperColumnsRef.current.querySelectorAll('.column');
@@ -103,9 +103,7 @@ export default function ScreenLoader() {
         '<',
       )
       .play();
-  };
-
-  useGSAP(revealScreen, []);
+  });
 
   const description = 'WELCOME';
 

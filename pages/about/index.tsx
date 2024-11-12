@@ -97,7 +97,7 @@ export default function Page() {
 
   useGSAP(() => {
     useParallax(descriptionRef.current, 0.1, 'bottom', 1024);
-  }, []);
+  });
 
   return (
     <>

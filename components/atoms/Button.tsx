@@ -20,31 +20,15 @@ export enum BUTTON_TYPE {
 type ButtonProps = {
   type: 'a' | 'button' | 'submit';
   target?: '_blank';
-  // type?: BUTTON_TYPE;
-  // color?: 'black' | 'white';
   href?: string;
   children: ReactNode;
   className?: string;
   onClick?: () => void;
-  // size?: BUTTON_SIZE;
   isActive?: boolean;
 };
 
 const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonProps>(
-  (
-    {
-      type,
-      target,
-      // type = BUTTON_TYPE.PRIMARY,
-      // color = 'black',
-      href,
-      children,
-      className,
-      onClick,
-      // size = BUTTON_SIZE.M,
-    },
-    ref,
-  ) => {
+  ({ type, target, href, children, className, onClick }, ref) => {
     const arrowRef = useRef(null);
 
     const { contextSafe } = useGSAP();
@@ -78,6 +62,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
         )
         .play();
     });
+
     return (
       <>
         {type === 'a' && href && (

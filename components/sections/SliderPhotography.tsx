@@ -129,7 +129,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
     animateInfinite(scrollContainer1Ref, !isScrollRight);
     animateInfinite(scrollContainer2Ref, isScrollRight);
     animateScroll();
-  }, []);
+  });
 
   useEffect(() => {
     window.addEventListener('scroll', detectScrollDirection);
