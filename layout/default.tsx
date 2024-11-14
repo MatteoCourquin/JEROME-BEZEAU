@@ -52,7 +52,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         </Head>
         <Header />
         <SocialMedia />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen !scale-y-50">{children}</main>
         <Footer />
       </LanguageContext.Provider>
     </QueryClientProvider>

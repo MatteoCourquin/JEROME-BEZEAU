@@ -1,4 +1,4 @@
-import { useParallax } from '@/utils/animations';
+import { useMagnet, useParallax, useResetMagnet } from '@/utils/animations';
 import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
 import { useContext, useRef } from 'react';
@@ -65,6 +65,8 @@ const Hero = () => {
       <div
         className="cursor-button absolute bottom-y-default flex h-[58px] w-[58px] items-center justify-center"
         onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+        onMouseLeave={(e) => useResetMagnet(e)}
+        onMouseMove={(e) => useMagnet(e, 1)}
       >
         <IconArrow className="w-fit rotate-90" />
       </div>

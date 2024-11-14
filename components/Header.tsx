@@ -8,6 +8,7 @@ import JBLottie from '../public/lottie/JB.json';
 import Button from './atoms/Button';
 import { useIsScreenLoader } from '@/utils/states';
 import { LanguageContext } from '@/layout/default';
+import { useMagnet, useResetMagnet } from '@/utils/animations';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const Header = () => {
@@ -51,7 +52,13 @@ const Header = () => {
   return (
     <header className="mix-blend- difference fixed left-0 top-0 z-[800] h-[100px] w-screen overflow-hidden border-b border-b-white-12 px-x-default backdrop-blur-lg">
       <div className="flex h-24 items-center justify-between">
-        <Link className="cursor-button" href="/" scroll={false}>
+        <Link
+          className="cursor-button"
+          href="/"
+          scroll={false}
+          onMouseLeave={(e) => useResetMagnet(e)}
+          onMouseMove={(e) => useMagnet(e, 1)}
+        >
           <Lottie
             animationData={JBLottie}
             autoPlay={false}
@@ -61,35 +68,41 @@ const Header = () => {
           />
         </Link>
         <nav ref={navRef}>
-          <ul className="flex items-center gap-10">
-            <li className="overflow-hidden py-0.5">
+          <ul className="flex items-center">
+            <li className="overflow-hidden py-0.5 pr-5">
               <Link
                 className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5 uppercase"
                 href="/work"
                 scroll={false}
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
               >
                 {isFrench ? 'Projets' : 'Work'}
               </Link>
             </li>
-            <li className="overflow-hidden py-0.5">
+            <li className="overflow-hidden px-5 py-0.5">
               <Link
                 className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5 uppercase"
                 href="/photography"
                 scroll={false}
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
               >
                 {isFrench ? 'Photographie' : 'Photography'}
               </Link>
             </li>
-            <li className="overflow-hidden py-0.5">
+            <li className="overflow-hidden px-5 py-0.5">
               <Link
                 className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5 uppercase"
                 href="/about"
                 scroll={false}
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
               >
                 {isFrench ? 'À propos' : 'About'}
               </Link>
             </li>
-            <li>
+            <li className="pl-5">
               <Button href="/contact" type="a">
                 <span className="anim-items-header inline-block">Contact</span>
               </Button>

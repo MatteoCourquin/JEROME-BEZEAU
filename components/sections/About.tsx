@@ -3,6 +3,7 @@ import { useContext, useRef } from 'react';
 import AnimatedText from '../AnimatedText';
 import Button from '../atoms/Button';
 import { IconArrow } from '../atoms/Icons';
+import { useMagnet, useResetMagnet } from '@/utils/animations';
 
 const About = () => {
   const { isFrench } = useContext(LanguageContext);
@@ -39,6 +40,8 @@ const About = () => {
       <div
         className="cursor-button absolute bottom-[20%] flex flex-col items-center gap-2 self-center"
         onClick={() => window.scrollTo({ top: window.innerHeight * 1.9, behavior: 'smooth' })}
+        onMouseLeave={(e) => useResetMagnet(e)}
+        onMouseMove={(e) => useMagnet(e, 1)}
       >
         <IconArrow className="rotate-90" />
         <p className="text-white-80">MY WORK</p>
