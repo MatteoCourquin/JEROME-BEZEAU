@@ -38,7 +38,7 @@ const About = () => {
         MORE ABOUT ME
       </Button>
       <div
-        className="cursor-button absolute bottom-[20%] flex flex-col items-center gap-2 self-center"
+        className="cursor-button flex flex-col items-center gap-2 self-center pt-y-default md:absolute md:bottom-[20%]"
         onClick={() => window.scrollTo({ top: window.innerHeight * 1.9, behavior: 'smooth' })}
         onMouseLeave={(e) => useResetMagnet(e)}
         onMouseMove={(e) => useMagnet(e, 1)}

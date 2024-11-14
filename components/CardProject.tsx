@@ -142,26 +142,24 @@ const CardProject = ({
           setIsActive(true);
         }}
       >
-        {project.mainVideo ? (
+        <Media
+          ref={imageRef}
+          alt={project.title}
+          className="absolute bottom-0 !h-[calc(100%+200px)] w-full object-cover"
+          ratio="square"
+          sizes="xl"
+          src={project.mainImage}
+          type="image"
+        />
+        {project.mainVideo && (
           <Media
-            ref={imageRef}
             alt="video"
-            className="absolute bottom-0 !h-[calc(100%+200px)] w-full object-cover"
+            className="absolute bottom-0 h-full w-full object-cover"
             src={project.mainVideo}
             type="video"
             autoPlay
             loop
             muted
-          />
-        ) : (
-          <Media
-            ref={imageRef}
-            alt={project.title}
-            className="absolute bottom-0 !h-[calc(100%+200px)] w-full object-cover"
-            ratio="square"
-            sizes="xl"
-            src={project.mainImage}
-            type="image"
           />
         )}
       </Link>

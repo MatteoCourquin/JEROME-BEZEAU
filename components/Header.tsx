@@ -69,9 +69,9 @@ const Header = () => {
         </Link>
         <nav ref={navRef}>
           <ul className="flex items-center">
-            <li className="overflow-hidden py-0.5 pr-5">
+            <li className="overflow-hidden px-5 py-0.5">
               <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5 uppercase"
+                className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 uppercase"
                 href="/work"
                 scroll={false}
                 onMouseLeave={(e) => useResetMagnet(e)}
@@ -82,7 +82,7 @@ const Header = () => {
             </li>
             <li className="overflow-hidden px-5 py-0.5">
               <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5 uppercase"
+                className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 uppercase"
                 href="/photography"
                 scroll={false}
                 onMouseLeave={(e) => useResetMagnet(e)}
@@ -93,7 +93,7 @@ const Header = () => {
             </li>
             <li className="overflow-hidden px-5 py-0.5">
               <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block pt-0.5 uppercase"
+                className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 uppercase"
                 href="/about"
                 scroll={false}
                 onMouseLeave={(e) => useResetMagnet(e)}
