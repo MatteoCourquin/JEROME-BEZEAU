@@ -110,7 +110,7 @@ export default function ScreenLoader() {
   return (
     <div
       ref={wrapperColumnsRef}
-      className="transition-container pointer-events-none fixed inset-0 z-[950] grid h-[120vh] w-screen grid-cols-12"
+      className="transition-container pointer-events-none fixed inset-0 z-[950] grid h-lvh w-screen grid-cols-12"
     >
       {[...Array(NB_OF_COLUMNS)].map((_, i) => (
         <div key={i} className="column relative h-full w-[101%] origin-top bg-black" />

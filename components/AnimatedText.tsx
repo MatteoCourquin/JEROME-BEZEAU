@@ -1,13 +1,16 @@
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { MutableRefObject, useRef } from 'react';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import { createElement, MutableRefObject, useRef } from 'react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 type AnimatedTextProps = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
   className?: string;
   text: string;
-  trigger?: MutableRefObject<HTMLElement | null>;
+  trigger: MutableRefObject<HTMLElement | null>;
   isTriggerAnim?: boolean;
   isScrubAnim?: boolean;
 };
@@ -20,12 +23,12 @@ const AnimatedText = ({
   isTriggerAnim = false,
   isScrubAnim = false,
 }: AnimatedTextProps) => {
-  const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const descriptionRef = useRef<HTMLElement>(null);
 
   const { contextSafe } = useGSAP();
 
   const triggerAnim = contextSafe(() => {
-    if (!descriptionRef.current) return;
+    if (!descriptionRef.current || !trigger.current) return;
 
     const descriptionWords = descriptionRef.current.querySelectorAll('.anim-text');
 
@@ -40,7 +43,7 @@ const AnimatedText = ({
         duration: 0.8,
         ease: 'power2.out',
         scrollTrigger: {
-          trigger: trigger?.current,
+          trigger: trigger.current,
           start: 'top 50%',
           toggleActions: 'play none none reverse',
         },
@@ -49,7 +52,7 @@ const AnimatedText = ({
   });
 
   const scrollScrubAnim = contextSafe(() => {
-    if (!descriptionRef.current) return;
+    if (!descriptionRef.current || !trigger.current) return;
 
     const descriptionWords = descriptionRef.current.querySelectorAll('.anim-text');
 
@@ -63,7 +66,7 @@ const AnimatedText = ({
       duration: 0.2,
       ease: 'power2.out',
       scrollTrigger: {
-        trigger: trigger?.current,
+        trigger: trigger.current,
         start: 'top top',
         end: 'bottom 80%',
         scrub: true,
@@ -78,21 +81,22 @@ const AnimatedText = ({
     if (isScrubAnim) {
       scrollScrubAnim();
     }
-  });
+  }, [trigger.current]);
 
-  const Tag = variant;
-
-  return (
-    <Tag ref={descriptionRef} className={clsx(className)}>
-      {text.split(' ').map((word, index) => (
-        <span key={index} className="inline-block overflow-hidden">
-          <span className="anim-text inline-block">
-            {word}
-            {index !== text.split(' ').length - 1 && '\u00A0'}
-          </span>
+  return createElement(
+    variant,
+    {
+      ref: descriptionRef,
+      className: clsx(className),
+    },
+    text.split(' ').map((word, index) => (
+      <span key={word + index} className="inline-block overflow-hidden">
+        <span className="anim-text inline-block">
+          {word}
+          {index !== text.split(' ').length - 1 && '\u00A0'}
         </span>
-      ))}
-    </Tag>
+      </span>
+    )),
   );
 };
 

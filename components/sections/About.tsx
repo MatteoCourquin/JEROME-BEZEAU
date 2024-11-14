@@ -7,7 +7,7 @@ import { useMagnet, useResetMagnet } from '@/utils/animations';
 
 const About = () => {
   const { isFrench } = useContext(LanguageContext);
-  const wrapperSectionRef = useRef(null);
+  const wrapperSectionRef = useRef<HTMLDivElement>(null);
 
   const title = isFrench
     ? 'Salut, je suis Jérôme, un Directeur Artistique Digital de Paris.'
