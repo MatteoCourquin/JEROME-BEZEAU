@@ -2,6 +2,7 @@ import CardSkills from '@/components/CardSkills';
 import Contact from '@/components/sections/Contact';
 import { LanguageContext } from '@/layout/default';
 import { useParallax } from '@/utils/animations';
+import { useTouchDevice } from '@/utils/states';
 import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -103,7 +104,7 @@ export default function Page() {
     <>
       <section className="relative grid min-h-screen grid-cols-1 gap-x-[10%] px-x-default pb-y-default pt-header lg:grid-cols-[5fr,6fr]">
         <div ref={descriptionRef} className="flex flex-col gap-14 pt-y-default lg:pb-52">
-          <h1>{isFrench ? 'À PROPOS DE MOI' : 'ABOUT ME'}</h1>
+          <h1>{isFrench ? 'À PROPOS' : 'ABOUT ME'}</h1>
           <div className="w-full sm:w-3/5">
             <h5 className="text2 uppercase !text-white-80">PROFESSIONALLY</h5>
             <p className="text2 pt-6">
@@ -144,13 +145,20 @@ export default function Page() {
             key={card.title.en + index}
             description={card.description}
             imageSrc={card.imageSrc}
-            isActive={index === activeIndex}
+            isActive={useTouchDevice() || index === activeIndex}
             title={card.title}
-            onHover={() => setActiveIndex(index)}
-            onMouseEnter={stopInterval}
+            onHover={() => {
+              if (useTouchDevice()) return;
+              setActiveIndex(index);
+            }}
             onLeave={() => {
+              if (useTouchDevice()) return;
               setActiveIndex(null);
               startInterval();
+            }}
+            onMouseEnter={() => {
+              if (useTouchDevice()) return;
+              stopInterval();
             }}
           />
         ))}
