@@ -6,6 +6,7 @@ import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
 import { useContext, useEffect, useRef, useState } from 'react';
 import JBLottie from '../public/lottie/JB.json';
+import { BREAKPOINTS } from '@/tailwind.config';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function ScreenLoader() {
@@ -18,7 +19,7 @@ export default function ScreenLoader() {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
-    setColumnsNumbers(window.innerWidth < 768 ? 6 : 12);
+    setColumnsNumbers(window.innerWidth < BREAKPOINTS.MD ? 6 : 12);
 
     const checkLottie = setInterval(() => {
       if (lottieRef.current) {

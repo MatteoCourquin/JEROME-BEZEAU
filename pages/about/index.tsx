@@ -135,8 +135,8 @@ export default function Page() {
           />
         </div>
       </section>
-      <section className="grid grid-cols-1 gap-5 px-x-default py-y-default sm:grid-cols-2 lg:grid-cols-3">
-        <div className="pt-[25%]">
+      <section className="grid grid-cols-1 gap-5 px-x-default pb-y-default sm:grid-cols-2 sm:py-y-default lg:grid-cols-3">
+        <div className="sm:pt-[25%]">
           <h2 className="heading4">Skills</h2>
           <p>What can I help you with ?</p>
         </div>

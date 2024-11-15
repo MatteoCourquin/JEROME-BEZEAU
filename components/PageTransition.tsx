@@ -1,3 +1,4 @@
+import { BREAKPOINTS } from '@/tailwind.config';
 import clsx from 'clsx';
 import { motion, TargetAndTransition } from 'framer-motion';
 import { ReactNode, useEffect, useState } from 'react';
@@ -12,7 +13,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   const [columnsNumbers, setColumnsNumbers] = useState(12);
 
   useEffect(() => {
-    setColumnsNumbers(window.innerWidth < 768 ? 6 : 12);
+    setColumnsNumbers(window.innerWidth < BREAKPOINTS.MD ? 6 : 12);
   }, []);
 
   const expand = {

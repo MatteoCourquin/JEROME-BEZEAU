@@ -3,8 +3,7 @@ import type { Config } from 'tailwindcss';
 export enum BREAKPOINTS {
   SM = 640,
   MD = 768,
-  MG = 1024,
-  XL = 1280,
+  LG = 1024,
 }
 
 const defaultSpacing = {
