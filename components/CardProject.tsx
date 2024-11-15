@@ -8,7 +8,7 @@ import CustomEase from 'gsap/dist/CustomEase';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MouseEvent, useRef, useState } from 'react';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
@@ -32,25 +32,25 @@ const CardProject = ({
 
   const { contextSafe } = useGSAP();
 
-  useGSAP(() => {
-    const updateIsRight = () => {
-      if (!cardRef.current) return;
+  const updateIsRight = contextSafe(() => {
+    if (!cardRef.current) return;
 
-      const rect = cardRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const windowCenterX = window.innerWidth / 2;
+    const rect = cardRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const windowCenterX = window.innerWidth / 2;
 
-      setIsRight(centerX < windowCenterX);
+    setIsRight(centerX < windowCenterX);
 
-      if (window.innerWidth <= BREAKPOINTS.MD) {
-        gsap.to(detailsRef.current, {
-          scale: 0,
-          duration: 0.2,
-          ease: 'power2.out',
-        });
-      }
-    };
+    if (window.innerWidth <= BREAKPOINTS.MD) {
+      gsap.to(detailsRef.current, {
+        scale: 0,
+        duration: 0.2,
+        ease: 'power2.out',
+      });
+    }
+  });
 
+  useEffect(() => {
     updateIsRight();
     window.addEventListener('resize', updateIsRight);
 

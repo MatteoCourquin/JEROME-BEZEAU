@@ -77,7 +77,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
       gsap.to(animation, {
         timeScale: action === 'play' ? 1 : 0,
         duration: 1,
-        ease: 'power.out',
+        ease: 'none',
         overwrite: true,
       });
     });
@@ -140,8 +140,8 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
 
   return (
     <section ref={sectionContainerRef} className="relative min-h-screen pt-header">
-      <div className="flex items-center justify-center px-x-default py-y-default">
-        <div className="h-fit overflow-hidden text-center uppercase">
+      <div className="my-y-half-default flex items-center justify-center py-y-default">
+        <div className="absolute h-fit overflow-hidden text-center uppercase">
           <h1 ref={titleRef}>{activeTitle}</h1>
         </div>
       </div>

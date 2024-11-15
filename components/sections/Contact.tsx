@@ -1,3 +1,4 @@
+import { useMagnet, useResetMagnet } from '@/utils/animations';
 import Button from '../atoms/Button';
 import ScrollingTitle from '../ScrollingTitle';
 
@@ -20,11 +21,21 @@ const Contact = () => {
         </div>
         <div className="flex flex-col gap-5">
           <h6 className="text-white-40">SEND A MESSAGE :</h6>
-          <a className="link link_white-80 w-fit" href="mailto:jeromebezeau.pro@gmail.com">
+          <a
+            className="link link_white-80 w-fit"
+            href="mailto:jeromebezeau.pro@gmail.com"
+            onMouseLeave={(e) => useResetMagnet(e)}
+            onMouseMove={(e) => useMagnet(e, 1)}
+          >
             jeromebezeau.pro@gmail.com
           </a>
           <h6 className="pt-5 text-white-40">GIVE ME A CALL :</h6>
-          <a className="link link_white-80 w-fit" href="tel:+33664583272">
+          <a
+            className="link link_white-80 w-fit"
+            href="tel:+33664583272"
+            onMouseLeave={(e) => useResetMagnet(e)}
+            onMouseMove={(e) => useMagnet(e, 1)}
+          >
             (+33) 6 64 58 32 72
           </a>
         </div>
