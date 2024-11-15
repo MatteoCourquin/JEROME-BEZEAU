@@ -70,6 +70,8 @@ const config: Config = {
     'col-start-9',
     'origin-top-right',
     'origin-top-left',
+    'grid-cols-6',
+    'grid-cols-12',
   ],
   plugins: [],
 };

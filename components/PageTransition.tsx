@@ -1,7 +1,6 @@
+import clsx from 'clsx';
 import { motion, TargetAndTransition } from 'framer-motion';
-import { ReactNode } from 'react';
-
-const NB_OF_COLUMNS = 12;
+import { ReactNode, useEffect, useState } from 'react';
 
 type CustomVariants = {
   initial?: TargetAndTransition;
@@ -10,6 +9,12 @@ type CustomVariants = {
 };
 
 export default function PageTransition({ children }: { children: ReactNode }) {
+  const [columnsNumbers, setColumnsNumbers] = useState(12);
+
+  useEffect(() => {
+    setColumnsNumbers(window.innerWidth < 768 ? 6 : 12);
+  }, []);
+
   const expand = {
     initial: {
       transformOrigin: 'bottom',
@@ -53,13 +58,18 @@ export default function PageTransition({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <div className="pointer-events-none fixed inset-0 z-[910] grid h-screen w-screen grid-cols-12">
-        {[...Array(NB_OF_COLUMNS)].map((_, i) => {
+      <div
+        className={clsx(
+          'pointer-events-none fixed inset-0 z-[910] grid h-screen w-screen',
+          `grid-cols-${columnsNumbers}`,
+        )}
+      >
+        {[...Array(columnsNumbers)].map((_, i) => {
           return (
             <motion.div
               key={i}
               className="relative h-full w-[101%] bg-white"
-              {...anim(expand, NB_OF_COLUMNS - i * -2)}
+              {...anim(expand, columnsNumbers - i * -2)}
             />
           );
         })}

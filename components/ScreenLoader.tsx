@@ -1,14 +1,16 @@
+import { LanguageContext } from '@/layout/default';
 import { useGSAP } from '@gsap/react';
+import clsx from 'clsx';
 import gsap from 'gsap';
 import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import JBLottie from '../public/lottie/JB.json';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
-const NB_OF_COLUMNS = 12;
-
 export default function ScreenLoader() {
+  const { isFrench } = useContext(LanguageContext);
+  const [columnsNumbers, setColumnsNumbers] = useState(12);
   const wrapperColumnsRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
   const iconRef = useRef(null);
@@ -16,6 +18,8 @@ export default function ScreenLoader() {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
+    setColumnsNumbers(window.innerWidth < 768 ? 6 : 12);
+
     const checkLottie = setInterval(() => {
       if (lottieRef.current) {
         lottieRef.current.stop();
@@ -33,9 +37,9 @@ export default function ScreenLoader() {
     const letters = textRef.current.querySelectorAll('.anim-letter');
 
     const columnsLeft = Array.from(columns)
-      .slice(0, NB_OF_COLUMNS / 2)
+      .slice(0, columnsNumbers / 2)
       .reverse();
-    const columnsRight = Array.from(columns).slice(NB_OF_COLUMNS / 2);
+    const columnsRight = Array.from(columns).slice(columnsNumbers / 2);
 
     gsap
       .timeline({
@@ -103,23 +107,26 @@ export default function ScreenLoader() {
         '<',
       )
       .play();
-  });
+  }, [columnsNumbers]);
 
-  const description = 'WELCOME';
+  const title = isFrench ? 'BIENVENUE' : 'WELCOME';
 
   return (
     <div
       ref={wrapperColumnsRef}
-      className="transition-container pointer-events-none fixed inset-0 z-[950] grid h-lvh w-screen grid-cols-12"
+      className={clsx(
+        'transition-container pointer-events-none fixed inset-0 z-[950] grid h-lvh w-screen',
+        `grid-cols-${columnsNumbers}`,
+      )}
     >
-      {[...Array(NB_OF_COLUMNS)].map((_, i) => (
+      {[...Array(columnsNumbers)].map((_, i) => (
         <div key={i} className="column relative h-full w-[101%] origin-top bg-black" />
       ))}
       <h1
         ref={textRef}
         className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-full whitespace-nowrap uppercase text-white"
       >
-        {description.split('').map((letter, index) => (
+        {title.split('').map((letter, index) => (
           <span key={index} className="anim-letter inline-block translate-y-8 opacity-0">
             {letter == ' ' ? '\u00A0' : letter}
           </span>
