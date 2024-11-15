@@ -9,7 +9,11 @@ const Contact = () => {
       <div className="grid grid-cols-1 gap-y-y-default md:grid-cols-2 md:gap-x-5 lg:grid-cols-3">
         <div className="flex flex-col gap-5">
           <div className="flex items-center gap-3">
-            <div className="relative mb-1 h-2 w-2">
+            <div
+              className="relative mb-1 h-2 w-2"
+              onMouseLeave={(e) => useResetMagnet(e)}
+              onMouseMove={(e) => useMagnet(e, 1)}
+            >
               <div className="absolute h-full w-full bg-green"></div>
               <div className="absolute h-full w-full animate-ping bg-green"></div>
             </div>

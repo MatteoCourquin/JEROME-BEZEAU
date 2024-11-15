@@ -34,68 +34,61 @@ const DetailsProject = ({ isRight, isActive, title, types }: DetailsProjectProps
     timelineRef.current = contextSafe(() =>
       gsap
         .timeline({ paused: true })
-        .add(
-          gsap.to(wrapperDetailRef.current, {
-            scale: 1,
-            duration: 0.2,
-            ease: 'power2.out',
-          }),
-        )
-        .add(
-          gsap.to(wrapperDetailRef.current, {
+        .to(wrapperDetailRef.current, {
+          scale: 1,
+          duration: 0.2,
+          ease: 'power2.out',
+        })
+        .to(
+          wrapperDetailRef.current,
+          {
             width: '100%',
             duration: 0.3,
             ease: 'power2.out',
-          }),
+          },
           '-=0.15',
         )
-        .add(
-          gsap.fromTo(
-            svgArrow,
-            {
-              x: isRight ? -20 : 20,
-              opacity: 0,
-            },
-            {
-              x: 0,
-              opacity: 1,
-              duration: 0.3,
-              ease: 'power3.out',
-            },
-          ),
+        .fromTo(
+          svgArrow,
+          {
+            x: isRight ? -20 : 20,
+            opacity: 0,
+          },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.3,
+            ease: 'power3.out',
+          },
           '-=0.1',
         )
-        .add(
-          gsap.fromTo(
-            spanArrow,
-            {
-              x: isRight ? -20 : 20,
-              opacity: 0,
-            },
-            {
-              x: 0,
-              opacity: 1,
-              duration: 0.3,
-              ease: 'power3.out',
-            },
-          ),
+        .fromTo(
+          spanArrow,
+          {
+            x: isRight ? -20 : 20,
+            opacity: 0,
+          },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.3,
+            ease: 'power3.out',
+          },
           '-=0.20',
         )
-        .add(
-          gsap.fromTo(
-            tagsChildren,
-            {
-              scale: 0,
-              opacity: 0,
-            },
-            {
-              scale: 1,
-              opacity: 1,
-              duration: 0.3,
-              ease: 'power3.out',
-              stagger: -0.1,
-            },
-          ),
+        .fromTo(
+          tagsChildren,
+          {
+            scale: 0,
+            opacity: 0,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.3,
+            ease: 'power3.out',
+            stagger: -0.1,
+          },
           '-=0.16',
         ),
     )();

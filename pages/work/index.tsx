@@ -8,7 +8,7 @@ export default function Page({ projects }: { projects: Project[] }) {
 
   return (
     <>
-      <section className="relative flex flex-col items-center justify-center px-x-default pt-header">
+      <section className="sticky top-0 flex flex-col items-center justify-center px-x-default pt-header">
         <h1 className="py-y-default">{isFrench ? 'PROJETS' : 'WORK'}</h1>
       </section>
       <ProjectsWork projects={projects} />

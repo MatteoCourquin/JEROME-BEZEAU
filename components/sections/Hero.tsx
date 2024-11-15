@@ -21,19 +21,15 @@ const Hero = () => {
     const subtitleSpan = subtitleRef.current.querySelector('span');
 
     timeline.current
-      .add(
-        gsap.fromTo(
-          titleSpan,
-          { yPercent: 105 },
-          { yPercent: 0, duration: 1, ease: 'power3.out', delay: 1 },
-        ),
+      .fromTo(
+        titleSpan,
+        { yPercent: 105 },
+        { yPercent: 0, duration: 1, ease: 'power3.out', delay: 1 },
       )
-      .add(
-        gsap.fromTo(
-          subtitleSpan,
-          { yPercent: 100 },
-          { yPercent: 0, duration: 1, ease: 'power3.out' },
-        ),
+      .fromTo(
+        subtitleSpan,
+        { yPercent: 100 },
+        { yPercent: 0, duration: 1, ease: 'power3.out' },
         '-=0.6',
       )
       .play();

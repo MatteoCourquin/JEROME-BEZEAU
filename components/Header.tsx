@@ -38,13 +38,7 @@ const Header = () => {
       .timeline({
         delay: isScreenLoader ? 4.8 : 0,
       })
-      .add(
-        gsap.fromTo(
-          links,
-          { y: 100 },
-          { y: 0, duration: 1, delay: 1, ease: 'power3.out', stagger: 0.1 },
-        ),
-      )
+      .fromTo(links, { y: 100 }, { y: 0, duration: 1, delay: 1, ease: 'power3.out', stagger: 0.1 })
       .add(() => lottieRef.current && lottieRef.current.play(), '-=0.6')
       .play();
   }, [isScreenLoader]);

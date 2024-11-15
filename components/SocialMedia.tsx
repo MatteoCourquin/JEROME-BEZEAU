@@ -37,109 +37,95 @@ const SocialMedia = () => {
     timelineRef.current = contextSafe(() =>
       gsap
         .timeline({ paused: true })
-        .add(
-          gsap.fromTo(
-            wrapperSocialRef.current,
-            {
-              borderColor: '#ffffffcc',
-              backgroundColor: 'transparent',
-            },
-            {
-              borderColor: 'transparent',
-              backgroundColor: '#ffffff66',
-              duration: 0.3,
-              ease: 'power3.out',
-            },
-          ),
+        .fromTo(
+          wrapperSocialRef.current,
+          {
+            borderColor: '#ffffffcc',
+            backgroundColor: 'transparent',
+          },
+          {
+            borderColor: 'transparent',
+            backgroundColor: '#ffffff66',
+            duration: 0.3,
+            ease: 'power3.out',
+          },
         )
-        .add(
-          gsap.fromTo(
-            wrapperSocialRef.current,
-            {
-              width: 58,
-            },
-            {
-              width: 470,
-              duration: 0.2,
-              ease: 'power1.inOut',
-            },
-          ),
+        .fromTo(
+          wrapperSocialRef.current,
+          {
+            width: 58,
+          },
+          {
+            width: 470,
+            duration: 0.2,
+            ease: 'power1.inOut',
+          },
         )
-        .add(
-          gsap.fromTo(
-            wrapperIconRef.current,
-            { scale: 0, opacity: 0 },
-            {
-              scale: 1,
-              opacity: 1,
-              duration: 0.3,
-            },
-          ),
+        .fromTo(
+          wrapperIconRef.current,
+          { scale: 0, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.3,
+          },
           '-=0.10',
         )
-        .add(
-          gsap.fromTo(
-            wrapperIconRef.current,
-            {
-              width: 54,
-              paddingLeft: 0,
-              paddingRight: 0,
-            },
-            {
-              width: 300,
-              paddingLeft: 18,
-              paddingRight: 18,
-              duration: 0.3,
-              ease: 'power1.inOut',
-            },
-          ),
+        .fromTo(
+          wrapperIconRef.current,
+          {
+            width: 54,
+            paddingLeft: 0,
+            paddingRight: 0,
+          },
+          {
+            width: 300,
+            paddingLeft: 18,
+            paddingRight: 18,
+            duration: 0.3,
+            ease: 'power1.inOut',
+          },
           '-=0.15',
         )
-        .add(
-          gsap.fromTo(
-            iconsChildren,
-            {
-              scale: 0,
-              opacity: 0,
-            },
-            {
-              scale: 1,
-              opacity: 1,
-              duration: 0.3,
-              ease: 'power3.out',
-              stagger: -0.1,
-            },
-          ),
+        .fromTo(
+          iconsChildren,
+          {
+            scale: 0,
+            opacity: 0,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.3,
+            ease: 'power3.out',
+            stagger: -0.1,
+          },
           '-=0.14',
         )
-        .add(
-          gsap.fromTo(
-            iconsChildren,
-            {
-              x: 10,
-            },
-            {
-              x: 0,
-              duration: 1.3,
-              ease: 'elastic.out',
-              stagger: -0.1,
-            },
-          ),
+        .fromTo(
+          iconsChildren,
+          {
+            x: 10,
+          },
+          {
+            x: 0,
+            duration: 1.3,
+            ease: 'elastic.out',
+            stagger: -0.1,
+          },
           '-=0.75',
         )
-        .add(
-          gsap.fromTo(
-            textRef.current,
-            {
-              opacity: 0,
-              x: 10,
-            },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 0.4,
-            },
-          ),
+        .fromTo(
+          textRef.current,
+          {
+            opacity: 0,
+            x: 10,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.4,
+          },
           '-=1.2',
         ),
     )();

@@ -13,21 +13,19 @@ const Footer = () => {
 
   const handleMouseEnter = (toRight: boolean) => {
     timelineArrow.current
-      .add(
-        gsap.to(slashRef.current, {
-          rotate: 0,
-          opacity: 1,
-          transformOrigin: toRight ? 'left' : 'right',
-          duration: 0.05,
-        }),
-      )
-      .add(gsap.to(slashRef.current, { scaleX: 35, duration: 0.1 }))
+      .to(slashRef.current, {
+        rotate: 0,
+        opacity: 1,
+        transformOrigin: toRight ? 'left' : 'right',
+        duration: 0.05,
+      })
+      .to(slashRef.current, { scaleX: 35, duration: 0.1 })
       .play();
   };
   const handleMouseOut = () => {
     timelineArrow.current
-      .add(gsap.to(slashRef.current, { scaleX: 1, duration: 0.1 }))
-      .add(gsap.to(slashRef.current, { rotate: 12, opacity: 0.4, duration: 0.05 }))
+      .to(slashRef.current, { scaleX: 1, duration: 0.1 })
+      .to(slashRef.current, { rotate: 12, opacity: 0.4, duration: 0.05 })
       .play();
   };
 

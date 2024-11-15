@@ -46,65 +46,63 @@ export default function ScreenLoader() {
       .timeline({
         delay: 0.2,
       })
-      .add(
-        gsap.to(letters, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: 'power2.out',
-          stagger: 0.04,
-        }),
-      )
-      .add(
-        gsap.to([...letters].reverse(), {
+      .to(letters, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        stagger: 0.04,
+      })
+      .to(
+        [...letters].reverse(),
+        {
           opacity: 0,
           y: -32,
           duration: 0.6,
           ease: 'power2.in',
           stagger: 0.04,
-        }),
+        },
         '+=0.2',
       )
-      .add(
-        gsap.to(iconRef.current, {
+      .to(
+        iconRef.current,
+        {
           opacity: 1,
           y: -120,
           duration: 0.6,
           ease: 'power2.out',
-        }),
+        },
         '-=0.6',
       )
       .add(() => lottieRef.current && lottieRef.current.play())
-      .add(
-        gsap.to(iconRef.current, {
+      .to(
+        iconRef.current,
+        {
           opacity: 0,
           duration: 0.2,
           ease: 'power2.out',
-        }),
+        },
         '+=3',
       )
-      .add(
-        gsap.set(columns, {
-          scaleY: 1,
-        }),
-      )
-      .add(
-        gsap.to(columnsLeft, {
+      .set(columns, {
+        scaleY: 1,
+      })
+      .to(columnsLeft, {
+        scaleY: 0,
+        transformOrigin: 'top',
+        duration: 0.8,
+        ease: 'power4.inOut',
+        stagger: 0.05,
+      })
+      .to(
+        columnsRight,
+        {
           scaleY: 0,
           transformOrigin: 'top',
           duration: 0.8,
           ease: 'power4.inOut',
           stagger: 0.05,
-        }),
-      )
-      .add(
-        gsap.to(columnsRight, {
-          scaleY: 0,
-          transformOrigin: 'top',
-          duration: 0.8,
-          ease: 'power4.inOut',
-          stagger: 0.05,
-        }),
+        },
         '<',
       )
       .play();

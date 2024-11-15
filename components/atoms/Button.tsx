@@ -36,30 +36,24 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
       const timelineArrow = gsap.timeline({ paused: true });
 
       timelineArrow
-        .add(
-          gsap.to(arrowRef.current, {
-            x: 20,
-            y: -20,
-            duration: 0.15,
-            opacity: 0,
-          }),
-        )
-        .add(
-          gsap.to(arrowRef.current, {
-            x: -20,
-            y: 20,
-            duration: 0.15,
-            opacity: 0,
-          }),
-        )
-        .add(
-          gsap.to(arrowRef.current, {
-            x: 0,
-            y: 0,
-            opacity: 1,
-            duration: 0.15,
-          }),
-        )
+        .to(arrowRef.current, {
+          x: 20,
+          y: -20,
+          duration: 0.15,
+          opacity: 0,
+        })
+        .to(arrowRef.current, {
+          x: -20,
+          y: 20,
+          duration: 0.15,
+          opacity: 0,
+        })
+        .to(arrowRef.current, {
+          x: 0,
+          y: 0,
+          opacity: 1,
+          duration: 0.15,
+        })
         .play();
     });
 
