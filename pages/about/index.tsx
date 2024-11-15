@@ -66,7 +66,8 @@ const cardsSkills = [
 ];
 
 export default function Page() {
-  const descriptionRef = useRef<HTMLDivElement>(null);
+  const descriptionRef = useRef(null);
+  const imageRef = useRef(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const { isFrench } = useContext(LanguageContext);
@@ -98,6 +99,7 @@ export default function Page() {
 
   useGSAP(() => {
     useParallax(descriptionRef.current, 0.1, 'bottom', 1024);
+    useParallax(imageRef.current, 0.15, 'bottom', 1024);
   });
 
   return (
@@ -124,8 +126,9 @@ export default function Page() {
             </p>
           </div>
         </div>
-        <div className="h-full w-full pt-y-default">
+        <div className="h-full w-full overflow-hidden pt-y-default">
           <Image
+            ref={imageRef}
             alt="About me"
             className="h-full w-full object-cover"
             height={1080}

@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import Link from 'next/link';
 import { useContext, useRef } from 'react';
 import { IconJB } from './atoms/Icons';
+import { useMagnet, useResetMagnet } from '@/utils/animations';
 
 const Footer = () => {
   const { isFrench, setIsFrench } = useContext(LanguageContext);
@@ -86,27 +87,27 @@ const Footer = () => {
         <nav className="grow">
           <ul className="flex flex-col gap-2">
             <li className="pb-2 uppercase text-white-12">Menu</li>
-            <li>
+            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
               <Link className="link cursor-button link_white-40" href="/">
                 {isFrench ? 'Accueil' : 'Home'}
               </Link>
             </li>
-            <li>
+            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
               <Link className="link cursor-button link_white-40" href="/work">
                 {isFrench ? 'Projets' : 'Work'}
               </Link>
             </li>
-            <li>
+            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
               <Link className="link cursor-button link_white-40" href="/photography">
                 {isFrench ? 'Photographie' : 'Photography'}
               </Link>
             </li>
-            <li>
+            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
               <Link className="link cursor-button link_white-40" href="/about">
                 {isFrench ? 'À propos' : 'About'}
               </Link>
             </li>
-            <li>
+            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
               <Link className="link cursor-button link_white-40" href="/contact">
                 Contact
               </Link>
@@ -116,7 +117,7 @@ const Footer = () => {
         <nav className="grow">
           <ul className="flex flex-col gap-2">
             <li className="pb-2 uppercase text-white-12">{isFrench ? 'Réseaux' : 'Socials'}</li>
-            <li>
+            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
               <a
                 className="link cursor-button link_white-40"
                 href="https://www.linkedin.com/in/jerome-bezeau/"
@@ -124,7 +125,7 @@ const Footer = () => {
                 Linkedin
               </a>
             </li>
-            <li>
+            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
               <a
                 className="link cursor-button link_white-40"
                 href="https://www.behance.net/jeromebezeb4eb"
@@ -132,7 +133,7 @@ const Footer = () => {
                 Behance
               </a>
             </li>
-            <li>
+            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
               <a
                 className="link cursor-button link_white-40"
                 href="https://www.instagram.com/jeromebezeau/"
@@ -140,7 +141,7 @@ const Footer = () => {
                 Instagram
               </a>
             </li>
-            <li>
+            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
               <a
                 className="link cursor-button link_white-40"
                 href="https://dribbble.com/jeromebezeau"
@@ -148,7 +149,7 @@ const Footer = () => {
                 Dribbble
               </a>
             </li>
-            <li>
+            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
               <a className="link cursor-button link_white-40" href="https://bento.me/jeromebezeau">
                 Bento
               </a>

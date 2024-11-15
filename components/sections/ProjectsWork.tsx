@@ -53,12 +53,29 @@ const ProjectsWork = ({ projects }: { projects: Project[] }) => {
       {projects.map((project, index) => {
         const { before, size, origin } = getColumnSpan(index);
         return (
-          <div key={project.title + index} className="grid grid-cols-12 gap-x-5">
-            <div className={clsx(`col-span-${size} col-start-${before + 1}`)}>
+          <div
+            key={project.title + index}
+            className="gap-x-5 pt-5 md:grid md:grid-cols-2 md:pt-0 lg:grid-cols-12"
+          >
+            <div
+              className={clsx(
+                index % 2 === 0
+                  ? `md:col-start-1 lg:col-span-${size} lg:col-start-${before + 1}`
+                  : `md:col-start-2 lg:col-span-${size} lg:col-start-${before + 1}`,
+              )}
+            >
               <CardProject
                 className="grow"
-                originTransform={index === 0 ? 'origin-top-left' : `origin-top-${origin}`}
                 project={project}
+                originTransform={clsx(
+                  index === 0 && 'origin-top-left',
+                  index !== 0 &&
+                    index % 2 === 0 &&
+                    `origin-top-left md:origin-top-right lg:origin-top-${origin}`,
+                  index !== 0 &&
+                    index % 2 !== 0 &&
+                    `origin-top-left md:origin-top-left lg:origin-top-${origin}`,
+                )}
               />
             </div>
           </div>
