@@ -1,6 +1,7 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SocialMedia from '@/components/SocialMedia';
+import { useGSAP } from '@gsap/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
@@ -27,6 +28,10 @@ const Layout = ({ children }: { children: ReactNode }) => {
   const refreshScrollTrigger = () => ScrollTrigger.refresh();
   const detectIsFrench = () =>
     localStorage.getItem('language') === 'fr' || navigator.language.split('-')[0] === 'fr';
+
+  useGSAP(() => {
+    ScrollTrigger.config({ ignoreMobileResize: true });
+  });
 
   useEffect(() => {
     setIsFrench(detectIsFrench);

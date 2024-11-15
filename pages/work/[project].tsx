@@ -1,4 +1,3 @@
-import Media from '@/components/atoms/Media';
 import RichText from '@/components/atoms/RichText';
 import { LanguageContext } from '@/layout/default';
 import {
@@ -97,12 +96,10 @@ export default function Page({ project }: { project: Project }) {
             }
             if (section.sectionType === SECTIONS_TYPES.VIDEO && section.video) {
               return (
-                <Media
+                <video
                   key={section.sectionType + index}
-                  alt="video"
                   className="h-full w-full object-cover"
                   src={section.video}
-                  type="video"
                   autoPlay
                   loop
                   muted

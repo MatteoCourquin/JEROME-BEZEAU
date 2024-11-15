@@ -6,10 +6,10 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import CustomEase from 'gsap/dist/CustomEase';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import Image from 'next/image';
 import Link from 'next/link';
-import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { MouseEvent, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
-import Media from './atoms/Media';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
@@ -32,7 +32,7 @@ const CardProject = ({
 
   const { contextSafe } = useGSAP();
 
-  useEffect(() => {
+  useGSAP(() => {
     const updateIsRight = () => {
       if (!cardRef.current) return;
 
@@ -57,7 +57,7 @@ const CardProject = ({
     return () => {
       window.removeEventListener('resize', updateIsRight);
     };
-  }, []);
+  });
 
   useGSAP(() => {
     if (!wrapperImageRef.current) return;
@@ -91,6 +91,7 @@ const CardProject = ({
 
   useGSAP(() => {
     if (!imageRef.current) return;
+    ScrollTrigger.normalizeScroll(true);
 
     gsap.to(imageRef.current, {
       y: 200,
@@ -126,7 +127,7 @@ const CardProject = ({
       </div>
       <Link
         ref={wrapperImageRef}
-        href={`/work/${project.slug.current}`}
+        href={'/work/' + project.slug.current}
         scroll={false}
         className={clsx(
           originTransform,
@@ -142,24 +143,26 @@ const CardProject = ({
           setIsActive(true);
         }}
       >
-        <Media
-          ref={imageRef}
-          alt={project.title}
-          className="absolute bottom-0 !h-[calc(100%+200px)] w-full object-cover"
-          ratio="square"
-          sizes="xl"
-          src={project.mainImage}
-          type="image"
-        />
-        {project.mainVideo && (
-          <Media
-            alt="video"
-            className="absolute bottom-0 h-full w-full object-cover"
-            src={project.mainVideo}
-            type="video"
+        {project.mainVideo ? (
+          <video
+            className="absolute bottom-0 aspect-square h-full w-full object-cover"
+            poster={project.mainImage}
             autoPlay
             loop
             muted
+          >
+            <source src={project.mainVideo} type="video/webm" />
+            <source src={project.mainVideo} type="video/mp4" />
+          </video>
+        ) : (
+          <Image
+            ref={imageRef}
+            alt={project.title}
+            className="absolute bottom-0 aspect-square !h-[calc(100%+200px)] w-full object-cover"
+            height={1200}
+            src={project.mainImage}
+            width={1200}
+            unoptimized
           />
         )}
       </Link>

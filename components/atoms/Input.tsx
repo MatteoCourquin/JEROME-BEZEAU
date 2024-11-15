@@ -28,7 +28,7 @@ const Input = ({
   const autoHeight = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (!textAreaRef.current) return;
     textAreaRef.current.style.height =
-      e.target.value === '' ? '64px' : `${e.target.scrollHeight + 1}px`;
+      e.target.value === '' ? '64px' : e.target.scrollHeight + 1 + 'px';
   };
 
   const baseClasses =
