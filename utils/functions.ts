@@ -25,6 +25,20 @@ export const formatDate = (date: string, language: string) => {
   });
 };
 
+export const getFormattedTime = (isEnglish = false) => {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+
+  if (isEnglish) {
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const hours12 = hours % 12 || 12;
+    return `IT IS ${hours12}:${minutes} ${period} HERE!`;
+  } else {
+    return `IL EST ${hours}H${minutes} ICI !`;
+  }
+};
+
 export const formatDateToYear = (date: string) => {
   return new Date(date).getFullYear();
 };

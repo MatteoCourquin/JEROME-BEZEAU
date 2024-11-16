@@ -60,11 +60,11 @@ const Hint = ({
       const rect = container.current.getBoundingClientRect();
       const wrapperRect = wrapperHintRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top - wrapperRect.height;
+      const y = e.clientY - rect.top - wrapperRect.height * 2;
 
       gsap.to(containerHintRef.current, {
         x: x + 10,
-        y: y - 15,
+        y: y - 5,
         duration: 0.3,
         ease: 'power2.out',
       });

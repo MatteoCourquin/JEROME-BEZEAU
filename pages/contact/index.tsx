@@ -1,30 +1,16 @@
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
-import Hint from '@/components/Hint';
+import Call from '@/components/sections/contact/Call';
+import Loaction from '@/components/sections/contact/Location';
+import Mail from '@/components/sections/contact/Mail';
 import { LanguageContext } from '@/layout/default';
 import { useParallax } from '@/utils/animations';
 import { useGSAP } from '@gsap/react';
-import { useContext, useRef, useState } from 'react';
-
-const getFormattedTime = (isEnglish = false) => {
-  const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-
-  if (isEnglish) {
-    const period = hours >= 12 ? 'PM' : 'AM';
-    const hours12 = hours % 12 || 12;
-    return `IT IS ${hours12}:${minutes} ${period} HERE!`;
-  } else {
-    return `IL EST ${hours}H${minutes} ICI !`;
-  }
-};
+import { useContext, useRef } from 'react';
 
 export default function Page() {
   const { isFrench } = useContext(LanguageContext);
   const descriptionRef = useRef(null);
-  const containerHintRef = useRef(null);
-  const [isActive, setIsActive] = useState(false);
 
   const handdleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,53 +34,10 @@ export default function Page() {
               ? "N'hésitez pas à m'envoyer un email, m'appeler ou simplement remplir le formulaire !"
               : 'Feel free to send an e-mail, give me a call or just fill the form !'}
           </p>
-          <div className="flex flex-col gap-y-14 pt-y-half-default md:grid-cols-2 md:gap-x-5 lg:grid-cols-3">
-            <div className="flex flex-col gap-5">
-              <div className="flex items-center gap-3">
-                <div className="relative mb-1 h-2 w-2">
-                  <div className="absolute h-full w-full bg-green"></div>
-                  <div className="absolute h-full w-full animate-ping bg-green"></div>
-                </div>
-                <h6 className="text2">{isFrench ? 'DISPONIBLE' : 'AVAILABLE FOR WORK'}</h6>
-              </div>
-              {isFrench ? (
-                <p>
-                  À Paris <br /> & à distance
-                </p>
-              ) : (
-                <p>
-                  In Paris <br /> & remotely
-                </p>
-              )}
-            </div>
-            <div className="flex flex-col gap-5">
-              <h6 className="text2 text-white-40">
-                {isFrench ? 'ENVOYEZ UN MESSAGE :' : 'SEND A MESSAGE :'}
-              </h6>
-              <a className="link link_white-80 w-fit" href="mailto:jeromebezeau.pro@gmail.com">
-                jeromebezeau.pro@gmail.com
-              </a>
-              <div
-                ref={containerHintRef}
-                className="w-fit"
-                onMouseLeave={() => setIsActive(false)}
-                onMouseOver={() => setIsActive(true)}
-              >
-                <h6 className="text2 pt-5 text-white-40">
-                  {isFrench ? 'APPELEZ-MOI :' : 'GIVE ME A CALL :'}
-                </h6>
-                <div>
-                  <Hint
-                    container={containerHintRef}
-                    isActive={isActive}
-                    value={isFrench ? getFormattedTime() : getFormattedTime(true)}
-                  />
-                  <a className="link link_white-80 w-fit" href="tel:+33664583272">
-                    (+33) 6 64 58 32 72
-                  </a>
-                </div>
-              </div>
-            </div>
+          <div className="flex flex-col gap-y-11 pt-y-half-default md:grid-cols-2 lg:grid-cols-3">
+            <Loaction />
+            <Mail />
+            <Call />
           </div>
         </div>
       </div>
