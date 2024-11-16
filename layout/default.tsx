@@ -23,15 +23,19 @@ export const LanguageContext = createContext<TypeLanguageContext>({
 const queryClient = new QueryClient();
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const [isFrench, setIsFrench] = useState(false);
+  const [isFrench, _setIsFrench] = useState(false);
 
-  const refreshScrollTrigger = () => ScrollTrigger.refresh();
+  const setIsFrench = (isFrench: boolean) => {
+    localStorage.setItem('isFrench', isFrench.toString());
+    _setIsFrench(isFrench);
+  };
 
   useGSAP(() => {
     ScrollTrigger.config({ ignoreMobileResize: true });
   });
 
   useEffect(() => {
+    const refreshScrollTrigger = () => ScrollTrigger.refresh();
     setIsFrench(localStorage.getItem('isFrench') === 'true' || navigator.language.includes('fr'));
     window.addEventListener('resize', refreshScrollTrigger);
     return () => {

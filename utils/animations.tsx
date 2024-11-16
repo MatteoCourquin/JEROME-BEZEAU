@@ -17,7 +17,7 @@ const throttledMagnet = throttle((event: MouseEvent<HTMLElement>, speed: number)
   } catch (error) {
     console.error('Erreur dans magnetManager:', error);
   }
-}, 10);
+}, 5);
 
 export const useMagnet = (event: MouseEvent<HTMLElement>, speed: number) => {
   if (!event.currentTarget || useTouchDevice()) return;
