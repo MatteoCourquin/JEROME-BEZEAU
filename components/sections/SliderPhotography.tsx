@@ -1,4 +1,3 @@
-import { Photo } from '@/services/photos.sevices';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -6,6 +5,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { RefObject, useContext, useEffect, useRef, useState } from 'react';
 import CardPhotography from './CardPhotography';
 import { LanguageContext } from '@/layout/default';
+import { Photo } from '@/types';
 
 gsap.registerPlugin(ScrollTrigger);
 

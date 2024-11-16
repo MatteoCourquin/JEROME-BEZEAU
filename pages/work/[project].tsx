@@ -1,11 +1,7 @@
 import RichText from '@/components/atoms/RichText';
 import { LanguageContext } from '@/layout/default';
-import {
-  fetchPaths,
-  fetchSingleProject,
-  Project,
-  SECTIONS_TYPES,
-} from '@/services/projects.sevices';
+import { fetchPaths, fetchSingleProject } from '@/services/projects.sevices';
+import { Project, SECTIONS_TYPES } from '@/types';
 import { useMagnet, useResetMagnet } from '@/utils/animations';
 import { formatDateToYear } from '@/utils/functions';
 import { GetStaticPropsContext } from 'next';

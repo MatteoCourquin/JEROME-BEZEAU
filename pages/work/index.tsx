@@ -1,6 +1,7 @@
 import ProjectsWork from '@/components/sections/ProjectsWork';
 import { LanguageContext } from '@/layout/default';
-import { fetchProjects, Project } from '@/services/projects.sevices';
+import { fetchProjects } from '@/services/projects.sevices';
+import { Project } from '@/types';
 import { useContext } from 'react';
 
 export default function Page({ projects }: { projects: Project[] }) {

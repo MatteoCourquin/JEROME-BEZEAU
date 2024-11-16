@@ -1,7 +1,7 @@
-import { Project } from '@/services/projects.sevices';
 import clsx from 'clsx';
 import CardProject from '../CardProject';
 import Button from '../atoms/Button';
+import { Project } from '@/types';
 
 const ProjectsHome = ({ projects }: { projects: Project[] }) => {
   return (

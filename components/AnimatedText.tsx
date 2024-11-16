@@ -6,15 +6,6 @@ import { createElement, MutableRefObject, useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-type AnimatedTextProps = {
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
-  className?: string;
-  text: string;
-  trigger: MutableRefObject<HTMLElement | null>;
-  isTriggerAnim?: boolean;
-  isScrubAnim?: boolean;
-};
-
 const AnimatedText = ({
   variant = 'p',
   className,
@@ -22,7 +13,14 @@ const AnimatedText = ({
   trigger,
   isTriggerAnim = false,
   isScrubAnim = false,
-}: AnimatedTextProps) => {
+}: {
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
+  className?: string;
+  text: string;
+  trigger: MutableRefObject<HTMLElement | null>;
+  isTriggerAnim?: boolean;
+  isScrubAnim?: boolean;
+}) => {
   const descriptionRef = useRef<HTMLElement>(null);
 
   const { contextSafe } = useGSAP();

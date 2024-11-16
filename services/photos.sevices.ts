@@ -1,13 +1,6 @@
 import { client } from '@/sanity/lib/client';
+import { Photo } from '@/types';
 import { ParsedUrlQuery } from 'querystring';
-import { Image, Slug } from 'sanity';
-
-export type Photo = {
-  title: string;
-  slug: Slug;
-  mainImage: string;
-  gallery: Image[];
-};
 
 export const fetchPaths = async () => {
   const query = `

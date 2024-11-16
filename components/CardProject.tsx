@@ -1,4 +1,3 @@
-import { Project } from '@/services/projects.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { useTouchDevice } from '@/utils/states';
 import { useGSAP } from '@gsap/react';
@@ -10,6 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
+import { Project } from '@/types';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 

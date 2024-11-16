@@ -1,4 +1,5 @@
-import { fetchPaths, fetchSinglePhoto, Photo } from '@/services/photos.sevices';
+import { fetchPaths, fetchSinglePhoto } from '@/services/photos.sevices';
+import { Photo } from '@/types';
 import gsap from 'gsap';
 import { GetStaticPropsContext } from 'next';
 import Image from 'next/image';

@@ -1,48 +1,6 @@
 import { client } from '@/sanity/lib/client';
+import { Project } from '@/types';
 import { ParsedUrlQuery } from 'querystring';
-import { Image, Slug, TypedObject } from 'sanity';
-import { Tags } from './tags.services';
-
-export enum SECTIONS_TYPES {
-  TEXT = 'text',
-  IMAGE = 'image',
-  VIDEO = 'video',
-}
-
-type Author = {
-  name: string;
-  websiteUrl: string;
-};
-
-type Credit = {
-  author: Author;
-  role: Tags;
-};
-
-type Sections = {
-  sectionType: string;
-  text: {
-    contentFr: TypedObject[];
-    contentEn: TypedObject[];
-  };
-  image: string;
-  video: string;
-};
-
-export type Project = {
-  title: string;
-  descriptionFr: TypedObject[];
-  descriptionEn: TypedObject[];
-  slug: Slug;
-  tags: Tags[];
-  date: string;
-  ogImage: Image;
-  mainImage: string;
-  mainVideo: string;
-  credits: Credit[];
-  projectUrl: string;
-  sections: Sections[];
-};
 
 export const fetchPaths = async () => {
   const query = `

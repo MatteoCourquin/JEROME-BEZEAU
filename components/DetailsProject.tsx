@@ -5,16 +5,19 @@ import gsap from 'gsap';
 import Link from 'next/link';
 import { useContext, useRef } from 'react';
 import { IconArrow } from './atoms/Icons';
-import { Tags } from '@/services/tags.services';
+import { Tags } from '@/types';
 
-type DetailsProjectProps = {
+const DetailsProject = ({
+  isRight,
+  isActive,
+  title,
+  types,
+}: {
   isRight: boolean;
   isActive: boolean;
   title: string;
   types: Tags[];
-};
-
-const DetailsProject = ({ isRight, isActive, title, types }: DetailsProjectProps) => {
+}) => {
   const { isFrench } = useContext(LanguageContext);
   const { contextSafe } = useGSAP();
 

@@ -6,18 +6,7 @@ import Link from 'next/link';
 import { ForwardedRef, forwardRef, ReactNode, useRef } from 'react';
 import { IconArrow } from './Icons';
 
-export enum BUTTON_SIZE {
-  S = 's',
-  M = 'm',
-  L = 'l',
-}
-
-export enum BUTTON_TYPE {
-  PRIMARY = 'primary',
-  ICON = 'icon',
-}
-
-type ButtonProps = {
+interface ButtonProps {
   type: 'a' | 'button' | 'submit';
   target?: '_blank';
   href?: string;
@@ -25,7 +14,7 @@ type ButtonProps = {
   className?: string;
   onClick?: () => void;
   isActive?: boolean;
-};
+}
 
 const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonProps>(
   ({ type, target, href, children, className, onClick }, ref) => {

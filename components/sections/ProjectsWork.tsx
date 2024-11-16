@@ -1,6 +1,6 @@
-import { Project } from '@/services/projects.sevices';
 import clsx from 'clsx';
 import CardProject from '../CardProject';
+import { Project } from '@/types';
 
 const ProjectsWork = ({ projects }: { projects: Project[] }) => {
   const sequence = [

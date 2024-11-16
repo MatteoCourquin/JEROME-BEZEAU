@@ -1,4 +1,4 @@
-import { Photo } from '@/services/photos.sevices';
+import { Photo } from '@/types';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
