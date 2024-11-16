@@ -1,12 +1,13 @@
 import Hint from '@/components/Hint';
 import { LanguageContext } from '@/layout/default';
 import { useMagnet, useResetMagnet } from '@/utils/animations';
-import { getFormattedTime } from '@/utils/functions';
+import { useFormattedTime } from '@/utils/states';
 import clsx from 'clsx';
 import { useContext, useRef, useState } from 'react';
 
 const Call = ({ className }: { className?: string }) => {
   const { isFrench } = useContext(LanguageContext);
+  const time = useFormattedTime(isFrench);
   const containerHintRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
   return (
@@ -27,11 +28,7 @@ const Call = ({ className }: { className?: string }) => {
       >
         (+33) 6 64 58 32 72
       </a>
-      <Hint
-        container={containerHintRef}
-        isActive={isActive}
-        value={isFrench ? getFormattedTime(false) : getFormattedTime(true)}
-      />
+      <Hint container={containerHintRef} isActive={isActive} value={time} />
     </div>
   );
 };
