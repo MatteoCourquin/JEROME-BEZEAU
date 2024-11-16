@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import Head from 'next/head';
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,21 +23,26 @@ export const LanguageContext = createContext<TypeLanguageContext>({
 const queryClient = new QueryClient();
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const [isFrench, setIsFrench] = useState(false);
+  const getInitialLanguage = (): boolean => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('language') === 'fr' || navigator.language.split('-')[0] === 'fr';
+  };
+
+  const [isFrench, _setIsFrench] = useState(getInitialLanguage);
+
+  const setIsFrench = useCallback((value: boolean) => {
+    _setIsFrench(value);
+    localStorage.setItem('language', value ? 'fr' : 'en');
+  }, []);
 
   const refreshScrollTrigger = () => ScrollTrigger.refresh();
-  const detectIsFrench = () =>
-    localStorage.getItem('language') === 'fr' || navigator.language.split('-')[0] === 'fr';
 
   useGSAP(() => {
     ScrollTrigger.config({ ignoreMobileResize: true });
   });
 
   useEffect(() => {
-    setIsFrench(detectIsFrench);
-
     window.addEventListener('resize', refreshScrollTrigger);
-
     return () => {
       window.removeEventListener('resize', refreshScrollTrigger);
     };

@@ -32,7 +32,7 @@ const Input = ({
   };
 
   const baseClasses =
-    'text2 w-full rounded-b-none rounded-t-md border-b bg-transparent py-2 placeholder:text-white-40 focus:pl-2 focus:outline-none !text-white-80';
+    'text2 w-full rounded-b-none rounded-t-md border-b appearance-none bg-transparent py-2 placeholder:text-white-40 focus:pl-2 focus:outline-none !text-white-80';
   const errorClass = error ? 'border-b-red-500' : 'border-b-white-40';
 
   const renderInputField = () => {
