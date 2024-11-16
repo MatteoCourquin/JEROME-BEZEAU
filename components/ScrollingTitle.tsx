@@ -57,7 +57,7 @@ const ScrollingTitle = ({ text, scrollSpeed = 10 }: { text: string; scrollSpeed?
       onMouseLeave={() => controlScroll('play')}
       onMouseOver={() => controlScroll('pause')}
     >
-      {Array(3)
+      {Array(4)
         .fill(null)
         .map((_, index) => (
           <span key={index} className="inline-block pr-7">

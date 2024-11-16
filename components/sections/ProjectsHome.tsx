@@ -2,11 +2,14 @@ import clsx from 'clsx';
 import CardProject from '../CardProject';
 import Button from '../atoms/Button';
 import { Project } from '@/types';
+import { useContext } from 'react';
+import { LanguageContext } from '@/layout/default';
 
 const ProjectsHome = ({ projects }: { projects: Project[] }) => {
+  const { isFrench } = useContext(LanguageContext);
   return (
     <section className="flex min-h-screen flex-col gap-y-default px-x-default py-y-default">
-      <h2 className="heading1">CURATED WORKS</h2>
+      <h2 className="heading1">{isFrench ? 'PROJECTS SÉLECTIONNÉS' : 'CURRATED WORKS'}</h2>
       <div className="flex flex-col gap-y-5 md:gap-y-0">
         {projects.map((project, index) => (
           <div
@@ -31,7 +34,7 @@ const ProjectsHome = ({ projects }: { projects: Project[] }) => {
         ))}
       </div>
       <Button className="mx-auto w-fit" href="/work" type="a">
-        MORE WORKS
+        {isFrench ? 'PLUS DE PROJETS' : 'MORE WORKS'}
       </Button>
     </section>
   );

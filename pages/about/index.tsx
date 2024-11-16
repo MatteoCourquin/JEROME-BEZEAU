@@ -67,6 +67,7 @@ const cardsSkills = [
 
 export default function Page() {
   const descriptionRef = useRef(null);
+  const titleRef = useRef(null);
   const imageRef = useRef(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -100,6 +101,7 @@ export default function Page() {
   useGSAP(() => {
     useParallax(descriptionRef.current, 0.1, 'bottom', 1024);
     useParallax(imageRef.current, 0.15, 'bottom', 1024);
+    useParallax(titleRef.current, 0.1, 'bottom', 640);
   });
 
   return (
@@ -108,21 +110,23 @@ export default function Page() {
         <div ref={descriptionRef} className="flex flex-col gap-14 pt-y-default lg:pb-52">
           <h1>{isFrench ? 'À PROPOS' : 'ABOUT ME'}</h1>
           <div className="w-full sm:w-3/5">
-            <h5 className="text2 uppercase !text-white-80">PROFESSIONALLY</h5>
+            <h5 className="text2 uppercase !text-white-80">
+              {isFrench ? 'PROFESSIONNELLEMENT' : 'PROFESSIONALLY'}
+            </h5>
             <p className="text2 pt-6">
-              Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est
-              augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate
-              netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus
-              orci. Felis turpis ut tortor neque a.
+              {isFrench
+                ? 'Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus orci. Felis turpis ut tortor neque a.'
+                : 'Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus orci. Felis turpis ut tortor neque a.'}
             </p>
           </div>
           <div className="w-full sm:w-3/5">
-            <h5 className="text2 uppercase !text-white-80">PERSONNALY</h5>
+            <h5 className="text2 uppercase !text-white-80">
+              {isFrench ? 'PERSONNELLEMENT' : 'PERSONALLY'}
+            </h5>
             <p className="text2 pt-6">
-              Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est
-              augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate
-              netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus
-              orci. Felis turpis ut tortor neque a.
+              {isFrench
+                ? 'Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus orci. Felis turpis ut tortor neque a.'
+                : 'Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus orci. Felis turpis ut tortor neque a.'}
             </p>
           </div>
         </div>
@@ -139,9 +143,9 @@ export default function Page() {
         </div>
       </section>
       <section className="grid grid-cols-1 gap-5 px-x-default pb-y-default sm:grid-cols-2 sm:py-y-default lg:grid-cols-3">
-        <div className="sm:pt-[25%]">
-          <h2 className="heading4">Skills</h2>
-          <p>What can I help you with ?</p>
+        <div ref={titleRef}>
+          <h2 className="heading4">{isFrench ? 'Compétences' : 'Skills'}</h2>
+          <p>{isFrench ? 'En quoi puis-je vous aider ?' : 'What can I help you with ?'}</p>
         </div>
         {cardsSkills.map((card, index) => (
           <CardSkills

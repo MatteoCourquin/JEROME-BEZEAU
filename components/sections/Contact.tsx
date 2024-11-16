@@ -11,7 +11,10 @@ const Contact = () => {
 
   return (
     <section className="flex flex-col gap-y-default overflow-hidden px-x-default py-y-default">
-      <ScrollingTitle scrollSpeed={15} text="READY TO KICK THINGS OFF ?" />
+      <ScrollingTitle
+        scrollSpeed={15}
+        text={isFrench ? 'Prêt à commencer ?' : 'Ready to kick things off?'}
+      />
       <div className="grid grid-cols-1 gap-y-y-default md:grid-cols-2 md:gap-x-5 lg:grid-cols-3">
         <Loaction />
         <Mail className="block lg:hidden" />

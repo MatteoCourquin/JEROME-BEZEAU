@@ -49,6 +49,5 @@ export const useParallax = (
   return () => {
     window.removeEventListener('scroll', updateParallax);
     window.removeEventListener('resize', updateParallax);
-    gsap.to(element, { y: 0, ease: 'none' });
   };
 };
