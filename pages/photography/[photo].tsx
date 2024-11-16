@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 export default function Page({ photo }: { photo: Photo }) {
   const wrapperGridRef = useRef(null);
   const gridRef = useRef(null);
+  const isFirstMove = useRef(true);
+  const initialMousePos = useRef({ x: 0, y: 0 });
 
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -19,9 +21,17 @@ export default function Page({ photo }: { photo: Photo }) {
   };
 
   const onMouseMove = (e: React.MouseEvent) => {
+    if (isFirstMove.current) {
+      initialMousePos.current = { x: e.clientX, y: e.clientY };
+      isFirstMove.current = false;
+    }
+
+    const deltaX = e.clientX - initialMousePos.current.x;
+    const deltaY = e.clientY - initialMousePos.current.y;
+
     gsap.to(wrapperGridRef.current, {
-      x: -(e.clientX / 10),
-      y: -(e.clientY / 10),
+      x: -(deltaX / 10),
+      y: -(deltaY / 10),
       ease: 'power2.out',
       duration: 0.8,
     });
@@ -41,10 +51,22 @@ export default function Page({ photo }: { photo: Photo }) {
     setDragOffset({ x: newX, y: newY });
   };
 
+  const onMouseLeave = () => {
+    setIsDragging(false);
+    isFirstMove.current = true;
+    gsap.to(wrapperGridRef.current, {
+      x: 0,
+      y: 0,
+      ease: 'power2.out',
+      duration: 0.8,
+    });
+  };
+
   useEffect(() => {
-    window.addEventListener('mouseup', () => setIsDragging(false));
+    const handleMouseUp = () => setIsDragging(false);
+    window.addEventListener('mouseup', handleMouseUp);
     return () => {
-      window.removeEventListener('mouseup', () => setIsDragging(false));
+      window.removeEventListener('mouseup', handleMouseUp);
     };
   }, []);
 
@@ -52,7 +74,7 @@ export default function Page({ photo }: { photo: Photo }) {
     <section
       className="relative z-0 h-screen w-screen select-none overflow-hidden"
       onMouseDown={onMouseDown}
-      onMouseLeave={() => setIsDragging(false)}
+      onMouseLeave={onMouseLeave}
       onMouseMove={onMouseMove}
       onMouseUp={() => setIsDragging(false)}
     >
