@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { useContext, useEffect, useRef, useState } from 'react';
 import JBLottie from '../public/lottie/JB.json';
 import { BREAKPOINTS } from '@/tailwind.config';
+import { useLenis } from '@studio-freight/react-lenis';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function ScreenLoader() {
@@ -15,8 +16,9 @@ export default function ScreenLoader() {
   const wrapperColumnsRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
   const iconRef = useRef(null);
-
   const lottieRef = useRef<LottieRefCurrentProps>(null);
+
+  const lenis = useLenis();
 
   useEffect(() => {
     setColumnsNumbers(window.innerWidth < BREAKPOINTS.MD ? 6 : 12);
@@ -46,6 +48,12 @@ export default function ScreenLoader() {
       .timeline({
         delay: 0.2,
       })
+      .add(() => {
+        if (!lenis) return;
+        lenis.stop();
+        window.scrollTo(0, 0);
+      })
+
       .to(letters, {
         opacity: 1,
         y: 0,
@@ -105,8 +113,12 @@ export default function ScreenLoader() {
         },
         '<',
       )
+      .add(() => {
+        if (!lenis) return;
+        lenis.start();
+      })
       .play();
-  }, [columnsNumbers]);
+  }, [columnsNumbers, lenis]);
 
   const title = isFrench ? 'BIENVENUE' : 'WELCOME';
 

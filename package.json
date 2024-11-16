@@ -21,6 +21,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.9",
     "gsap": "^3.12.5",
+    "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",
     "motion-number": "^0.1.7",
     "next": "14.2.14",

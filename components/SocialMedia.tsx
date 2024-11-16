@@ -2,8 +2,9 @@ import { useMagnet, useResetMagnet } from '@/utils/animations';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
+import { throttle } from 'lodash';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   IconArrow,
   IconBehance,
@@ -20,16 +21,9 @@ const SocialMedia = () => {
   const wrapperSocialRef = useRef(null);
   const wrapperIconRef = useRef<HTMLDivElement>(null);
   const textRef = useRef(null);
-
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   const [isNearBottom, setIsNearBottom] = useState(false);
-
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const threshold = document.documentElement.scrollHeight - 300;
-    setIsNearBottom(scrollPosition >= threshold);
-  };
 
   useGSAP(() => {
     if (!wrapperIconRef.current) return;
@@ -131,11 +125,21 @@ const SocialMedia = () => {
     )();
   });
 
+  const hideSocialsInBottom = useCallback(
+    throttle(() => {
+      const scrollPosition = window.scrollY + window.innerHeight;
+      const threshold = document.documentElement.scrollHeight - 300;
+      setIsNearBottom(scrollPosition >= threshold);
+    }, 200),
+    [],
+  );
+
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', hideSocialsInBottom);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', hideSocialsInBottom);
+      hideSocialsInBottom.cancel();
     };
   }, []);
 

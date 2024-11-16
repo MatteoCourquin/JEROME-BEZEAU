@@ -1,11 +1,12 @@
+import { LanguageContext } from '@/layout/default';
+import { Photo } from '@/types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { RefObject, useContext, useEffect, useRef, useState } from 'react';
+import { throttle } from 'lodash';
+import { RefObject, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import CardPhotography from './CardPhotography';
-import { LanguageContext } from '@/layout/default';
-import { Photo } from '@/types';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,22 +21,30 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
   const titleRef = useRef(null);
   const animationQueue = useRef<string[]>([]);
   const isAnimating = useRef(false);
+  const lastKnownScrollPositionRef = useRef(0);
 
   const hoverTimeoutRef = useRef<NodeJS.Timeout>();
 
   const [activePhotoIndex, setActivePhotoIndex] = useState<string | undefined>(undefined);
   const [activeTitle, setActiveTitle] = useState(isFrench ? 'PHOTOGRAPHY' : 'PHOTOGRAPHIE');
   const [isScrollRight, setIsScrollRight] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
-  const detectScrollDirection = () => {
-    setIsScrollRight(window.scrollY < lastScrollY);
-    setLastScrollY(window.scrollY);
+  const detectScrollDirection = useCallback(
+    throttle(() => {
+      const currentScrollPosition = window.scrollY;
+      const isGoingRight = currentScrollPosition < lastKnownScrollPositionRef.current;
 
-    if (activePhotoIndex) return;
-    animateInfinite(scrollContainer1Ref, window.scrollY > lastScrollY);
-    animateInfinite(scrollContainer2Ref, window.scrollY < lastScrollY);
-  };
+      setIsScrollRight(isGoingRight);
+
+      if (!activePhotoIndex) {
+        animateInfinite(scrollContainer1Ref, !isGoingRight);
+        animateInfinite(scrollContainer2Ref, isGoingRight);
+      }
+
+      lastKnownScrollPositionRef.current = currentScrollPosition;
+    }, 200),
+    [],
+  );
 
   const animateScroll = () => {
     const scrollContainer1 = scrollContainer1Ref.current;
@@ -125,18 +134,23 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
     });
   };
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      lastKnownScrollPositionRef.current = window.scrollY;
+      window.addEventListener('scroll', detectScrollDirection);
+
+      return () => {
+        window.removeEventListener('scroll', detectScrollDirection);
+        detectScrollDirection.cancel();
+      };
+    }
+  }, []);
+
   useGSAP(() => {
     animateInfinite(scrollContainer1Ref, !isScrollRight);
     animateInfinite(scrollContainer2Ref, isScrollRight);
     animateScroll();
   });
-
-  useEffect(() => {
-    window.addEventListener('scroll', detectScrollDirection);
-    return () => {
-      window.removeEventListener('scroll', detectScrollDirection);
-    };
-  }, [lastScrollY]);
 
   return (
     <section ref={sectionContainerRef} className="relative min-h-screen pt-header">
