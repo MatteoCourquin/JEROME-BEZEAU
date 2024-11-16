@@ -1,4 +1,5 @@
 import { LanguageContext } from '@/layout/default';
+import { BREAKPOINTS } from '@/tailwind.config';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -6,8 +7,6 @@ import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
 import { useContext, useEffect, useRef, useState } from 'react';
 import JBLottie from '../public/lottie/JB.json';
-import { BREAKPOINTS } from '@/tailwind.config';
-import { useLenis } from '@studio-freight/react-lenis';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function ScreenLoader() {
@@ -17,8 +16,6 @@ export default function ScreenLoader() {
   const textRef = useRef<HTMLHeadingElement>(null);
   const iconRef = useRef(null);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
-
-  const lenis = useLenis();
 
   useEffect(() => {
     setColumnsNumbers(window.innerWidth < BREAKPOINTS.MD ? 6 : 12);
@@ -44,16 +41,27 @@ export default function ScreenLoader() {
       .reverse();
     const columnsRight = Array.from(columns).slice(columnsNumbers / 2);
 
+    const disableScroll = () => {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${window.scrollY}px`;
+    };
+
+    const enableScroll = () => {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    };
+
     gsap
       .timeline({
         delay: 0.2,
       })
-      .add(() => {
-        if (!lenis) return;
-        lenis.stop();
-        window.scrollTo(0, 0);
-      })
-
+      .add(disableScroll)
       .to(letters, {
         opacity: 1,
         y: 0,
@@ -95,6 +103,17 @@ export default function ScreenLoader() {
       .set(columns, {
         scaleY: 1,
       })
+      .add(() => {
+        requestAnimationFrame(() => {
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'instant',
+          });
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        });
+      })
       .to(columnsLeft, {
         scaleY: 0,
         transformOrigin: 'top',
@@ -113,12 +132,9 @@ export default function ScreenLoader() {
         },
         '<',
       )
-      .add(() => {
-        if (!lenis) return;
-        lenis.start();
-      })
+      .add(enableScroll)
       .play();
-  }, [columnsNumbers, lenis]);
+  }, [columnsNumbers]);
 
   const title = isFrench ? 'BIENVENUE' : 'WELCOME';
 
