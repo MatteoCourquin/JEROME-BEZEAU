@@ -1,9 +1,8 @@
-import { LanguageContext } from '@/layout/default';
-import { useMagnet, useResetMagnet } from '@/utils/animations';
-import { useContext } from 'react';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
+import { useLanguage } from '@/providers/language.provider';
 
 const Loaction = ({ className }: { className?: string }) => {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
   return (
     <div className={className}>
       <div className="flex items-center gap-3 pb-[18px]">

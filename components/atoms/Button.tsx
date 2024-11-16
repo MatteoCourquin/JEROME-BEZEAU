@@ -1,4 +1,4 @@
-import { useMagnet, useResetMagnet } from '@/utils/animations';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';

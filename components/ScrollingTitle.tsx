@@ -1,10 +1,9 @@
-import { useTouchDevice } from '@/utils/states';
+import { useTouchDevice } from '@/hooks/useTouchDevice';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { RefObject, useRef } from 'react';
 
 const ScrollingTitle = ({ text, scrollSpeed = 10 }: { text: string; scrollSpeed?: number }) => {
-  const isTouchDevice = useTouchDevice();
   const scrollContainer = useRef(null);
   const infiniteAnimationRef = useRef<gsap.core.Tween[]>([]);
 
@@ -46,7 +45,7 @@ const ScrollingTitle = ({ text, scrollSpeed = 10 }: { text: string; scrollSpeed?
 
   useGSAP(() => {
     animateInfinite(scrollContainer);
-    if (isTouchDevice) return;
+    if (useTouchDevice()) return;
     animateScroll();
   });
 

@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import { throttle } from 'lodash';
 import { MouseEvent } from 'react';
-import { useTouchDevice } from './states';
+import { useTouchDevice } from './useTouchDevice';
 
 const throttledMagnet = throttle((event: MouseEvent<HTMLElement>, speed: number) => {
   const element = event.currentTarget;
@@ -32,34 +32,4 @@ export const useResetMagnet = (event: MouseEvent<HTMLElement>) => {
     x: 0,
     y: 0,
   });
-};
-
-export const useParallax = (
-  element: HTMLDivElement | null,
-  speed: number,
-  direction?: 'bottom' | 'top',
-  minWidth = 0,
-) => {
-  if (!element) return;
-
-  const updateParallax = () => {
-    if (window.innerWidth < minWidth) {
-      gsap.to(element, { y: 0, ease: 'none' });
-      return;
-    }
-
-    const { scrollY } = window;
-    gsap.to(element, {
-      y: direction === 'bottom' ? scrollY * speed : -(scrollY * speed),
-      ease: 'none',
-    });
-  };
-
-  window.addEventListener('scroll', updateParallax);
-  window.addEventListener('resize', updateParallax);
-
-  return () => {
-    window.removeEventListener('scroll', updateParallax);
-    window.removeEventListener('resize', updateParallax);
-  };
 };

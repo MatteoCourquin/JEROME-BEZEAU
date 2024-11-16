@@ -3,13 +3,13 @@ import Input from '@/components/atoms/Input';
 import Call from '@/components/sections/contact/Call';
 import Loaction from '@/components/sections/contact/Location';
 import Mail from '@/components/sections/contact/Mail';
-import { LanguageContext } from '@/layout/default';
-import { useParallax } from '@/utils/animations';
+import { useParallax } from '@/hooks/useParallax';
+import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 
 export default function Page() {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
   const descriptionRef = useRef(null);
 
   const handdleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

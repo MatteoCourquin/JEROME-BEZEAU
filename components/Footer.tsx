@@ -1,13 +1,13 @@
-import { LanguageContext } from '@/layout/default';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
+import { useLanguage } from '@/providers/language.provider';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import Link from 'next/link';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { IconJB } from './atoms/Icons';
-import { useMagnet, useResetMagnet } from '@/utils/animations';
 
 const Footer = () => {
-  const { isFrench, setIsFrench } = useContext(LanguageContext);
+  const { isFrench, setIsFrench } = useLanguage();
   const timelineArrow = useRef(gsap.timeline({ paused: true }));
   const slashRef = useRef(null);
 

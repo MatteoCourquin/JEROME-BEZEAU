@@ -1,11 +1,11 @@
 import CardSkills from '@/components/CardSkills';
 import Contact from '@/components/sections/Contact';
-import { LanguageContext } from '@/layout/default';
-import { useParallax } from '@/utils/animations';
-import { useTouchDevice } from '@/utils/states';
+import { useParallax } from '@/hooks/useParallax';
+import { useTouchDevice } from '@/hooks/useTouchDevice';
+import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const cardsSkills = [
   {
@@ -71,7 +71,7 @@ export default function Page() {
   const imageRef = useRef(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
 
   const startInterval = () => {
     if (intervalRef.current) return;

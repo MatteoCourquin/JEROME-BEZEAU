@@ -1,18 +1,18 @@
+import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
+import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import JBLottie from '../public/lottie/JB.json';
 import Button from './atoms/Button';
-import { useIsScreenLoader } from '@/utils/states';
-import { LanguageContext } from '@/layout/default';
-import { useMagnet, useResetMagnet } from '@/utils/animations';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const Header = () => {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
   const isScreenLoader = useIsScreenLoader();
 
   const navRef = useRef<HTMLBodyElement>(null);

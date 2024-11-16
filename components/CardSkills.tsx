@@ -1,9 +1,9 @@
-import { LanguageContext } from '@/layout/default';
-import { useMagnet, useResetMagnet } from '@/utils/animations';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
+import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Image from 'next/image';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { IconArrow } from './atoms/Icons';
 
 interface CardSkillsProps {
@@ -31,7 +31,7 @@ const CardSkills = ({
   onLeave,
   onMouseEnter,
 }: CardSkillsProps) => {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
   const cardRef = useRef(null);
   const titleRef = useRef(null);
   const imageRef = useRef(null);

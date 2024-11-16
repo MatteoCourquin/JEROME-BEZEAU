@@ -39,14 +39,15 @@ The site is built with a modern web technology stack:
 
 ```bash
 jerome-bezeau/
-├── pages/            # Next.js routes (Page Router)
-│   └── _app.tsx      # Global application configuration
-├── components/       # Reusable React components
-├── utils/            # Helpers, formatters, and utility functions
-├── public/           # Static assets (images, fonts, icons)
-├── styles/           # SCSS files and Tailwind configurations
-├── layout/           # Layout components and page structure
-├── sanity/           # Sanity schema, queries and configuration
-└── services/         # API services and external integrations
-└── types/            # TypeScript interfaces and type definitions
+├── components/     # Reusable React components (ui/, common/)
+├── hooks/          # Custom React hooks for shared logic
+├── layouts/        # Layout components
+├── pages/          # Next.js routes (Page Router)
+├── providers/      # Context Providers (language, gsap, smooth-scroll...)
+├── public/         # Static assets (fonts, images, icons)
+├── sanity/         # Sanity CMS configuration & schemas
+├── services/       # API & external services integrations
+├── styles/         # Global styles (SCSS, Tailwind)
+├── types/          # TypeScript type definitions
+└── utils/          # Utility functions (.utils.ts)
 ```

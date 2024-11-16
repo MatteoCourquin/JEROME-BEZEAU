@@ -1,11 +1,11 @@
-import { LanguageContext } from '@/layout/default';
+import { useLanguage } from '@/providers/language.provider';
+import { Tags } from '@/types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import Link from 'next/link';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { IconArrow } from './atoms/Icons';
-import { Tags } from '@/types';
 
 const DetailsProject = ({
   isRight,
@@ -18,7 +18,7 @@ const DetailsProject = ({
   title: string;
   types: Tags[];
 }) => {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
   const { contextSafe } = useGSAP();
 
   const wrapperDetailRef = useRef(null);

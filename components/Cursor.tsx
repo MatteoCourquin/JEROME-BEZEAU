@@ -1,4 +1,4 @@
-import { useTouchDevice } from '@/utils/states';
+import { useTouchDevice } from '@/hooks/useTouchDevice';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -12,8 +12,7 @@ enum CURSOR_STATE {
 }
 
 const Cursor = () => {
-  const isTouchDevice = useTouchDevice();
-  if (isTouchDevice) return null;
+  if (useTouchDevice()) return null;
 
   const { contextSafe } = useGSAP();
   const pathname = usePathname();

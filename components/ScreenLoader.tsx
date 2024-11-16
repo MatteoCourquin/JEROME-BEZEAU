@@ -1,16 +1,16 @@
-import { LanguageContext } from '@/layout/default';
+import { useLanguage } from '@/providers/language.provider';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import JBLottie from '../public/lottie/JB.json';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function ScreenLoader() {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
   const [columnsNumbers, setColumnsNumbers] = useState(12);
   const wrapperColumnsRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);

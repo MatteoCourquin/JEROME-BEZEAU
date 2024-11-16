@@ -1,12 +1,11 @@
+import { useLanguage } from '@/providers/language.provider';
+import { Project } from '@/types';
 import clsx from 'clsx';
 import CardProject from '../CardProject';
 import Button from '../atoms/Button';
-import { Project } from '@/types';
-import { useContext } from 'react';
-import { LanguageContext } from '@/layout/default';
 
 const ProjectsHome = ({ projects }: { projects: Project[] }) => {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
   return (
     <section className="flex min-h-screen flex-col gap-y-default px-x-default py-y-default">
       <h2 className="heading1">{isFrench ? 'PROJECTS SÉLECTIONNÉS' : 'CURRATED WORKS'}</h2>

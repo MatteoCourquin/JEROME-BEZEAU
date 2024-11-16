@@ -1,13 +1,14 @@
-import { useMagnet, useParallax, useResetMagnet } from '@/utils/animations';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
+import { useParallax } from '@/hooks/useParallax';
+import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
-import Image from 'next/image';
-import { useContext, useRef } from 'react';
-import { IconArrow } from '../atoms/Icons';
 import gsap from 'gsap';
-import { LanguageContext } from '@/layout/default';
+import Image from 'next/image';
+import { useRef } from 'react';
+import { IconArrow } from '../atoms/Icons';
 
 const Hero = () => {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
 
   const imageRef = useRef(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -44,7 +45,7 @@ const Hero = () => {
       <Image
         ref={imageRef}
         alt=""
-        className="absolute inset-0 -z-[1] h-screen w-screen object-cover"
+        className="absolute inset-0 -z-[1] h-[105vh] w-screen object-cover"
         height={1080}
         src="/images/JB.jpeg"
         width={1920}

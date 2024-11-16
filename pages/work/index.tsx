@@ -1,11 +1,10 @@
 import ProjectsWork from '@/components/sections/ProjectsWork';
-import { LanguageContext } from '@/layout/default';
+import { useLanguage } from '@/providers/language.provider';
 import { fetchProjects } from '@/services/projects.sevices';
 import { Project } from '@/types';
-import { useContext } from 'react';
 
 export default function Page({ projects }: { projects: Project[] }) {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
 
   return (
     <>

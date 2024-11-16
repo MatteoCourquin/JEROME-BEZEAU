@@ -1,5 +1,4 @@
 import { BREAKPOINTS } from '@/tailwind.config';
-import { useTouchDevice } from '@/utils/states';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -10,6 +9,7 @@ import Link from 'next/link';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
 import { Project } from '@/types';
+import { useTouchDevice } from '@/hooks/useTouchDevice';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 

@@ -1,12 +1,12 @@
 import Hint from '@/components/Hint';
-import { LanguageContext } from '@/layout/default';
-import { useMagnet, useResetMagnet } from '@/utils/animations';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
+import { useLanguage } from '@/providers/language.provider';
 import clsx from 'clsx';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import TimeDisplay from '../TimeHint';
 
 const Call = ({ className }: { className?: string }) => {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
   const containerHintRef = useRef(null);
   return (
     <div ref={containerHintRef} className={clsx('w-fit', className)}>

@@ -1,14 +1,13 @@
 import RichText from '@/components/atoms/RichText';
-import { LanguageContext } from '@/layout/default';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
+import { useLanguage } from '@/providers/language.provider';
 import { fetchPaths, fetchSingleProject } from '@/services/projects.sevices';
 import { Project, SECTIONS_TYPES } from '@/types';
-import { useMagnet, useResetMagnet } from '@/utils/animations';
-import { formatDateToYear } from '@/utils/functions';
+import { formatDateToYear } from '@/utils';
 import { GetStaticPropsContext } from 'next';
-import { useContext } from 'react';
 
 export default function Page({ project }: { project: Project }) {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
 
   return (
     <>

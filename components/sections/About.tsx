@@ -1,12 +1,12 @@
-import { LanguageContext } from '@/layout/default';
-import { useContext, useRef } from 'react';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
+import { useLanguage } from '@/providers/language.provider';
+import { useRef } from 'react';
 import AnimatedText from '../AnimatedText';
 import Button from '../atoms/Button';
 import { IconArrow } from '../atoms/Icons';
-import { useMagnet, useResetMagnet } from '@/utils/animations';
 
 const About = () => {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
   const wrapperSectionRef = useRef<HTMLDivElement>(null);
 
   return (

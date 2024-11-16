@@ -1,17 +1,17 @@
-import { LanguageContext } from '@/layout/default';
+import { useLanguage } from '@/providers/language.provider';
 import { Photo } from '@/types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { throttle } from 'lodash';
-import { RefObject, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import CardPhotography from './CardPhotography';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
 
   const sectionContainerRef = useRef(null);
   const scrollContainer1Ref = useRef<HTMLDivElement>(null);

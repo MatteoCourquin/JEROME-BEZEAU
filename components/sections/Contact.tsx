@@ -1,5 +1,4 @@
-import { LanguageContext } from '@/layout/default';
-import { useContext } from 'react';
+import { useLanguage } from '@/providers/language.provider';
 import Button from '../atoms/Button';
 import ScrollingTitle from '../ScrollingTitle';
 import Call from './contact/Call';
@@ -7,7 +6,7 @@ import Loaction from './contact/Location';
 import Mail from './contact/Mail';
 
 const Contact = () => {
-  const { isFrench } = useContext(LanguageContext);
+  const { isFrench } = useLanguage();
 
   return (
     <section className="flex flex-col gap-y-default overflow-hidden px-x-default py-y-default">
