@@ -12,6 +12,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@gsap/react": "^2.1.1",
     "@sanity/icons": "^3.4.0",
     "@sanity/image-url": "^1.0.2",

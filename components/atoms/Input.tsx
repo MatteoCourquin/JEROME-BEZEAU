@@ -4,7 +4,6 @@ import { useRef, ChangeEvent, ReactNode } from 'react';
 type InputProps = {
   name: string;
   label?: string;
-  error?: boolean;
   errorMessage?: string;
   children?: ReactNode;
 } & React.InputHTMLAttributes<HTMLInputElement> &
@@ -18,7 +17,6 @@ const Input = ({
   placeholder = '',
   required = false,
   value,
-  error = false,
   errorMessage,
   children,
   ...props
@@ -33,7 +31,7 @@ const Input = ({
 
   const baseClasses =
     'text2 w-full rounded-b-none rounded-t-md border-b appearance-none bg-transparent py-2 placeholder:text-white-40 focus:pl-2 focus:outline-none !text-white-80';
-  const errorClass = error ? 'border-b-red-500' : 'border-b-white-40';
+  const errorClass = errorMessage ? 'border-b-red-500' : 'border-b-white-40';
 
   const renderInputField = () => {
     switch (type) {

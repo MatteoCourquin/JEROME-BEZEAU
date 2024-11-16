@@ -10,6 +10,7 @@ interface ButtonProps {
   type: 'a' | 'button' | 'submit';
   target?: '_blank';
   href?: string;
+  disabled?: boolean;
   children: ReactNode;
   className?: string;
   onClick?: () => void;
@@ -17,7 +18,7 @@ interface ButtonProps {
 }
 
 const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonProps>(
-  ({ type, target, href, children, className, onClick }, ref) => {
+  ({ type, target, href, children, disabled, className, onClick }, ref) => {
     const arrowRef = useRef(null);
 
     const { contextSafe } = useGSAP();
@@ -69,8 +70,11 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
           (type === 'submit' && (
             <button
               ref={ref as ForwardedRef<HTMLButtonElement>}
-              className={clsx('button cursor-button', className)}
+              disabled={disabled}
               type={type}
+              className={clsx('button cursor-button', className, {
+                'cursor-not-allowed opacity-50': disabled,
+              })}
               onClick={onClick}
               onMouseEnter={animArrow}
               onMouseLeave={(e) => useResetMagnet(e)}
