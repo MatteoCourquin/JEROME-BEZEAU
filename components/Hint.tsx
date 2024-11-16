@@ -1,14 +1,12 @@
 import { useGSAP } from '@gsap/react';
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, ReactNode, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 const Hint = ({
-  value,
-  isActive,
+  children,
   container,
 }: {
-  value: string;
-  isActive: boolean;
+  children: ReactNode;
   container: MutableRefObject<HTMLElement | null>;
 }) => {
   const containerHintRef = useRef(null);
@@ -49,58 +47,61 @@ const Hint = ({
           '-=0.1',
         ),
     )();
-  }, []);
+  });
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!container.current || !wrapperHintRef.current || !timelineRef.current) return;
+
+    const rect = container.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    if (x < 0 || x > rect.width || y < 0 || y > rect.height) {
+      handleMouseLeave();
+      return;
+    }
+
+    timelineRef.current.play();
+
+    const wrapperRect = wrapperHintRef.current.getBoundingClientRect();
+
+    gsap.to(containerHintRef.current, {
+      x: x + 10,
+      y: y - wrapperRect.height * 2 - 5,
+      duration: 0.3,
+      ease: 'power2.out',
+    });
+  };
+
+  const handleMouseLeave = () => {
+    if (!timelineRef.current) return;
+    timelineRef.current.reverse();
+  };
 
   useEffect(() => {
-    if (!wrapperHintRef.current || !container.current) return;
+    if (!container.current) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isActive || !container.current || !wrapperHintRef.current) return;
-
-      const rect = container.current.getBoundingClientRect();
-      const wrapperRect = wrapperHintRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top - wrapperRect.height * 2;
-
-      gsap.to(containerHintRef.current, {
-        x: x + 10,
-        y: y - 5,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
-    };
-
-    if (isActive) {
-      container.current.addEventListener('mousemove', handleMouseMove);
-    }
+    container.current.addEventListener('mousemove', handleMouseMove);
+    container.current.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       container.current?.removeEventListener('mousemove', handleMouseMove);
+      container.current?.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [isActive, container]);
-
-  useEffect(() => {
-    if (!timelineRef.current) return;
-
-    if (isActive) {
-      timelineRef.current.play();
-    } else {
-      timelineRef.current.reverse();
-    }
-  }, [isActive]);
+  }, [container]);
 
   return (
-    <div ref={containerHintRef} className="absolute z-50 -translate-y-full">
+    <div ref={containerHintRef} className="pointer-events-none absolute z-50 -translate-y-full">
       <div
         ref={wrapperHintRef}
         className="flex h-10 w-10 shrink origin-bottom-left -translate-y-full scale-0 items-center overflow-hidden rounded-full rounded-bl-none bg-white-40 p-3 backdrop-blur-lg"
       >
-        <p
+        <div
           ref={textHintRef}
           className="text2 inline w-fit shrink -translate-x-3 whitespace-nowrap pt-0.5 leading-[18px] !text-black opacity-0"
         >
-          {value}
-        </p>
+          {children}
+        </div>
       </div>
     </div>
   );

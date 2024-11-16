@@ -17,25 +17,41 @@ export const useIsScreenLoader = () => {
   return isScreenLoader;
 };
 
-export const useFormattedTime = (isEnglish = false) => {
-  const [time, setTime] = useState('');
+type TimeUnit = {
+  hours: number;
+  minutes: string;
+  seconds: string;
+  period?: string;
+};
+
+export const useFormattedTime = (isEnglish = false): TimeUnit => {
+  const [time, setTime] = useState<TimeUnit>({
+    hours: 0,
+    minutes: '00',
+    seconds: '00',
+    period: 'AM',
+  });
 
   useEffect(() => {
     const formatTime = () => {
       const now = new Date();
       const hours = now.getHours();
       const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
 
-      return isEnglish
-        ? `IT IS ${hours % 12 || 12}:${minutes} ${hours >= 12 ? 'PM' : 'AM'} HERE!`
-        : `IL EST ${hours}H${minutes} ICI !`;
+      return {
+        hours: isEnglish ? hours % 12 || 12 : hours,
+        minutes,
+        seconds,
+        period: hours >= 12 ? 'PM' : 'AM',
+      };
     };
 
     setTime(formatTime());
 
     const interval = setInterval(() => {
       setTime(formatTime());
-    }, 60000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [isEnglish]);
