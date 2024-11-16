@@ -111,7 +111,7 @@ const CardSkills = ({
   return (
     <div
       ref={cardRef}
-      className="relative flex aspect-square h-auto cursor-pointer flex-col overflow-hidden border border-white-12"
+      className="aspect-1/1 relative flex h-auto cursor-pointer flex-col overflow-hidden border border-white-12"
       onMouseEnter={() => onMouseEnter?.()}
       onMouseMove={(e) => useMagnet(e, 1)}
       onMouseOver={() => onHover?.()}

@@ -56,7 +56,7 @@ const Header = () => {
           <Lottie
             animationData={JBLottie}
             autoPlay={false}
-            className="h-[85px] pb-7"
+            className="h-[85px] w-[88px] pb-7"
             loop={false}
             lottieRef={lottieRef}
           />

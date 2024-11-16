@@ -14,3 +14,11 @@ $color-white-12: theme('colors.white-12');
 
 // FONTS
 $font-neue-machina: 'Neue Machina', sans-serif;
+
+// COMPATIBILITY
+.select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

@@ -3,11 +3,13 @@
 @tailwind utilities;
 
 @import './abstracts/keyrames';
+@import './abstracts/mixins';
 @import './abstracts/variables';
 
 @import './base/lenis';
 @import './base/reset';
 
 @import './components/buttons';
+@import './components/images';
 @import './components/tag';
 @import './components/txt';

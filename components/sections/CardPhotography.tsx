@@ -24,14 +24,14 @@ const CardPhotography = ({
       href={'/photography/' + photo.slug.current}
       className={clsx(
         isIndexActive(indexId) ? 'opacity-100' : 'opacity-20',
-        'cursor-see-more relative h-[25vh] w-auto shrink-0 grow transition-[opacity,filter] duration-300',
+        'cursor-see-more aspect-4/3 relative h-[25vh] w-auto shrink-0 grow transition-[opacity,filter] duration-300',
         className,
       )}
       {...props}
     >
       <Image
         alt={photo.title}
-        className="aspect-[4/3] h-full w-full object-cover"
+        className="h-full w-full object-cover"
         height={900}
         src={photo.mainImage}
         width={1200}

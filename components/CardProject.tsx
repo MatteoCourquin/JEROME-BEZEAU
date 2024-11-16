@@ -91,7 +91,6 @@ const CardProject = ({
 
   useGSAP(() => {
     if (!imageRef.current) return;
-    ScrollTrigger.normalizeScroll(true);
 
     gsap.to(imageRef.current, {
       y: 200,
@@ -106,11 +105,7 @@ const CardProject = ({
   });
 
   return (
-    <div
-      ref={cardRef}
-      className={clsx('relative aspect-square overflow-hidden', className)}
-      onClick={() => setIsActive(!isActive)}
-    >
+    <div ref={cardRef} className={clsx('relative aspect-square overflow-hidden', className)}>
       <div
         ref={detailsRef}
         className={clsx(

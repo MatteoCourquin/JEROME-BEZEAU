@@ -1,0 +1,31 @@
+.aspect-1\/1 {
+  @include aspect-ratio(1, 1);
+
+  @supports (aspect-ratio: 1 / 1) {
+    aspect-ratio: 1 / 1;
+
+    &::before {
+      display: none;
+    }
+
+    > * {
+      position: static;
+    }
+  }
+}
+
+.aspect-4\/3 {
+  @include aspect-ratio(4, 3);
+
+  @supports (aspect-ratio: 4 / 3) {
+    aspect-ratio: 4 / 3;
+
+    &::before {
+      display: none;
+    }
+
+    > * {
+      position: static;
+    }
+  }
+}
