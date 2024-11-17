@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 export const GSAPProvider = ({ children }: { children: ReactNode }) => {
   useGSAP(() => {
     ScrollTrigger.config({ ignoreMobileResize: true });
+    ScrollTrigger.normalizeScroll();
   });
 
   useEffect(() => {
