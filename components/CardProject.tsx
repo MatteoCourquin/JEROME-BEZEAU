@@ -10,6 +10,7 @@ import { MouseEvent, useEffect, useRef, useState } from 'react';
 import DetailsProject from './DetailsProject';
 import { Project } from '@/types';
 import { useTouchDevice } from '@/hooks/useTouchDevice';
+import Video from './atoms/Video';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
@@ -139,16 +140,13 @@ const CardProject = ({
         }}
       >
         {project.mainVideo ? (
-          <video
+          <Video
             className="absolute bottom-0 aspect-square h-full w-full object-cover"
             poster={project.mainImage}
-            autoPlay
-            loop
-            muted
           >
             <source src={project.mainVideo} type="video/webm" />
             <source src={project.mainVideo} type="video/mp4" />
-          </video>
+          </Video>
         ) : (
           <Image
             ref={imageRef}

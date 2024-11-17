@@ -1,4 +1,5 @@
 import RichText from '@/components/atoms/RichText';
+import Video from '@/components/atoms/Video';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
 import { fetchPaths, fetchSingleProject } from '@/services/projects.sevices';
@@ -91,14 +92,10 @@ export default function Page({ project }: { project: Project }) {
             }
             if (section.sectionType === SECTIONS_TYPES.VIDEO && section.video) {
               return (
-                <video
-                  key={section.sectionType + index}
-                  className="h-full w-full object-cover"
-                  src={section.video}
-                  autoPlay
-                  loop
-                  muted
-                />
+                <Video key={section.sectionType + index} className="h-full w-full object-cover">
+                  <source src={section.video} type="video/webm" />
+                  <source src={section.video} type="video/mp4" />
+                </Video>
               );
             }
           })}
