@@ -1,10 +1,7 @@
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { createElement, MutableRefObject, useRef } from 'react';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const AnimatedText = ({
   variant = 'p',

@@ -1,17 +1,9 @@
 import SliderPhotography from '@/components/sections/SliderPhotography';
 import { fetchPhotos } from '@/services/photos.sevices';
 import { Photo } from '@/types';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Page({ photos }: { photos: Photo[] }) {
-  return (
-    <>
-      <SliderPhotography photos={photos} />
-    </>
-  );
+  return <SliderPhotography photos={photos} />;
 }
 
 export async function getStaticProps() {

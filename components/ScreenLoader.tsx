@@ -132,7 +132,7 @@ export default function ScreenLoader() {
         },
         '<',
       )
-      .add(enableScroll)
+      .add(enableScroll, '-=0.4')
       .play();
   }, [columnsNumbers]);
 

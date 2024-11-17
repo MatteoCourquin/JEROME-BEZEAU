@@ -1,18 +1,17 @@
+import { useTouchDevice } from '@/hooks/useTouchDevice';
 import { BREAKPOINTS } from '@/tailwind.config';
+import { Project } from '@/types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import CustomEase from 'gsap/dist/CustomEase';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
-import DetailsProject from './DetailsProject';
-import { Project } from '@/types';
-import { useTouchDevice } from '@/hooks/useTouchDevice';
 import Video from './atoms/Video';
+import DetailsProject from './DetailsProject';
 
-gsap.registerPlugin(ScrollTrigger, CustomEase);
+gsap.registerPlugin(CustomEase);
 
 const CardProject = ({
   project,
