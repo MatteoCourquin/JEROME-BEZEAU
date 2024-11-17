@@ -45,7 +45,7 @@ const Hero = () => {
       <Image
         ref={imageRef}
         alt=""
-        className="absolute inset-0 -z-[1] h-[105vh] w-screen object-cover"
+        className="absolute inset-0 -z-[1] h-screen w-screen object-cover"
         height={1080}
         src="/images/JB.jpeg"
         width={1920}

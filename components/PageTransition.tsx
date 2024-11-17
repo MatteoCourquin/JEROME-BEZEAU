@@ -12,8 +12,14 @@ type CustomVariants = {
 export default function PageTransition({ children }: { children: ReactNode }) {
   const [columnsNumbers, setColumnsNumbers] = useState(12);
 
+  const getColumnsNumber = (width: number) => {
+    if (width < BREAKPOINTS.SM) return 4;
+    if (width < BREAKPOINTS.LG) return 6;
+    return 12;
+  };
+
   useEffect(() => {
-    setColumnsNumbers(window.innerWidth < BREAKPOINTS.MD ? 6 : 12);
+    setColumnsNumbers(getColumnsNumber(window.innerWidth));
   }, []);
 
   const expand = {

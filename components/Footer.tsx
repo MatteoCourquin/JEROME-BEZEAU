@@ -119,6 +119,7 @@ const Footer = () => {
               <a
                 className="link cursor-button link_white-40"
                 href="https://www.linkedin.com/in/jerome-bezeau/"
+                target="_blank"
               >
                 Linkedin
               </a>
@@ -127,6 +128,7 @@ const Footer = () => {
               <a
                 className="link cursor-button link_white-40"
                 href="https://www.behance.net/jeromebezeb4eb"
+                target="_blank"
               >
                 Behance
               </a>
@@ -135,6 +137,7 @@ const Footer = () => {
               <a
                 className="link cursor-button link_white-40"
                 href="https://www.instagram.com/jeromebezeau/"
+                target="_blank"
               >
                 Instagram
               </a>
@@ -143,12 +146,17 @@ const Footer = () => {
               <a
                 className="link cursor-button link_white-40"
                 href="https://dribbble.com/jeromebezeau"
+                target="_blank"
               >
                 Dribbble
               </a>
             </li>
             <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <a className="link cursor-button link_white-40" href="https://bento.me/jeromebezeau">
+              <a
+                className="link cursor-button link_white-40"
+                href="https://bento.me/jeromebezeau"
+                target="_blank"
+              >
                 Bento
               </a>
             </li>

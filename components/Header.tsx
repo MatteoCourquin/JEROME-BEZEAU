@@ -9,9 +9,10 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import JBLottie from '../public/lottie/JB.json';
 import Button from './atoms/Button';
+import clsx from 'clsx';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
-const Header = () => {
+const Header = ({ className }: { className?: string }) => {
   const { isFrench } = useLanguage();
   const isScreenLoader = useIsScreenLoader();
 
@@ -44,7 +45,12 @@ const Header = () => {
   }, [isScreenLoader]);
 
   return (
-    <header className="mix-blend- difference fixed left-0 top-0 z-[800] h-[100px] w-screen overflow-hidden border-b border-b-white-12 px-x-default backdrop-blur-lg">
+    <header
+      className={clsx(
+        'fixed left-0 top-0 z-[800] h-[100px] w-screen overflow-hidden border-b border-b-white-12 px-x-default backdrop-blur-lg',
+        className,
+      )}
+    >
       <div className="flex h-24 items-center justify-between">
         <Link
           className="cursor-button"

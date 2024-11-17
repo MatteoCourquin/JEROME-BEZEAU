@@ -6,7 +6,7 @@ export enum BREAKPOINTS {
   LG = 1024,
 }
 
-const defaultSpacing = {
+export const defaultSpacing = {
   'x-default': 'clamp(20px, 8vw, 100px)',
   'y-default': 'clamp(20px, 8vh, 100px)',
 };
@@ -71,6 +71,7 @@ const config: Config = {
     'lg:origin-top-left',
     'origin-top-right',
     'origin-top-left',
+    'grid-cols-4',
     'grid-cols-6',
     'grid-cols-12',
   ],
