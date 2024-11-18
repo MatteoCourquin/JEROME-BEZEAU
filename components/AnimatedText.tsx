@@ -1,7 +1,8 @@
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { createElement, MutableRefObject, useRef } from 'react';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import { createElement, MutableRefObject, useEffect, useRef } from 'react';
 
 const AnimatedText = ({
   variant = 'p',
@@ -69,14 +70,16 @@ const AnimatedText = ({
     });
   });
 
-  useGSAP(() => {
+  useEffect(() => {
+    ScrollTrigger.refresh();
+
     if (isTriggerAnim) {
       triggerAnim();
     }
     if (isScrubAnim) {
       scrollScrubAnim();
     }
-  }, [trigger.current]);
+  }, []);
 
   return createElement(
     variant,

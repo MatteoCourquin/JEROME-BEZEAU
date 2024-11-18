@@ -11,8 +11,6 @@ import { MouseEvent, useEffect, useRef, useState } from 'react';
 import Video from './atoms/Video';
 import DetailsProject from './DetailsProject';
 
-gsap.registerPlugin(CustomEase);
-
 const CardProject = ({
   project,
   className,

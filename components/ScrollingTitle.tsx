@@ -1,7 +1,10 @@
 import { useTouchDevice } from '@/hooks/useTouchDevice';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { RefObject, useRef } from 'react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ScrollingTitle = ({ text, scrollSpeed = 10 }: { text: string; scrollSpeed?: number }) => {
   const scrollContainer = useRef(null);
@@ -44,10 +47,12 @@ const ScrollingTitle = ({ text, scrollSpeed = 10 }: { text: string; scrollSpeed?
   };
 
   useGSAP(() => {
+    ScrollTrigger.refresh();
+
     animateInfinite(scrollContainer);
     if (useTouchDevice()) return;
     animateScroll();
-  });
+  }, []);
 
   return (
     <h2
