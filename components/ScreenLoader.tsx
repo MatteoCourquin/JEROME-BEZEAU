@@ -41,19 +41,10 @@ export default function ScreenLoader() {
       .reverse();
     const columnsRight = Array.from(columns).slice(columnsNumbers / 2);
 
-    const disableScroll = () => {
-      document.body.style.position = 'fixed';
-    };
-
-    const enableScroll = () => {
-      document.body.style.position = '';
-    };
-
     gsap
       .timeline({
         delay: 0.2,
       })
-      .add(disableScroll)
       .to(letters, {
         opacity: 1,
         y: 0,
@@ -95,17 +86,6 @@ export default function ScreenLoader() {
       .set(columns, {
         scaleY: 1,
       })
-      .add(() => {
-        requestAnimationFrame(() => {
-          window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'instant',
-          });
-          document.documentElement.scrollTop = 0;
-          document.body.scrollTop = 0;
-        });
-      })
       .to(columnsLeft, {
         scaleY: 0,
         transformOrigin: 'top',
@@ -124,7 +104,6 @@ export default function ScreenLoader() {
         },
         '<',
       )
-      .add(enableScroll, '-=0.4')
       .play();
   }, [columnsNumbers]);
 

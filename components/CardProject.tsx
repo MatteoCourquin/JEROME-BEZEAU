@@ -10,6 +10,9 @@ import Link from 'next/link';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import Video from './atoms/Video';
 import DetailsProject from './DetailsProject';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 const CardProject = ({
   project,
