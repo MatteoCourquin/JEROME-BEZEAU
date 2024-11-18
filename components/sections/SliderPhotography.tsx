@@ -6,9 +6,6 @@ import gsap from 'gsap';
 import { throttle } from 'lodash';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import CardPhotography from './CardPhotography';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
   const { isFrench } = useLanguage();

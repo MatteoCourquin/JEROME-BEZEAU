@@ -1,3 +1,4 @@
+import { useScrollLock } from '@/hooks/useToggleScroll';
 import { useLanguage } from '@/providers/language.provider';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { useGSAP } from '@gsap/react';
@@ -11,6 +12,8 @@ const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function ScreenLoader() {
   const { isFrench } = useLanguage();
+  const { toggleScroll } = useScrollLock();
+
   const [columnsNumbers, setColumnsNumbers] = useState(12);
   const wrapperColumnsRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
@@ -45,6 +48,7 @@ export default function ScreenLoader() {
       .timeline({
         delay: 0.2,
       })
+      .add(() => toggleScroll(true))
       .to(letters, {
         opacity: 1,
         y: 0,
@@ -104,6 +108,7 @@ export default function ScreenLoader() {
         },
         '<',
       )
+      .add(() => toggleScroll(false))
       .play();
   }, [columnsNumbers]);
 

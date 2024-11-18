@@ -4,11 +4,11 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { RefObject, useRef } from 'react';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const ScrollingTitle = ({ text, scrollSpeed = 10 }: { text: string; scrollSpeed?: number }) => {
   const scrollContainer = useRef(null);
   const infiniteAnimationRef = useRef<gsap.core.Tween[]>([]);
+
+  const { contextSafe } = useGSAP();
 
   const animateInfinite = (element: RefObject<HTMLHeadingElement>) => {
     if (!element.current) return;
@@ -24,7 +24,7 @@ const ScrollingTitle = ({ text, scrollSpeed = 10 }: { text: string; scrollSpeed?
     infiniteAnimationRef.current.push(tween);
   };
 
-  const controlScroll = (action: 'play' | 'pause') => {
+  const controlScroll = contextSafe((action: 'play' | 'pause') => {
     infiniteAnimationRef.current.map((animation) => {
       gsap.to(animation, {
         timeScale: action === 'play' ? 1 : 0,
@@ -33,18 +33,22 @@ const ScrollingTitle = ({ text, scrollSpeed = 10 }: { text: string; scrollSpeed?
         overwrite: true,
       });
     });
-  };
+  });
 
-  const animateScroll = () => {
-    const timeline = gsap.timeline({
+  const animateScroll = contextSafe(() => {
+    if (!scrollContainer.current) return;
+
+    gsap.to(scrollContainer.current, {
+      x: -400,
+      ease: 'none',
       scrollTrigger: {
-        start: 'top top',
+        trigger: scrollContainer.current,
+        start: 'top bottom+=100vh',
+        end: 'bottom top-=100vh',
         scrub: true,
       },
     });
-
-    timeline.to(scrollContainer.current, { x: -800, ease: 'none' });
-  };
+  });
 
   useGSAP(() => {
     ScrollTrigger.refresh();

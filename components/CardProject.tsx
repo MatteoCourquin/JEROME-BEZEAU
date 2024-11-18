@@ -10,9 +10,6 @@ import Link from 'next/link';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import Video from './atoms/Video';
 import DetailsProject from './DetailsProject';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 const CardProject = ({
   project,
@@ -63,20 +60,26 @@ const CardProject = ({
   useGSAP(() => {
     if (!wrapperImageRef.current) return;
 
-    gsap.to(wrapperImageRef.current, {
-      scale: 1,
-      ease: CustomEase.create(
-        'custom',
-        'M0,0 C-0.017,0.362 0.253,0.691 0.44,0.822 0.655,0.972 0.818,1.001 1,1 ',
-      ),
-      scrollTrigger: {
-        trigger: cardRef.current,
-        start: 'top 80%',
-        end: 'bottom 60%',
-        toggleActions: 'play none none reverse',
-        scrub: true,
+    gsap.fromTo(
+      wrapperImageRef.current,
+      {
+        scale: 0,
       },
-    });
+      {
+        scale: 1,
+        ease: CustomEase.create(
+          'custom',
+          'M0,0 C-0.017,0.362 0.253,0.691 0.44,0.822 0.655,0.972 0.818,1.001 1,1 ',
+        ),
+        scrollTrigger: {
+          trigger: cardRef.current,
+          start: 'top 80%',
+          end: 'bottom 60%',
+          toggleActions: 'play none none reverse',
+          scrub: true,
+        },
+      },
+    );
   });
 
   const handleMouseMove = contextSafe((e: MouseEvent<HTMLAnchorElement>, duration: number) => {
@@ -123,12 +126,9 @@ const CardProject = ({
       </div>
       <Link
         ref={wrapperImageRef}
+        className={clsx(originTransform, 'cursor-button absolute h-full w-full overflow-hidden')}
         href={'/work/' + project.slug.current}
         scroll={false}
-        className={clsx(
-          originTransform,
-          'cursor-button absolute h-full w-full scale-0 overflow-hidden',
-        )}
         onMouseOut={() => setIsActive(false)}
         onMouseEnter={(e) => {
           handleMouseMove(e, 0);
