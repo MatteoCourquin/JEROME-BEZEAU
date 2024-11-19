@@ -1,1 +1,55 @@
+.arrow-top {
+  animation: topArrow 2s ease-in-out infinite;
+}
 
+.arrow-right {
+  animation: rightArrow 2s ease-in-out infinite;
+}
+
+.arrow-bottom {
+  animation: bottomArrow 2s ease-in-out infinite;
+}
+
+.arrow-left {
+  animation: leftArrow 2s ease-in-out infinite;
+}
+
+@keyframes topArrow {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -4px);
+  }
+}
+
+@keyframes rightArrow {
+  0%,
+  100% {
+    transform: translate(0, -50%);
+  }
+  50% {
+    transform: translate(4px, -50%);
+  }
+}
+
+@keyframes bottomArrow {
+  0%,
+  100% {
+    transform: translate(50%, 0);
+  }
+  50% {
+    transform: translate(50%, 4px);
+  }
+}
+
+@keyframes leftArrow {
+  0%,
+  100% {
+    transform: translate(0, 50%);
+  }
+  50% {
+    transform: translate(-4px, 50%);
+  }
+}

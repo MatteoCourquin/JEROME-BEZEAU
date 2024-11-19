@@ -72,7 +72,7 @@ export default function Page({ photo }: { photo: Photo }) {
 
   return (
     <section
-      className="relative z-0 h-screen w-screen select-none overflow-hidden"
+      className="cursor-drag relative z-0 h-screen w-screen select-none overflow-hidden"
       onMouseDown={onMouseDown}
       onMouseLeave={onMouseLeave}
       onMouseMove={onMouseMove}
