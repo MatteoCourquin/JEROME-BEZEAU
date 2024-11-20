@@ -1,3 +1,4 @@
+import Background from '@/components/Background';
 import Burger from '@/components/Burger';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -14,7 +15,7 @@ import { ReactNode } from 'react';
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const isMobile = useMatchMedia(BREAKPOINTS.MD);
+  const isTablet = useMatchMedia(BREAKPOINTS.MD);
 
   return (
     <AppProvider>
@@ -27,10 +28,11 @@ const Layout = ({ children }: { children: ReactNode }) => {
         />
         <link href="/favicon.ico" rel="icon" />
       </Head>
-      {isMobile ? <Burger /> : <Header />}
+      {isTablet ? <Burger /> : <Header />}
       <SocialMedia />
       <main className="min-h-screen !scale-y-50 overflow-hidden">{children}</main>
       <Footer />
+      <Background />
     </AppProvider>
   );
 };

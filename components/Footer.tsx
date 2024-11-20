@@ -30,7 +30,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="flex flex-col-reverse justify-between gap-y-default border-t border-t-white-12 px-x-default py-y-default md:flex-row md:gap-x-x-default">
+    <footer className="flex flex-col-reverse justify-between gap-y-default border-t border-t-white-12 px-x-default py-y-default backdrop-blur-lg md:flex-row md:gap-x-x-default">
       <div className="flex grow flex-col justify-between">
         <Link className="cursor-button w-fit" href="/" scroll={false}>
           <IconJB className="fill-white-80" />

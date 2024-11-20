@@ -6,11 +6,11 @@ import { BREAKPOINTS } from '@/tailwind.config';
 import { Photo } from '@/types';
 
 export default function Page({ photos }: { photos: Photo[] }) {
-  const isMobile = useMatchMedia(BREAKPOINTS.MD);
+  const isTablet = useMatchMedia(BREAKPOINTS.MD);
 
   return (
     <>
-      {isMobile ? <ScrollerPhotography photos={photos} /> : <SliderPhotography photos={photos} />}
+      {isTablet ? <ScrollerPhotography photos={photos} /> : <SliderPhotography photos={photos} />}
     </>
   );
 }

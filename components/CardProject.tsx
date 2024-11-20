@@ -24,7 +24,7 @@ const CardProject = ({
   originTransform: string;
 }) => {
   const { isFrench } = useLanguage();
-  const isMobile = useMatchMedia(BREAKPOINTS.MD);
+  const isTablet = useMatchMedia(BREAKPOINTS.MD);
 
   const cardRef = useRef<HTMLDivElement>(null);
   const wrapperImageRef = useRef<HTMLAnchorElement>(null);
@@ -47,7 +47,7 @@ const CardProject = ({
 
     setIsRight(centerX < windowCenterX);
 
-    if (isMobile) {
+    if (isTablet) {
       gsap.to(detailsRef.current, {
         scale: 0,
         duration: 0.2,
@@ -91,7 +91,7 @@ const CardProject = ({
   });
 
   useGSAP(() => {
-    if (!isMobile || !tagsRef.current) return;
+    if (!isTablet || !tagsRef.current) return;
     const { children } = tagsRef.current;
 
     gsap
@@ -121,7 +121,7 @@ const CardProject = ({
           stagger: 0.12,
         },
       );
-  }, [isMobile]);
+  }, [isTablet]);
 
   const handleMouseMove = contextSafe((e: MouseEvent<HTMLAnchorElement>, duration: number) => {
     if (!detailsRef.current || useTouchDevice() || window.innerWidth <= BREAKPOINTS.MD) return;
@@ -151,7 +151,7 @@ const CardProject = ({
 
   return (
     <>
-      {!isMobile && (
+      {!isTablet && (
         <div
           ref={detailsRef}
           className={clsx(

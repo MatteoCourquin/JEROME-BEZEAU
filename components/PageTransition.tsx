@@ -1,3 +1,4 @@
+import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { BREAKPOINTS } from '@/tailwind.config';
 import clsx from 'clsx';
 import { motion, TargetAndTransition } from 'framer-motion';
@@ -10,21 +11,23 @@ type CustomVariants = {
 };
 
 export default function PageTransition({ children }: { children: ReactNode }) {
+  const isMobile = useMatchMedia(BREAKPOINTS.SM);
+  const isTablet = useMatchMedia(BREAKPOINTS.MD);
   const [columnsNumbers, setColumnsNumbers] = useState(12);
 
-  const getColumnsNumber = (width: number) => {
-    if (width < BREAKPOINTS.SM) return 4;
-    if (width < BREAKPOINTS.LG) return 6;
+  const getColumnsNumber = () => {
+    if (isMobile) return 4;
+    if (isTablet) return 6;
     return 12;
   };
 
   useEffect(() => {
-    setColumnsNumbers(getColumnsNumber(window.innerWidth));
-  }, []);
+    setColumnsNumbers(getColumnsNumber());
+  }, [isMobile, isTablet]);
 
   const expand = {
     initial: {
-      transformOrigin: 'bottom',
+      transformOrigin: 'top',
     },
     enter: (i: number) => ({
       scaleY: 0,
@@ -32,11 +35,11 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         duration: 0.5,
         delay: 0.02 * i,
         ease: [0.72, 0, 0.3, 0.99],
-        transformOrigin: 'bottom',
+        transformOrigin: 'top',
       },
       transitionEnd: {
         scaleY: 0,
-        transformOrigin: 'top',
+        transformOrigin: 'bottom',
       },
     }),
     exit: (i: number) => ({

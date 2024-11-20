@@ -8,11 +8,13 @@ import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import JBLottie from '../public/lottie/JB.json';
+import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function ScreenLoader() {
   const { isFrench } = useLanguage();
   const { toggleScroll } = useScrollLock();
+  const isTablet = useMatchMedia(BREAKPOINTS.MD);
 
   const [columnsNumbers, setColumnsNumbers] = useState(12);
   const wrapperColumnsRef = useRef<HTMLDivElement>(null);
@@ -21,7 +23,7 @@ export default function ScreenLoader() {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
-    setColumnsNumbers(window.innerWidth < BREAKPOINTS.MD ? 6 : 12);
+    setColumnsNumbers(isTablet ? 6 : 12);
 
     const checkLottie = setInterval(() => {
       if (lottieRef.current) {
