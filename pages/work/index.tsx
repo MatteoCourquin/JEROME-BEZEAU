@@ -1,3 +1,4 @@
+import Contact from '@/components/sections/Contact';
 import ProjectsWork from '@/components/sections/ProjectsWork';
 import { useLanguage } from '@/providers/language.provider';
 import { fetchProjects } from '@/services/projects.sevices';
@@ -12,6 +13,7 @@ export default function Page({ projects }: { projects: Project[] }) {
         <h1 className="py-y-default">{isFrench ? 'PROJETS' : 'WORK'}</h1>
       </section>
       <ProjectsWork projects={projects} />
+      <Contact />
     </>
   );
 }

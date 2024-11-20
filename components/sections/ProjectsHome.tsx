@@ -6,6 +6,7 @@ import Button from '../atoms/Button';
 
 const ProjectsHome = ({ projects }: { projects: Project[] }) => {
   const { isFrench } = useLanguage();
+
   return (
     <section className="flex min-h-screen flex-col gap-y-default px-x-default py-y-default">
       <h2 className="heading1">{isFrench ? 'PROJECTS SÉLECTIONNÉS' : 'CURRATED WORKS'}</h2>

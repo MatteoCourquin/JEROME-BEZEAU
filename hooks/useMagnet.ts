@@ -1,27 +1,15 @@
 import { gsap } from 'gsap';
-import { throttle } from 'lodash';
 import { MouseEvent } from 'react';
 import { useTouchDevice } from './useTouchDevice';
 
-const throttledMagnet = throttle((event: MouseEvent<HTMLElement>, speed: number) => {
-  const element = event.currentTarget;
-  if (!element) return;
-
-  try {
-    const bounding = element.getBoundingClientRect();
-    gsap.to(element, {
-      duration: 1,
-      x: ((event.clientX - bounding.left) / element.offsetWidth - 0.5) * (30 * speed),
-      y: ((event.clientY - bounding.top) / element.offsetHeight - 0.5) * (30 * speed),
-    });
-  } catch (error) {
-    console.error('Erreur dans magnetManager:', error);
-  }
-}, 5);
-
 export const useMagnet = (event: MouseEvent<HTMLElement>, speed: number) => {
-  if (!event.currentTarget || useTouchDevice()) return;
-  throttledMagnet(event, speed);
+  if (useTouchDevice()) return;
+  const bounding = event.currentTarget.getBoundingClientRect();
+  gsap.to(event.currentTarget, {
+    duration: 1,
+    x: ((event.clientX - bounding.left) / event.currentTarget.offsetWidth - 0.5) * (30 * speed),
+    y: ((event.clientY - bounding.top) / event.currentTarget.offsetHeight - 0.5) * (30 * speed),
+  });
 };
 
 export const useResetMagnet = (event: MouseEvent<HTMLElement>) => {

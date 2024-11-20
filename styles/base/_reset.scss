@@ -22,3 +22,7 @@ html {
     color: $color-black;
   }
 }
+
+.no-scrollbar {
+  scrollbar-width: none;
+}

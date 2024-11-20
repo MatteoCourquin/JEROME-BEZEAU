@@ -6,17 +6,18 @@ import gsap from 'gsap';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { IconArrow } from './atoms/Icons';
+import Tag, { TAG_VARIANT } from './atoms/Tag';
 
 const DetailsProject = ({
   isRight,
   isActive,
   title,
-  types,
+  tags,
 }: {
   isRight: boolean;
   isActive: boolean;
   title: string;
-  types: Tags[];
+  tags: Tags[];
 }) => {
   const { isFrench } = useLanguage();
   const { contextSafe } = useGSAP();
@@ -130,18 +131,19 @@ const DetailsProject = ({
         </div>
         <span className="whitespace-nowrap pt-0.5">{title}</span>
       </Link>
-      {types && (
+      {tags && (
         <div
           ref={wrapperTagRef}
           className={clsx('flex gap-[5px]', isRight ? 'flex-row' : 'flex-row-reverse')}
         >
-          {types.map((type, index) => (
-            <p
-              key={index}
-              className={clsx(isRight ? 'origin-left' : 'origin-right', 'tag opacity-0')}
+          {tags.map((tag, index) => (
+            <Tag
+              key={tag.value.current + index}
+              className={clsx(isRight ? 'origin-left' : 'origin-right', 'opacity-0')}
+              variant={TAG_VARIANT.DARK}
             >
-              {isFrench ? type.labelFr : type.labelEn}
-            </p>
+              {isFrench ? tag.labelFr : tag.labelEn}
+            </Tag>
           ))}
         </div>
       )}

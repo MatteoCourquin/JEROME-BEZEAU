@@ -1,6 +1,6 @@
 import RichText from '@/components/atoms/RichText';
+import Tag, { TAG_VARIANT } from '@/components/atoms/Tag';
 import Video from '@/components/atoms/Video';
-import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
 import { fetchPaths, fetchSingleProject } from '@/services/projects.sevices';
 import { Project, SECTIONS_TYPES } from '@/types';
@@ -22,14 +22,9 @@ export default function Page({ project }: { project: Project }) {
             {project.tags && (
               <div className="flex gap-2 pb-y-half-default">
                 {project.tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="tag !bg-[#ffffff0a] backdrop-blur-xl"
-                    onMouseLeave={(e) => useResetMagnet(e)}
-                    onMouseMove={(e) => useMagnet(e, 0.8)}
-                  >
+                  <Tag key={tag.value.current + index} variant={TAG_VARIANT.LIGHT}>
                     {isFrench ? tag.labelFr : tag.labelEn}
-                  </span>
+                  </Tag>
                 ))}
               </div>
             )}

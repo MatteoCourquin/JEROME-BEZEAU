@@ -41,7 +41,7 @@ const Hero = () => {
   });
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-x-default py-y-default text-center">
+    <section className="relative flex min-h-screen flex-col justify-center gap-9 overflow-hidden px-x-default py-y-default text-left sm:items-center sm:text-center">
       <Image
         ref={imageRef}
         alt=""

@@ -1,10 +1,11 @@
+import { BREAKPOINTS } from '@/tailwind.config';
 import { useEffect, useState } from 'react';
 
-export const useMatchMedia = (query: string) => {
+export const useMatchMedia = (breakpoint: BREAKPOINTS) => {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(query);
+    const mediaQuery = window.matchMedia(`(max-width: ${breakpoint}px)`);
 
     setMatches(mediaQuery.matches);
 
@@ -15,7 +16,7 @@ export const useMatchMedia = (query: string) => {
     mediaQuery.addEventListener('change', handler);
 
     return () => mediaQuery.removeEventListener('change', handler);
-  }, [query]);
+  }, [breakpoint]);
 
   return matches;
 };
