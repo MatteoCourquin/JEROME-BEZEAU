@@ -1,11 +1,20 @@
+import { RocketIcon } from '@sanity/icons';
+import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 import type { StructureResolver } from 'sanity/structure';
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
-export const structure: StructureResolver = (S) =>
+export const structure: StructureResolver = (S, context) =>
   S.list()
     .title('PORTFOLIO')
     .items([
-      S.documentTypeListItem('projects').title('PROJECTS'),
+      orderableDocumentListDeskItem({
+        type: 'projects',
+        title: 'PROJECTS',
+        icon: RocketIcon,
+        S,
+        context,
+      }),
+      // S.documentTypeListItem('projects').title('PROJECTS'),
       S.divider(),
       S.documentTypeListItem('photos').title('PHOTOS'),
       S.divider(),

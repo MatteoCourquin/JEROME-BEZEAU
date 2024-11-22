@@ -22,7 +22,7 @@ export const fetchPaths = async () => {
 
 export const fetchProjects = async () => {
   const query = `
-    *[_type == "projects"] {
+    *[_type == "projects"] | order(orderRank) {
       title,
       slug,
       "tags": tags[]->{

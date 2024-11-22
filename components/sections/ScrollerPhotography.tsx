@@ -1,7 +1,7 @@
 import { Photo } from '@/types';
 
 const ScrollerPhotography = ({ photos }: { photos: Photo[] }) => {
-  console.log(photos);
+  console.info(photos);
 
   return (
     <div>
