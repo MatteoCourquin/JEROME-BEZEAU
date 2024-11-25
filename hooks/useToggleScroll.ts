@@ -32,7 +32,7 @@ const defaultStyles = {
 export const useScrollLock = () => {
   const [isLocked, setIsLocked] = useState(false);
 
-  const toggleScroll = useCallback((shouldLock: boolean) => {
+  const lockScroll = useCallback((shouldLock: boolean) => {
     if (shouldLock) {
       setElementStyles(document.documentElement, scrollLockStyles);
       setElementStyles(document.body, bodyLockStyles);
@@ -48,5 +48,5 @@ export const useScrollLock = () => {
     setIsLocked(shouldLock);
   }, []);
 
-  return { isLocked, toggleScroll };
+  return { isLocked, lockScroll };
 };

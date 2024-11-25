@@ -1,3 +1,4 @@
+import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useScrollLock } from '@/hooks/useToggleScroll';
 import { useLanguage } from '@/providers/language.provider';
 import { BREAKPOINTS } from '@/tailwind.config';
@@ -8,12 +9,11 @@ import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import JBLottie from '../public/lottie/JB.json';
-import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function ScreenLoader() {
   const { isFrench } = useLanguage();
-  const { toggleScroll } = useScrollLock();
+  const { lockScroll } = useScrollLock();
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
 
   const [columnsNumbers, setColumnsNumbers] = useState(12);
@@ -50,7 +50,7 @@ export default function ScreenLoader() {
       .timeline({
         delay: 0.2,
       })
-      .add(() => toggleScroll(true))
+      .add(() => lockScroll(true))
       .to(letters, {
         opacity: 1,
         y: 0,
@@ -110,7 +110,7 @@ export default function ScreenLoader() {
         },
         '<',
       )
-      .add(() => toggleScroll(false))
+      .add(() => lockScroll(false))
       .play();
   }, [columnsNumbers]);
 

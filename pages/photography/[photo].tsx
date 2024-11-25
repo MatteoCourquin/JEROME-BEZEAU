@@ -73,6 +73,7 @@ export default function Page({ photo }: { photo: Photo }) {
   return (
     <section
       className="cursor-drag relative z-0 h-screen w-screen select-none overflow-hidden"
+      draggable={false}
       onMouseDown={onMouseDown}
       onMouseLeave={onMouseLeave}
       onMouseMove={onMouseMove}
@@ -82,11 +83,15 @@ export default function Page({ photo }: { photo: Photo }) {
         {photo.title}
       </h1>
 
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pt-header">
-        <div ref={wrapperGridRef}>
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pt-header"
+        draggable={false}
+      >
+        <div ref={wrapperGridRef} draggable={false}>
           <div
             ref={gridRef}
             className="-z-10 grid grid-cols-[repeat(4,28vw)] grid-rows-[repeat(3,28vw)] gap-[50px]"
+            draggable={false}
           >
             {new Array(12).fill(photo.mainImage).map((image, index) => (
               <Image

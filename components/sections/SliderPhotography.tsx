@@ -167,7 +167,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
         {[scrollContainer1Ref, scrollContainer2Ref].map((scrollContainerRef, refIndex) => (
           <div key={refIndex} ref={scrollContainerRef} className="flex w-full justify-center">
             {Array.from({ length: 3 }).map((_, indexWrapper) => (
-              <div key={indexWrapper} className="flex shrink-0">
+              <div key={indexWrapper} className="flex shrink-0 bg-black">
                 {photos
                   .slice(refIndex * (photos.length / 2), (refIndex + 1) * (photos.length / 2))
                   .map((photo, indexItem) => {

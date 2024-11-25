@@ -3,29 +3,34 @@ import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import Link from 'next/link';
-import { ForwardedRef, forwardRef, ReactNode, useRef } from 'react';
+import {
+  ComponentPropsWithRef,
+  ElementType,
+  forwardRef,
+  MouseEvent,
+  ReactNode,
+  useRef,
+} from 'react';
 import { IconArrow } from './Icons';
 
-interface ButtonProps {
-  type: 'a' | 'button' | 'submit';
+type ButtonType = 'a' | 'button' | 'submit';
+
+interface ButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'type'> {
+  type: ButtonType;
   target?: '_blank';
   href?: string;
-  disabled?: boolean;
   children: ReactNode;
   className?: string;
-  onClick?: () => void;
-  isActive?: boolean;
 }
 
-const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonProps>(
-  ({ type, target, href, children, disabled, className, onClick }, ref) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ type, target, href, children, disabled, className, onClick, ...props }, ref) => {
     const arrowRef = useRef(null);
 
     const { contextSafe } = useGSAP();
     const animArrow = contextSafe(() => {
-      const timelineArrow = gsap.timeline({ paused: true });
-
-      timelineArrow
+      gsap
+        .timeline({ paused: true })
         .to(arrowRef.current, {
           x: 20,
           y: -20,
@@ -47,46 +52,42 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement | null, ButtonPr
         .play();
     });
 
+    const Tag = type === 'a' ? Link : ('button' as ElementType);
+
     return (
-      <>
-        {type === 'a' && href && (
-          <Link
-            ref={ref as ForwardedRef<HTMLAnchorElement>}
-            className={clsx('button cursor-button', className)}
-            href={href}
-            scroll={false}
-            target={target}
-            onMouseEnter={animArrow}
-            onMouseLeave={(e) => useResetMagnet(e)}
-            onMouseMove={(e) => useMagnet(e, 1)}
-          >
-            <div className="pt-0.5">{children}</div>
-            <div ref={arrowRef}>
-              <IconArrow />
-            </div>
-          </Link>
+      <Tag
+        ref={ref}
+        className={clsx(
+          'cursor-button group/button flex overflow-hidden rounded-full border-[1px] border-white-80 uppercase text-white-80 transition-colors duration-300 hover:border-transparent hover:bg-white-80 hover:text-black',
+          disabled && 'opacity-50',
+          className,
         )}
-        {type === 'button' ||
-          (type === 'submit' && (
-            <button
-              ref={ref as ForwardedRef<HTMLButtonElement>}
-              disabled={disabled}
-              type={type}
-              className={clsx('button cursor-button', className, {
-                'cursor-not-allowed opacity-50': disabled,
-              })}
-              onClick={onClick}
-              onMouseEnter={animArrow}
-              onMouseLeave={(e) => useResetMagnet(e)}
-              onMouseMove={(e) => useMagnet(e, 1)}
-            >
-              <div className="pt-0.5">{children}</div>
-              <div ref={arrowRef}>
-                <IconArrow />
-              </div>
-            </button>
-          ))}
-      </>
+        onMouseEnter={animArrow}
+        onMouseLeave={useResetMagnet}
+        onMouseMove={(e: MouseEvent<HTMLElement>) => useMagnet(e, 1)}
+        {...(type === 'a'
+          ? {
+              href,
+              scroll: false,
+              target,
+            }
+          : {
+              type,
+              onClick,
+              ...props,
+            })}
+      >
+        <div
+          className="flex h-10 flex-nowrap items-center gap-[10px] whitespace-nowrap px-5"
+          onMouseLeave={useResetMagnet}
+          onMouseMove={(e: MouseEvent<HTMLElement>) => useMagnet(e, 0.5)}
+        >
+          <div className="pt-0.5">{children}</div>
+          <div ref={arrowRef} className="-rotate-45">
+            <IconArrow className="transition-colors duration-300 group-hover/button:!fill-black" />
+          </div>
+        </div>
+      </Tag>
     );
   },
 );
