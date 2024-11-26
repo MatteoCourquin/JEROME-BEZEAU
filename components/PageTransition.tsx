@@ -55,13 +55,9 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   const anim = (variants: CustomVariants, custom: number) => {
     return {
       initial: 'initial',
-
       animate: 'enter',
-
       exit: 'exit',
-
       custom,
-
       variants,
     };
   };

@@ -30,8 +30,8 @@ const Footer = () => {
   };
 
   return (
-    <footer className="flex flex-col-reverse justify-between gap-y-default border-t border-t-white-12 px-x-default py-y-default backdrop-blur-lg md:flex-row md:gap-x-x-default">
-      <div className="flex grow flex-col justify-between">
+    <footer className="flex flex-col gap-x-5 gap-y-10 border-t border-t-white-12 px-x-default py-y-default backdrop-blur-lg md:grid md:grid-cols-12 md:gap-y-0">
+      <div className="md:col-span-6 lg:col-span-8">
         <Link className="cursor-button w-fit" href="/" scroll={false}>
           <IconJB className="fill-white-80" />
         </Link>
@@ -65,6 +65,125 @@ const Footer = () => {
             </button>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col gap-x-5 gap-y-10 sm:flex-row md:col-span-6 md:row-span-2 lg:col-span-4">
+        <nav className="w-full">
+          <ul className="flex flex-col gap-2">
+            <li className="pb-2 uppercase text-white-12">Menu</li>
+            <li>
+              <Link
+                className="link cursor-button link_white-40 inline-block"
+                href="/"
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
+              >
+                {isFrench ? 'Accueil' : 'Home'}
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="link cursor-button link_white-40 inline-block"
+                href="/work"
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
+              >
+                {isFrench ? 'Projets' : 'Work'}
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="link cursor-button link_white-40 inline-block"
+                href="/photography"
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
+              >
+                {isFrench ? 'Photographie' : 'Photography'}
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="link cursor-button link_white-40 inline-block"
+                href="/about"
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
+              >
+                {isFrench ? 'À propos' : 'About'}
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="link cursor-button link_white-40 inline-block"
+                href="/contact"
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <nav className="w-full">
+          <ul className="flex flex-col gap-2">
+            <li className="pb-2 uppercase text-white-12">{isFrench ? 'Réseaux' : 'Socials'}</li>
+            <li>
+              <a
+                className="link cursor-button link_white-40 inline-block"
+                href="https://www.linkedin.com/in/jerome-bezeau/"
+                target="_blank"
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
+              >
+                Linkedin
+              </a>
+            </li>
+            <li>
+              <a
+                className="link cursor-button link_white-40 inline-block"
+                href="https://www.behance.net/jeromebezeb4eb"
+                target="_blank"
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
+              >
+                Behance
+              </a>
+            </li>
+            <li>
+              <a
+                className="link cursor-button link_white-40 inline-block"
+                href="https://www.instagram.com/jeromebezeau/"
+                target="_blank"
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
+              >
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a
+                className="link cursor-button link_white-40 inline-block"
+                href="https://dribbble.com/jeromebezeau"
+                target="_blank"
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
+              >
+                Dribbble
+              </a>
+            </li>
+            <li>
+              <a
+                className="link cursor-button link_white-40 inline-block"
+                href="https://bento.me/jeromebezeau"
+                target="_blank"
+                onMouseLeave={(e) => useResetMagnet(e)}
+                onMouseMove={(e) => useMagnet(e, 1)}
+              >
+                Bento
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div className="pr-10 md:col-span-6 lg:col-span-8">
         <div className="py-8">
           <p>{isFrench ? 'Conçu avec amour par moi.' : 'Designed with love by me.'}</p>
           <p>
@@ -80,88 +199,6 @@ const Footer = () => {
           </p>
         </div>
         <p>© Jérôme Bezeau - 2024</p>
-      </div>
-      <div className="flex gap-x-default">
-        <nav className="grow">
-          <ul className="flex flex-col gap-2">
-            <li className="pb-2 uppercase text-white-12">Menu</li>
-            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <Link className="link cursor-button link_white-40" href="/">
-                {isFrench ? 'Accueil' : 'Home'}
-              </Link>
-            </li>
-            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <Link className="link cursor-button link_white-40" href="/work">
-                {isFrench ? 'Projets' : 'Work'}
-              </Link>
-            </li>
-            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <Link className="link cursor-button link_white-40" href="/photography">
-                {isFrench ? 'Photographie' : 'Photography'}
-              </Link>
-            </li>
-            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <Link className="link cursor-button link_white-40" href="/about">
-                {isFrench ? 'À propos' : 'About'}
-              </Link>
-            </li>
-            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <Link className="link cursor-button link_white-40" href="/contact">
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </nav>
-        <nav className="grow">
-          <ul className="flex flex-col gap-2">
-            <li className="pb-2 uppercase text-white-12">{isFrench ? 'Réseaux' : 'Socials'}</li>
-            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <a
-                className="link cursor-button link_white-40"
-                href="https://www.linkedin.com/in/jerome-bezeau/"
-                target="_blank"
-              >
-                Linkedin
-              </a>
-            </li>
-            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <a
-                className="link cursor-button link_white-40"
-                href="https://www.behance.net/jeromebezeb4eb"
-                target="_blank"
-              >
-                Behance
-              </a>
-            </li>
-            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <a
-                className="link cursor-button link_white-40"
-                href="https://www.instagram.com/jeromebezeau/"
-                target="_blank"
-              >
-                Instagram
-              </a>
-            </li>
-            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <a
-                className="link cursor-button link_white-40"
-                href="https://dribbble.com/jeromebezeau"
-                target="_blank"
-              >
-                Dribbble
-              </a>
-            </li>
-            <li onMouseLeave={(e) => useResetMagnet(e)} onMouseMove={(e) => useMagnet(e, 1)}>
-              <a
-                className="link cursor-button link_white-40"
-                href="https://bento.me/jeromebezeau"
-                target="_blank"
-              >
-                Bento
-              </a>
-            </li>
-          </ul>
-        </nav>
       </div>
     </footer>
   );
