@@ -1,8 +1,11 @@
+import DynamicTitle from '@/components/atoms/DynamicTitle';
 import RichText from '@/components/atoms/RichText';
 import Tag, { TAG_VARIANT } from '@/components/atoms/Tag';
 import Video from '@/components/atoms/Video';
+import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useLanguage } from '@/providers/language.provider';
 import { fetchPaths, fetchSingleProject } from '@/services/projects.sevices';
+import { BREAKPOINTS } from '@/tailwind.config';
 import { Project, SECTIONS_TYPES } from '@/types';
 import { formatDateToYear } from '@/utils';
 import { GetStaticPropsContext } from 'next';
@@ -10,17 +13,24 @@ import { GetStaticPropsContext } from 'next';
 export default function Page({ project }: { project: Project }) {
   const { isFrench } = useLanguage();
 
+  const isTablet = useMatchMedia(BREAKPOINTS.MD);
+  const isDesktop = useMatchMedia(BREAKPOINTS.LG);
+
   return (
     <>
       <section className="pt-header">
         <div className="grid grid-cols-1 gap-x-[20%] gap-y-y-half-default px-x-default py-y-default lg:grid-cols-[6fr,4fr]">
-          <h1 className="uppercase">{project.title}</h1>
+          {isTablet ? (
+            <DynamicTitle>{project.title}</DynamicTitle>
+          ) : (
+            <h1 className="uppercase">{project.title}</h1>
+          )}
           <div className="mt-auto pb-[3%]">
             <p className="text-white-80">{formatDateToYear(project.date)}</p>
           </div>
           <div>
             {project.tags && (
-              <div className="flex gap-2 pb-y-half-default">
+              <div className="flex gap-2">
                 {project.tags.map((tag, index) => (
                   <Tag key={tag.value.current + index} variant={TAG_VARIANT.LIGHT}>
                     {isFrench ? tag.labelFr : tag.labelEn}
@@ -28,7 +38,12 @@ export default function Page({ project }: { project: Project }) {
                 ))}
               </div>
             )}
-            <RichText value={isFrench ? project.descriptionFr : project.descriptionEn} />
+            {!isDesktop && (
+              <RichText
+                className="pt-y-half-default"
+                value={isFrench ? project.descriptionFr : project.descriptionEn}
+              />
+            )}
           </div>
           {project.credits && (
             <div className="flex flex-col">
@@ -58,6 +73,12 @@ export default function Page({ project }: { project: Project }) {
                 ))}
               </ul>
             </div>
+          )}
+          {isDesktop && (
+            <RichText
+              className="pt-y-half-default"
+              value={isFrench ? project.descriptionFr : project.descriptionEn}
+            />
           )}
         </div>
       </section>

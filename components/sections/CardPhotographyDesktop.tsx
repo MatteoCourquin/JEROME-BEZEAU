@@ -20,7 +20,6 @@ const CardPhotography = ({
 }: CardPhotographyProps) => {
   return (
     <Link
-      key={indexId}
       href={'/photography/' + photo.slug.current}
       className={clsx(
         isIndexActive(indexId) ? 'opacity-100' : 'opacity-20',

@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { throttle } from 'lodash';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
-import CardPhotography from './CardPhotography';
+import CardPhotographyDesktop from './CardPhotographyDesktop';
 
 const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
   const { isFrench } = useLanguage();
@@ -158,6 +158,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
       </div>
       <div
         className="flex w-screen flex-col overflow-hidden"
+        onMouseEnter={() => controlScroll('pause')}
         onMouseOver={() => controlScroll('pause')}
         onMouseLeave={() => {
           controlScroll('play');
@@ -173,7 +174,7 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
                   .map((photo, indexItem) => {
                     const indexId = `${photo.title}-${indexWrapper}-${indexItem}-${refIndex}`;
                     return (
-                      <CardPhotography
+                      <CardPhotographyDesktop
                         key={indexId}
                         className={clsx(refIndex === 0 ? 'pb-2' : 'pt-2', 'px-2')}
                         indexId={indexId}
