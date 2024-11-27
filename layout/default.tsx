@@ -30,7 +30,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       </Head>
       {isTablet ? <Burger /> : <Header />}
       <SocialMedia />
-      <main className="min-h-screen !scale-y-50 overflow-hidden">{children}</main>
+      <main className="min-h-screen">{children}</main>
       <Footer />
       <Background />
     </AppProvider>

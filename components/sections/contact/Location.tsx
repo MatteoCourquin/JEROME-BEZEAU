@@ -1,11 +1,19 @@
+import Hint from '@/components/Hint';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
+import { useRef } from 'react';
+import TimeDisplay from '../TimeHint';
+import clsx from 'clsx';
 
-const Loaction = ({ className }: { className?: string }) => {
+const Location = ({ className }: { className?: string }) => {
   const { isFrench } = useLanguage();
+  const containerHintRef = useRef<HTMLDivElement>(null);
   return (
-    <div className={className}>
-      <div className="flex items-center gap-3 pb-[18px]">
+    <div
+      ref={containerHintRef}
+      className={clsx(className, 'relative flex w-fit flex-col gap-[18px]')}
+    >
+      <div className="flex items-center gap-3">
         <div
           className="relative mb-1 h-2 w-2"
           onMouseLeave={(e) => useResetMagnet(e)}
@@ -25,8 +33,11 @@ const Loaction = ({ className }: { className?: string }) => {
           In Paris <br /> & remotely
         </p>
       )}
+      <Hint container={containerHintRef}>
+        <TimeDisplay isFrench={isFrench} />
+      </Hint>
     </div>
   );
 };
 
-export default Loaction;
+export default Location;

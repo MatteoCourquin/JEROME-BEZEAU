@@ -1,11 +1,12 @@
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
+import clsx from 'clsx';
 
 const Mail = ({ className }: { className?: string }) => {
   const { isFrench } = useLanguage();
   return (
-    <div className={className}>
-      <h6 className="text2 pb-[18px] text-white-40">
+    <div className={clsx(className, 'flex flex-col gap-[18px]')}>
+      <h6 className="text2 text-white-40">
         {isFrench ? 'ENVOYEZ UN MESSAGE :' : 'SEND A MESSAGE :'}
       </h6>
       <a

@@ -67,7 +67,7 @@ const Hint = ({
 
     gsap.to(containerHintRef.current, {
       x: x + 10,
-      y: y - wrapperRect.height * 2 - 5,
+      y: y - wrapperRect.height / 2 + 10,
       duration: 0.3,
       ease: 'power2.out',
     });
@@ -91,7 +91,10 @@ const Hint = ({
   }, [container]);
 
   return (
-    <div ref={containerHintRef} className="pointer-events-none absolute z-50 -translate-y-full">
+    <div
+      ref={containerHintRef}
+      className="pointer-events-none absolute z-50 h-fit -translate-y-full"
+    >
       <div
         ref={wrapperHintRef}
         className="flex h-10 w-10 shrink origin-bottom-left -translate-y-full scale-0 items-center overflow-hidden rounded-full rounded-bl-none bg-white-40 p-3 backdrop-blur-lg"
