@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 export enum BREAKPOINTS {
+  XS = 400,
   SM = 640,
   MD = 768,
   LG = 1024,
@@ -24,6 +25,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      brekpoints: {
+        xs: `${BREAKPOINTS.XS}px`,
+        sm: `${BREAKPOINTS.SM}px`,
+        md: `${BREAKPOINTS.MD}px`,
+        lg: `${BREAKPOINTS.LG}px`,
+      },
       colors: {
         black: '#0e0e0e',
         green: '#27FF56',

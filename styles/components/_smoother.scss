@@ -1,0 +1,35 @@
+.smoother-x-black {
+  position: relative;
+
+  &::before {
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $x-default;
+    height: 100%;
+    background: linear-gradient(to right, $color-black, transparent);
+    content: '';
+  }
+
+  &::after {
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: $x-default;
+    height: 100%;
+    background: linear-gradient(to left, $color-black, transparent);
+    content: '';
+  }
+
+  @media (min-width: 1024px) {
+    &::before {
+      display: none;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+}

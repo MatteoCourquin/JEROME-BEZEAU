@@ -7,35 +7,39 @@ import { useLanguage } from '@/providers/language.provider';
 import { fetchPaths, fetchSingleProject } from '@/services/projects.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { Project, SECTIONS_TYPES } from '@/types';
-import { formatDateToYear } from '@/utils';
+import { formatDateToYear, getFirstName } from '@/utils';
 import { GetStaticPropsContext } from 'next';
+import Image from 'next/image';
 
 export default function Page({ project }: { project: Project }) {
   const { isFrench } = useLanguage();
 
+  const isSmallMobile = useMatchMedia(BREAKPOINTS.SM);
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
   const isDesktop = useMatchMedia(BREAKPOINTS.LG);
 
   return (
     <>
-      <section className="pt-header">
-        <div className="grid grid-cols-1 gap-x-[20%] gap-y-y-half-default px-x-default py-y-default lg:grid-cols-[6fr,4fr]">
+      <section className="overflow-hidden pt-header">
+        <div className="grid grid-cols-1 gap-x-[20%] gap-y-y-half-default py-y-default lg:grid-cols-[6fr,4fr] lg:px-x-default">
           {isTablet ? (
-            <DynamicTitle>{project.title}</DynamicTitle>
+            <DynamicTitle coefficient={1.2}>{project.title}</DynamicTitle>
           ) : (
-            <h1 className="uppercase">{project.title}</h1>
+            <h1 className="pl-x-default uppercase lg:pl-0">{project.title}</h1>
           )}
-          <div className="mt-auto pb-[3%]">
+          <div className="mt-auto pb-[3%] pl-x-default lg:pl-0">
             <p className="text-white-80">{formatDateToYear(project.date)}</p>
           </div>
           <div>
             {project.tags && (
-              <div className="flex gap-2">
-                {project.tags.map((tag, index) => (
-                  <Tag key={tag.value.current + index} variant={TAG_VARIANT.LIGHT}>
-                    {isFrench ? tag.labelFr : tag.labelEn}
-                  </Tag>
-                ))}
+              <div className="smoother-x-black">
+                <div className="no-scrollbar flex gap-2 overflow-scroll px-x-default lg:px-0">
+                  {project.tags.map((tag, index) => (
+                    <Tag key={tag.value.current + index} variant={TAG_VARIANT.LIGHT}>
+                      {isFrench ? tag.labelFr : tag.labelEn}
+                    </Tag>
+                  ))}
+                </div>
               </div>
             )}
             {!isDesktop && (
@@ -46,7 +50,7 @@ export default function Page({ project }: { project: Project }) {
             )}
           </div>
           {project.credits && (
-            <div className="flex flex-col">
+            <div className="flex flex-col px-x-default lg:p-0">
               <p className="pb-10">CREDITS :</p>
               <ul className="flex flex-col gap-3">
                 {project.credits.map((credit, index) => (
@@ -60,14 +64,16 @@ export default function Page({ project }: { project: Project }) {
                     <div className="h-px grow bg-white-12"></div>
                     {credit.author.websiteUrl ? (
                       <a
-                        className="link link_white-80 cursor-button"
+                        className="link link_white-80 cursor-button whitespace-nowrap"
                         href={credit.author.websiteUrl}
                         target="_blank"
                       >
-                        {credit.author.name}
+                        {isSmallMobile ? getFirstName(credit.author.name) : credit.author.name}
                       </a>
                     ) : (
-                      <p className="text-white-40">{credit.author.name}</p>
+                      <p className="whitespace-nowrap text-white-40">
+                        {isSmallMobile ? getFirstName(credit.author.name) : credit.author.name}
+                      </p>
                     )}
                   </li>
                 ))}
@@ -76,7 +82,7 @@ export default function Page({ project }: { project: Project }) {
           )}
           {isDesktop && (
             <RichText
-              className="pt-y-half-default"
+              className="px-x-default pt-y-half-default"
               value={isFrench ? project.descriptionFr : project.descriptionEn}
             />
           )}
@@ -98,11 +104,12 @@ export default function Page({ project }: { project: Project }) {
             }
             if (section.sectionType === SECTIONS_TYPES.IMAGE && section.image) {
               return (
-                <img
+                <Image
                   key={section.sectionType + index}
                   alt={section.sectionType}
                   className="w-full"
                   src={section.image}
+                  unoptimized
                 />
               );
             }

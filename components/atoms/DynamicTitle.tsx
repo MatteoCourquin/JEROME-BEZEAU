@@ -2,7 +2,15 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { debounce } from 'lodash';
 import clsx from 'clsx';
 
-const DynamicTitle = ({ children, className }: { children: string; className?: string }) => {
+const DynamicTitle = ({
+  children,
+  coefficient,
+  className,
+}: {
+  children: string;
+  coefficient: number;
+  className?: string;
+}) => {
   const wrapperTitleRef = useRef<HTMLDivElement>(null);
   const [fontSize, setFontSize] = useState(0);
 
@@ -10,7 +18,6 @@ const DynamicTitle = ({ children, className }: { children: string; className?: s
     if (!wrapperTitleRef.current) return;
 
     const containerWidth = wrapperTitleRef.current.offsetWidth;
-    const coefficient = 1.55;
     const calculatedSize = (containerWidth / children.length) * coefficient;
 
     setFontSize(calculatedSize);
@@ -31,7 +38,7 @@ const DynamicTitle = ({ children, className }: { children: string; className?: s
   return (
     <div ref={wrapperTitleRef} className={clsx('w-full', className)}>
       <h1
-        className="overflow-hidden whitespace-nowrap text-center uppercase"
+        className="whitespace-nowrap text-center uppercase"
         style={{
           fontSize: `${fontSize}px`,
           lineHeight: '1.2',

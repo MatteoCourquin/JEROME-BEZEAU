@@ -15,6 +15,12 @@ $color-white-12: theme('colors.white-12');
 // FONTS
 $font-neue-machina: 'Neue Machina', sans-serif;
 
+// SPACING
+$x-default: theme('width.x-default');
+$y-default: theme('width.y-default');
+$x-half-default: theme('width.x-half-default');
+$y-half-default: theme('width.y-half-default');
+
 // COMPATIBILITY
 .select-none {
   -webkit-user-select: none;
