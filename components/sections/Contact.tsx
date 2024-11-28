@@ -23,9 +23,9 @@ const Contact = () => {
           <Call />
         </div>
         <div className="flex flex-col gap-[18px]">
-          <h6 className="text-white-40">
+          <h3 className="text2 text-white-40">
             {isFrench ? 'OU REMPLISSEZ LE FORMULAIRE' : 'OR FILL THE FORM'}
-          </h6>
+          </h3>
           <Button className="w-fit" href="/contact" type="a">
             Contact
           </Button>

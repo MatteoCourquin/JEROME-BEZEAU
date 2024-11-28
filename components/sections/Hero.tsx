@@ -44,7 +44,7 @@ const Hero = () => {
     <section className="relative flex min-h-screen flex-col justify-center gap-9 overflow-hidden px-x-default py-y-default text-left sm:items-center sm:text-center">
       <Image
         ref={imageRef}
-        alt=""
+        alt="Jérôme Bezeau background"
         className="absolute inset-0 -z-[1] h-screen w-screen object-cover"
         height={1080}
         src="/images/JB.jpeg"
@@ -52,10 +52,10 @@ const Hero = () => {
         priority
       />
       <h1 ref={titleRef} className="overflow-hidden">
-        <span className="inline-block pt-5">JÉRÔME BEZEAU</span>
+        <span className="font-swap inline-block pt-5">JÉRÔME BEZEAU</span>
       </h1>
       <p ref={subtitleRef} className="subtitle overflow-hidden">
-        <span className="inline-block">
+        <span className="font-swap inline-block">
           {isFrench ? 'Directeur artistique & Designer digital' : 'Art Director & Digital designer'}
         </span>
       </p>

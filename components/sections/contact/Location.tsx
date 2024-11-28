@@ -22,7 +22,7 @@ const Location = ({ className }: { className?: string }) => {
           <div className="absolute h-full w-full bg-green"></div>
           <div className="absolute h-full w-full animate-ping bg-green"></div>
         </div>
-        <h6 className="text2">{isFrench ? 'DISPONIBLE' : 'AVAILABLE FOR WORK'}</h6>
+        <h3 className="text2 text-white-40">{isFrench ? 'DISPONIBLE' : 'AVAILABLE FOR WORK'}</h3>
       </div>
       {isFrench ? (
         <p>

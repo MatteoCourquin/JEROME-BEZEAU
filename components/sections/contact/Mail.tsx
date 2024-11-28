@@ -6,9 +6,9 @@ const Mail = ({ className }: { className?: string }) => {
   const { isFrench } = useLanguage();
   return (
     <div className={clsx(className, 'flex flex-col gap-[18px]')}>
-      <h6 className="text2 text-white-40">
+      <h3 className="text2 text-white-40">
         {isFrench ? 'ENVOYEZ UN MESSAGE :' : 'SEND A MESSAGE :'}
-      </h6>
+      </h3>
       <a
         className="link link_white-80 inline-block w-fit"
         href="mailto:jeromebezeau.pro@gmail.com"

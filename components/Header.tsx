@@ -2,15 +2,19 @@ import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
+import clsx from 'clsx';
 import gsap from 'gsap';
 import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import JBLottie from '../public/lottie/JB.json';
 import Button from './atoms/Button';
-import clsx from 'clsx';
-const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
+const Lottie = dynamic(() => import('lottie-react'), {
+  ssr: false,
+  suspense: true,
+  loading: () => <div className="h-[85px] w-[88px] pb-7" />,
+});
 
 const Header = ({ className }: { className?: string }) => {
   const { isFrench } = useLanguage();
@@ -53,19 +57,22 @@ const Header = ({ className }: { className?: string }) => {
     >
       <div className="flex h-24 items-center justify-between">
         <Link
+          aria-label="Go to home"
           className="cursor-button"
           href="/"
           scroll={false}
           onMouseLeave={(e) => useResetMagnet(e)}
           onMouseMove={(e) => useMagnet(e, 1)}
         >
-          <Lottie
-            animationData={JBLottie}
-            autoPlay={false}
-            className="h-[85px] w-[88px] pb-7"
-            loop={false}
-            lottieRef={lottieRef}
-          />
+          <Suspense fallback={<div className="h-[85px] w-[88px] pb-7" />}>
+            <Lottie
+              animationData={JBLottie}
+              autoPlay={false}
+              className="h-[85px] w-[88px] pb-7"
+              loop={false}
+              lottieRef={lottieRef}
+            />
+          </Suspense>
         </Link>
         <nav ref={navRef}>
           <ul className="flex items-center">

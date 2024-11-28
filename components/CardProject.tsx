@@ -171,6 +171,7 @@ const CardProject = ({
         <div ref={cardRef} className="relative aspect-square overflow-hidden">
           <Link
             ref={wrapperImageRef}
+            aria-label={'View project ' + project.title}
             href={'/work/' + project.slug.current}
             scroll={false}
             className={clsx(

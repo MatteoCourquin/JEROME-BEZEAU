@@ -166,6 +166,7 @@ const SocialMedia = () => {
         className="absolute right-[1px] z-10 flex h-[54px] w-[54px] scale-0 items-center gap-[6px] overflow-hidden rounded-full bg-black opacity-0"
       >
         <Link
+          aria-label="Visit my LinkedIn profile"
           className="cursor-button origin-right scale-0 p-3 opacity-0"
           href="https://www.linkedin.com/in/jerome-bezeau/"
           target="_blank"
@@ -175,6 +176,7 @@ const SocialMedia = () => {
           <IconLinkedin />
         </Link>
         <Link
+          aria-label="View my Behance portfolio"
           className="cursor-button origin-right scale-0 p-3 opacity-0"
           href="https://www.behance.net/jeromebezeb4eb"
           target="_blank"
@@ -184,6 +186,7 @@ const SocialMedia = () => {
           <IconBehance />
         </Link>
         <Link
+          aria-label="Follow me on Instagram"
           className="cursor-button origin-right scale-0 p-3 opacity-0"
           href="https://www.instagram.com/jeromebezeau/"
           target="_blank"
@@ -193,6 +196,7 @@ const SocialMedia = () => {
           <IconInstagram />
         </Link>
         <Link
+          aria-label="Check my work on Dribbble"
           className="cursor-button origin-right scale-0 p-3 opacity-0"
           href="https://dribbble.com/jeromebezeau"
           target="_blank"
@@ -202,6 +206,7 @@ const SocialMedia = () => {
           <IconDribbble />
         </Link>
         <Link
+          aria-label="View my Bento profile"
           className="cursor-button origin-right scale-0 p-3 opacity-0"
           href="https://bento.me/jeromebezeau"
           target="_blank"

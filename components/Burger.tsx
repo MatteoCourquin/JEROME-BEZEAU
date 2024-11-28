@@ -1,18 +1,22 @@
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
+import { defaultSpacing } from '@/tailwind.config';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
-import JBLottie from '../public/lottie/JB.json';
-import { defaultSpacing } from '@/tailwind.config';
 import { usePathname } from 'next/navigation';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import JBLottie from '../public/lottie/JB.json';
 import { IconBehance, IconBento, IconDribbble, IconInstagram, IconLinkedin } from './atoms/Icons';
-const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
+const Lottie = dynamic(() => import('lottie-react'), {
+  ssr: false,
+  suspense: true,
+  loading: () => <div className="h-[85px] w-[88px] pb-7" />,
+});
 
 const Burger = ({ className }: { className?: string }) => {
   const { isFrench } = useLanguage();
@@ -160,22 +164,27 @@ const Burger = ({ className }: { className?: string }) => {
     >
       <div className="flex h-[95px] shrink-0 items-center justify-between px-x-default">
         <Link
+          aria-label="Go to home"
           className="cursor-button"
           href="/"
           scroll={false}
           onMouseLeave={useResetMagnet}
           onMouseMove={(e) => useMagnet(e, 1)}
         >
-          <Lottie
-            animationData={JBLottie}
-            autoPlay={false}
-            className="h-[85px] w-[88px] pb-7"
-            loop={false}
-            lottieRef={lottieRef}
-          />
+          <Suspense fallback={<div className="h-[85px] w-[88px] pb-7" />}>
+            <Lottie
+              animationData={JBLottie}
+              autoPlay={false}
+              className="h-[85px] w-[88px] pb-7"
+              loop={false}
+              lottieRef={lottieRef}
+            />
+          </Suspense>
         </Link>
         <button
           ref={burgerRef}
+          aria-expanded={isBurgerOpen}
+          aria-label={isBurgerOpen ? 'Close menu' : 'Open menu'}
           className="cursor-button group/burger flex h-6 w-6 flex-col items-end justify-between text-white transition-opacity"
           onClick={() => setIsBurgerOpen(!isBurgerOpen)}
           onMouseLeave={(e) => useResetMagnet(e)}
@@ -251,6 +260,7 @@ const Burger = ({ className }: { className?: string }) => {
       </nav>
       <div ref={wrapperIconRef} className="flex gap-4 px-x-default">
         <Link
+          aria-label="Visit my LinkedIn profile"
           className="cursor-button scale-0 p-3 opacity-0"
           href="https://www.linkedin.com/in/jerome-bezeau/"
           target="_blank"
@@ -260,6 +270,7 @@ const Burger = ({ className }: { className?: string }) => {
           <IconLinkedin />
         </Link>
         <Link
+          aria-label="View my Behance portfolio"
           className="cursor-button scale-0 p-3 opacity-0"
           href="https://www.behance.net/jeromebezeb4eb"
           target="_blank"
@@ -269,6 +280,7 @@ const Burger = ({ className }: { className?: string }) => {
           <IconBehance />
         </Link>
         <Link
+          aria-label="Follow me on Instagram"
           className="cursor-button scale-0 p-3 opacity-0"
           href="https://www.instagram.com/jeromebezeau/"
           target="_blank"
@@ -278,6 +290,7 @@ const Burger = ({ className }: { className?: string }) => {
           <IconInstagram />
         </Link>
         <Link
+          aria-label="Check my work on Dribbble"
           className="cursor-button scale-0 p-3 opacity-0"
           href="https://dribbble.com/jeromebezeau"
           target="_blank"
@@ -287,6 +300,7 @@ const Burger = ({ className }: { className?: string }) => {
           <IconDribbble />
         </Link>
         <Link
+          aria-label="View my Bento profile"
           className="cursor-button scale-0 p-3 opacity-0"
           href="https://bento.me/jeromebezeau"
           target="_blank"

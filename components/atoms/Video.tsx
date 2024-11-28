@@ -43,9 +43,12 @@ const Video = ({
   return (
     <video
       ref={videoRef}
+      aria-hidden="true"
+      aria-label="Presentation project video"
       className={className}
       data-webkit-playsinline="true"
       poster={poster}
+      preload="auto"
       autoPlay
       loop
       muted

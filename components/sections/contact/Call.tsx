@@ -13,7 +13,7 @@ const Call = ({ className }: { className?: string }) => {
       ref={containerHintRef}
       className={clsx('relative flex w-fit flex-col gap-[18px]', className)}
     >
-      <h6 className="text2 text-white-40">{isFrench ? 'APPELEZ-MOI :' : 'GIVE ME A CALL :'}</h6>
+      <h3 className="text2 text-white-40">{isFrench ? 'APPELEZ-MOI :' : 'GIVE ME A CALL :'}</h3>
       <a
         className="link link_white-80 inline-block w-fit"
         href="tel:+33664583272"
