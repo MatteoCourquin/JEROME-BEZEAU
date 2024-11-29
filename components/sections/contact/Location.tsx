@@ -4,10 +4,16 @@ import { useLanguage } from '@/providers/language.provider';
 import { useRef } from 'react';
 import TimeDisplay from '../TimeHint';
 import clsx from 'clsx';
+import { useGSAP } from '@gsap/react';
 
 const Location = ({ className }: { className?: string }) => {
   const { isFrench } = useLanguage();
   const containerHintRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // gsap
+  }, []);
+
   return (
     <div
       ref={containerHintRef}

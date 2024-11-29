@@ -12,7 +12,7 @@ import {
 } from 'react';
 
 interface AnimatedTextProps {
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
   className?: string;
   children: string;
   trigger?: MutableRefObject<HTMLElement | null>;

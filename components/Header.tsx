@@ -43,7 +43,7 @@ const Header = ({ className }: { className?: string }) => {
       .timeline({
         delay: isScreenLoader ? 4.8 : 0,
       })
-      .fromTo(links, { y: 100 }, { y: 0, duration: 1, delay: 1, ease: 'power3.out', stagger: 0.1 })
+      .to(links, { y: 0, duration: 1, delay: 1, ease: 'power3.out', stagger: 0.1 })
       .add(() => lottieRef.current && lottieRef.current.play(), '-=0.6')
       .play();
   }, [isScreenLoader]);
@@ -78,7 +78,7 @@ const Header = ({ className }: { className?: string }) => {
           <ul className="flex items-center">
             <li className="overflow-hidden px-5 py-0.5">
               <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 uppercase"
+                className="anim-items-header link link_white-80 cursor-button inline-block translate-y-24 whitespace-nowrap pt-0.5 uppercase"
                 href="/work"
                 scroll={false}
                 onMouseLeave={(e) => useResetMagnet(e)}
@@ -89,7 +89,7 @@ const Header = ({ className }: { className?: string }) => {
             </li>
             <li className="overflow-hidden px-5 py-0.5">
               <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 uppercase"
+                className="anim-items-header link link_white-80 cursor-button inline-block translate-y-24 whitespace-nowrap pt-0.5 uppercase"
                 href="/photography"
                 scroll={false}
                 onMouseLeave={(e) => useResetMagnet(e)}
@@ -100,7 +100,7 @@ const Header = ({ className }: { className?: string }) => {
             </li>
             <li className="overflow-hidden px-5 py-0.5">
               <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 uppercase"
+                className="anim-items-header link link_white-80 cursor-button inline-block translate-y-24 whitespace-nowrap pt-0.5 uppercase"
                 href="/about"
                 scroll={false}
                 onMouseLeave={(e) => useResetMagnet(e)}
@@ -111,7 +111,7 @@ const Header = ({ className }: { className?: string }) => {
             </li>
             <li className="pl-5">
               <Button href="/contact" type="a">
-                <span className="anim-items-header inline-block">Contact</span>
+                <span className="anim-items-header inline-block translate-y-24">Contact</span>
               </Button>
             </li>
           </ul>

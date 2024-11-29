@@ -19,7 +19,7 @@ export default function Page() {
   };
 
   const sectionRef = useRef(null);
-  const descriptionRef = useRef(null);
+  const contactFormRef = useRef(null);
 
   useGSAP(() => {
     gsap
@@ -30,15 +30,15 @@ export default function Page() {
       .add(() => textsAnimation.subtitle1.current?.textAnimation(), '+=0.2')
       .add(() => textsAnimation.subtitle2.current?.textAnimation(), '+=0.2');
 
-    useParallax(descriptionRef.current, 0.1, 'bottom', 1024);
+    useParallax(contactFormRef.current, 0.2, 'bottom', 1024);
   });
 
   return (
     <section
       ref={sectionRef}
-      className="relative grid min-h-screen grid-cols-1 gap-x-[20%] px-x-default pb-y-default pt-header lg:grid-cols-[6fr,4fr]"
+      className="relative grid min-h-screen grid-cols-1 gap-x-5 px-x-default pb-y-default pt-header md:grid-cols-12"
     >
-      <div ref={descriptionRef}>
+      <div className="col-span-6 lg:col-span-6">
         <AnimatedText ref={textsAnimation.title} className="pt-y-default" variant="h1">
           CONTACT
         </AnimatedText>
@@ -62,10 +62,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div>
-        <p className="text1 pt-y-default uppercase text-white-80">
-          {isFrench ? 'REMPLISSEZ LE FORMULAIRE' : 'FILL THE FORM'}
-        </p>
+      <div ref={contactFormRef} className="col-span-6 md:-col-end-1 lg:col-span-4 lg:-col-end-1">
         <ContactForm />
       </div>
     </section>

@@ -48,7 +48,7 @@ const Burger = ({ className }: { className?: string }) => {
       .timeline({
         delay: isScreenLoader ? 4.8 : 1,
       })
-      .fromTo(burgerRef.current, { scale: 0 }, { scale: 1, duration: 0.3, ease: 'power3.out' })
+      .to(burgerRef.current, { scale: 1, duration: 0.3, ease: 'power3.out' })
       .add(() => lottieRef.current && lottieRef.current.play())
       .play();
   }, [isScreenLoader]);
@@ -185,7 +185,7 @@ const Burger = ({ className }: { className?: string }) => {
           ref={burgerRef}
           aria-expanded={isBurgerOpen}
           aria-label={isBurgerOpen ? 'Close menu' : 'Open menu'}
-          className="cursor-button group/burger flex h-6 w-6 flex-col items-end justify-between text-white transition-opacity"
+          className="cursor-button group/burger flex h-6 w-6 scale-0 flex-col items-end justify-between text-white transition-opacity"
           onClick={() => setIsBurgerOpen(!isBurgerOpen)}
           onMouseLeave={(e) => useResetMagnet(e)}
           onMouseMove={(e) => useMagnet(e, 1)}
