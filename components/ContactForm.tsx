@@ -30,7 +30,7 @@ const ContactForm = () => {
   useGSAP(() => {
     gsap
       .timeline({
-        delay: 0.5,
+        delay: 1,
       })
       .add(() => inputsRef.name.current?.inputAnimation())
       .add(() => inputsRef.email.current?.inputAnimation(), '+=0.1')
