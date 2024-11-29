@@ -7,7 +7,7 @@ import { throttle } from 'lodash';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import CardPhotographyDesktop from './CardPhotographyDesktop';
 
-const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
+const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
   const { isFrench } = useLanguage();
 
   const sectionContainerRef = useRef(null);
@@ -204,4 +204,4 @@ const SliderPhotography = ({ photos }: { photos: Photo[] }) => {
   );
 };
 
-export default SliderPhotography;
+export default ScrollerPhotographyDesktop;

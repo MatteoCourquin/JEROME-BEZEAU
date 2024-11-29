@@ -1,5 +1,5 @@
-import ScrollerPhotography from '@/components/sections/ScrollerPhotography';
-import SliderPhotography from '@/components/sections/SliderPhotography';
+import ScrollerPhotographyDesktop from '@/components/sections/ScrollerPhotographyDesktop';
+import ScrollerPhotographyMobile from '@/components/sections/ScrollerPhotographyMobile';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { fetchPhotos } from '@/services/photos.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
@@ -10,7 +10,11 @@ export default function Page({ photos }: { photos: Photo[] }) {
 
   return (
     <>
-      {isTablet ? <ScrollerPhotography photos={photos} /> : <SliderPhotography photos={photos} />}
+      {isTablet ? (
+        <ScrollerPhotographyMobile photos={photos} />
+      ) : (
+        <ScrollerPhotographyDesktop photos={photos} />
+      )}
     </>
   );
 }

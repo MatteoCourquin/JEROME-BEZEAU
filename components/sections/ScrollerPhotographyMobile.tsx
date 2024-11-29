@@ -3,7 +3,7 @@ import CardPhotographyMobile from './CardPhotographyMobile';
 import { useLanguage } from '@/providers/language.provider';
 import DynamicTitle from '../atoms/DynamicTitle';
 
-const ScrollerPhotography = ({ photos }: { photos: Photo[] }) => {
+const ScrollerPhotographyMobile = ({ photos }: { photos: Photo[] }) => {
   const { isFrench } = useLanguage();
 
   return (
@@ -22,4 +22,4 @@ const ScrollerPhotography = ({ photos }: { photos: Photo[] }) => {
   );
 };
 
-export default ScrollerPhotography;
+export default ScrollerPhotographyMobile;

@@ -14,6 +14,34 @@ export default function Page({ photo }: { photo: Photo }) {
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
+  const [boundaries, setBoundaries] = useState({ minX: 0, maxX: 0, minY: 0, maxY: 0 });
+
+  useEffect(() => {
+    const calculateBoundaries = () => {
+      if (gridRef.current && wrapperGridRef.current) {
+        const gridRect = (gridRef.current as HTMLElement).getBoundingClientRect();
+
+        // Calculate boundaries to allow 50% overflow
+        const maxX = gridRect.width * 0.5; // 50% of grid width
+        const maxY = gridRect.height * 0.5; // 50% of grid height
+
+        setBoundaries({
+          minX: -maxX,
+          maxX: maxX,
+          minY: -maxY,
+          maxY: maxY,
+        });
+      }
+    };
+
+    calculateBoundaries();
+    window.addEventListener('resize', calculateBoundaries);
+    return () => window.removeEventListener('resize', calculateBoundaries);
+  }, []);
+
+  const clampValue = (value: number, min: number, max: number) => {
+    return Math.min(Math.max(value, min), max);
+  };
 
   const onMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -29,17 +57,30 @@ export default function Page({ photo }: { photo: Photo }) {
     const deltaX = e.clientX - initialMousePos.current.x;
     const deltaY = e.clientY - initialMousePos.current.y;
 
+    // Scale down the parallax effect for smoother movement
+    const parallaxScale = 0.05; // Reduced from 0.1 to 0.05 for smoother effect
+    const limitedDeltaX = clampValue(
+      -(deltaX * parallaxScale),
+      boundaries.minX / 2,
+      boundaries.maxX / 2,
+    );
+    const limitedDeltaY = clampValue(
+      -(deltaY * parallaxScale),
+      boundaries.minY / 2,
+      boundaries.maxY / 2,
+    );
+
     gsap.to(wrapperGridRef.current, {
-      x: -(deltaX / 10),
-      y: -(deltaY / 10),
+      x: limitedDeltaX,
+      y: limitedDeltaY,
       ease: 'power2.out',
       duration: 0.8,
     });
 
     if (!isDragging || !gridRef.current) return;
 
-    const newX = e.clientX - startPosition.x;
-    const newY = e.clientY - startPosition.y;
+    const newX = clampValue(e.clientX - startPosition.x, boundaries.minX, boundaries.maxX);
+    const newY = clampValue(e.clientY - startPosition.y, boundaries.minY, boundaries.maxY);
 
     gsap.to(gridRef.current, {
       x: newX,
