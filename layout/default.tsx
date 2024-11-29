@@ -27,6 +27,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           name="keywords"
         />
         <link href="/favicon.ico" rel="icon" />
+        {/* <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script> */}
       </Head>
       {isTablet ? <Burger /> : <Header />}
       <SocialMedia />

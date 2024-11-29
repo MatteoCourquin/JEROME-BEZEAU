@@ -22,9 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <Layout>
           {isScreenLoader && <ScreenLoader />}
           <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
-            <PageTransition key={pathname}>
-              <Component {...pageProps} />
-            </PageTransition>
+            {/* <PageTransition key={pathname}> */}
+            <Component {...pageProps} />
+            {/* </PageTransition> */}
           </AnimatePresence>
         </Layout>
       )}

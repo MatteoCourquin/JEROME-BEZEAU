@@ -1,0 +1,6 @@
+export enum FORM_STATE {
+  DEFAULT = 'DEFAULT',
+  LOADING = 'LOADING',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+}

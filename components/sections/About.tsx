@@ -19,23 +19,21 @@ const About = () => {
         isTriggerAnim={true}
         trigger={wrapperSectionRef}
         variant="h2"
-        text={
-          isFrench
-            ? 'Salut, je suis Jérôme, un Directeur Artistique Digital de Paris.'
-            : 'Hey, I’m Jérôme, a Digital Art Director from Paris.'
-        }
-      />
+      >
+        {isFrench
+          ? 'Salut, je suis Jérôme, un Directeur Artistique Digital de Paris.'
+          : 'Hey, I’m Jérôme, a Digital Art Director from Paris.'}
+      </AnimatedText>
       <AnimatedText
         className="subtitle overflow-hidden !text-white md:w-2/3"
         isScrubAnim={true}
         isTriggerAnim={true}
         trigger={wrapperSectionRef}
-        text={
-          isFrench
-            ? 'Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem consectetur semper pellentesque diam molestie sodales sit.'
-            : 'Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem consectetur semper pellentesque diam molestie sodales sit.'
-        }
-      />
+      >
+        {isFrench
+          ? 'Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem consectetur semper pellentesque diam molestie sodales sit.'
+          : 'Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem consectetur semper pellentesque diam molestie sodales sit.'}
+      </AnimatedText>
       <Button className="w-fit" href="/about" type="a">
         {isFrench ? 'EN SAVOIR PLUS' : 'MORE ABOUT ME'}
       </Button>

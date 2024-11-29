@@ -2,19 +2,19 @@ import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import { createElement, MutableRefObject, useEffect, useRef } from 'react';
+import { createElement, MutableRefObject, useRef } from 'react';
 
 const AnimatedText = ({
   variant = 'p',
   className,
-  text,
+  children,
   trigger,
   isTriggerAnim = false,
   isScrubAnim = false,
 }: {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
   className?: string;
-  text: string;
+  children: string;
   trigger: MutableRefObject<HTMLElement | null>;
   isTriggerAnim?: boolean;
   isScrubAnim?: boolean;
@@ -70,7 +70,7 @@ const AnimatedText = ({
     });
   });
 
-  useEffect(() => {
+  useGSAP(() => {
     ScrollTrigger.refresh();
 
     if (isTriggerAnim) {
@@ -87,11 +87,11 @@ const AnimatedText = ({
       ref: descriptionRef,
       className: clsx(className),
     },
-    text.split(' ').map((word, index) => (
+    children.split(' ').map((word, index) => (
       <span key={word + index} className="inline-block overflow-hidden">
         <span className="anim-text inline-block">
           {word}
-          {index !== text.split(' ').length - 1 && '\u00A0'}
+          {index !== children.split(' ').length - 1 && '\u00A0'}
         </span>
       </span>
     )),
