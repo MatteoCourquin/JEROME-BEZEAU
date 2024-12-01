@@ -1,3 +1,5 @@
+import SliderPhotography from '@/components/sections/SliderPhotography';
+import { urlFor } from '@/sanity/lib/image';
 import { fetchPaths, fetchSinglePhoto } from '@/services/photos.sevices';
 import { Photo } from '@/types';
 import gsap from 'gsap';
@@ -7,7 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function Page({ photo }: { photo: Photo }) {
   const wrapperGridRef = useRef(null);
-  const gridRef = useRef(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const isFirstMove = useRef(true);
   const initialMousePos = useRef({ x: 0, y: 0 });
 
@@ -16,14 +18,16 @@ export default function Page({ photo }: { photo: Photo }) {
   const [isDragging, setIsDragging] = useState(false);
   const [boundaries, setBoundaries] = useState({ minX: 0, maxX: 0, minY: 0, maxY: 0 });
 
+  const [isSliderOpen, setIsSliderOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
   useEffect(() => {
     const calculateBoundaries = () => {
       if (gridRef.current && wrapperGridRef.current) {
-        const gridRect = (gridRef.current as HTMLElement).getBoundingClientRect();
+        const gridRect = gridRef.current.getBoundingClientRect();
 
-        // Calculate boundaries to allow 50% overflow
-        const maxX = gridRect.width * 0.5; // 50% of grid width
-        const maxY = gridRect.height * 0.5; // 50% of grid height
+        const maxX = gridRect.width * 0.5;
+        const maxY = gridRect.height * 0.5;
 
         setBoundaries({
           minX: -maxX,
@@ -57,8 +61,7 @@ export default function Page({ photo }: { photo: Photo }) {
     const deltaX = e.clientX - initialMousePos.current.x;
     const deltaY = e.clientY - initialMousePos.current.y;
 
-    // Scale down the parallax effect for smoother movement
-    const parallaxScale = 0.05; // Reduced from 0.1 to 0.05 for smoother effect
+    const parallaxScale = 0.05;
     const limitedDeltaX = clampValue(
       -(deltaX * parallaxScale),
       boundaries.minX / 2,
@@ -112,44 +115,62 @@ export default function Page({ photo }: { photo: Photo }) {
   }, []);
 
   return (
-    <section
-      className="cursor-drag relative z-0 h-screen w-screen select-none overflow-hidden"
-      draggable={false}
-      onMouseDown={onMouseDown}
-      onMouseLeave={onMouseLeave}
-      onMouseMove={onMouseMove}
-      onMouseUp={() => setIsDragging(false)}
-    >
-      <h1 className="text-shadow absolute top-y-default z-10 w-full select-none px-x-default py-y-default text-center">
-        {photo.title}
-      </h1>
-
-      <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pt-header"
+    <>
+      <section
+        className="cursor-drag relative z-0 h-screen w-screen select-none overflow-hidden"
         draggable={false}
+        onMouseDown={onMouseDown}
+        onMouseLeave={onMouseLeave}
+        onMouseMove={onMouseMove}
+        onMouseUp={() => setIsDragging(false)}
       >
-        <div ref={wrapperGridRef} draggable={false}>
-          <div
-            ref={gridRef}
-            className="-z-10 grid grid-cols-[repeat(4,28vw)] grid-rows-[repeat(3,28vw)] gap-[50px]"
-            draggable={false}
-          >
-            {new Array(12).fill(photo.mainImage).map((image, index) => (
-              <Image
-                key={index}
-                alt={photo.title + index}
-                className="h-auto w-full select-none"
-                draggable={false}
-                height={1080}
-                src={image}
-                width={1920}
-                unoptimized
-              />
-            ))}
+        <h1 className="text-shadow absolute top-y-default z-10 w-full select-none px-x-default py-y-default text-center">
+          {photo.title}
+        </h1>
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pt-header"
+          draggable={false}
+        >
+          <div ref={wrapperGridRef} draggable={false}>
+            <div
+              ref={gridRef}
+              className="-z-10 grid grid-cols-[repeat(4,28vw)] grid-rows-[repeat(3,28vw)] gap-[50px]"
+              draggable={false}
+            >
+              {photo.gallery.map((image, index) => (
+                <div
+                  key={index}
+                  className="flex h-full w-full items-center justify-center"
+                  onClick={() => {
+                    setActiveIndex(index);
+                    setIsSliderOpen(true);
+                  }}
+                >
+                  <Image
+                    alt={photo.title + index}
+                    className="pointer-events-none h-auto w-full select-none"
+                    draggable={false}
+                    height={1080}
+                    src={urlFor(image).toString()}
+                    width={1920}
+                    unoptimized
+                    onContextMenu={(e) => e.preventDefault()}
+                    onDragStart={(e) => e.preventDefault()}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <SliderPhotography
+        activeIndex={activeIndex}
+        isOpen={isSliderOpen}
+        photos={photo.gallery}
+        setActiveIndex={setActiveIndex}
+        setIsOpen={setIsSliderOpen}
+      />
+    </>
   );
 }
 

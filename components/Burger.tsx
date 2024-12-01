@@ -28,7 +28,7 @@ const Burger = ({ className }: { className?: string }) => {
   const navRef = useRef<HTMLElement>(null);
   const wrapperIconRef = useRef<HTMLDivElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
-  const timeline = useRef<gsap.core.Timeline>();
+  const timelineRef = useRef<gsap.core.Timeline>();
 
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
@@ -59,7 +59,7 @@ const Burger = ({ className }: { className?: string }) => {
     const divider = navRef.current.getElementsByClassName('anim-items-divider');
     const iconsChildren = wrapperIconRef.current.children;
 
-    timeline.current = gsap
+    timelineRef.current = gsap
       .timeline({ paused: true })
       .fromTo(
         headerRef.current,
@@ -136,21 +136,21 @@ const Burger = ({ className }: { className?: string }) => {
   }, []);
 
   useEffect(() => {
-    if (!timeline.current) return;
+    if (!timelineRef.current) return;
 
     if (isBurgerOpen) {
-      timeline.current.reverse();
+      timelineRef.current.reverse();
       setIsBurgerOpen(false);
     }
   }, [pathname]);
 
   useEffect(() => {
-    if (!timeline.current) return;
+    if (!timelineRef.current) return;
 
     if (isBurgerOpen) {
-      timeline.current.play();
+      timelineRef.current.play();
     } else {
-      timeline.current.reverse();
+      timelineRef.current.reverse();
     }
   }, [isBurgerOpen]);
 

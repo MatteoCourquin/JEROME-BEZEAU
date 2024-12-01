@@ -41,7 +41,11 @@ export const fetchSinglePhoto = async (params: ParsedUrlQuery | undefined) => {
       title,
       slug,
       "mainImage": mainImage.asset->url,
-      gallery
+      "gallery": gallery[]{
+        "url": asset->url,
+        _key,
+        asset
+      }
     }
   `;
 
@@ -49,5 +53,12 @@ export const fetchSinglePhoto = async (params: ParsedUrlQuery | undefined) => {
     photo: params?.photo,
   });
 
-  return photo;
+  const formattedGallery = Array.from({ length: 12 }, (_, index) => {
+    return photo.gallery[index % photo.gallery.length];
+  });
+
+  return {
+    ...photo,
+    gallery: formattedGallery,
+  };
 };

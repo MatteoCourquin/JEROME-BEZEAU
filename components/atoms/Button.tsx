@@ -13,10 +13,9 @@ import {
 } from 'react';
 import { IconArrow } from './Icons';
 
-type ButtonType = 'a' | 'button' | 'submit';
-
 interface ButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'type'> {
-  type: ButtonType;
+  type: 'a' | 'button' | 'submit';
+  isIcon?: boolean;
   target?: '_blank';
   href?: string;
   children: ReactNode;
@@ -24,7 +23,7 @@ interface ButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'type'> {
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ type, target, href, children, disabled, className, onClick, ...props }, ref) => {
+  ({ type, target, href, children, isIcon, disabled, className, onClick, ...props }, ref) => {
     const arrowRef = useRef(null);
 
     const { contextSafe } = useGSAP();
@@ -58,7 +57,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <Tag
         ref={ref}
         className={clsx(
-          'cursor-button group/button flex overflow-hidden rounded-full border-[1px] border-white-80 uppercase text-white-80 transition-colors duration-300 hover:border-transparent hover:bg-white-80 hover:text-black',
+          'cursor-button group/button flex h-fit w-fit overflow-hidden rounded-full border-[1px] border-white-80 uppercase text-white-80 transition-colors duration-300 hover:border-transparent hover:bg-white-80 hover:text-black',
           disabled && 'opacity-50',
           className,
         )}
@@ -78,14 +77,23 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             })}
       >
         <div
-          className="flex h-10 flex-nowrap items-center gap-[10px] whitespace-nowrap px-5"
+          className={clsx(
+            'flex h-10 items-center',
+            isIcon ? 'w-10 justify-center' : 'w-auto flex-nowrap gap-[10px] whitespace-nowrap px-5',
+          )}
           onMouseLeave={useResetMagnet}
           onMouseMove={(e: MouseEvent<HTMLElement>) => useMagnet(e, 0.5)}
         >
-          <div className="pt-0.5">{children}</div>
-          <div ref={arrowRef} className="-rotate-45">
-            <IconArrow className="transition-colors duration-300 group-hover/button:!fill-black" />
-          </div>
+          {isIcon ? (
+            children
+          ) : (
+            <>
+              <div className="pt-0.5">{children}</div>
+              <div ref={arrowRef} className="-rotate-45">
+                <IconArrow className="transition-colors duration-300 group-hover/button:!fill-black" />
+              </div>
+            </>
+          )}
         </div>
       </Tag>
     );

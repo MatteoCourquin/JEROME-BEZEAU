@@ -4,7 +4,7 @@ export enum BUTTON_SIZE {
   L = 'l',
 }
 
-export enum BUTTON_TYPE {
-  PRIMARY = 'primary',
-  ICON = 'icon',
-}
+// export enum BUTTON_TYPE {
+//   PRIMARY = 'primary',
+//   ICON = 'icon',
+// }
