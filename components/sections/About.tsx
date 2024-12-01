@@ -1,7 +1,7 @@
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
 import { useRef } from 'react';
-import AnimatedText from '../AnimatedText';
+import AnimatedText from '../atoms/AnimatedText';
 import Button from '../atoms/Button';
 import { IconArrow } from '../atoms/Icons';
 

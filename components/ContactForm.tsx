@@ -6,7 +6,7 @@ import { FORM_STATE } from '@/types/form.type';
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import AnimatedText from './AnimatedText';
+import AnimatedText from './atoms/AnimatedText';
 
 const ContactForm = () => {
   const { isFrench } = useLanguage();

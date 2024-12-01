@@ -1,4 +1,4 @@
-import AnimatedText from '@/components/AnimatedText';
+import AnimatedText from '@/components/atoms/AnimatedText';
 import ContactForm from '@/components/ContactForm';
 import Call from '@/components/sections/contact/Call';
 import Loaction from '@/components/sections/contact/Location';

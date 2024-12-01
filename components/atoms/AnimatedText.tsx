@@ -4,11 +4,12 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import {
   createElement,
-  MutableRefObject,
-  useRef,
   forwardRef,
+  MutableRefObject,
+  useEffect,
   useImperativeHandle,
   useLayoutEffect,
+  useRef,
 } from 'react';
 
 interface AnimatedTextProps {
@@ -35,7 +36,7 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
     useLayoutEffect(() => {
       if (descriptionRef.current) {
         const descriptionWords = descriptionRef.current.querySelectorAll('.anim-text');
-        gsap.set(descriptionWords, { yPercent: 100 });
+        gsap.set(descriptionWords, { yPercent: 110 });
       }
     }, []);
 
@@ -59,7 +60,7 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
       textAnimation: triggerAnimation,
     }));
 
-    useGSAP(() => {
+    useEffect(() => {
       ScrollTrigger.refresh();
 
       if (isScrubAnim && descriptionRef.current && trigger?.current) {

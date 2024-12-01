@@ -8,6 +8,7 @@ import { useEffect, useRef } from 'react';
 import type { Image as SanityImage } from 'sanity';
 import Button from '../atoms/Button';
 import { IconArrow } from '../atoms/Icons';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 
 type SliderPhotographyProps = {
   photos: SanityImage[];
@@ -206,6 +207,8 @@ const SliderPhotography = ({
       <div
         className="relative flex h-full w-full items-center justify-center"
         onClick={() => setIsOpen(false)}
+        onMouseLeave={useResetMagnet}
+        onMouseMove={(e) => useMagnet(e, 1)}
       >
         <div ref={wrapperImageRef} className="h-full w-full overflow-hidden">
           <Image
