@@ -43,11 +43,7 @@ const SliderPhotography = ({
 
   useGSAP(() => {
     timelineRef.current
-      .fromTo(
-        containerRef.current,
-        { visibility: 'hidden' },
-        { visibility: 'visible', duration: 0 },
-      )
+      .fromTo(containerRef.current, { display: 'none' }, { display: 'flex', duration: 0.1 })
       .fromTo(
         backgroundRef.current,
         {
@@ -185,7 +181,7 @@ const SliderPhotography = ({
   return (
     <div
       ref={containerRef}
-      className="invisible fixed bottom-0 z-50 flex h-[calc(100vh-100px)] w-screen items-center gap-x-11 overflow-hidden px-x-default py-y-default"
+      className="fixed bottom-0 z-50 hidden h-[calc(100vh-100px)] w-screen items-center gap-x-11 overflow-hidden px-x-default py-y-default"
     >
       <div
         ref={backgroundRef}
