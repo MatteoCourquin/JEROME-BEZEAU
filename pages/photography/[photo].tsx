@@ -2,12 +2,14 @@ import SliderPhotography from '@/components/sections/SliderPhotography';
 import { urlFor } from '@/sanity/lib/image';
 import { fetchPaths, fetchSinglePhoto } from '@/services/photos.sevices';
 import { Photo } from '@/types';
+import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { GetStaticPropsContext } from 'next';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Page({ photo }: { photo: Photo }) {
+  const sectionRef = useRef(null);
   const wrapperGridRef = useRef(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const isFirstMove = useRef(true);
@@ -20,6 +22,13 @@ export default function Page({ photo }: { photo: Photo }) {
 
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  useGSAP(() => {
+    gsap
+      .timeline()
+      .fromTo(sectionRef.current, { scale: 2 }, { scale: 1, duration: 2.2, ease: 'power3.out' })
+      .fromTo(gridRef.current, { gap: 200 }, { gap: 50, duration: 2.2, ease: 'power3.out' }, '<');
+  });
 
   useEffect(() => {
     const calculateBoundaries = () => {
@@ -117,6 +126,7 @@ export default function Page({ photo }: { photo: Photo }) {
   return (
     <>
       <section
+        ref={sectionRef}
         className="cursor-drag relative z-0 h-screen w-screen select-none overflow-hidden"
         draggable={false}
         onMouseDown={onMouseDown}
