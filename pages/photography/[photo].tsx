@@ -6,7 +6,9 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { GetStaticPropsContext } from 'next';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+const DRAG_THRESHOLD = 5;
 
 export default function Page({ photo }: { photo: Photo }) {
   const sectionRef = useRef(null);
@@ -14,6 +16,7 @@ export default function Page({ photo }: { photo: Photo }) {
   const gridRef = useRef<HTMLDivElement>(null);
   const isFirstMove = useRef(true);
   const initialMousePos = useRef({ x: 0, y: 0 });
+  const clickStartPos = useRef({ x: 0, y: 0 });
 
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -35,8 +38,8 @@ export default function Page({ photo }: { photo: Photo }) {
       if (gridRef.current && wrapperGridRef.current) {
         const gridRect = gridRef.current.getBoundingClientRect();
 
-        const maxX = gridRect.width * 0.5;
-        const maxY = gridRect.height * 0.5;
+        const maxX = gridRect.width * 0.25;
+        const maxY = gridRect.height * 0.25;
 
         setBoundaries({
           minX: -maxX,
@@ -56,71 +59,69 @@ export default function Page({ photo }: { photo: Photo }) {
     return Math.min(Math.max(value, min), max);
   };
 
-  const onMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setStartPosition({ x: e.clientX - dragOffset.x, y: e.clientY - dragOffset.y });
-  };
+  const onMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      setIsDragging(true);
+      setStartPosition({ x: e.clientX - dragOffset.x, y: e.clientY - dragOffset.y });
+      clickStartPos.current = { x: e.clientX, y: e.clientY };
+    },
+    [dragOffset],
+  );
 
-  const onMouseMove = (e: React.MouseEvent) => {
-    if (isFirstMove.current) {
-      initialMousePos.current = { x: e.clientX, y: e.clientY };
-      isFirstMove.current = false;
+  const onMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (isFirstMove.current) {
+        initialMousePos.current = { x: e.clientX, y: e.clientY };
+        isFirstMove.current = false;
+      }
+
+      const deltaX = e.clientX - initialMousePos.current.x;
+      const deltaY = e.clientY - initialMousePos.current.y;
+
+      const parallaxScale = 0.05;
+      const limitedDeltaX = clampValue(
+        -(deltaX * parallaxScale),
+        boundaries.minX / 2,
+        boundaries.maxX / 2,
+      );
+      const limitedDeltaY = clampValue(
+        -(deltaY * parallaxScale),
+        boundaries.minY / 2,
+        boundaries.maxY / 2,
+      );
+
+      gsap.to(wrapperGridRef.current, {
+        x: limitedDeltaX,
+        y: limitedDeltaY,
+        ease: 'power2.out',
+        duration: 0.8,
+      });
+
+      if (!isDragging || !gridRef.current) return;
+
+      const newX = clampValue(e.clientX - startPosition.x, boundaries.minX, boundaries.maxX);
+      const newY = clampValue(e.clientY - startPosition.y, boundaries.minY, boundaries.maxY);
+
+      gsap.to(gridRef.current, {
+        x: newX,
+        y: newY,
+        ease: 'power2.out',
+        duration: 0.8,
+      });
+
+      setDragOffset({ x: newX, y: newY });
+    },
+    [boundaries, isDragging, startPosition],
+  );
+
+  const handleImageClick = useCallback((e: React.MouseEvent, index: number) => {
+    const deltaX = Math.abs(e.clientX - clickStartPos.current.x);
+    const deltaY = Math.abs(e.clientY - clickStartPos.current.y);
+
+    if (deltaX < DRAG_THRESHOLD && deltaY < DRAG_THRESHOLD) {
+      setActiveIndex(index);
+      setIsSliderOpen(true);
     }
-
-    const deltaX = e.clientX - initialMousePos.current.x;
-    const deltaY = e.clientY - initialMousePos.current.y;
-
-    const parallaxScale = 0.05;
-    const limitedDeltaX = clampValue(
-      -(deltaX * parallaxScale),
-      boundaries.minX / 2,
-      boundaries.maxX / 2,
-    );
-    const limitedDeltaY = clampValue(
-      -(deltaY * parallaxScale),
-      boundaries.minY / 2,
-      boundaries.maxY / 2,
-    );
-
-    gsap.to(wrapperGridRef.current, {
-      x: limitedDeltaX,
-      y: limitedDeltaY,
-      ease: 'power2.out',
-      duration: 0.8,
-    });
-
-    if (!isDragging || !gridRef.current) return;
-
-    const newX = clampValue(e.clientX - startPosition.x, boundaries.minX, boundaries.maxX);
-    const newY = clampValue(e.clientY - startPosition.y, boundaries.minY, boundaries.maxY);
-
-    gsap.to(gridRef.current, {
-      x: newX,
-      y: newY,
-      ease: 'power2.out',
-      duration: 0.8,
-    });
-
-    setDragOffset({ x: newX, y: newY });
-  };
-
-  const onMouseLeave = () => {
-    setIsDragging(false);
-    isFirstMove.current = true;
-    gsap.to(wrapperGridRef.current, {
-      x: 0,
-      y: 0,
-      ease: 'power2.out',
-      duration: 0.8,
-    });
-  };
-
-  useEffect(() => {
-    const handleMouseUp = () => setIsDragging(false);
-    window.addEventListener('mouseup', handleMouseUp);
-    return () => {
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
   }, []);
 
   return (
@@ -130,7 +131,6 @@ export default function Page({ photo }: { photo: Photo }) {
         className="cursor-drag relative z-0 h-screen w-screen select-none overflow-hidden"
         draggable={false}
         onMouseDown={onMouseDown}
-        onMouseLeave={onMouseLeave}
         onMouseMove={onMouseMove}
         onMouseUp={() => setIsDragging(false)}
       >
@@ -151,10 +151,7 @@ export default function Page({ photo }: { photo: Photo }) {
                 <div
                   key={index}
                   className="flex h-full w-full items-center justify-center"
-                  onClick={() => {
-                    setActiveIndex(index);
-                    setIsSliderOpen(true);
-                  }}
+                  onClick={(e) => handleImageClick(e, index)}
                 >
                   <Image
                     alt={photo.title + index}
