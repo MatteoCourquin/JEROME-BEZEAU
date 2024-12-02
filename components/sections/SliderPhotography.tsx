@@ -1,3 +1,4 @@
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useShortcut } from '@/hooks/useShortcut';
 import { urlFor } from '@/sanity/lib/image';
 import { useGSAP } from '@gsap/react';
@@ -8,7 +9,6 @@ import { useEffect, useRef } from 'react';
 import type { Image as SanityImage } from 'sanity';
 import Button from '../atoms/Button';
 import { IconArrow } from '../atoms/Icons';
-import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 
 type SliderPhotographyProps = {
   photos: SanityImage[];
@@ -34,12 +34,6 @@ const SliderPhotography = ({
   const buttonNextRef = useRef(null);
 
   const timelineRef = useRef<gsap.core.Timeline>(gsap.timeline({ paused: true }));
-
-  useShortcut('Escape', () => {
-    setIsOpen(false);
-  });
-  useShortcut('ArrowRight', () => goToNext());
-  useShortcut('ArrowLeft', () => goToPrevious());
 
   useGSAP(() => {
     timelineRef.current
@@ -84,19 +78,19 @@ const SliderPhotography = ({
       );
   }, []);
 
-  const goToNext = () => {
+  const goToSlide = (isNext: boolean) => {
     gsap
       .timeline()
       .to(wrapperImageRef.current, {
         scaleX: 0,
-        transformOrigin: 'left center',
+        transformOrigin: isNext ? 'left center' : 'right center',
         ease: 'power2.inOut',
         onUpdate: () => {
           const currentScale = gsap.getProperty(wrapperImageRef.current, 'scaleX');
           if (currentScale !== 0) {
             gsap.set(imageRef.current, {
               scaleX: 1 / Number(currentScale),
-              transformOrigin: 'left center',
+              transformOrigin: isNext ? 'left center' : 'right center',
             });
           }
         },
@@ -104,12 +98,12 @@ const SliderPhotography = ({
       .add(() => {
         gsap.set(imageRef.current, { scaleX: 1 });
         setActiveIndex((prev) => {
-          const nextIndex = prev + 1;
-          return nextIndex >= photos.length ? 0 : nextIndex;
+          const nextIndex = prev + (isNext ? 1 : -1);
+          return (nextIndex + photos.length) % photos.length;
         });
       })
       .set(wrapperImageRef.current, {
-        transformOrigin: 'right center',
+        transformOrigin: isNext ? 'right center' : 'left center',
       })
       .to(wrapperImageRef.current, {
         scaleX: 1,
@@ -119,54 +113,20 @@ const SliderPhotography = ({
           if (currentScale !== 0) {
             gsap.set(imageRef.current, {
               scaleX: 1 / Number(currentScale),
-              transformOrigin: 'right center',
+              transformOrigin: isNext ? 'right center' : 'left center',
             });
           }
         },
       });
   };
 
-  const goToPrevious = () => {
-    gsap
-      .timeline()
-      .to(wrapperImageRef.current, {
-        scaleX: 0,
-        transformOrigin: 'right center',
-        ease: 'power2.inOut',
-        onUpdate: () => {
-          const currentScale = gsap.getProperty(wrapperImageRef.current, 'scaleX');
-          if (currentScale !== 0) {
-            gsap.set(imageRef.current, {
-              scaleX: 1 / Number(currentScale),
-              transformOrigin: 'right center',
-            });
-          }
-        },
-      })
-      .add(() => {
-        gsap.set(imageRef.current, { scaleX: 1 });
-        setActiveIndex((prev) => {
-          const nextIndex = prev - 1;
-          return nextIndex < 0 ? photos.length - 1 : nextIndex;
-        });
-      })
-      .set(wrapperImageRef.current, {
-        transformOrigin: 'left center',
-      })
-      .to(wrapperImageRef.current, {
-        scaleX: 1,
-        ease: 'power2.inOut',
-        onUpdate: () => {
-          const currentScale = gsap.getProperty(wrapperImageRef.current, 'scaleX');
-          if (currentScale !== 0) {
-            gsap.set(imageRef.current, {
-              scaleX: 1 / Number(currentScale),
-              transformOrigin: 'left center',
-            });
-          }
-        },
-      });
-  };
+  const goToNext = () => goToSlide(true);
+  const goToPrevious = () => goToSlide(false);
+  const handdleClose = () => setIsOpen(false);
+
+  useShortcut('Escape', handdleClose);
+  useShortcut('ArrowRight', goToNext);
+  useShortcut('ArrowLeft', goToPrevious);
 
   useEffect(() => {
     if (!timelineRef.current) return;
@@ -186,7 +146,7 @@ const SliderPhotography = ({
       <div
         ref={backgroundRef}
         className="absolute inset-0 -z-10 h-full w-full backdrop-blur-lg"
-        onClick={() => setIsOpen(false)}
+        onClick={handdleClose}
       />
 
       <Button
@@ -202,7 +162,7 @@ const SliderPhotography = ({
 
       <div
         className="relative flex h-full w-full items-center justify-center"
-        onClick={() => setIsOpen(false)}
+        onClick={handdleClose}
         onMouseLeave={useResetMagnet}
         onMouseMove={(e) => useMagnet(e, 1)}
       >
