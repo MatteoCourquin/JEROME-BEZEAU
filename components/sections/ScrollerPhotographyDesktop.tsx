@@ -22,6 +22,8 @@ const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
 
   const hoverTimeoutRef = useRef<NodeJS.Timeout>();
 
+  const { contextSafe } = useGSAP();
+
   const [activePhotoIndex, setActivePhotoIndex] = useState<string | undefined>(undefined);
   const [activeTitle, setActiveTitle] = useState(isFrench ? 'PHOTOGRAPHY' : 'PHOTOGRAPHIE');
   const [isScrollRight, setIsScrollRight] = useState(false);
@@ -45,9 +47,8 @@ const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
 
   const animateScroll = () => {
     const scrollContainer1 = scrollContainer1Ref.current;
-    const scrollContainer2 = scrollContainer2Ref.current;
 
-    if (!scrollContainer1 || !scrollContainer2 || !sectionContainerRef.current) return;
+    if (!scrollContainer1 || !scrollContainer2Ref.current || !sectionContainerRef.current) return;
 
     const timeline = gsap.timeline({
       scrollTrigger: {
@@ -61,7 +62,7 @@ const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
     });
 
     timeline.to(scrollContainer1, { x: 1000, ease: 'none' });
-    timeline.to(scrollContainer2, { x: -1000, ease: 'none' }, '<');
+    timeline.to(scrollContainer2Ref.current, { x: -1000, ease: 'none' }, '<');
   };
 
   const animateInfinite = (element: RefObject<HTMLDivElement>, isScrollRight: boolean) => {
@@ -99,7 +100,7 @@ const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
     animateNextTitle();
   };
 
-  const animateNextTitle = () => {
+  const animateNextTitle = contextSafe(() => {
     if (animationQueue.current.length === 0) {
       isAnimating.current = false;
       return;
@@ -129,21 +130,24 @@ const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
         );
       },
     });
-  };
+  });
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      lastKnownScrollPositionRef.current = window.scrollY;
-      window.addEventListener('scroll', detectScrollDirection);
+    lastKnownScrollPositionRef.current = window.scrollY;
+    window.addEventListener('scroll', detectScrollDirection);
 
-      return () => {
-        window.removeEventListener('scroll', detectScrollDirection);
-        detectScrollDirection.cancel();
-      };
-    }
+    return () => {
+      window.removeEventListener('scroll', detectScrollDirection);
+      detectScrollDirection.cancel();
+    };
   }, []);
 
   useGSAP(() => {
+    gsap.from([scrollContainer1Ref.current, scrollContainer2Ref.current], {
+      xPercent: (index) => [-200, 200][index],
+      duration: 1.8,
+      ease: 'power3.out',
+    });
     animateInfinite(scrollContainer1Ref, !isScrollRight);
     animateInfinite(scrollContainer2Ref, isScrollRight);
     animateScroll();
@@ -176,7 +180,7 @@ const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
                     return (
                       <CardPhotographyDesktop
                         key={indexId}
-                        className={clsx(refIndex === 0 ? 'pb-2' : 'pt-2', 'px-2')}
+                        className={clsx(refIndex === 0 ? 'pb-2' : 'pt-2', 'slider-item px-2')}
                         indexId={indexId}
                         isIndexActive={isIndexActive}
                         photo={photo}

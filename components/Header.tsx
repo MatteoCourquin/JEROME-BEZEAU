@@ -76,7 +76,7 @@ const Header = ({ className }: { className?: string }) => {
         </Link>
         <nav ref={navRef}>
           <ul className="flex items-center">
-            <li className="overflow-hidden px-5 py-0.5">
+            <li className="overflow-hidden px-5 py-4">
               <Link
                 className="anim-items-header link link_white-80 cursor-button inline-block translate-y-24 whitespace-nowrap pt-0.5 uppercase"
                 href="/work"
@@ -87,7 +87,7 @@ const Header = ({ className }: { className?: string }) => {
                 {isFrench ? 'Projets' : 'Work'}
               </Link>
             </li>
-            <li className="overflow-hidden px-5 py-0.5">
+            <li className="overflow-hidden px-5 py-4">
               <Link
                 className="anim-items-header link link_white-80 cursor-button inline-block translate-y-24 whitespace-nowrap pt-0.5 uppercase"
                 href="/photography"
@@ -98,7 +98,7 @@ const Header = ({ className }: { className?: string }) => {
                 {isFrench ? 'Photographie' : 'Photography'}
               </Link>
             </li>
-            <li className="overflow-hidden px-5 py-0.5">
+            <li className="overflow-hidden px-5 py-4">
               <Link
                 className="anim-items-header link link_white-80 cursor-button inline-block translate-y-24 whitespace-nowrap pt-0.5 uppercase"
                 href="/about"

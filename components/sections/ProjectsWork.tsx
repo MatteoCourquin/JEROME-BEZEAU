@@ -55,7 +55,7 @@ const ProjectsWork = forwardRef(
     const getColumnSpan = (index: number) => sequence[index % sequence.length];
 
     return (
-      <section ref={ref} className="px-x-default pb-y-default">
+      <section ref={ref} className="overflow-hidden px-x-default pb-y-default">
         {projects.map((project, index) => {
           const { before, size, origin } = getColumnSpan(index);
           return (

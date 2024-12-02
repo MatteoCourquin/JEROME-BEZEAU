@@ -25,7 +25,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      brekpoints: {
+      screens: {
         xs: `${BREAKPOINTS.XS}px`,
         sm: `${BREAKPOINTS.SM}px`,
         md: `${BREAKPOINTS.MD}px`,

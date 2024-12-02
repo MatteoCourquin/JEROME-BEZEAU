@@ -209,25 +209,29 @@ const CardProject = ({
             )}
           </Link>
         </div>
-        <div className="flex flex-col gap-5 pb-20 pt-5 md:hidden">
+        <div className="flex flex-col pb-20 pt-5 md:hidden">
           <div className="h-fit overflow-hidden">
             <h2 ref={titleRef} className="text-2xl font-bold">
               {project.title}
             </h2>
           </div>
-          {project.tags && (
-            <div ref={tagsRef} className="no-scrollbar flex gap-[5px] overflow-scroll">
-              {project.tags.map((tag, index) => (
-                <Tag
-                  key={tag.value.current + index}
-                  className="origin-left"
-                  variant={TAG_VARIANT.LIGHT}
-                >
-                  {isFrench ? tag.labelFr : tag.labelEn}
-                </Tag>
-              ))}
-            </div>
-          )}
+          <div className="relative w-full">
+            {project.tags && (
+              <div ref={tagsRef} className="smoother-x-black absolute -left-x-default w-screen">
+                <div className="no-scrollbar flex gap-[5px] overflow-x-scroll px-x-default py-5">
+                  {project.tags.map((tag, index) => (
+                    <Tag
+                      key={tag.value.current + index}
+                      className="origin-left"
+                      variant={TAG_VARIANT.LIGHT}
+                    >
+                      {isFrench ? tag.labelFr : tag.labelEn}
+                    </Tag>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

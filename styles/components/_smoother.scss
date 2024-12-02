@@ -23,7 +23,7 @@
     content: '';
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: $screens-sm) {
     &::before {
       display: none;
     }

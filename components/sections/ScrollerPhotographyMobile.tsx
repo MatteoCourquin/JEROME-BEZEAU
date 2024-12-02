@@ -9,7 +9,7 @@ const ScrollerPhotographyMobile = ({ photos }: { photos: Photo[] }) => {
   return (
     <>
       <section className="overflow-hidden pt-header">
-        <DynamicTitle className="py-y-default" coefficient={1.2}>
+        <DynamicTitle className="py-y-default">
           {isFrench ? 'PHOTOGRAPHIE' : 'PHOTOGRAPHY'}
         </DynamicTitle>
       </section>

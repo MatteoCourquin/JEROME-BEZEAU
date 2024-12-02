@@ -21,6 +21,12 @@ $y-default: theme('width.y-default');
 $x-half-default: theme('width.x-half-default');
 $y-half-default: theme('width.y-half-default');
 
+// BREAKPOINTS
+$screens-xs: theme('screens.xs');
+$screens-sm: theme('screens.sm');
+$screens-md: theme('screens.md');
+$screens-lg: theme('screens.lg');
+
 // COMPATIBILITY
 .select-none {
   -webkit-user-select: none;
