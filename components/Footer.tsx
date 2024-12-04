@@ -5,6 +5,8 @@ import gsap from 'gsap';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { IconJB } from './atoms/Icons';
+import { LINKS } from '@/constants';
+import { SOCIALS } from '@/constants/socials';
 
 const Footer = () => {
   const { isFrench, setIsFrench } = useLanguage();
@@ -70,116 +72,36 @@ const Footer = () => {
         <nav className="w-full">
           <ul className="flex flex-col gap-2">
             <li className="pb-2 uppercase text-white-12">Menu</li>
-            <li>
-              <Link
-                className="link cursor-button link_white-40 inline-block"
-                href="/"
-                onMouseLeave={(e) => useResetMagnet(e)}
-                onMouseMove={(e) => useMagnet(e, 1)}
-              >
-                {isFrench ? 'Accueil' : 'Home'}
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="link cursor-button link_white-40 inline-block"
-                href="/work"
-                onMouseLeave={(e) => useResetMagnet(e)}
-                onMouseMove={(e) => useMagnet(e, 1)}
-              >
-                {isFrench ? 'Projets' : 'Work'}
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="link cursor-button link_white-40 inline-block"
-                href="/photography"
-                onMouseLeave={(e) => useResetMagnet(e)}
-                onMouseMove={(e) => useMagnet(e, 1)}
-              >
-                {isFrench ? 'Photographie' : 'Photography'}
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="link cursor-button link_white-40 inline-block"
-                href="/about"
-                onMouseLeave={(e) => useResetMagnet(e)}
-                onMouseMove={(e) => useMagnet(e, 1)}
-              >
-                {isFrench ? 'À propos' : 'About'}
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="link cursor-button link_white-40 inline-block"
-                href="/contact"
-                onMouseLeave={(e) => useResetMagnet(e)}
-                onMouseMove={(e) => useMagnet(e, 1)}
-              >
-                Contact
-              </Link>
-            </li>
+            {LINKS.map(({ href, text }) => (
+              <li key={href}>
+                <Link
+                  className="link cursor-button link_white-40 inline-block"
+                  href={href}
+                  onMouseLeave={(e) => useResetMagnet(e)}
+                  onMouseMove={(e) => useMagnet(e, 1)}
+                >
+                  {isFrench ? text.fr : text.en}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
         <nav className="w-full">
           <ul className="flex flex-col gap-2">
             <li className="pb-2 uppercase text-white-12">{isFrench ? 'Réseaux' : 'Socials'}</li>
-            <li>
-              <a
-                className="link cursor-button link_white-40 inline-block"
-                href="https://www.linkedin.com/in/jerome-bezeau/"
-                target="_blank"
-                onMouseLeave={(e) => useResetMagnet(e)}
-                onMouseMove={(e) => useMagnet(e, 1)}
-              >
-                Linkedin
-              </a>
-            </li>
-            <li>
-              <a
-                className="link cursor-button link_white-40 inline-block"
-                href="https://www.behance.net/jeromebezeb4eb"
-                target="_blank"
-                onMouseLeave={(e) => useResetMagnet(e)}
-                onMouseMove={(e) => useMagnet(e, 1)}
-              >
-                Behance
-              </a>
-            </li>
-            <li>
-              <a
-                className="link cursor-button link_white-40 inline-block"
-                href="https://www.instagram.com/jeromebezeau/"
-                target="_blank"
-                onMouseLeave={(e) => useResetMagnet(e)}
-                onMouseMove={(e) => useMagnet(e, 1)}
-              >
-                Instagram
-              </a>
-            </li>
-            <li>
-              <a
-                className="link cursor-button link_white-40 inline-block"
-                href="https://dribbble.com/jeromebezeau"
-                target="_blank"
-                onMouseLeave={(e) => useResetMagnet(e)}
-                onMouseMove={(e) => useMagnet(e, 1)}
-              >
-                Dribbble
-              </a>
-            </li>
-            <li>
-              <a
-                className="link cursor-button link_white-40 inline-block"
-                href="https://bento.me/jeromebezeau"
-                target="_blank"
-                onMouseLeave={(e) => useResetMagnet(e)}
-                onMouseMove={(e) => useMagnet(e, 1)}
-              >
-                Bento
-              </a>
-            </li>
+            {SOCIALS.map(({ href, text }) => (
+              <li key={href}>
+                <a
+                  className="link cursor-button link_white-40 inline-block"
+                  href={href}
+                  target="_blank"
+                  onMouseLeave={(e) => useResetMagnet(e)}
+                  onMouseMove={(e) => useMagnet(e, 1)}
+                >
+                  {text}
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

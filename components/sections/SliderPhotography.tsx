@@ -2,7 +2,6 @@ import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useShortcut } from '@/hooks/useShortcut';
 import { urlFor } from '@/sanity/lib/image';
 import { useGSAP } from '@gsap/react';
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import gsap from 'gsap';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
@@ -172,7 +171,7 @@ const SliderPhotography = ({
             alt="Picture of project photography"
             className="pointer-events-none h-full w-full select-none object-contain"
             height={1080}
-            src={urlFor(photos[activeIndex] as SanityImageSource).toString()}
+            src={urlFor(photos[activeIndex]).toString()}
             width={1920}
             onContextMenu={(e) => e.preventDefault()}
             onDragStart={(e) => e.preventDefault()}
