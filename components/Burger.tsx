@@ -1,3 +1,4 @@
+import { LINKS, SOCIALS } from '@/constants';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
@@ -9,12 +10,10 @@ import { LottieRefCurrentProps } from 'lottie-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import JBLottie from '../public/lottie/JB.json';
-import { IconBehance, IconBento, IconDribbble, IconInstagram, IconLinkedin } from './atoms/Icons';
 const Lottie = dynamic(() => import('lottie-react'), {
   ssr: false,
-  suspense: true,
   loading: () => <div className="h-[85px] w-[88px] pb-7" />,
 });
 
@@ -31,17 +30,7 @@ const Burger = ({ className }: { className?: string }) => {
   const timelineRef = useRef<gsap.core.Timeline>();
 
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
-
-  useEffect(() => {
-    const checkLottie = setInterval(() => {
-      if (lottieRef.current) {
-        lottieRef.current.stop();
-        clearInterval(checkLottie);
-      }
-    }, 50);
-
-    return () => clearInterval(checkLottie);
-  }, []);
+  const [showLottie, setShowLottie] = useState(false);
 
   useGSAP(() => {
     gsap
@@ -49,7 +38,7 @@ const Burger = ({ className }: { className?: string }) => {
         delay: isScreenLoader ? 4.8 : 1,
       })
       .to(burgerRef.current, { scale: 1, duration: 0.3, ease: 'power3.out' })
-      .add(() => lottieRef.current && lottieRef.current.play())
+      .add(() => setShowLottie(true))
       .play();
   }, [isScreenLoader]);
 
@@ -171,15 +160,17 @@ const Burger = ({ className }: { className?: string }) => {
           onMouseLeave={useResetMagnet}
           onMouseMove={(e) => useMagnet(e, 1)}
         >
-          <Suspense fallback={<div className="h-[85px] w-[88px] pb-7" />}>
-            <Lottie
-              animationData={JBLottie}
-              autoPlay={false}
-              className="h-[85px] w-[88px] pb-7"
-              loop={false}
-              lottieRef={lottieRef}
-            />
-          </Suspense>
+          <div className="h-[85px] w-[88px] pb-7">
+            {showLottie && (
+              <Lottie
+                animationData={JBLottie}
+                autoPlay={false}
+                className="h-full w-full"
+                loop={false}
+                lottieRef={lottieRef}
+              />
+            )}
+          </div>
         </Link>
         <button
           ref={burgerRef}
@@ -216,42 +207,21 @@ const Burger = ({ className }: { className?: string }) => {
             <div className="h-full w-full bg-white-12" />
           </div>
           <ul className="flex flex-col gap-5 px-x-default py-y-default">
-            <li className="overflow-hidden transition-transform hover:translate-x-2">
-              <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 !text-3xl uppercase"
-                href="/work"
-                scroll={false}
-              >
-                {isFrench ? 'Projets' : 'Work'}
-              </Link>
-            </li>
-            <li className="overflow-hidden transition-transform hover:translate-x-2">
-              <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 !text-3xl uppercase"
-                href="/photography"
-                scroll={false}
-              >
-                {isFrench ? 'Photographie' : 'Photography'}
-              </Link>
-            </li>
-            <li className="overflow-hidden transition-transform hover:translate-x-2">
-              <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 !text-3xl uppercase"
-                href="/about"
-                scroll={false}
-              >
-                {isFrench ? 'À propos' : 'About'}
-              </Link>
-            </li>
-            <li className="overflow-hidden transition-transform hover:translate-x-2">
-              <Link
-                className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 !text-3xl uppercase"
-                href="/contact"
-                scroll={false}
-              >
-                Contact
-              </Link>
-            </li>
+            {LINKS.map(({ href, text }) => {
+              if (href === '/') return null;
+
+              return (
+                <li key={href} className="overflow-hidden transition-transform hover:translate-x-2">
+                  <Link
+                    className="anim-items-header link link_white-80 cursor-button inline-block whitespace-nowrap pt-0.5 !text-3xl uppercase"
+                    href={href}
+                    scroll={false}
+                  >
+                    {isFrench ? text.fr : text.en}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
           <div className="anim-items-divider absolute bottom-0 left-0 h-px w-full px-0">
             <div className="h-full w-full bg-white-12" />
@@ -259,56 +229,19 @@ const Burger = ({ className }: { className?: string }) => {
         </div>
       </nav>
       <div ref={wrapperIconRef} className="flex gap-4 px-x-default">
-        <Link
-          aria-label="Visit my LinkedIn profile"
-          className="cursor-button scale-0 p-3 opacity-0"
-          href="https://www.linkedin.com/in/jerome-bezeau/"
-          target="_blank"
-          onMouseLeave={(e) => useResetMagnet(e)}
-          onMouseMove={(e) => useMagnet(e, 1)}
-        >
-          <IconLinkedin />
-        </Link>
-        <Link
-          aria-label="View my Behance portfolio"
-          className="cursor-button scale-0 p-3 opacity-0"
-          href="https://www.behance.net/jeromebezeb4eb"
-          target="_blank"
-          onMouseLeave={(e) => useResetMagnet(e)}
-          onMouseMove={(e) => useMagnet(e, 1)}
-        >
-          <IconBehance />
-        </Link>
-        <Link
-          aria-label="Follow me on Instagram"
-          className="cursor-button scale-0 p-3 opacity-0"
-          href="https://www.instagram.com/jeromebezeau/"
-          target="_blank"
-          onMouseLeave={(e) => useResetMagnet(e)}
-          onMouseMove={(e) => useMagnet(e, 1)}
-        >
-          <IconInstagram />
-        </Link>
-        <Link
-          aria-label="Check my work on Dribbble"
-          className="cursor-button scale-0 p-3 opacity-0"
-          href="https://dribbble.com/jeromebezeau"
-          target="_blank"
-          onMouseLeave={(e) => useResetMagnet(e)}
-          onMouseMove={(e) => useMagnet(e, 1)}
-        >
-          <IconDribbble />
-        </Link>
-        <Link
-          aria-label="View my Bento profile"
-          className="cursor-button scale-0 p-3 opacity-0"
-          href="https://bento.me/jeromebezeau"
-          target="_blank"
-          onMouseLeave={(e) => useResetMagnet(e)}
-          onMouseMove={(e) => useMagnet(e, 1)}
-        >
-          <IconBento />
-        </Link>
+        {SOCIALS.map(({ href, text, icon }) => (
+          <Link
+            key={href}
+            aria-label={`Visit my ${text} profile`}
+            className="cursor-button scale-0 p-3 opacity-0"
+            href={href}
+            target="_blank"
+            onMouseLeave={(e) => useResetMagnet(e)}
+            onMouseMove={(e) => useMagnet(e, 1)}
+          >
+            {icon()}
+          </Link>
+        ))}
       </div>
     </header>
   );

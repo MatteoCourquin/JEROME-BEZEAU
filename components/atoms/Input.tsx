@@ -12,7 +12,11 @@ type InputProps = {
   React.TextareaHTMLAttributes<HTMLTextAreaElement> &
   React.SelectHTMLAttributes<HTMLSelectElement>;
 
-const Input = forwardRef<{ inputAnimation: () => void }, InputProps>(
+export interface AnimatedIputRef {
+  inputAnimation: () => void;
+}
+
+const Input = forwardRef<AnimatedIputRef, InputProps>(
   (
     {
       name,

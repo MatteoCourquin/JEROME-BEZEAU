@@ -1,4 +1,4 @@
-import AnimatedText from '@/components/atoms/AnimatedText';
+import AnimatedText, { AnimatedTextRef } from '@/components/atoms/AnimatedText';
 import ContactForm from '@/components/ContactForm';
 import Call from '@/components/sections/contact/Call';
 import Loaction from '@/components/sections/contact/Location';
@@ -13,9 +13,9 @@ export default function Page() {
   const { isFrench } = useLanguage();
 
   const textsAnimation = {
-    title: useRef<{ textAnimation: () => void }>(null),
-    subtitle1: useRef<{ textAnimation: () => void }>(null),
-    subtitle2: useRef<{ textAnimation: () => void }>(null),
+    title: useRef<AnimatedTextRef>(null),
+    subtitle1: useRef<AnimatedTextRef>(null),
+    subtitle2: useRef<AnimatedTextRef>(null),
   };
 
   const sectionRef = useRef(null);

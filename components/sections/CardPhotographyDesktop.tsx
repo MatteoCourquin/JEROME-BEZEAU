@@ -11,7 +11,7 @@ interface CardPhotographyProps extends HTMLProps<HTMLAnchorElement> {
   className: string;
 }
 
-const CardPhotography = ({
+const CardPhotographyDesktop = ({
   indexId,
   photo,
   isIndexActive,
@@ -40,4 +40,4 @@ const CardPhotography = ({
   );
 };
 
-export default CardPhotography;
+export default CardPhotographyDesktop;

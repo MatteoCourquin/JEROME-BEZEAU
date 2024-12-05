@@ -1,12 +1,12 @@
 import { useLanguage } from '@/providers/language.provider';
-import Button from './atoms/Button';
-import Input from './atoms/Input';
-import { useContactForm } from '../hooks/useContactForm';
 import { FORM_STATE } from '@/types/form.type';
-import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import AnimatedText from './atoms/AnimatedText';
+import { useRef } from 'react';
+import { useContactForm } from '../hooks/useContactForm';
+import AnimatedText, { AnimatedTextRef } from './atoms/AnimatedText';
+import Button from './atoms/Button';
+import Input, { AnimatedIputRef } from './atoms/Input';
 
 const ContactForm = () => {
   const { isFrench } = useLanguage();
@@ -20,13 +20,13 @@ const ContactForm = () => {
     getButtonText,
   } = useContactForm(isFrench);
 
-  const titleRef = useRef<{ textAnimation: () => void }>(null);
+  const titleRef = useRef<AnimatedTextRef>(null);
   const inputsRef = {
-    name: useRef<{ inputAnimation: () => void }>(null),
-    email: useRef<{ inputAnimation: () => void }>(null),
-    phone: useRef<{ inputAnimation: () => void }>(null),
-    subject: useRef<{ inputAnimation: () => void }>(null),
-    message: useRef<{ inputAnimation: () => void }>(null),
+    name: useRef<AnimatedIputRef>(null),
+    email: useRef<AnimatedIputRef>(null),
+    phone: useRef<AnimatedIputRef>(null),
+    subject: useRef<AnimatedIputRef>(null),
+    message: useRef<AnimatedIputRef>(null),
   };
   const buttonRef = useRef(null);
 
