@@ -48,7 +48,7 @@ const CardSkills = ({
 
   useGSAP(() => {
     gsap.set(cardRef.current, {
-      backgroundColor: 'rgba(255, 255, 255, 0.0)',
+      backgroundColor: '#13131300',
       borderColor: 'rgba(255, 255, 255, 0.12)',
     });
     gsap.set(titleRef.current, {
@@ -71,7 +71,7 @@ const CardSkills = ({
       .to(
         cardRef.current,
         {
-          backgroundColor: 'rgba(255, 255, 255, 0.02)',
+          backgroundColor: '#131313',
           borderColor: 'rgba(255, 255, 255, 0.02)',
         },
         '<',

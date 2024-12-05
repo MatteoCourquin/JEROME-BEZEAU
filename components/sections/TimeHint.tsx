@@ -16,11 +16,17 @@ const TimeDisplay = ({ isFrench }: { isFrench: boolean }) => {
 
   useEffect(() => {
     const formatTime = () => {
-      const now = new Date();
+      const now = new Date().toLocaleString('fr-FR', {
+        timeZone: 'Europe/Paris',
+        hour12: false,
+      });
+
+      const parisTime = new Date(now);
+
       return {
-        hours: now.getHours(),
-        minutes: now.getMinutes(),
-        seconds: now.getSeconds(),
+        hours: parisTime.getHours(),
+        minutes: parisTime.getMinutes(),
+        seconds: parisTime.getSeconds(),
       };
     };
 

@@ -1,11 +1,12 @@
 import { useLanguage } from '@/providers/language.provider';
 import { Photo } from '@/types';
 import { useGSAP } from '@gsap/react';
+import clsx from 'clsx';
 import gsap from 'gsap';
 import { throttle } from 'lodash';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import CardPhotographyDesktop from './CardPhotographyDesktop';
 import AnimatedTitle, { AnimatedTitleRef } from '../AnimatedTitlePhoto';
-import ScrollerRow from '../ScrollerRow';
 
 const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
   const { isFrench } = useLanguage();
@@ -80,7 +81,10 @@ const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
     if (anim1) refs.infiniteAnimation.current.push(anim1);
     if (anim2) refs.infiniteAnimation.current.push(anim2);
 
-    if (refs.section.current && refs.scroll1.current) {
+    if (refs.section.current && refs.scroll1.current && refs.scroll2.current) {
+      const sliderItem1 = refs.scroll1.current.querySelectorAll('.slider-item');
+      const sliderItem2 = refs.scroll2.current.querySelectorAll('.slider-item');
+
       gsap
         .timeline({
           scrollTrigger: {
@@ -93,7 +97,9 @@ const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
           },
         })
         .to(refs.scroll1.current, { x: 1000, ease: 'none' })
-        .to(refs.scroll2.current, { x: -1000, ease: 'none' }, '<');
+        .to(refs.scroll2.current, { x: -1000, ease: 'none' }, '<')
+        .to(sliderItem1, { x: -200, ease: 'none' }, '<')
+        .to(sliderItem2, { x: 0, ease: 'none' }, '<');
     }
   });
 
@@ -135,16 +141,41 @@ const ScrollerPhotographyDesktop = ({ photos }: { photos: Photo[] }) => {
           titleRef.current?.changeTitle(defaultTitle);
         }}
       >
-        {[refs.scroll1, refs.scroll2].map((scrollRef, refIndex) => (
-          <ScrollerRow
-            key={refIndex}
-            isIndexActive={isIndexActive}
-            photos={photos}
-            refIndex={refIndex}
-            scrollRef={scrollRef}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          />
+        {[refs.scroll1, refs.scroll2].map((scrollContainerRef, refIndex) => (
+          <div key={refIndex} ref={scrollContainerRef} className="flex w-full justify-center">
+            {Array.from({ length: 3 }).map((_, indexWrapper) => (
+              <div key={indexWrapper} className="flex shrink-0 bg-black">
+                {photos
+                  .slice(refIndex * (photos.length / 2), (refIndex + 1) * (photos.length / 2))
+                  .map((photo, indexItem) => {
+                    const indexId = `${photo.title}-${indexWrapper}-${indexItem}-${refIndex}`;
+                    return (
+                      <div
+                        key={indexId}
+                        className={clsx(
+                          isIndexActive(indexId) ? 'opacity-100' : 'opacity-20',
+                          refIndex === 0 ? 'pb-2' : 'pt-2',
+                          'aspect-4/3 cursor-see-more h-[25vh] w-auto !overflow-hidden px-2 transition-opacity duration-300',
+                        )}
+                        onMouseEnter={() => handleMouseEnter(photo, indexId)}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <div className="h-full w-full overflow-hidden">
+                          <div
+                            className={clsx(
+                              'slider-item h-full !w-[calc(100%+200px)]',
+                              refIndex === 0 ? 'translate-x-0' : 'translate-x-[-200px]',
+                            )}
+                          >
+                            <CardPhotographyDesktop photo={photo} />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            ))}
+          </div>
         ))}
       </div>
     </section>

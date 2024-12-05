@@ -11,11 +11,11 @@ const Mail = ({ className }: { className?: string }) => {
       </h3>
       <a
         className="link link_white-80 inline-block w-fit"
-        href="mailto:jeromebezeau.pro@gmail.com"
+        href="contact@jeromebezeau.com"
         onMouseLeave={(e) => useResetMagnet(e)}
         onMouseMove={(e) => useMagnet(e, 1)}
       >
-        jeromebezeau.pro@gmail.com
+        contact@jeromebezeau.com
       </a>
     </div>
   );
