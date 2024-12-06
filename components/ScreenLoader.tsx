@@ -112,7 +112,7 @@ export default function ScreenLoader() {
       )
       .add(() => lockScroll(false))
       .play();
-  }, [columnsNumbers]);
+  }, [columnsNumbers, isFrench]);
 
   const title = isFrench ? 'BIENVENUE' : 'WELCOME';
 

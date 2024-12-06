@@ -161,7 +161,9 @@ const Cursor = memo(() => {
   }, [cursorHandlers, manageCursorEvents]);
 
   useEffect(() => {
-    setCursorState(CURSOR_STATE.DEFAULT);
+    setTimeout(() => {
+      setCursorState(CURSOR_STATE.DEFAULT);
+    }, 1400);
   }, [pathname]);
 
   return (

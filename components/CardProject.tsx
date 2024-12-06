@@ -217,8 +217,11 @@ const CardProject = ({
           </div>
           <div className="relative w-full">
             {project.tags && (
-              <div ref={tagsRef} className="smoother-x-black absolute -left-x-default w-screen">
-                <div className="no-scrollbar flex gap-[5px] overflow-x-scroll px-x-default py-5">
+              <div className="smoother-x-black absolute -left-x-default w-screen">
+                <div
+                  ref={tagsRef}
+                  className="no-scrollbar flex gap-[5px] overflow-x-scroll px-x-default py-5"
+                >
                   {project.tags.map((tag, index) => (
                     <Tag
                       key={tag.value.current + index}
