@@ -9,7 +9,7 @@ const ProjectsHome = ({ projects }: { projects: Project[] }) => {
 
   return (
     <section className="flex min-h-screen flex-col gap-y-default px-x-default py-y-default">
-      <h2 className="heading1">{isFrench ? 'PROJECTS SÉLECTIONNÉS' : 'CURRATED WORKS'}</h2>
+      <h2 className="heading1">{isFrench ? 'QUELQUES PROJETS' : 'CURRATED WORKS'}</h2>
       <div className="flex flex-col gap-y-5 md:gap-y-0">
         {projects.map((project, index) => (
           <div

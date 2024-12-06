@@ -1,6 +1,9 @@
-import SliderPhotography from '@/components/sections/SliderPhotography';
+import SliderPhotographyDesktop from '@/components/sections/SliderPhotographyDesktop';
+import SliderPhotographyMobile from '@/components/sections/SliderPhotographyMobile';
+import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { urlFor } from '@/sanity/lib/image';
 import { fetchPaths, fetchSinglePhoto } from '@/services/photos.sevices';
+import { BREAKPOINTS } from '@/tailwind.config';
 import { Photo } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -11,6 +14,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 const DRAG_THRESHOLD = 5;
 
 export default function Page({ photo }: { photo: Photo }) {
+  const isMobile = useMatchMedia(BREAKPOINTS.SM);
+
   const sectionRef = useRef(null);
   const wrapperGridRef = useRef(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -170,13 +175,23 @@ export default function Page({ photo }: { photo: Photo }) {
           </div>
         </div>
       </section>
-      <SliderPhotography
-        activeIndex={activeIndex}
-        isOpen={isSliderOpen}
-        photos={photo.gallery}
-        setActiveIndex={setActiveIndex}
-        setIsOpen={setIsSliderOpen}
-      />
+      {isMobile ? (
+        <SliderPhotographyMobile
+          activeIndex={activeIndex}
+          isOpen={isSliderOpen}
+          photos={photo.gallery}
+          setActiveIndex={setActiveIndex}
+          setIsOpen={setIsSliderOpen}
+        />
+      ) : (
+        <SliderPhotographyDesktop
+          activeIndex={activeIndex}
+          isOpen={isSliderOpen}
+          photos={photo.gallery}
+          setActiveIndex={setActiveIndex}
+          setIsOpen={setIsSliderOpen}
+        />
+      )}
     </>
   );
 }

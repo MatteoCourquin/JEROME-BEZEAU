@@ -17,7 +17,7 @@ type SliderPhotographyProps = {
   setIsOpen: (isOpen: boolean) => void;
 };
 
-const SliderPhotography = ({
+const SliderPhotographyDesktop = ({
   photos,
   activeIndex,
   setActiveIndex,
@@ -151,7 +151,7 @@ const SliderPhotography = ({
       <Button
         ref={buttonPreviousRef}
         aria-label="Next image"
-        className="group/button-next shrink-0"
+        className="group/button-next absolute left-x-double-default z-10 shrink-0 lg:static"
         isIcon={true}
         type="button"
         onClick={goToPrevious}
@@ -182,7 +182,7 @@ const SliderPhotography = ({
       <Button
         ref={buttonNextRef}
         aria-label="Previous image"
-        className="group/button-previous shrink-0"
+        className="group/button-previous absolute right-x-double-default z-10 shrink-0 lg:static"
         isIcon={true}
         type="button"
         onClick={goToNext}
@@ -193,4 +193,4 @@ const SliderPhotography = ({
   );
 };
 
-export default SliderPhotography;
+export default SliderPhotographyDesktop;

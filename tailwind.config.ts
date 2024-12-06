@@ -7,6 +7,11 @@ export enum BREAKPOINTS {
   LG = 1024,
 }
 
+export const defaultSpacingDouble = {
+  'x-double-default': 'clamp(30px, 12vw, 150px)',
+  'y-double-default': 'clamp(30px, 12vh, 150px)',
+};
+
 export const defaultSpacing = {
   'x-default': 'clamp(20px, 8vw, 100px)',
   'y-default': 'clamp(20px, 8vh, 100px)',
@@ -42,27 +47,33 @@ const config: Config = {
       padding: {
         ...defaultSpacing,
         ...defaultSpacingHalf,
+        ...defaultSpacingDouble,
         header: '100px',
       },
       margin: {
         ...defaultSpacing,
         ...defaultSpacingHalf,
+        ...defaultSpacingDouble,
       },
       width: {
         ...defaultSpacing,
         ...defaultSpacingHalf,
+        ...defaultSpacingDouble,
       },
       height: {
         ...defaultSpacing,
         ...defaultSpacingHalf,
+        ...defaultSpacingDouble,
       },
       inset: {
         ...defaultSpacing,
         ...defaultSpacingHalf,
+        ...defaultSpacingDouble,
       },
       gap: {
         ...defaultSpacing,
         ...defaultSpacingHalf,
+        ...defaultSpacingDouble,
       },
     },
   },
