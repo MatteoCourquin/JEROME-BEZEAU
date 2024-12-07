@@ -114,9 +114,10 @@ const SliderPhotographyMobile = ({
               },
               next: {
                 translate: ['100%', 0, 0],
-                opacity: 0,
+                opacity: 1,
               },
             }}
+            onClick={handleClose}
             onSlideChange={(swiper) => {
               setActiveIndex(swiper.activeIndex);
             }}
