@@ -34,6 +34,7 @@ const CardPhotographyMobile = ({ photo, className, ...props }: CardPhotographyPr
     <Link
       ref={wrapperRef}
       href={'/photography/' + photo.slug.current}
+      scroll={false}
       className={clsx(
         'cursor-see-more aspect-4/3 relative h-auto w-full shrink-0 grow transition-[opacity,filter] duration-300',
         className,

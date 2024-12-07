@@ -77,6 +77,7 @@ const Footer = () => {
                 <Link
                   className="link cursor-button link_white-40 inline-block"
                   href={href}
+                  scroll={false}
                   onMouseLeave={(e) => useResetMagnet(e)}
                   onMouseMove={(e) => useMagnet(e, 1)}
                 >

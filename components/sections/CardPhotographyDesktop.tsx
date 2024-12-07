@@ -14,6 +14,7 @@ const CardPhotographyDesktop = ({ photo, className, ...props }: CardPhotographyP
     <Link
       className={clsx('relative h-full w-full', className)}
       href={'/photography/' + photo.slug.current}
+      scroll={false}
       {...props}
     >
       <Image

@@ -3,7 +3,6 @@ import { Tags } from '@/types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import Link from 'next/link';
 import { useRef } from 'react';
 import { IconArrow } from './atoms/Icons';
 import Tag, { TAG_VARIANT } from './atoms/Tag';
@@ -23,7 +22,7 @@ const DetailsProject = ({
   const { contextSafe } = useGSAP();
 
   const wrapperDetailRef = useRef(null);
-  const arrowRef = useRef<HTMLAnchorElement>(null);
+  const arrowRef = useRef<HTMLDivElement>(null);
   const wrapperTagRef = useRef<HTMLDivElement>(null);
 
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
@@ -118,9 +117,8 @@ const DetailsProject = ({
           : 'origin-bottom-right flex-row-reverse rounded-bl-full',
       )}
     >
-      <Link
+      <div
         ref={arrowRef}
-        href="/contact"
         className={clsx(
           'flex items-center gap-[30px] px-[30px] text-2xl text-black',
           isRight ? 'flex-row' : 'flex-row-reverse',
@@ -130,7 +128,7 @@ const DetailsProject = ({
           <IconArrow className={clsx('!fill-black', isRight ? 'rotate-0' : 'rotate-180')} />
         </div>
         <span className="whitespace-nowrap pt-0.5">{title}</span>
-      </Link>
+      </div>
       {tags && (
         <div
           ref={wrapperTagRef}
