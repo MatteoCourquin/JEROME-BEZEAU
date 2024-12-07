@@ -3,13 +3,28 @@ import { Project } from '@/types';
 import clsx from 'clsx';
 import CardProject from '../CardProject';
 import Button from '../atoms/Button';
+import AnimatedText from '../atoms/AnimatedText';
+import { useRef } from 'react';
 
 const ProjectsHome = ({ projects }: { projects: Project[] }) => {
   const { isFrench } = useLanguage();
 
+  const sectionRef = useRef(null);
+
   return (
-    <section className="flex min-h-screen flex-col gap-y-default px-x-default py-y-default">
-      <h2 className="heading1">{isFrench ? 'QUELQUES PROJETS' : 'CURRATED WORKS'}</h2>
+    <section
+      ref={sectionRef}
+      className="flex min-h-screen flex-col gap-y-default px-x-default py-y-default"
+    >
+      <AnimatedText
+        as="h1"
+        isRandomAnim={true}
+        isTriggerAnim={true}
+        trigger={sectionRef}
+        variant="h2"
+      >
+        {isFrench ? 'QUELQUES PROJETS' : 'CURRATED WORKS'}
+      </AnimatedText>
       <div className="flex flex-col gap-y-5 md:gap-y-0">
         {projects.map((project, index) => (
           <div
