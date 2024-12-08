@@ -35,7 +35,7 @@ const ProjectsHome = ({ projects }: { projects: Project[] }) => {
       ref={sectionRef}
       className="flex min-h-screen flex-col gap-y-default px-x-default py-y-default"
     >
-      <AnimatedText ref={titleRef} as="h1" isRandomAnim={true} variant="h2">
+      <AnimatedText ref={titleRef} as="heading1" isRandomAnim={true} variant="h2">
         {isFrench ? 'QUELQUES PROJETS' : 'CURRATED WORKS'}
       </AnimatedText>
       <div className="flex flex-col gap-y-5 md:gap-y-0">

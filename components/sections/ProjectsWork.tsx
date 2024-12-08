@@ -1,8 +1,10 @@
 import { sequence } from '@/constants';
 import { Project } from '@/types';
 import clsx from 'clsx';
-import { ForwardedRef, forwardRef } from 'react';
-import CardProject from '../CardProject';
+import { ForwardedRef, forwardRef, useRef } from 'react';
+import CardProject, { AnimatedCardRef } from '../CardProject';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 interface ProjectsWorkProps {
   projects: Project[];
@@ -11,6 +13,26 @@ interface ProjectsWorkProps {
 const ProjectsWork = forwardRef(
   ({ projects }: ProjectsWorkProps, ref: ForwardedRef<HTMLElement>) => {
     const getColumnSpan = (index: number) => sequence[index % sequence.length];
+
+    const cardRefs = useRef<(AnimatedCardRef | null)[]>([]);
+
+    if (cardRefs.current.length !== projects.length) {
+      cardRefs.current = Array(projects.length).fill(null);
+    }
+
+    useGSAP(() => {
+      const tl = gsap.timeline({
+        delay: 1.2,
+      });
+
+      cardRefs.current.slice(0, 3).map((cardRef, index) => {
+        const animCard = cardRef?.cardAnimation();
+        if (!animCard) return;
+        tl.add(animCard, index * 0.1);
+      });
+
+      tl.play();
+    }, []);
 
     return (
       <section ref={ref} className="overflow-hidden px-x-default pb-y-default">
@@ -29,6 +51,10 @@ const ProjectsWork = forwardRef(
                 )}
               >
                 <CardProject
+                  ref={(instance) => {
+                    if (!instance) return;
+                    cardRefs.current[index] = instance;
+                  }}
                   className="grow"
                   project={project}
                   originTransform={clsx(
