@@ -1,3 +1,4 @@
+import AnimatedText, { AnimatedTextRef } from '@/components/atoms/AnimatedText';
 import Contact from '@/components/sections/Contact';
 import ProjectsWork from '@/components/sections/ProjectsWork';
 import { useLanguage } from '@/providers/language.provider';
@@ -12,8 +13,17 @@ export default function Page({ projects }: { projects: Project[] }) {
 
   const wrapperRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const titleAnimRef = useRef<AnimatedTextRef>(null);
 
   useGSAP(() => {
+    const animTitle = titleAnimRef.current?.textAnimation();
+    if (!animTitle) return;
+    gsap
+      .timeline({
+        delay: 1,
+      })
+      .add(animTitle);
+
     if (!wrapperRef.current || !titleRef.current) return;
 
     const titleHeight = titleRef.current.clientHeight;
@@ -57,9 +67,11 @@ export default function Page({ projects }: { projects: Project[] }) {
         ref={titleRef}
         className="fixed top-0 flex w-full flex-col items-center justify-center px-x-default pt-header"
       >
-        <h1 className="py-y-default">{isFrench ? 'PROJETS' : 'WORK'}</h1>
+        <AnimatedText ref={titleAnimRef} className="py-y-default" isRandomAnim={true} variant="h1">
+          {isFrench ? 'PROJETS' : 'WORK'}
+        </AnimatedText>
       </div>
-      <div className="pt-header">
+      <div className="pb-y-default pt-header">
         <div className="py-y-default" />
       </div>
       <ProjectsWork ref={wrapperRef} projects={projects} />
