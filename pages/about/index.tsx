@@ -1,5 +1,7 @@
+import AnimatedText from '@/components/atoms/AnimatedText';
 import CardSkills from '@/components/CardSkills';
 import Contact from '@/components/sections/Contact';
+import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useParallax } from '@/hooks/useParallax';
 import { useTouchDevice } from '@/hooks/useTouchDevice';
 import { useLanguage } from '@/providers/language.provider';
@@ -107,8 +109,10 @@ export default function Page() {
   return (
     <>
       <section className="relative grid min-h-screen grid-cols-1 gap-x-[10%] px-x-default pb-y-default pt-header lg:grid-cols-[5fr,6fr]">
-        <div ref={descriptionRef} className="flex flex-col gap-14 pt-y-default lg:pb-52">
-          <h1>{isFrench ? 'À PROPOS' : 'ABOUT ME'}</h1>
+        <div ref={descriptionRef} className="flex flex-col pt-y-default lg:pb-52">
+          <AnimatedText className="-translate-y-[15%]" isRandomAnim={true} variant="h1">
+            {isFrench ? 'À PROPOS' : 'ABOUT ME'}
+          </AnimatedText>
           <div className="w-full sm:w-3/5">
             <h5 className="text2 uppercase !text-white-80">
               {isFrench ? 'PROFESSIONNELLEMENT' : 'PROFESSIONALLY'}
@@ -119,7 +123,7 @@ export default function Page() {
                 : 'Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus orci. Felis turpis ut tortor neque a.'}
             </p>
           </div>
-          <div className="w-full sm:w-3/5">
+          <div className="w-full pt-14 sm:w-3/5">
             <h5 className="text2 uppercase !text-white-80">
               {isFrench ? 'PERSONNELLEMENT' : 'PERSONALLY'}
             </h5>
@@ -130,7 +134,11 @@ export default function Page() {
             </p>
           </div>
         </div>
-        <div className="h-full w-full overflow-hidden pt-y-default">
+        <div
+          className="h-full w-full overflow-hidden pt-y-default"
+          onMouseLeave={useResetMagnet}
+          onMouseMove={(e) => useMagnet(e, 1)}
+        >
           <Image
             ref={imageRef}
             alt="About me"
@@ -144,7 +152,9 @@ export default function Page() {
       </section>
       <section className="grid grid-cols-1 gap-5 px-x-default pb-y-default sm:grid-cols-2 sm:py-y-default lg:grid-cols-3">
         <div ref={titleRef}>
-          <h2 className="heading4">{isFrench ? 'Compétences' : 'Skills'}</h2>
+          <AnimatedText as="heading4" className="uppercase" isRandomAnim={true} variant="h2">
+            {isFrench ? 'Compétences' : 'Skills'}
+          </AnimatedText>
           <p>{isFrench ? 'En quoi puis-je vous aider ?' : 'What can I help you with ?'}</p>
         </div>
         {cardsSkills.map((card, index) => (

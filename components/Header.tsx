@@ -6,12 +6,12 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 
+import { LINKS } from '@/constants';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
 import JBLottie from '../public/lottie/JB.json';
 import Button from './atoms/Button';
-import { LINKS } from '@/constants';
 
 const Lottie = dynamic(() => import('lottie-react'), {
   ssr: false,
@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
     gsap
       .timeline({
-        delay: isScreenLoader ? 4.8 : 0,
+        delay: isScreenLoader ? 5.8 : 0,
       })
       .to(links, {
         y: 0,

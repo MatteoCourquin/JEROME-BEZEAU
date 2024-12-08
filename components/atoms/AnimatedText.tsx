@@ -8,75 +8,63 @@ import {
   MutableRefObject,
   useEffect,
   useImperativeHandle,
-  useLayoutEffect,
   useRef,
 } from 'react';
 
 interface AnimatedTextProps {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
+  as?:
+    | 'heading1'
+    | 'heading2'
+    | 'heading3'
+    | 'heading4'
+    | 'heading5'
+    | 'heading6'
+    | 'subtitle'
+    | 'text1'
+    | 'text2'
+    | 'text3';
   className?: string;
   children: string;
   trigger?: MutableRefObject<HTMLElement | null>;
   isRandomAnim?: boolean;
-  isTriggerAnim?: boolean;
   isScrubAnim?: boolean;
 }
 
 export interface AnimatedTextRef {
-  textAnimation: () => void;
+  textAnimation: () => gsap.core.Tween;
 }
 
 const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
   (
-    {
-      variant = 'p',
-      as,
-      className,
-      children,
-      trigger,
-      isTriggerAnim = false,
-      isScrubAnim = false,
-      isRandomAnim = false,
-    },
+    { variant = 'p', as, className, children, trigger, isScrubAnim = false, isRandomAnim = false },
     ref,
   ) => {
-    const descriptionRef = useRef<HTMLElement>(null);
     const { contextSafe } = useGSAP();
+    const animatedTextRef = useRef<HTMLElement>(null);
     const timeoutRef = useRef<NodeJS.Timeout>();
 
-    useLayoutEffect(() => {
-      if (descriptionRef.current) {
-        const descriptionWords = descriptionRef.current.querySelectorAll('.anim-text');
-        gsap.set(descriptionWords, { yPercent: 150 });
-      }
-    }, []);
-
-    const triggerAnimation = contextSafe(() => {
-      if (!descriptionRef.current) return;
-
-      const descriptionWords = descriptionRef.current.querySelectorAll('.anim-text');
-      const tl = gsap.timeline();
-
-      tl.to(descriptionWords, {
-        yPercent: 0,
-        stagger: 0.01,
-        duration: 0.8,
-        ease: 'power2.out',
-      });
-
-      return tl;
-    });
-
     useImperativeHandle(ref, () => ({
-      textAnimation: triggerAnimation,
+      textAnimation: () =>
+        gsap.fromTo(
+          animatedTextRef.current?.querySelectorAll('.anim-text') || [],
+          {
+            yPercent: 150,
+          },
+          {
+            yPercent: 0,
+            stagger: 0.01,
+            duration: 0.8,
+            ease: 'power2.out',
+          },
+        ),
     }));
 
     useEffect(() => {
       ScrollTrigger.refresh();
 
-      if (isScrubAnim && descriptionRef.current && trigger?.current) {
-        const descriptionWords = descriptionRef.current.querySelectorAll('.anim-text');
+      if (isScrubAnim && animatedTextRef.current && trigger?.current) {
+        const descriptionWords = animatedTextRef.current.querySelectorAll('.anim-text');
 
         gsap.set(descriptionWords, { opacity: 0.12 });
 
@@ -93,25 +81,11 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
           },
         });
       }
-
-      if (isTriggerAnim && trigger?.current) {
-        const tl = triggerAnimation();
-        if (tl) {
-          ScrollTrigger.create({
-            trigger: trigger.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-            animation: tl,
-          });
-        }
-      }
     }, []);
 
     const trainAnimEnter = contextSafe(() => {
-      if (!descriptionRef.current) return;
-
-      const letter = descriptionRef.current?.querySelectorAll('.letter-anim');
-
+      if (!animatedTextRef.current) return;
+      const letter = animatedTextRef.current.querySelectorAll('.letter-anim');
       gsap.to(letter, {
         yPercent: -100,
         duration: 0.6,
@@ -121,24 +95,19 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
     });
 
     const trainAnimLeave = contextSafe(() => {
-      if (!descriptionRef.current) return;
-
-      const letter = descriptionRef.current?.querySelectorAll('.letter-anim');
-
+      if (!animatedTextRef.current) return;
+      const letter = animatedTextRef.current.querySelectorAll('.letter-anim');
       gsap.to(letter, {
         yPercent: 0,
         duration: 0.6,
         ease: 'power3.inOut',
-        stagger: 0.02,
+        stagger: 0.01,
       });
     });
 
     const animateRandomLetter = contextSafe(() => {
-      if (!descriptionRef.current) return;
-
-      const letters = descriptionRef.current.querySelectorAll('.letter-anim');
-      if (letters.length === 0) return;
-
+      if (!animatedTextRef.current) return;
+      const letters = animatedTextRef.current.querySelectorAll('.letter-anim');
       const randomIndex = Math.floor(Math.random() * letters.length);
       const letter = letters[randomIndex];
 
@@ -146,7 +115,7 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
         .timeline()
         .to(letter, {
           yPercent: -100,
-          duration: 0.6,
+          duration: 0.8,
           ease: 'power3.inOut',
         })
         .to(letter, {
@@ -155,7 +124,7 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
           ease: 'power3.inOut',
         });
 
-      timeoutRef.current = setTimeout(animateRandomLetter, Math.random() * 2000 + 1000);
+      timeoutRef.current = setTimeout(animateRandomLetter, Math.random() * 3000 + 2000);
     });
 
     useEffect(() => {
@@ -173,7 +142,7 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
     return createElement(
       variant,
       {
-        ref: descriptionRef,
+        ref: animatedTextRef,
         className: clsx(as, className, 'w-fit'),
         onMouseEnter: trainAnimEnter,
         onMouseLeave: trainAnimLeave,
@@ -187,8 +156,8 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
                     key={`${wordIndex}-${letterIndex}`}
                     className="letter-anim relative inline-block"
                   >
-                    <span className="red-500 relative inline-block">{letter}</span>
-                    <span className="blue-500 absolute left-0 top-0 inline-block translate-y-full">
+                    <span className="red-500 relative inline-block pt-[40%]">{letter}</span>
+                    <span className="blue-500 absolute left-0 top-0 inline-block translate-y-full pt-[40%]">
                       {letter}
                     </span>
                   </span>

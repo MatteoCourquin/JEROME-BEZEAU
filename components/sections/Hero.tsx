@@ -5,43 +5,41 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Image from 'next/image';
 import { useRef } from 'react';
+import AnimatedText, { AnimatedTextRef } from '../atoms/AnimatedText';
 import { IconArrow } from '../atoms/Icons';
 
 const Hero = () => {
   const { isFrench } = useLanguage();
 
   const imageRef = useRef(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLHeadingElement>(null);
-  const timeline = useRef(gsap.timeline({ paused: true }));
+  const titleRef = useRef<AnimatedTextRef>(null);
+  const subtitleRef = useRef<AnimatedTextRef>(null);
+  const wrapperTitleRef = useRef(null);
+  const wrapperSubtitleRef = useRef(null);
 
   useGSAP(() => {
-    if (!titleRef.current || !subtitleRef.current || !imageRef.current) return;
+    const animTitle = titleRef.current?.textAnimation();
+    const animSubtitle = subtitleRef.current?.textAnimation();
 
-    const titleSpan = titleRef.current.querySelector('span');
-    const subtitleSpan = subtitleRef.current.querySelector('span');
+    if (!animTitle || !animSubtitle) return;
 
-    timeline.current
-      .fromTo(
-        titleSpan,
-        { yPercent: 105 },
-        { yPercent: 0, duration: 1, ease: 'power3.out', delay: 1 },
-      )
-      .fromTo(
-        subtitleSpan,
-        { yPercent: 100 },
-        { yPercent: 0, duration: 1, ease: 'power3.out' },
-        '-=0.6',
-      )
+    gsap
+      .timeline({
+        delay: 1,
+      })
+      .add(animTitle)
+      .add(animSubtitle, '-=0.4')
       .play();
 
-    useParallax(titleRef.current, 0.2);
-    useParallax(subtitleRef.current, 0.2);
+    if (!titleRef.current || !subtitleRef.current || !imageRef.current) return;
+
+    useParallax(wrapperTitleRef.current, 0.2);
+    useParallax(wrapperSubtitleRef.current, 0.2);
     useParallax(imageRef.current, 0.2, 'bottom');
   });
 
   return (
-    <section className="relative flex min-h-screen flex-col justify-center gap-9 overflow-hidden px-x-default py-y-default text-left sm:items-center sm:text-center">
+    <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-x-default py-y-default text-left sm:items-center sm:text-center">
       <Image
         ref={imageRef}
         alt="Jérôme Bezeau background"
@@ -51,14 +49,18 @@ const Hero = () => {
         width={1920}
         priority
       />
-      <h1 ref={titleRef} className="overflow-hidden">
-        <span className="font-swap inline-block pt-5">JÉRÔME BEZEAU</span>
-      </h1>
-      <p ref={subtitleRef} className="subtitle overflow-hidden">
-        <span className="font-swap inline-block">
+
+      <div ref={wrapperTitleRef}>
+        <AnimatedText ref={titleRef} className="h-fit" isRandomAnim={true} variant="h1">
+          JÉRÔME BEZEAU
+        </AnimatedText>
+      </div>
+      <div ref={wrapperSubtitleRef}>
+        <AnimatedText ref={subtitleRef} as="subtitle" className="h-fit" variant="p">
           {isFrench ? 'Directeur artistique & Designer digital' : 'Art Director & Digital designer'}
-        </span>
-      </p>
+        </AnimatedText>
+      </div>
+
       <div
         className="cursor-button absolute bottom-y-default flex h-[58px] w-[58px] items-center justify-center"
         onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}

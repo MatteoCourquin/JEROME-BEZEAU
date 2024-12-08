@@ -22,13 +22,18 @@ export default function Page() {
   const contactFormRef = useRef(null);
 
   useGSAP(() => {
+    const animTitle = textsAnimation.title.current?.textAnimation();
+    const animSubtitle1 = textsAnimation.subtitle1.current?.textAnimation();
+    const animSubtitle2 = textsAnimation.subtitle2.current?.textAnimation();
+
+    if (!animTitle || !animSubtitle1 || !animSubtitle2) return;
     gsap
       .timeline({
         delay: 0.8,
       })
-      .add(() => textsAnimation.title.current?.textAnimation())
-      .add(() => textsAnimation.subtitle1.current?.textAnimation(), '+=0.2')
-      .add(() => textsAnimation.subtitle2.current?.textAnimation(), '+=0.2');
+      .add(animTitle)
+      .add(animSubtitle1, '-=0.6')
+      .add(animSubtitle2, '-=0.8');
 
     useParallax(contactFormRef.current, 0.2, 'bottom', 1024);
   });
@@ -39,10 +44,15 @@ export default function Page() {
       className="relative grid min-h-screen grid-cols-1 gap-x-5 px-x-default pb-y-default pt-header md:grid-cols-12"
     >
       <div className="col-span-6 lg:col-span-6">
-        <AnimatedText ref={textsAnimation.title} className="pt-y-default" variant="h1">
+        <AnimatedText
+          ref={textsAnimation.title}
+          className="-translate-y-[15%] pt-y-default"
+          isRandomAnim={true}
+          variant="h1"
+        >
           CONTACT
         </AnimatedText>
-        <div className="pt-16">
+        <div>
           <AnimatedText ref={textsAnimation.subtitle1} className="text1 text-white-80" variant="p">
             {isFrench ? 'Prêt à commencer ?' : 'Ready to kick things off?'}
           </AnimatedText>

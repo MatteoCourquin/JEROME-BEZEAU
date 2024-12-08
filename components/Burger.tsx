@@ -35,7 +35,7 @@ const Burger = ({ className }: { className?: string }) => {
   useGSAP(() => {
     gsap
       .timeline({
-        delay: isScreenLoader ? 4.8 : 1,
+        delay: isScreenLoader ? 5.8 : 1,
       })
       .to(burgerRef.current, { scale: 1, duration: 0.3, ease: 'power3.out' })
       .add(() => setShowLottie(true))

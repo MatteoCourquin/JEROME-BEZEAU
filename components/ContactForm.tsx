@@ -31,6 +31,10 @@ const ContactForm = () => {
   const buttonRef = useRef(null);
 
   useGSAP(() => {
+    const animTitle = titleRef.current?.textAnimation();
+
+    if (!animTitle) return;
+
     gsap
       .timeline({
         delay: 1,
@@ -40,7 +44,7 @@ const ContactForm = () => {
       .add(() => inputsRef.phone.current?.inputAnimation(), '+=0.1')
       .add(() => inputsRef.subject.current?.inputAnimation(), '+=0.1')
       .add(() => inputsRef.message.current?.inputAnimation(), '+=0.1')
-      .add(() => titleRef.current?.textAnimation(), '+=0.4')
+      .add(animTitle)
       .fromTo(
         buttonRef.current,
         { y: 100 },
