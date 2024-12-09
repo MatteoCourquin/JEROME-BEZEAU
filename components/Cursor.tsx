@@ -143,7 +143,7 @@ const Cursor = memo(() => {
 
     const { moveCursor, hideCursor, handleMouseDown, handleMouseUp } = cursorHandlers;
 
-    window.addEventListener('mousemove', moveCursor, { passive: true });
+    window.addEventListener('mousemove', moveCursor);
     window.addEventListener('mouseout', hideCursor);
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);

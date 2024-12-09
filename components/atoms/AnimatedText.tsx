@@ -5,13 +5,15 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import {
   createElement,
   forwardRef,
+  HTMLAttributes,
+  MouseEvent,
   MutableRefObject,
   useEffect,
   useImperativeHandle,
   useRef,
 } from 'react';
 
-interface AnimatedTextProps {
+interface AnimatedTextProps extends HTMLAttributes<HTMLElement> {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
   as?:
     | 'heading1'
@@ -37,7 +39,18 @@ export interface AnimatedTextRef {
 
 const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
   (
-    { variant = 'p', as, className, children, trigger, isScrubAnim = false, isRandomAnim = false },
+    {
+      variant = 'p',
+      as,
+      className,
+      children,
+      trigger,
+      isScrubAnim = false,
+      isRandomAnim = false,
+      onMouseEnter,
+      onMouseLeave,
+      ...props
+    },
     ref,
   ) => {
     const { contextSafe } = useGSAP();
@@ -144,8 +157,15 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
       {
         ref: animatedTextRef,
         className: clsx(as, className, 'w-fit'),
-        onMouseEnter: trainAnimEnter,
-        onMouseLeave: trainAnimLeave,
+        onMouseEnter: (e: MouseEvent<HTMLElement>) => {
+          trainAnimEnter();
+          onMouseEnter?.(e);
+        },
+        onMouseLeave: (e: MouseEvent<HTMLElement>) => {
+          trainAnimLeave();
+          onMouseLeave?.(e);
+        },
+        ...props,
       },
       children.split(' ').map((word, wordIndex) => (
         <span key={word + wordIndex} className="inline-block overflow-hidden">

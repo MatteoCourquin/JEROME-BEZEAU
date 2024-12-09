@@ -1,9 +1,15 @@
 import { PortableText } from 'next-sanity';
+import { forwardRef } from 'react';
 import { TypedObject } from 'sanity';
 
-const RichText = ({ value, className }: { value: TypedObject[]; className?: string }) => {
+interface RichTextProps {
+  value: TypedObject[];
+  className?: string;
+}
+
+const RichText = forwardRef<HTMLDivElement, RichTextProps>(({ value, className }, ref) => {
   return (
-    <div className={className}>
+    <div ref={ref} className={className}>
       <PortableText
         value={value}
         components={{
@@ -33,6 +39,6 @@ const RichText = ({ value, className }: { value: TypedObject[]; className?: stri
       />
     </div>
   );
-};
+});
 
 export default RichText;
