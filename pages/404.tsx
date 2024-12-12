@@ -80,7 +80,7 @@ export default function Page() {
                     .map((_, innerIndex) => (
                       <p
                         key={'404-' + outerIndex + '-' + mapIndex + '-' + innerIndex}
-                        className="row-items-p whitespace-nowrap pl-4 text-5xl"
+                        className="row-items-p whitespace-nowrap pl-3 text-5xl"
                       >
                         <span className="text-white/80">404</span> NOT FOUND
                       </p>

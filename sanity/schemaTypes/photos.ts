@@ -1,4 +1,5 @@
 import { ImageIcon } from '@sanity/icons';
+import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list';
 import { defineField, defineType } from 'sanity';
 
 export const photos = defineType({
@@ -6,6 +7,7 @@ export const photos = defineType({
   title: 'PHOTOS',
   type: 'document',
   icon: ImageIcon,
+  orderings: [orderRankOrdering],
   fieldsets: [
     {
       name: 'photoInfo',
@@ -19,6 +21,7 @@ export const photos = defineType({
     },
   ],
   fields: [
+    orderRankField({ type: 'photos' }),
     defineField({
       name: 'title',
       title: 'Title 📸',

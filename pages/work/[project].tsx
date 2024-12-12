@@ -102,10 +102,10 @@ export default function Page({ project }: { project: Project }) {
     <>
       <section className="overflow-hidden pt-header">
         <div className="grid grid-cols-1 gap-y-half-default gap-x-5 px-x-default pb-y-default pt-y-half-default lg:grid-cols-12">
-          <div className="col-span-6 uppercase">
+          <div className="uppercase lg:col-span-6">
             <AnimatedText
               ref={titleRef}
-              className="md:-fit w-full translate-y-[25%] text-center uppercase md:text-left"
+              className="w-full translate-y-[25%] whitespace-nowrap text-center uppercase md:text-left"
               isRandomAnim={true}
               variant="h1"
               style={{
@@ -120,13 +120,13 @@ export default function Page({ project }: { project: Project }) {
               {project.title}
             </AnimatedText>
           </div>
-          <div className="col-span-4 -col-end-1 mt-auto pb-[3%]">
+          <div className="mt-auto pb-[3%] lg:col-span-4 lg:-col-end-1">
             <AnimatedText ref={yearRef} className="translate-y-[30%] text-white-80" variant="p">
               {formatDateToYear(project.date).toString()}
             </AnimatedText>
           </div>
           {project.tags && (
-            <div className="smoother-x-black absolute -left-x-default col-span-6 w-screen sm:left-0 sm:block">
+            <div className="smoother-x-black absolute -left-x-default w-screen sm:left-0 sm:block lg:col-span-6">
               <div
                 ref={tagsRef}
                 className="no-scrollbar flex gap-2 overflow-scroll px-x-default py-3 sm:overflow-visible sm:p-0 sm:px-0"
@@ -143,7 +143,7 @@ export default function Page({ project }: { project: Project }) {
               </div>
             </div>
           )}
-          <div className="col-span-6">
+          <div className="lg:col-span-6">
             <div ref={descriptionWrapperRef} className="origin-left overflow-hidden">
               <div ref={descriptionRef} className="w-full origin-left pt-y-half-default">
                 <RichText
@@ -154,7 +154,7 @@ export default function Page({ project }: { project: Project }) {
             </div>
           </div>
           {project.credits && (
-            <div className="col-span-4 -col-end-1 row-start-4 flex flex-col pt-y-half-default sm:pt-0 lg:row-span-2 lg:row-start-2">
+            <div className="row-start-4 flex flex-col pt-y-half-default sm:pt-0 lg:col-span-4 lg:-col-end-1 lg:row-span-2 lg:row-start-2">
               <p className="pb-10">CREDITS :</p>
               <ul className="flex flex-col gap-3">
                 {project.credits.map((credit, index) => (

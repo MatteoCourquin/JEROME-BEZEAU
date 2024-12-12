@@ -1,4 +1,4 @@
-import { RocketIcon } from '@sanity/icons';
+import { ImageIcon, RocketIcon } from '@sanity/icons';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 import type { StructureResolver } from 'sanity/structure';
 
@@ -16,7 +16,13 @@ export const structure: StructureResolver = (S, context) =>
       }),
       // S.documentTypeListItem('projects').title('PROJECTS'),
       S.divider(),
-      S.documentTypeListItem('photos').title('PHOTOS'),
+      orderableDocumentListDeskItem({
+        type: 'photos',
+        title: 'PHOTOS',
+        icon: ImageIcon,
+        S,
+        context,
+      }),
       S.divider(),
       S.documentTypeListItem('tags').title('TAGS'),
       S.documentTypeListItem('authors').title('AUTHORS'),
