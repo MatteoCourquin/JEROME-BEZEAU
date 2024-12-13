@@ -28,7 +28,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           content="Art Director, Digital designer, Web designer, Graphic designer, UI/UX designer, Front-end developer"
           name="keywords"
         />
-        <link href="/favicon.ico" rel="icon" />
+        <link href="/favicon.svg" rel="icon" />
         {/* <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script> */}
       </Head>
       {isTablet ? <Burger /> : <Header />}
