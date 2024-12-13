@@ -6,6 +6,8 @@ import SocialMedia from '@/components/SocialMedia';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { AppProvider } from '@/providers/root';
 import { BREAKPOINTS } from '@/tailwind.config';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import gsap from 'gsap';
 import CustomEase from 'gsap/dist/CustomEase';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
@@ -34,6 +36,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <main>{children}</main>
       <Footer />
       <Background />
+      <Analytics />
+      <SpeedInsights />
     </AppProvider>
   );
 };

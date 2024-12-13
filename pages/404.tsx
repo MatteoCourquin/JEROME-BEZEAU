@@ -1,43 +1,45 @@
+import { useCalculateRows } from '@/hooks/useCalculateRow';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import Observer from 'gsap/dist/Observer';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { useRef } from 'react';
 
-gsap.registerPlugin(Observer);
-
 export default function Page() {
+  const wrapperSectionRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isAnimatingRef = useRef(false);
+  const rowRef = useRef<HTMLDivElement>(null);
+  const numberRow = useCalculateRows();
 
   useGSAP(() => {
-    if (!sectionRef.current) return;
+    ScrollTrigger.refresh();
+  }, [numberRow]);
 
-    const textElements = sectionRef.current.querySelectorAll('.row-items-p');
-    const animateText = (direction: 'left' | 'right') => {
-      if (isAnimatingRef.current) return;
-      isAnimatingRef.current = true;
+  useGSAP(() => {
+    if (!wrapperSectionRef.current || !rowRef.current) return;
 
-      gsap.to(textElements, {
-        x: direction === 'left' ? '-100%' : '100%',
-        duration: 2,
+    const rows = wrapperSectionRef.current.querySelectorAll('.rows');
+    const widthRow = rowRef.current.clientWidth;
+
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: wrapperSectionRef.current,
+          start: 'top top',
+          end: () => 5000,
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+        },
+      })
+      .to(rows, {
+        x: () => -widthRow + window.innerWidth || 0,
+        duration: 1,
         ease: 'power4.inOut',
         stagger: {
           each: 0.002,
-          from: Math.floor(textElements.length / 2),
-        },
-        onComplete: () => {
-          gsap.set(textElements, { x: '0%' });
-          isAnimatingRef.current = false;
+          from: 'center',
         },
       });
-    };
-
-    Observer.create({
-      target: sectionRef.current,
-      type: 'wheel,touch',
-      onUp: () => animateText('left'),
-      onDown: () => animateText('right'),
-    });
 
     gsap
       .timeline({
@@ -60,35 +62,32 @@ export default function Page() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="smoother-y-black-full flex h-screen flex-col justify-center overflow-hidden pt-header"
-    >
-      {Array(61)
-        .fill(null)
-        .map((_, outerIndex) => (
-          <div
-            key={'row-' + outerIndex}
-            className="rows flex w-screen shrink-0 justify-center overflow-hidden"
-          >
-            {Array(3)
-              .fill(null)
-              .map((_, mapIndex) => (
-                <div key={`row-${outerIndex}-${mapIndex}`} className="row-items flex">
-                  {Array(10)
-                    .fill(null)
-                    .map((_, innerIndex) => (
-                      <p
-                        key={'404-' + outerIndex + '-' + mapIndex + '-' + innerIndex}
-                        className="row-items-p whitespace-nowrap pl-3 text-5xl"
-                      >
-                        <span className="text-white/80">404</span> NOT FOUND
-                      </p>
-                    ))}
-                </div>
-              ))}
-          </div>
-        ))}
+    <section ref={wrapperSectionRef} className="relative h-screen pt-header">
+      <div
+        ref={sectionRef}
+        className="smoother-y-black-full flex h-full flex-col justify-center overflow-hidden"
+      >
+        {Array(31)
+          .fill(null)
+          .map((_, rowIndex) => (
+            <div
+              key={'row-' + rowIndex}
+              ref={rowIndex === 0 ? rowRef : null}
+              className="rows flex w-fit shrink-0 justify-end"
+            >
+              {Array(40)
+                .fill(null)
+                .map((_, textIndex) => (
+                  <p
+                    key={`404-${rowIndex}-${textIndex}`}
+                    className="whitespace-nowrap pl-3 text-5xl"
+                  >
+                    <span className="text-white-80">404</span> NOT FOUND
+                  </p>
+                ))}
+            </div>
+          ))}
+      </div>
     </section>
   );
 }

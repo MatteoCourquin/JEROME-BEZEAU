@@ -196,7 +196,6 @@ export default function Page({ project }: { project: Project }) {
                   height={1080}
                   src={section.image}
                   width={1920}
-                  unoptimized
                 />
               );
             }

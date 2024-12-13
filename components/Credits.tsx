@@ -16,7 +16,7 @@ export interface AnimatedCreditRef {
 
 const Credits = forwardRef<AnimatedCreditRef, CreditProps>(
   ({ role, author, href, ...props }, ref) => {
-    const isSmallMobile = useMatchMedia(BREAKPOINTS.SM);
+    const isSmallMobile = useMatchMedia(BREAKPOINTS.XS);
 
     const roleContainerRef = useRef(null);
     const roleRef = useRef(null);
@@ -60,7 +60,10 @@ const Credits = forwardRef<AnimatedCreditRef, CreditProps>(
 
     return (
       <li {...props} className="flex items-center gap-x-3 transition-[padding-left] hover:pl-3">
-        <p ref={roleContainerRef} className="relative w-0 overflow-hidden uppercase text-white-40">
+        <p
+          ref={roleContainerRef}
+          className="relative w-0 shrink-0 overflow-hidden uppercase text-white-40"
+        >
           <span ref={roleRef} className="inline-block whitespace-nowrap">
             {role}
           </span>
@@ -73,7 +76,10 @@ const Credits = forwardRef<AnimatedCreditRef, CreditProps>(
             href={href}
             target="_blank"
           >
-            <span ref={authorLinkRef} className="inline-block whitespace-nowrap">
+            <span
+              ref={authorLinkRef}
+              className="inline-block w-full overflow-hidden text-ellipsis whitespace-nowrap"
+            >
               {isSmallMobile ? getFirstName(author) : author}
             </span>
           </a>
@@ -82,7 +88,10 @@ const Credits = forwardRef<AnimatedCreditRef, CreditProps>(
             ref={authorContainerRef}
             className="w-0 overflow-hidden text-ellipsis whitespace-nowrap text-white-40"
           >
-            <span ref={authorTextRef} className="inline-block whitespace-nowrap">
+            <span
+              ref={authorTextRef}
+              className="inline-block w-full overflow-hidden text-ellipsis whitespace-nowrap"
+            >
               {isSmallMobile ? getFirstName(author) : author}
             </span>
           </p>

@@ -37,25 +37,13 @@
 .smoother-y-black-full {
   position: relative;
 
-  &::before {
-    z-index: 3;
+  &::after {
+    z-index: 1;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100px;
-    background: $color-black;
-    content: '';
-    pointer-events: none;
-  }
-
-  &::after {
-    z-index: 3;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100% - 100px);
+    height: 100%;
     background: linear-gradient(
       to bottom,
       $color-black 5%,
