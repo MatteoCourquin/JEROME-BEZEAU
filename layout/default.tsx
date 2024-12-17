@@ -29,8 +29,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
           name="keywords"
         />
         <link href="/favicon.svg" rel="icon" />
-        {/* <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script> */}
       </Head>
+      {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js" /> */}
       {isTablet ? <Burger /> : <Header />}
       <SocialMedia />
       <main>{children}</main>

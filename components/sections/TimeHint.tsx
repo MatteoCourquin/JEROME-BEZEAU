@@ -16,12 +16,8 @@ const TimeDisplay = ({ isFrench }: { isFrench: boolean }) => {
 
   useEffect(() => {
     const formatTime = () => {
-      const now = new Date().toLocaleString('fr-FR', {
-        timeZone: 'Europe/Paris',
-        hour12: false,
-      });
-
-      const parisTime = new Date(now);
+      const date = new Date();
+      const parisTime = new Date(date.toLocaleString('en-US', { timeZone: 'Europe/Paris' }));
 
       return {
         hours: parisTime.getHours(),
@@ -41,8 +37,7 @@ const TimeDisplay = ({ isFrench }: { isFrench: boolean }) => {
 
   const numberFormat = {
     minimumIntegerDigits: 2,
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    useGrouping: false,
   };
 
   const hours = isFrench ? time.hours : time.hours % 12 || 12;
