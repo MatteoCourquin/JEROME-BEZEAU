@@ -97,7 +97,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                     </Button>
                   ) : (
                     <Link
-                      className="anim-items-header link link_white-80 cursor-button inline-block translate-y-24 whitespace-nowrap pt-0.5 uppercase"
+                      className="anim-items-header link link_white-80 inline-block translate-y-24 whitespace-nowrap pt-0.5 uppercase"
                       href={href}
                       scroll={false}
                       onMouseLeave={useResetMagnet}

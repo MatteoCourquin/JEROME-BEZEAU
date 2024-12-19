@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useRef, useState, memo } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import {
   IconChevronBottom,
   IconChevronLeft,
@@ -82,9 +82,15 @@ const Cursor = memo(() => {
   const pathname = usePathname();
   const pointerRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<MutationObserver | null>(null);
+  const clickSoundRef = useRef<HTMLAudioElement | null>(null);
 
   const [cursorState, setCursorState] = useState(CURSOR_STATE.DEFAULT);
   const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    clickSoundRef.current = new Audio('/sounds/click.mp3');
+    clickSoundRef.current.volume = 0.5;
+  }, []);
 
   const cursorStateHandlers = {
     changeToSeeMore: useCallback(() => setCursorState(CURSOR_STATE.SEE_MORE), []),
@@ -109,7 +115,13 @@ const Cursor = memo(() => {
       pointerRef.current.style.opacity = '0';
     }, []),
 
-    handleMouseDown: useCallback(() => setIsActive(true), []),
+    handleMouseDown: useCallback(() => {
+      setIsActive(true);
+      if (!clickSoundRef.current) return;
+      clickSoundRef.current.currentTime = 0;
+      clickSoundRef.current.play().catch((err) => console.error('Audio play failed:', err));
+    }, []),
+
     handleMouseUp: useCallback(() => setIsActive(false), []),
   };
 
