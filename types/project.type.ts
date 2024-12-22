@@ -8,6 +8,7 @@ export type Project = {
   descriptionFr: TypedObject[];
   descriptionEn: TypedObject[];
   slug: Slug;
+  updatedAt: string;
   tags: Tags[];
   date: string;
   ogImage: Image;

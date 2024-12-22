@@ -6,7 +6,8 @@ export const fetchPaths = async () => {
   const query = `
     *[_type == "projects"] {
       slug,
-      title
+      title,
+      "updatedAt" : _updatedAt
     }
   `;
 
@@ -15,6 +16,7 @@ export const fetchPaths = async () => {
   const paths = projects.map((project: Project) => ({
     slug: project.slug.current,
     title: project.title,
+    updatedAt: project.updatedAt,
   }));
 
   return paths;
