@@ -3,7 +3,7 @@ import { Tags } from './tags.type';
 import { Credit } from './credits.type';
 import { Sections } from './sections.type';
 
-export type Project = {
+export type Work = {
   title: string;
   descriptionFr: TypedObject[];
   descriptionEn: TypedObject[];
@@ -15,6 +15,6 @@ export type Project = {
   mainImage: string;
   mainVideo: string;
   credits: Credit[];
-  projectUrl: string;
+  workUrl: string;
   sections: Sections[];
 };

@@ -72,7 +72,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div ref={contactFormRef} className="col-span-6 md:-col-end-1 lg:col-span-4 lg:-col-end-1">
+      <div className="sticky top-header col-span-6 h-fit md:-col-end-1 lg:col-span-4 lg:-col-end-1">
         <ContactForm />
       </div>
     </section>

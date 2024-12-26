@@ -1,27 +1,27 @@
 import About from '@/components/sections/About';
 import Contact from '@/components/sections/Contact';
 import Hero from '@/components/sections/Hero';
-import ProjectsHome from '@/components/sections/ProjectsHome';
-import { fetchProjects } from '@/services/projects.sevices';
-import { Project } from '@/types';
+import WorksPreview from '@/components/sections/WorksPreview';
+import { fetchWorks } from '@/services/works.sevices';
+import { Work } from '@/types';
 
-export default function Page({ projects }: { projects: Project[] }) {
+export default function Page({ works }: { works: Work[] }) {
   return (
     <>
       <Hero />
       <About />
-      <ProjectsHome projects={projects} />
+      <WorksPreview works={works} />
       <Contact />
     </>
   );
 }
 
 export async function getStaticProps() {
-  const projects = await fetchProjects();
+  const works = await fetchWorks();
 
   return {
     props: {
-      projects,
+      works,
     },
   };
 }

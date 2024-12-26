@@ -2,16 +2,16 @@ import { DocumentVideoIcon, EditIcon, ImageIcon, RocketIcon, TextIcon } from '@s
 import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list';
 import { defineField, defineType } from 'sanity';
 
-export const projects = defineType({
-  name: 'projects',
-  title: 'PROJECTS',
+export const works = defineType({
+  name: 'works',
+  title: 'WORKS',
   type: 'document',
   icon: RocketIcon,
   orderings: [orderRankOrdering],
   fieldsets: [
     {
-      name: 'projectInfo',
-      title: 'Project Information 🚀',
+      name: 'workInfo',
+      title: 'Work Information 🚀',
       options: { collapsible: true, collapsed: false },
     },
     {
@@ -31,18 +31,18 @@ export const projects = defineType({
     },
   ],
   fields: [
-    orderRankField({ type: 'projects' }),
+    orderRankField({ type: 'works' }),
     defineField({
       name: 'title',
       title: 'Title 🚀',
       type: 'string',
-      description: 'The title of the project.',
+      description: 'The title of the work.',
       validation: (Rule) =>
         Rule.required()
           .min(1)
           .max(100)
           .error('The title is required and should be between 1 and 100 characters.'),
-      fieldset: 'projectInfo',
+      fieldset: 'workInfo',
     }),
     defineField({
       name: 'slug',
@@ -59,27 +59,27 @@ export const projects = defineType({
             .replace(/^-+|-+$/g, '')
             .slice(0, 200),
       },
-      description: 'Slug for the project based on the title.',
+      description: 'Slug for the work based on the title.',
       validation: (Rule) => Rule.required(),
-      fieldset: 'projectInfo',
+      fieldset: 'workInfo',
     }),
     defineField({
       name: 'date',
       title: 'Date 📅',
       type: 'date',
-      description: 'The date of the project.',
+      description: 'The date of the work.',
       validation: (Rule) => Rule.required(),
-      fieldset: 'projectInfo',
+      fieldset: 'workInfo',
       options: {
         dateFormat: 'YYYY-MM-DD',
       },
     }),
     defineField({
-      name: 'projectUrl',
-      title: 'Link to Project 🔗',
+      name: 'workUrl',
+      title: 'Link to Work 🔗',
       type: 'url',
-      description: 'Optional URL to the project.',
-      fieldset: 'projectInfo',
+      description: 'Optional URL to the work.',
+      fieldset: 'workInfo',
       validation: (Rule) => Rule.uri({ scheme: ['http', 'https'] }),
     }),
     defineField({
@@ -90,7 +90,7 @@ export const projects = defineType({
       options: {
         hotspot: true,
       },
-      fieldset: 'projectInfo',
+      fieldset: 'workInfo',
     }),
     defineField({
       name: 'tags',
@@ -102,7 +102,7 @@ export const projects = defineType({
           .min(1)
           .max(3)
           .error('At least one type is required and a maximum of 3 types are allowed.'),
-      description: 'Select the type(s) of the project.',
+      description: 'Select the type(s) of the work.',
     }),
     defineField({
       name: 'credits',
@@ -117,7 +117,7 @@ export const projects = defineType({
               title: 'Author',
               type: 'reference',
               to: [{ type: 'authors' }],
-              description: 'The author of the project.',
+              description: 'The author of the work.',
               validation: (Rule) => Rule.required(),
             }),
             defineField({
@@ -125,7 +125,7 @@ export const projects = defineType({
               title: 'Role',
               type: 'reference',
               to: [{ type: 'tags' }],
-              description: 'The role of the person in the project.',
+              description: 'The role of the person in the work.',
               validation: (Rule) => Rule.required(),
             }),
           ],
@@ -151,7 +151,7 @@ export const projects = defineType({
       name: 'descriptionEn',
       title: 'Description 🇬🇧',
       type: 'blockContent',
-      description: 'A brief description of the project in English.',
+      description: 'A brief description of the work in English.',
       validation: (Rule) =>
         Rule.required().max(500).warning('A shorter description is more engaging.'),
       fieldset: 'descriptionInfo',
@@ -170,7 +170,7 @@ export const projects = defineType({
       name: 'mainVideo',
       title: 'Main Video 💻',
       type: 'file',
-      description: 'The main video of the project.',
+      description: 'The main video of the work.',
       options: {
         accept: 'video/webm',
       },
@@ -199,18 +199,18 @@ export const projects = defineType({
               validation: (Rule) => Rule.required(),
             }),
             defineField({
-              name: 'contentEn',
-              title: 'Content 🇺🇸',
-              type: 'blockContent',
-              hidden: ({ parent }) => parent?.sectionType !== 'text',
-              description: 'Content in English for this section.',
-            }),
-            defineField({
               name: 'contentFr',
               title: 'Contenu 🇫🇷',
               type: 'blockContent',
               hidden: ({ parent }) => parent?.sectionType !== 'text',
               description: 'Contenu en français pour cette section.',
+            }),
+            defineField({
+              name: 'contentEn',
+              title: 'Content 🇺🇸',
+              type: 'blockContent',
+              hidden: ({ parent }) => parent?.sectionType !== 'text',
+              description: 'Content in English for this section.',
             }),
             defineField({
               name: 'image',

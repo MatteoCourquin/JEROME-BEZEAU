@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import { IconArrow } from './atoms/Icons';
 import Tag, { TAG_VARIANT } from './atoms/Tag';
 
-const DetailsProject = ({
+const DetailsWork = ({
   isRight,
   isActive,
   title,
@@ -149,4 +149,4 @@ const DetailsProject = ({
   );
 };
 
-export default DetailsProject;
+export default DetailsWork;

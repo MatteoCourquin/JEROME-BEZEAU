@@ -44,7 +44,7 @@ const Video = ({
     <video
       ref={videoRef}
       aria-hidden="true"
-      aria-label="Presentation project video"
+      aria-label="Presentation work video"
       className={className}
       data-webkit-playsinline="true"
       poster={poster}

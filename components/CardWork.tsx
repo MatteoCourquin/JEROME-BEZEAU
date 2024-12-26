@@ -2,7 +2,7 @@ import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useTouchDevice } from '@/hooks/useTouchDevice';
 import { useLanguage } from '@/providers/language.provider';
 import { BREAKPOINTS } from '@/tailwind.config';
-import { Project } from '@/types';
+import { Work } from '@/types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -12,10 +12,10 @@ import Link from 'next/link';
 import { forwardRef, MouseEvent, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import Tag, { TAG_VARIANT } from './atoms/Tag';
 import Video from './atoms/Video';
-import DetailsProject from './DetailsProject';
+import DetailsWork from './DetailsWork';
 
-interface CardProjectProps {
-  project: Project;
+interface CardWorkProps {
+  work: Work;
   className?: string;
   originTransform: string;
 }
@@ -24,8 +24,8 @@ export interface AnimatedCardRef {
   cardAnimation: () => gsap.core.Tween;
 }
 
-const CardProject = forwardRef<AnimatedCardRef, CardProjectProps>(
-  ({ project, className, originTransform }, ref) => {
+const CardWork = forwardRef<AnimatedCardRef, CardWorkProps>(
+  ({ work, className, originTransform }, ref) => {
     const { isFrench } = useLanguage();
     const isTablet = useMatchMedia(BREAKPOINTS.MD);
 
@@ -178,11 +178,11 @@ const CardProject = forwardRef<AnimatedCardRef, CardProjectProps>(
               'pointer-events-none fixed z-50 hidden md:flex',
             )}
           >
-            <DetailsProject
+            <DetailsWork
               isActive={isActive}
               isRight={isRight}
-              tags={project.tags}
-              title={project.title}
+              tags={work.tags}
+              title={work.title}
             />
           </div>
         )}
@@ -190,8 +190,8 @@ const CardProject = forwardRef<AnimatedCardRef, CardProjectProps>(
           <div ref={cardRef} className="relative aspect-square overflow-hidden">
             <Link
               ref={wrapperImageRef}
-              aria-label={'View project ' + project.title}
-              href={'/work/' + project.slug.current}
+              aria-label={'View work ' + work.title}
+              href={'/work/' + work.slug.current}
               scroll={false}
               className={clsx(
                 originTransform,
@@ -211,21 +211,21 @@ const CardProject = forwardRef<AnimatedCardRef, CardProjectProps>(
                 ref={containerImageRef}
                 className={clsx(originTransform, 'aspect-square h-full w-full overflow-hidden')}
               >
-                {project.mainVideo ? (
+                {work.mainVideo ? (
                   <Video
                     className="absolute bottom-0 h-full w-full object-cover"
-                    poster={project.mainImage}
+                    poster={work.mainImage}
                   >
-                    <source src={project.mainVideo} type="video/webm" />
-                    <source src={project.mainVideo} type="video/mp4" />
+                    <source src={work.mainVideo} type="video/webm" />
+                    <source src={work.mainVideo} type="video/mp4" />
                   </Video>
                 ) : (
                   <Image
                     ref={imageRef}
-                    alt={project.title}
+                    alt={work.title}
                     className="absolute bottom-0 aspect-square !h-[calc(100%+200px)] w-full object-cover"
                     height={1200}
-                    src={project.mainImage}
+                    src={work.mainImage}
                     width={1200}
                     unoptimized
                   />
@@ -236,17 +236,17 @@ const CardProject = forwardRef<AnimatedCardRef, CardProjectProps>(
           <div className="flex flex-col pb-20 pt-5 md:hidden">
             <div className="h-fit overflow-hidden">
               <h2 ref={titleRef} className="text-2xl font-bold">
-                {project.title}
+                {work.title}
               </h2>
             </div>
             <div className="relative w-full">
-              {project.tags && (
+              {work.tags && (
                 <div className="smoother-x-black absolute -left-x-default w-screen">
                   <div
                     ref={tagsRef}
                     className="no-scrollbar flex gap-[5px] overflow-x-scroll px-x-default py-5"
                   >
-                    {project.tags.map((tag, index) => (
+                    {work.tags.map((tag, index) => (
                       <Tag
                         key={tag.value.current + index}
                         className="origin-left"
@@ -266,4 +266,4 @@ const CardProject = forwardRef<AnimatedCardRef, CardProjectProps>(
   },
 );
 
-export default CardProject;
+export default CardWork;

@@ -17,6 +17,7 @@ export default function ScreenLoader() {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
 
   const [columnsNumbers, setColumnsNumbers] = useState(12);
+  const [showLottie, setShowLottie] = useState(false);
   const wrapperColumnsRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
   const iconRef = useRef(null);
@@ -24,15 +25,6 @@ export default function ScreenLoader() {
 
   useEffect(() => {
     setColumnsNumbers(isTablet ? 6 : 12);
-
-    const checkLottie = setInterval(() => {
-      if (lottieRef.current) {
-        lottieRef.current.stop();
-        clearInterval(checkLottie);
-      }
-    }, 50);
-
-    return () => clearInterval(checkLottie);
   }, []);
 
   useGSAP(() => {
@@ -50,7 +42,6 @@ export default function ScreenLoader() {
       .timeline({
         delay: 0.2,
       })
-      .add(() => lockScroll(true))
       .to(letters, {
         opacity: 1,
         y: 0,
@@ -69,6 +60,7 @@ export default function ScreenLoader() {
         },
         '+=0.2',
       )
+
       .to(
         iconRef.current,
         {
@@ -79,6 +71,8 @@ export default function ScreenLoader() {
         },
         '-=0.6',
       )
+      .add(() => setShowLottie(true))
+      .add(() => lockScroll(true))
       .add(() => lottieRef.current && lottieRef.current.play())
       .to(
         iconRef.current,
@@ -139,15 +133,17 @@ export default function ScreenLoader() {
       </h1>
       <div
         ref={iconRef}
-        className="-translate-full fixed left-1/2 top-1/2 -translate-x-1/2 opacity-0"
+        className="-translate-full fixed left-1/2 top-1/2 w-full -translate-x-1/2 opacity-0"
       >
-        <Lottie
-          animationData={JBLottie}
-          autoPlay={false}
-          className="h-32"
-          loop={false}
-          lottieRef={lottieRef}
-        />
+        {showLottie && (
+          <Lottie
+            animationData={JBLottie}
+            autoPlay={false}
+            className="h-32"
+            loop={false}
+            lottieRef={lottieRef}
+          />
+        )}
       </div>
     </div>
   );

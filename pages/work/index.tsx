@@ -1,14 +1,14 @@
 import AnimatedText, { AnimatedTextRef } from '@/components/atoms/AnimatedText';
 import Contact from '@/components/sections/Contact';
-import ProjectsWork from '@/components/sections/ProjectsWork';
+import WorksGallery from '@/components/sections/WorksGallery';
 import { useLanguage } from '@/providers/language.provider';
-import { fetchProjects } from '@/services/projects.sevices';
-import { Project } from '@/types';
+import { fetchWorks } from '@/services/works.sevices';
+import { Work } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
 
-export default function Page({ projects }: { projects: Project[] }) {
+export default function Page({ works }: { works: Work[] }) {
   const { isFrench } = useLanguage();
 
   const wrapperRef = useRef<HTMLElement>(null);
@@ -74,19 +74,19 @@ export default function Page({ projects }: { projects: Project[] }) {
       <div className="pb-y-default pt-header">
         <div className="py-y-default" />
       </div>
-      <ProjectsWork ref={wrapperRef} projects={projects} />
+      <WorksGallery ref={wrapperRef} works={works} />
       <Contact />
     </>
   );
 }
 
 export async function getStaticProps() {
-  const allProjects = await fetchProjects();
+  const allWorks = await fetchWorks();
 
-  const projects = Array.from({ length: 10 }, (_, i) => allProjects[i % allProjects.length]);
+  const works = Array.from({ length: 10 }, (_, i) => allWorks[i % allWorks.length]);
   return {
     props: {
-      projects,
+      works,
     },
   };
 }

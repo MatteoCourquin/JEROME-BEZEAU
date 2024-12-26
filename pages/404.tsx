@@ -1,18 +1,11 @@
-import { useCalculateRows } from '@/hooks/useCalculateRow';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { useRef } from 'react';
 
 export default function Page() {
   const wrapperSectionRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
-  const numberRow = useCalculateRows();
-
-  useGSAP(() => {
-    ScrollTrigger.refresh();
-  }, [numberRow]);
 
   useGSAP(() => {
     if (!wrapperSectionRef.current || !rowRef.current) return;
@@ -25,7 +18,7 @@ export default function Page() {
         scrollTrigger: {
           trigger: wrapperSectionRef.current,
           start: 'top top',
-          end: () => 5000,
+          end: () => 10000,
           scrub: 1,
           pin: true,
           anticipatePin: 1,
@@ -75,7 +68,7 @@ export default function Page() {
               ref={rowIndex === 0 ? rowRef : null}
               className="rows flex w-fit shrink-0 justify-end"
             >
-              {Array(40)
+              {Array(50)
                 .fill(null)
                 .map((_, textIndex) => (
                   <p

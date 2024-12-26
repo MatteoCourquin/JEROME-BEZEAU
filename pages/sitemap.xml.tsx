@@ -1,12 +1,12 @@
 import { fetchPaths as fetchProjectPaths } from '@/services/photos.sevices';
-import { fetchPaths as fetchPhotoPaths } from '@/services/projects.sevices';
-import { Photo, Project } from '@/types';
+import { fetchPaths as fetchPhotoPaths } from '@/services/works.sevices';
+import { Photo, Work } from '@/types';
 import { GetServerSideProps } from 'next';
 
 const Sitemap = () => null;
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const projects = await fetchProjectPaths();
+  const works = await fetchProjectPaths();
   const photos = await fetchPhotoPaths();
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -41,12 +41,12 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
-  ${projects
+  ${works
     .map(
-      (project: Project) => `
+      (work: Work) => `
   <url>
-    <loc>https://www.jeromebezeau.com/work/${project.slug}</loc>
-    <lastmod>${project.updatedAt}</lastmod>
+    <loc>https://www.jeromebezeau.com/work/${work.slug}</loc>
+    <lastmod>${work.updatedAt}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

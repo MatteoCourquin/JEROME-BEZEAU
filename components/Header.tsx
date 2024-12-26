@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   return (
     <header
       className={clsx(
-        'fixed left-0 top-0 z-[800] h-[100px] w-screen overflow-hidden border-b border-b-white-12 px-x-default backdrop-blur-lg',
+        'fixed left-0 top-0 z-[800] h-header w-screen overflow-hidden border-b border-b-white-12 px-x-default backdrop-blur-lg',
         className,
       )}
     >

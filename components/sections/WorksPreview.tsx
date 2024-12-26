@@ -1,14 +1,14 @@
 import { useLanguage } from '@/providers/language.provider';
-import { Project } from '@/types';
+import { Work } from '@/types';
 import clsx from 'clsx';
-import CardProject from '../CardProject';
+import CardWork from '../CardWork';
 import Button from '../atoms/Button';
 import AnimatedText, { AnimatedTextRef } from '../atoms/AnimatedText';
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
-const ProjectsHome = ({ projects }: { projects: Project[] }) => {
+const WorksPreview = ({ works }: { works: Work[] }) => {
   const { isFrench } = useLanguage();
 
   const sectionRef = useRef(null);
@@ -39,18 +39,18 @@ const ProjectsHome = ({ projects }: { projects: Project[] }) => {
         {isFrench ? 'QUELQUES PROJETS' : 'CURRATED WORKS'}
       </AnimatedText>
       <div className="flex flex-col gap-y-5 md:gap-y-0">
-        {projects.map((project, index) => (
+        {works.map((work, index) => (
           <div
-            key={project.title + index}
+            key={work.title + index}
             className={clsx(
               'md:flex md:gap-x-5',
               index % 2 === 0 && 'md:flex-row',
               index % 2 !== 0 && 'md:flex-row-reverse',
             )}
           >
-            <CardProject
+            <CardWork
               className="grow"
-              project={project}
+              work={work}
               originTransform={clsx(
                 index === 0 && 'origin-top-left',
                 index !== 0 && index % 2 === 0 && 'origin-top-left md:origin-top-right',
@@ -68,4 +68,4 @@ const ProjectsHome = ({ projects }: { projects: Project[] }) => {
   );
 };
 
-export default ProjectsHome;
+export default WorksPreview;

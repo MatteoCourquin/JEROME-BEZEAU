@@ -22,6 +22,8 @@ const defaultSpacingHalf = {
   'y-half-default': 'clamp(10px, 4vh, 50px)',
 };
 
+const header = '100px';
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -48,7 +50,7 @@ const config: Config = {
         ...defaultSpacing,
         ...defaultSpacingHalf,
         ...defaultSpacingDouble,
-        header: '100px',
+        header: header,
       },
       margin: {
         ...defaultSpacing,
@@ -64,11 +66,13 @@ const config: Config = {
         ...defaultSpacing,
         ...defaultSpacingHalf,
         ...defaultSpacingDouble,
+        header: header,
       },
       inset: {
         ...defaultSpacing,
         ...defaultSpacingHalf,
         ...defaultSpacingDouble,
+        header: header,
       },
       gap: {
         ...defaultSpacing,

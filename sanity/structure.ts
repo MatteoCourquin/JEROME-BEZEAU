@@ -8,13 +8,13 @@ export const structure: StructureResolver = (S, context) =>
     .title('PORTFOLIO')
     .items([
       orderableDocumentListDeskItem({
-        type: 'projects',
-        title: 'PROJECTS',
+        type: 'works',
+        title: 'WORKS',
         icon: RocketIcon,
         S,
         context,
       }),
-      // S.documentTypeListItem('projects').title('PROJECTS'),
+      // S.documentTypeListItem('works').title('WORKS'),
       S.divider(),
       orderableDocumentListDeskItem({
         type: 'photos',

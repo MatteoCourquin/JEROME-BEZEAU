@@ -1,30 +1,30 @@
 import { client } from '@/sanity/lib/client';
-import { Project } from '@/types';
+import { Work } from '@/types';
 import { ParsedUrlQuery } from 'querystring';
 
 export const fetchPaths = async () => {
   const query = `
-    *[_type == "projects"] {
+    *[_type == "works"] {
       slug,
       title,
       "updatedAt" : _updatedAt
     }
   `;
 
-  const projects = await client.fetch(query);
+  const works = await client.fetch(query);
 
-  const paths = projects.map((project: Project) => ({
-    slug: project.slug.current,
-    title: project.title,
-    updatedAt: project.updatedAt,
+  const paths = works.map((work: Work) => ({
+    slug: work.slug.current,
+    title: work.title,
+    updatedAt: work.updatedAt,
   }));
 
   return paths;
 };
 
-export const fetchProjects = async () => {
+export const fetchWorks = async () => {
   const query = `
-    *[_type == "projects"] | order(orderRank) {
+    *[_type == "works"] | order(orderRank) {
       title,
       slug,
       "tags": tags[]->{
@@ -35,18 +35,18 @@ export const fetchProjects = async () => {
       ogImage,
       "mainImage": mainImage.asset->url,
       "mainVideo": mainVideo.asset->url,
-      projectUrl
+      workUrl
     }
   `;
 
-  const projects = await client.fetch(query);
+  const works = await client.fetch(query);
 
-  return projects;
+  return works;
 };
 
-export const fetchSingleProject = async (params: ParsedUrlQuery | undefined) => {
+export const fetchSingleWork = async (params: ParsedUrlQuery | undefined) => {
   const query = `
-    *[_type == "projects" && slug.current == $project][0] {
+    *[_type == "works" && slug.current == $work][0] {
       title,
       slug,
       date,
@@ -70,7 +70,7 @@ export const fetchSingleProject = async (params: ParsedUrlQuery | undefined) => 
       },
       ogImage,
       "mainImage": mainImage.asset->url,
-      projectUrl,
+      workUrl,
       sections[]{
         sectionType,
         "text": {
@@ -83,9 +83,9 @@ export const fetchSingleProject = async (params: ParsedUrlQuery | undefined) => 
     }
   `;
 
-  const project = await client.fetch(query, {
-    project: params?.project,
+  const work = await client.fetch(query, {
+    work: params?.work,
   });
 
-  return project;
+  return work;
 };

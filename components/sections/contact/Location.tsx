@@ -1,18 +1,17 @@
 import Hint from '@/components/Hint';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
+import clsx from 'clsx';
 import { useRef } from 'react';
 import TimeDisplay from '../TimeHint';
-import clsx from 'clsx';
-import { useGSAP } from '@gsap/react';
 
 const Location = ({ className }: { className?: string }) => {
   const { isFrench } = useLanguage();
   const containerHintRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    // gsap
-  }, []);
+  // useGSAP(() => {
+  //   gsap.timeline().from(containerHintRef.current, {
+  // }, []);
 
   return (
     <div

@@ -5,9 +5,9 @@ import Video from '@/components/atoms/Video';
 import Credits, { AnimatedCreditRef } from '@/components/Credits';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useLanguage } from '@/providers/language.provider';
-import { fetchPaths, fetchSingleProject } from '@/services/projects.sevices';
+import { fetchPaths, fetchSingleWork } from '@/services/works.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
-import { Project, SECTIONS_TYPES } from '@/types';
+import { Work, SECTIONS_TYPES } from '@/types';
 import { formatDateToYear } from '@/utils';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -15,7 +15,7 @@ import { GetStaticPropsContext } from 'next';
 import Image from 'next/image';
 import { useRef } from 'react';
 
-export default function Page({ project }: { project: Project }) {
+export default function Page({ work }: { work: Work }) {
   const { isFrench } = useLanguage();
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
 
@@ -39,7 +39,7 @@ export default function Page({ project }: { project: Project }) {
       .add(animTitle, '-=0.4')
       .add(animYear, '-=0.4');
 
-    if (project.tags && tagsRef.current) {
+    if (work.tags && tagsRef.current) {
       const { children } = tagsRef.current;
       timeline.fromTo(
         children,
@@ -58,7 +58,7 @@ export default function Page({ project }: { project: Project }) {
       );
     }
 
-    if (project.credits) {
+    if (work.credits) {
       creditsRefs.current.map((ref, index) => {
         const anim = ref?.textAnimation();
         if (!anim) return;
@@ -66,7 +66,7 @@ export default function Page({ project }: { project: Project }) {
       });
     }
 
-    if (project.descriptionEn || (project.descriptionFr && descriptionRef.current)) {
+    if (work.descriptionEn || (work.descriptionFr && descriptionRef.current)) {
       gsap.set(descriptionWrapperRef.current, {
         scaleX: 0,
         transformOrigin: 'left center',
@@ -110,28 +110,28 @@ export default function Page({ project }: { project: Project }) {
               variant="h1"
               style={{
                 fontSize: isTablet
-                  ? `calc(120vw / ${project.title.length})`
+                  ? `calc(120vw / ${work.title.length})`
                   : 'clamp(2.5rem, 6vw, 8rem)',
                 lineHeight: isTablet
-                  ? `calc(120vw / ${project.title.length})`
+                  ? `calc(120vw / ${work.title.length})`
                   : 'clamp(2.5rem, 6vw, 8rem)',
               }}
             >
-              {project.title}
+              {work.title}
             </AnimatedText>
           </div>
           <div className="mt-auto pb-[3%] lg:col-span-4 lg:-col-end-1">
             <AnimatedText ref={yearRef} className="translate-y-[30%] text-white-80" variant="p">
-              {formatDateToYear(project.date).toString()}
+              {formatDateToYear(work.date).toString()}
             </AnimatedText>
           </div>
-          {project.tags && (
+          {work.tags && (
             <div className="smoother-x-black absolute -left-x-default w-screen sm:left-0 sm:block lg:col-span-6">
               <div
                 ref={tagsRef}
                 className="no-scrollbar flex gap-2 overflow-scroll px-x-default py-3 sm:overflow-visible sm:p-0 sm:px-0"
               >
-                {project.tags.map((tag, index) => (
+                {work.tags.map((tag, index) => (
                   <Tag
                     key={tag.value.current + index}
                     className="origin-left"
@@ -148,16 +148,16 @@ export default function Page({ project }: { project: Project }) {
               <div ref={descriptionRef} className="w-full origin-left pt-y-half-default">
                 <RichText
                   className="whitespace-normal"
-                  value={isFrench ? project.descriptionFr : project.descriptionEn}
+                  value={isFrench ? work.descriptionFr : work.descriptionEn}
                 />
               </div>
             </div>
           </div>
-          {project.credits && (
+          {work.credits && (
             <div className="row-start-4 flex flex-col pt-y-half-default sm:pt-0 lg:col-span-4 lg:-col-end-1 lg:row-span-2 lg:row-start-2">
               <p className="pb-10">CREDITS :</p>
               <ul className="flex flex-col gap-3">
-                {project.credits.map((credit, index) => (
+                {work.credits.map((credit, index) => (
                   <Credits
                     key={credit.author.name + index}
                     ref={(el) => {
@@ -173,9 +173,9 @@ export default function Page({ project }: { project: Project }) {
           )}
         </div>
       </section>
-      {project.sections && (
+      {work.sections && (
         <section className="px-x-default pb-y-default">
-          {project.sections.map((section, index) => {
+          {work.sections.map((section, index) => {
             if (
               section.sectionType === SECTIONS_TYPES.TEXT &&
               section.text.contentEn &&
@@ -217,19 +217,19 @@ export default function Page({ project }: { project: Project }) {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { params } = context;
 
-  const project = await fetchSingleProject(params);
+  const work = await fetchSingleWork(params);
 
   return {
     props: {
-      project,
+      work,
       params,
     },
   };
 };
 
 export const getStaticPaths = async () => {
-  const paths = (await fetchPaths()).map((project: Project) => ({
-    params: { project: project.slug },
+  const paths = (await fetchPaths()).map((work: Work) => ({
+    params: { work: work.slug },
   }));
 
   return {
