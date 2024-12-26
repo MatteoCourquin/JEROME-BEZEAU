@@ -2,12 +2,28 @@ import Hint from '@/components/Hint';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
 import clsx from 'clsx';
-import { useRef } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import TimeDisplay from '../TimeHint';
+import gsap from 'gsap';
 
-const Call = ({ className }: { className?: string }) => {
+export interface AnimatedCallRef {
+  callAnimation: () => void;
+}
+
+const Call = forwardRef<AnimatedCallRef, { className?: string }>(({ className }, ref) => {
   const { isFrench } = useLanguage();
   const containerHintRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    callAnimation: () =>
+      gsap.from(containerHintRef.current, {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+      }),
+  }));
+
   return (
     <div
       ref={containerHintRef}
@@ -27,6 +43,6 @@ const Call = ({ className }: { className?: string }) => {
       </Hint>
     </div>
   );
-};
+});
 
 export default Call;

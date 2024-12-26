@@ -1,11 +1,29 @@
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useLanguage } from '@/providers/language.provider';
 import clsx from 'clsx';
+import gsap from 'gsap';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 
-const Mail = ({ className }: { className?: string }) => {
+export interface AnimatedMailRef {
+  mailAnimation: () => gsap.core.Tween;
+}
+
+const Mail = forwardRef<AnimatedMailRef, { className?: string }>(({ className }, ref) => {
   const { isFrench } = useLanguage();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    mailAnimation: () =>
+      gsap.from(containerRef.current, {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+      }),
+  }));
+
   return (
-    <div className={clsx(className, 'flex flex-col gap-[18px]')}>
+    <div ref={containerRef} className={clsx(className, 'flex flex-col gap-[18px]')}>
       <h3 className="text2 text-white-40">
         {isFrench ? 'ENVOYEZ UN MESSAGE :' : 'SEND A MESSAGE :'}
       </h3>
@@ -19,6 +37,6 @@ const Mail = ({ className }: { className?: string }) => {
       </a>
     </div>
   );
-};
+});
 
 export default Mail;
