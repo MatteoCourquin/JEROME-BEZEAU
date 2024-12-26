@@ -41,7 +41,7 @@ export default function Page() {
     animations.map(({ anim, delay }) => anim && timeline.add(anim, delay));
 
     useParallax(contactFormRef.current, 0.2, 'bottom', 1024);
-  }, []);
+  });
 
   return (
     <section
