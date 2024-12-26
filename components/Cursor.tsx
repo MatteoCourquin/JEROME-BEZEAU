@@ -109,20 +109,18 @@ const Cursor = memo(() => {
         y: e.clientY,
       });
     }),
-
     hideCursor: useCallback(() => {
       if (!pointerRef.current) return;
       pointerRef.current.style.opacity = '0';
     }, []),
-
-    handleMouseDown: useCallback(() => {
-      setIsActive(true);
-      if (!clickSoundRef.current) return;
-      clickSoundRef.current.currentTime = 0;
-      clickSoundRef.current.play().catch((err) => console.error('Audio play failed:', err));
-    }, []),
-
+    handleMouseDown: useCallback(() => setIsActive(true), []),
     handleMouseUp: useCallback(() => setIsActive(false), []),
+  };
+
+  const playButtonSound = () => {
+    if (!clickSoundRef.current) return;
+    clickSoundRef.current.currentTime = 0;
+    clickSoundRef.current.play().catch((err) => console.error('Audio play failed:', err));
   };
 
   const manageCursorEvents = useCallback(
@@ -141,6 +139,10 @@ const Cursor = memo(() => {
         elements[key as keyof typeof elements].forEach((el) => {
           el[event]('mouseover', handler);
           el[event]('mouseleave', cursorStateHandlers.changeToDefault);
+
+          if (key === 'button') {
+            el[event]('mousedown', playButtonSound);
+          }
         });
       });
     },

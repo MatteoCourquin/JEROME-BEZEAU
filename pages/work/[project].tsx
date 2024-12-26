@@ -100,7 +100,7 @@ export default function Page({ project }: { project: Project }) {
 
   return (
     <>
-      <section className="overflow-hidden pt-header">
+      <section className="min-h-screen overflow-hidden pt-header">
         <div className="grid grid-cols-1 gap-y-half-default gap-x-5 px-x-default pb-y-default pt-y-half-default lg:grid-cols-12">
           <div className="uppercase lg:col-span-6">
             <AnimatedText

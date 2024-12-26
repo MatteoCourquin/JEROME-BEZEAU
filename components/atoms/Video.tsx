@@ -60,3 +60,12 @@ const Video = ({
 };
 
 export default Video;
+
+// <!-- Set up -->
+//  <video>
+//   <!-- Provide the Safari video -->
+//    <source src="mp4" type='video/mp4; codecs="hvc1"'>
+
+//   <!-- .. and the Chrome video -->
+//    <source src="webm" type="video/webm">
+// </video>
