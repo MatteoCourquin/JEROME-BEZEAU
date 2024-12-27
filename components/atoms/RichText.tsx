@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { PortableText } from 'next-sanity';
 import { forwardRef } from 'react';
 import { TypedObject } from 'sanity';
@@ -9,13 +10,13 @@ interface RichTextProps {
 
 const RichText = forwardRef<HTMLDivElement, RichTextProps>(({ value, className }, ref) => {
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref} className={clsx(className, 'space-y-6')}>
       <PortableText
         value={value}
         components={{
           block: {
-            h5: ({ children }) => <h4 className="heading4 pb-6">{children}</h4>,
-            normal: ({ children }) => <p className="mb-6">{children}</p>,
+            h5: ({ children }) => <h4 className="heading4">{children}</h4>,
+            normal: ({ children }) => <p>{children}</p>,
           },
           marks: {
             link: ({ value, children }) => (

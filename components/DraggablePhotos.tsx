@@ -4,7 +4,7 @@ import { Photo } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { TouchEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 const DRAG_THRESHOLD = 5;
 
@@ -14,6 +14,7 @@ const DraggablePhotos = ({ photo }: { photo: Photo }) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const isFirstMove = useRef(true);
   const initialMousePos = useRef({ x: 0, y: 0 });
+  const initialTouchPos = useRef({ x: 0, y: 0 });
   const clickStartPos = useRef({ x: 0, y: 0 });
 
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
@@ -112,6 +113,67 @@ const DraggablePhotos = ({ photo }: { photo: Photo }) => {
     [boundaries, isDragging, startPosition],
   );
 
+  const onTouchStart = useCallback(
+    (e: TouchEvent) => {
+      const [touch] = Array.from(e.touches);
+
+      setIsDragging(true);
+      setStartPosition({ x: touch.clientX - dragOffset.x, y: touch.clientY - dragOffset.y });
+      clickStartPos.current = { x: touch.clientX, y: touch.clientY };
+      initialTouchPos.current = { x: touch.clientX, y: touch.clientY };
+      isFirstMove.current = true;
+    },
+    [dragOffset],
+  );
+
+  const onTouchMove = useCallback(
+    (e: TouchEvent) => {
+      const [touch] = Array.from(e.touches);
+
+      if (isFirstMove.current) {
+        initialTouchPos.current = { x: touch.clientX, y: touch.clientY };
+        isFirstMove.current = false;
+      }
+
+      const deltaX = touch.clientX - initialTouchPos.current.x;
+      const deltaY = touch.clientY - initialTouchPos.current.y;
+
+      const parallaxScale = 0.05;
+      const limitedDeltaX = clampValue(
+        -(deltaX * parallaxScale),
+        boundaries.minX / 2,
+        boundaries.maxX / 2,
+      );
+      const limitedDeltaY = clampValue(
+        -(deltaY * parallaxScale),
+        boundaries.minY / 2,
+        boundaries.maxY / 2,
+      );
+
+      gsap.to(wrapperGridRef.current, {
+        x: limitedDeltaX,
+        y: limitedDeltaY,
+        ease: 'power2.out',
+        duration: 0.8,
+      });
+
+      if (!isDragging || !gridRef.current) return;
+
+      const newX = clampValue(touch.clientX - startPosition.x, boundaries.minX, boundaries.maxX);
+      const newY = clampValue(touch.clientY - startPosition.y, boundaries.minY, boundaries.maxY);
+
+      gsap.to(gridRef.current, {
+        x: newX,
+        y: newY,
+        ease: 'power2.out',
+        duration: 0.8,
+      });
+
+      setDragOffset({ x: newX, y: newY });
+    },
+    [boundaries, isDragging, startPosition],
+  );
+
   const handleImageClick = useCallback((e: React.MouseEvent, index: number) => {
     const deltaX = Math.abs(e.clientX - clickStartPos.current.x);
     const deltaY = Math.abs(e.clientY - clickStartPos.current.y);
@@ -126,11 +188,15 @@ const DraggablePhotos = ({ photo }: { photo: Photo }) => {
     <>
       <section
         ref={sectionRef}
-        className="cursor-drag relative z-0 h-screen w-screen select-none overflow-hidden"
+        className="cursor-drag relative z-0 h-screen w-screen touch-none select-none overflow-hidden"
         draggable={false}
         onMouseDown={onMouseDown}
+        onMouseLeave={() => setIsDragging(false)}
         onMouseMove={onMouseMove}
         onMouseUp={() => setIsDragging(false)}
+        onTouchEnd={() => setIsDragging(false)}
+        onTouchMove={onTouchMove}
+        onTouchStart={onTouchStart}
       >
         <h1 className="text-shadow absolute top-y-default z-10 w-full select-none px-x-default py-y-default text-center">
           {photo.title}

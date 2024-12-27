@@ -233,7 +233,7 @@ const CardWork = forwardRef<AnimatedCardRef, CardWorkProps>(
               </div>
             </Link>
           </div>
-          <div className="flex flex-col pb-20 pt-5 md:hidden">
+          <div className="flex flex-col pb-y-half-default pt-5 md:hidden">
             <div className="h-fit overflow-hidden">
               <h2 ref={titleRef} className="text-2xl font-bold">
                 {work.title}

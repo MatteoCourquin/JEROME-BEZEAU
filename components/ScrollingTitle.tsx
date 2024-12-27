@@ -52,7 +52,6 @@ const ScrollingTitle = ({ text, scrollSpeed = 10 }: { text: string; scrollSpeed?
 
   useGSAP(() => {
     ScrollTrigger.refresh();
-
     animateInfinite(scrollContainer);
     if (useTouchDevice()) return;
     animateScroll();
