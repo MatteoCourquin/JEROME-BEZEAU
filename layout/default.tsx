@@ -29,6 +29,14 @@ const Layout = ({ children }: { children: ReactNode }) => {
           name="keywords"
         />
         <link href="/favicon.svg" rel="icon" />
+        <link href="/fonts" rel="preconnect" />
+        <link
+          as="font"
+          crossOrigin="anonymous"
+          href="/fonts/NeueMachina.woff2"
+          rel="preload"
+          type="font/woff2"
+        />
       </Head>
       {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js" /> */}
       {isTablet ? <Burger /> : <Header />}

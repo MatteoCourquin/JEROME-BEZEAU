@@ -1,5 +1,10 @@
 @font-face {
-  src: url('/fonts/NeueMachina.otf') format('opentype');
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url('/fonts/NeueMachina.woff2') format('woff2'),
+    url('/fonts/NeueMachina.woff') format('woff'),
+    url('/fonts/NeueMachina.otf') format('opentype');
   font-family: 'Neue Machina';
   font-display: swap;
 }

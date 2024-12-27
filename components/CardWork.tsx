@@ -227,7 +227,6 @@ const CardWork = forwardRef<AnimatedCardRef, CardWorkProps>(
                     height={1200}
                     src={work.mainImage}
                     width={1200}
-                    unoptimized
                   />
                 )}
               </div>
