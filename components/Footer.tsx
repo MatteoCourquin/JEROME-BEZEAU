@@ -32,7 +32,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="flex flex-col gap-x-5 gap-y-10 border-t border-t-white-12 px-x-default py-y-default backdrop-blur-lg md:grid md:grid-cols-12 md:gap-y-0">
+    <footer className="flex flex-col gap-x-5 gap-y-10 border-t border-t-white-12 px-x-default py-y-default backdrop-blur-xl md:grid md:grid-cols-12 md:gap-y-0">
       <div className="md:col-span-6 lg:col-span-8">
         <Link aria-label="Go to home" className="cursor-button w-fit" href="/" scroll={false}>
           <IconJB className="fill-white-80" />

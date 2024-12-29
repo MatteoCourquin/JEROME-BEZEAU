@@ -83,13 +83,16 @@ const Cursor = memo(() => {
   const pointerRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<MutationObserver | null>(null);
   const clickSoundRef = useRef<HTMLAudioElement | null>(null);
+  const hoverSoundRef = useRef<HTMLAudioElement | null>(null);
 
   const [cursorState, setCursorState] = useState(CURSOR_STATE.DEFAULT);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     clickSoundRef.current = new Audio('/sounds/click.mp3');
+    hoverSoundRef.current = new Audio('/sounds/hover.mp3');
     clickSoundRef.current.volume = 0.5;
+    hoverSoundRef.current.volume = 0.2;
   }, []);
 
   const cursorStateHandlers = {
@@ -117,10 +120,16 @@ const Cursor = memo(() => {
     handleMouseUp: useCallback(() => setIsActive(false), []),
   };
 
-  const playButtonSound = () => {
+  const playClicSound = () => {
     if (!clickSoundRef.current) return;
     clickSoundRef.current.currentTime = 0;
-    clickSoundRef.current.play().catch((err) => console.error('Audio play failed:', err));
+    clickSoundRef.current.play();
+  };
+
+  const playHoverSound = () => {
+    if (!hoverSoundRef.current) return;
+    hoverSoundRef.current.currentTime = 0;
+    hoverSoundRef.current.play();
   };
 
   const manageCursorEvents = useCallback(
@@ -141,7 +150,8 @@ const Cursor = memo(() => {
           el[event]('mouseleave', cursorStateHandlers.changeToDefault);
 
           if (key === 'button') {
-            el[event]('mousedown', playButtonSound);
+            el[event]('mousedown', playClicSound);
+            el[event]('mouseenter', playHoverSound);
           }
         });
       });

@@ -92,6 +92,7 @@ const Input = forwardRef<AnimatedIputRef, InputProps>(
               id={name}
               placeholder={placeholder}
               value={value}
+              data-lenis-prevent
               onChange={(e) => props.onChange?.(e)}
               {...props}
             />

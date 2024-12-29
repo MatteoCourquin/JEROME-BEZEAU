@@ -110,16 +110,24 @@ export const useContactForm = (isFrench: boolean) => {
     onError: (error) => {
       setFormState(FORM_STATE.ERROR);
       console.error('onError', error);
+      setTimeout(() => {
+        setFormState(FORM_STATE.DEFAULT);
+      }, 5000);
     },
     onSuccess: () => {
       resetForm();
       setFormState(FORM_STATE.SUCCESS);
+
+      setTimeout(() => {
+        setFormState(FORM_STATE.DEFAULT);
+      }, 5000);
     },
   });
 
   const getButtonText = () => {
     if (formState === FORM_STATE.LOADING) return isFrench ? 'Envoi en cours...' : 'Sending...';
     if (formState === FORM_STATE.SUCCESS) return isFrench ? 'Envoyé !' : 'Sent!';
+    if (formState === FORM_STATE.ERROR) return isFrench ? 'Erreur !' : 'Error!';
     return isFrench ? 'Envoyer' : 'Send';
   };
 
