@@ -99,12 +99,7 @@ const DetailsWork = ({
 
   useGSAP(() => {
     if (!timelineRef.current) return;
-
-    if (isActive) {
-      timelineRef.current.play();
-    } else {
-      timelineRef.current.reverse();
-    }
+    return isActive ? timelineRef.current.play() : timelineRef.current.reverse();
   }, [isActive]);
 
   return (

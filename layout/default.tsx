@@ -2,6 +2,7 @@ import Background from '@/components/Background';
 import Burger from '@/components/Burger';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import SEO from '@/components/SEO';
 import SocialMedia from '@/components/SocialMedia';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { AppProvider } from '@/providers/root';
@@ -11,7 +12,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import gsap from 'gsap';
 import CustomEase from 'gsap/dist/CustomEase';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import Head from 'next/head';
 import { ReactNode } from 'react';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
@@ -19,25 +19,15 @@ gsap.registerPlugin(ScrollTrigger, CustomEase);
 const Layout = ({ children }: { children: ReactNode }) => {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
 
+  // eslint-disable-next-line no-console
+  console.log(
+    '%c Code by Matteo Courquin: https://matteocourquin.com/',
+    'border: 1px solid #ccc; padding: 4px;',
+  );
+
   return (
     <AppProvider>
-      <Head>
-        <title>Jérôme Bezeau</title>
-        <meta content="Art Director & Digital designer" name="description" />
-        <meta
-          content="Art Director, Digital designer, Web designer, Graphic designer, UI/UX designer, Front-end developer"
-          name="keywords"
-        />
-        <link href="/favicon.svg" rel="icon" />
-        <link href="/fonts" rel="preconnect" />
-        <link
-          as="font"
-          crossOrigin="anonymous"
-          href="/fonts/NeueMachina.woff2"
-          rel="preload"
-          type="font/woff2"
-        />
-      </Head>
+      <SEO />
       {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js" /> */}
       {isTablet ? <Burger /> : <Header />}
       <SocialMedia />

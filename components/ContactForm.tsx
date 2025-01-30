@@ -97,7 +97,7 @@ const ContactForm = () => {
           ref={inputsRef.phone}
           errorMessage={formErrors.phone}
           name="phone"
-          placeholder={isFrench ? '06 78 90 12 34' : '+1 234 567 8900'}
+          placeholder={isFrench ? '+33 6 78 90 12 34' : '+1 234 567 8900'}
           type="tel"
           value={formValues.phone}
           onBlur={(e) => validateField('phone', e.target.value)}
@@ -115,13 +115,13 @@ const ContactForm = () => {
           <option value="default">
             {isFrench ? 'Sélectionnez une option' : 'Select an option'}
           </option>
+          <option value="website">{isFrench ? 'SITE WEB' : 'WEBSITE'}</option>
           <option value="branding">BRANDING</option>
           <option value="UI">UI</option>
           <option value="UX">UX</option>
           <option value="motion">MOTION DESIGN</option>
-          <option value="filmmaking">{isFrench ? 'FILMMAKING' : 'RÉALISATION'}</option>
-          <option value="photography">{isFrench ? 'PHOTOGRAPHY' : 'PHOTOGRAPHIE'}</option>
-          <option value="both">{isFrench ? 'LES DEUX' : 'BOTH'}</option>
+          <option value="filmmaking">{isFrench ? 'PRODUCTION VIDÉO' : 'FILMMAKING'}</option>
+          <option value="photography">{isFrench ? 'PHOTOGRAPHIE' : 'PHOTOGRAPHY'}</option>
           <option value="other">{isFrench ? 'AUTRE' : 'OTHER'}</option>
         </Input>
         <Input

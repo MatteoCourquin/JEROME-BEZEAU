@@ -41,12 +41,12 @@ const Input = forwardRef<AnimatedIputRef, InputProps>(
 
     const { contextSafe } = useGSAP();
 
-    const inputAnimation = () => {
+    const inputAnimation = contextSafe(() => {
       gsap
         .timeline()
         .fromTo(lineRef.current, { scaleX: 0 }, { scaleX: 1, duration: 1, ease: 'power2.out' })
         .fromTo(inputRef.current, { y: 96 }, { y: 0, duration: 1, ease: 'power2.out' }, '-=0.8');
-    };
+    });
 
     useImperativeHandle(ref, () => ({
       inputAnimation,

@@ -3,8 +3,10 @@ import RichText from '@/components/atoms/RichText';
 import Tag, { TAG_VARIANT } from '@/components/atoms/Tag';
 import Video from '@/components/atoms/Video';
 import Credits, { AnimatedCreditRef } from '@/components/Credits';
+import SEO from '@/components/SEO';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useLanguage } from '@/providers/language.provider';
+import { urlFor } from '@/sanity/lib/image';
 import { fetchPaths, fetchSingleWork } from '@/services/works.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { Work, SECTIONS_TYPES } from '@/types';
@@ -100,6 +102,10 @@ export default function Page({ work }: { work: Work }) {
 
   return (
     <>
+      <SEO
+        image={work.ogImage ? urlFor(work.ogImage).toString() : undefined}
+        title={'Jérôme BEZEAU • ' + work.title}
+      />
       <section className="min-h-screen overflow-hidden pt-header">
         <div className="grid grid-cols-1 gap-y-half-default gap-x-5 px-x-default pb-y-default pt-y-half-default lg:grid-cols-12">
           <div className="uppercase lg:col-span-6">

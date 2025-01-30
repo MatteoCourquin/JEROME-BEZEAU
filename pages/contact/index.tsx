@@ -3,6 +3,7 @@ import ContactForm from '@/components/ContactForm';
 import Call, { AnimatedCallRef } from '@/components/sections/contact/Call';
 import Loaction, { AnimatedLocationRef } from '@/components/sections/contact/Location';
 import Mail, { AnimatedMailRef } from '@/components/sections/contact/Mail';
+import SEO from '@/components/SEO';
 import { useParallax } from '@/hooks/useParallax';
 import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
@@ -44,42 +45,45 @@ export default function Page() {
   });
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative grid min-h-screen grid-cols-1 gap-x-5 px-x-default pb-y-default pt-header md:grid-cols-12"
-    >
-      <div className="col-span-6 lg:col-span-6">
-        <AnimatedText
-          ref={animationRefs.title}
-          className="-translate-y-[15%] pt-y-default"
-          isRandomAnim={true}
-          variant="h1"
-        >
-          CONTACT
-        </AnimatedText>
-        <div>
-          <AnimatedText ref={animationRefs.subtitle1} className="text1 text-white-80" variant="p">
-            {isFrench ? 'Prêt à commencer ?' : 'Ready to kick things off?'}
-          </AnimatedText>
+    <>
+      <SEO title="Jérôme BEZEAU • Contact" />
+      <section
+        ref={sectionRef}
+        className="relative grid min-h-screen grid-cols-1 gap-x-5 px-x-default pb-y-default pt-header md:grid-cols-12"
+      >
+        <div className="col-span-6 lg:col-span-6">
           <AnimatedText
-            ref={animationRefs.subtitle2}
-            className="text1 pt-5 text-white-80"
-            variant="p"
+            ref={animationRefs.title}
+            className="-translate-y-[15%] pt-y-default"
+            isRandomAnim={true}
+            variant="h1"
           >
-            {isFrench
-              ? "N'hésitez pas à m'envoyer un email, m'appeler ou simplement remplir le formulaire !"
-              : 'Feel free to send an e-mail, give me a call or just fill the form !'}
+            CONTACT
           </AnimatedText>
-          <div className="flex flex-col gap-y-11 pt-y-half-default md:grid-cols-2 lg:grid-cols-3">
-            <Loaction ref={animationRefs.location} />
-            <Mail ref={animationRefs.mail} />
-            <Call ref={animationRefs.call} />
+          <div>
+            <AnimatedText ref={animationRefs.subtitle1} className="text1 text-white-80" variant="p">
+              {isFrench ? 'Prêt à commencer ?' : 'Ready to kick things off?'}
+            </AnimatedText>
+            <AnimatedText
+              ref={animationRefs.subtitle2}
+              className="text1 pt-5 text-white-80"
+              variant="p"
+            >
+              {isFrench
+                ? "N'hésitez pas à m'envoyer un email, m'appeler ou simplement remplir le formulaire !"
+                : 'Feel free to send an e-mail, give me a call or just fill the form !'}
+            </AnimatedText>
+            <div className="flex flex-col gap-y-11 pt-y-half-default md:grid-cols-2 lg:grid-cols-3">
+              <Loaction ref={animationRefs.location} />
+              <Mail ref={animationRefs.mail} />
+              <Call ref={animationRefs.call} />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="sticky top-header col-span-6 h-fit md:-col-end-1 lg:col-span-4 lg:-col-end-1">
-        <ContactForm />
-      </div>
-    </section>
+        <div className="sticky top-header col-span-6 h-fit md:-col-end-1 lg:col-span-4 lg:-col-end-1">
+          <ContactForm />
+        </div>
+      </section>
+    </>
   );
 }

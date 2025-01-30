@@ -1,7 +1,6 @@
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import {
   createElement,
   forwardRef,
@@ -74,8 +73,6 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
     }));
 
     useEffect(() => {
-      ScrollTrigger.refresh();
-
       if (isScrubAnim && animatedTextRef.current && trigger?.current) {
         const descriptionWords = animatedTextRef.current.querySelectorAll('.anim-text');
 
@@ -94,7 +91,7 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
           },
         });
       }
-    }, []);
+    }, [children]);
 
     const trainAnimEnter = contextSafe(() => {
       if (!animatedTextRef.current) return;

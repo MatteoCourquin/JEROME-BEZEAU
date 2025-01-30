@@ -1,15 +1,19 @@
 import ScrollerPhotographyDesktop from '@/components/sections/ScrollerPhotographyDesktop';
 import ScrollerPhotographyMobile from '@/components/sections/ScrollerPhotographyMobile';
+import SEO from '@/components/SEO';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
+import { useLanguage } from '@/providers/language.provider';
 import { fetchPhotos } from '@/services/photos.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { Photo } from '@/types';
 
 export default function Page({ photos }: { photos: Photo[] }) {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
+  const { isFrench } = useLanguage();
 
   return (
     <>
+      <SEO title={'Jérôme BEZEAU • ' + (isFrench ? 'Photographie' : 'Photography')} />
       {isTablet ? (
         <ScrollerPhotographyMobile photos={photos} />
       ) : (

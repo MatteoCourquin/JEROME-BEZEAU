@@ -83,16 +83,16 @@ const Cursor = memo(() => {
   const pointerRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<MutationObserver | null>(null);
   const clickSoundRef = useRef<HTMLAudioElement | null>(null);
-  const hoverSoundRef = useRef<HTMLAudioElement | null>(null);
+  // const hoverSoundRef = useRef<HTMLAudioElement | null>(null);
 
   const [cursorState, setCursorState] = useState(CURSOR_STATE.DEFAULT);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     clickSoundRef.current = new Audio('/sounds/click.mp3');
-    hoverSoundRef.current = new Audio('/sounds/hover.mp3');
+    // hoverSoundRef.current = new Audio('/sounds/hover.mp3');
     clickSoundRef.current.volume = 0.5;
-    hoverSoundRef.current.volume = 0.2;
+    // hoverSoundRef.current.volume = 0.2;
   }, []);
 
   const cursorStateHandlers = {
@@ -112,10 +112,6 @@ const Cursor = memo(() => {
         y: e.clientY,
       });
     }),
-    hideCursor: useCallback(() => {
-      if (!pointerRef.current) return;
-      pointerRef.current.style.opacity = '0';
-    }, []),
     handleMouseDown: useCallback(() => setIsActive(true), []),
     handleMouseUp: useCallback(() => setIsActive(false), []),
   };
@@ -126,11 +122,11 @@ const Cursor = memo(() => {
     clickSoundRef.current.play();
   };
 
-  const playHoverSound = () => {
-    if (!hoverSoundRef.current) return;
-    hoverSoundRef.current.currentTime = 0;
-    hoverSoundRef.current.play();
-  };
+  // const playHoverSound = () => {
+  //   if (!hoverSoundRef.current) return;
+  //   hoverSoundRef.current.currentTime = 0;
+  //   hoverSoundRef.current.play();
+  // };
 
   const manageCursorEvents = useCallback(
     (event: 'addEventListener' | 'removeEventListener') => {
@@ -151,7 +147,7 @@ const Cursor = memo(() => {
 
           if (key === 'button') {
             el[event]('mousedown', playClicSound);
-            el[event]('mouseenter', playHoverSound);
+            // el[event]('mouseenter', playHoverSound);
           }
         });
       });
@@ -165,10 +161,9 @@ const Cursor = memo(() => {
       manageCursorEvents('addEventListener');
     });
 
-    const { moveCursor, hideCursor, handleMouseDown, handleMouseUp } = cursorHandlers;
+    const { moveCursor, handleMouseDown, handleMouseUp } = cursorHandlers;
 
     window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mouseout', hideCursor);
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
     manageCursorEvents('addEventListener');
@@ -176,7 +171,6 @@ const Cursor = memo(() => {
 
     return () => {
       window.removeEventListener('mousemove', moveCursor);
-      window.removeEventListener('mouseout', hideCursor);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
       manageCursorEvents('removeEventListener');

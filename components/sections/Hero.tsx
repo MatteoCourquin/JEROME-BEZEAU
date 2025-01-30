@@ -45,7 +45,7 @@ const Hero = () => {
         alt="Jérôme Bezeau background"
         className="absolute inset-0 -z-[1] h-screen w-screen object-cover"
         height={1080}
-        src="/images/JB.jpeg"
+        src="/images/jerome-bezeau.webp"
         width={1920}
         priority
       />

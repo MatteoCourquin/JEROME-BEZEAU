@@ -1,6 +1,7 @@
 import AnimatedText, { AnimatedTextRef } from '@/components/atoms/AnimatedText';
 import CardSkills from '@/components/CardSkills';
 import Contact from '@/components/sections/Contact';
+import SEO from '@/components/SEO';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useParallax } from '@/hooks/useParallax';
 import { useTouchDevice } from '@/hooks/useTouchDevice';
@@ -14,46 +15,46 @@ const cardsSkills = [
   {
     title: {
       en: 'BRANDING',
-      fr: 'IMAGE DE MARQUE',
+      fr: 'IDENTITÉ VISUELLE',
     },
     description: {
-      en: 'Strategic brand development, visual identity creation and brand guidelines implementation.',
-      fr: "Développement stratégique de marque, création d'identité visuelle et mise en place de chartes graphiques.",
+      en: 'Building memorable visual identities that captivate and leave a lasting impact.',
+      fr: 'Construire des identités visuelles mémorables qui captivent et marquent les esprits.',
     },
-    imageSrc: '/images/JB.jpeg',
+    imageSrc: '/images/about/branding.jpg',
   },
   {
     title: {
       en: 'UI DESIGN',
-      fr: "DESIGN D'INTERFACE",
+      fr: 'UI DESIGN',
     },
     description: {
-      en: 'Creating intuitive and aesthetic user interfaces for web and mobile applications.',
-      fr: "Création d'interfaces utilisateur intuitives et esthétiques pour applications web et mobile.",
+      en: 'Crafting sleek and intuitive interfaces for seamless digital experiences.',
+      fr: 'Concevoir des interfaces élégantes et intuitives pour des expériences digitales fluides.',
     },
-    imageSrc: '/images/JB.jpeg',
+    imageSrc: '/images/about/ui.jpg',
   },
   {
     title: {
       en: 'MOTION DESIGN',
-      fr: 'DESIGN ANIMÉ',
+      fr: 'MOTION DESIGN',
     },
     description: {
-      en: 'Dynamic visual content creation, animated logos and interactive motion graphics.',
-      fr: 'Création de contenu visuel dynamique, logos animés et graphiques interactifs en mouvement.',
+      en: 'Bringing ideas to life with dynamic and striking animations.',
+      fr: 'Donner vie aux idées avec des animations dynamiques et percutantes.',
     },
-    imageSrc: '/images/JB.jpeg',
+    imageSrc: '/images/about/motion.jpg',
   },
   {
     title: {
       en: 'FILMMAKING',
-      fr: 'RÉALISATION',
+      fr: 'PRODUCTION VIDÉO',
     },
     description: {
-      en: 'Video production from concept to final edit, including storytelling and direction.',
-      fr: 'Production vidéo du concept au montage final, incluant narration et direction.',
+      en: 'Telling visual stories with strong artistic direction and a cinematic feel.',
+      fr: 'Raconter des histoires visuelles avec une direction artistique forte et cinématographique.',
     },
-    imageSrc: '/images/JB.jpeg',
+    imageSrc: '/images/about/filmmaking.jpg',
   },
   {
     title: {
@@ -61,10 +62,10 @@ const cardsSkills = [
       fr: 'PHOTOGRAPHIE',
     },
     description: {
-      en: 'Professional photo shoots, post-production and artistic direction for various projects.',
-      fr: 'Séances photo professionnelles, post-production et direction artistique pour divers projets.',
+      en: 'Capturing moments with precision and emotion for images that resonate.',
+      fr: 'Capturer l’instant avec précision et émotion, pour des images qui résonnent.',
     },
-    imageSrc: '/images/JB.jpeg',
+    imageSrc: '/images/about/photo.jpg',
   },
 ];
 
@@ -170,6 +171,7 @@ export default function Page() {
 
   return (
     <>
+      <SEO title={'Jérôme BEZEAU • ' + (isFrench ? 'À propos' : 'About')} />
       <section className="relative grid min-h-screen grid-cols-1 gap-x-[10%] px-x-default pb-y-default pt-header lg:grid-cols-[5fr,6fr]">
         <div ref={descriptionRef} className="flex flex-col pt-y-default lg:pb-52">
           <AnimatedText
@@ -186,8 +188,8 @@ export default function Page() {
             </h5>
             <p className="text2 pt-6">
               {isFrench
-                ? 'Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus orci. Felis turpis ut tortor neque a.'
-                : 'Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus orci. Felis turpis ut tortor neque a.'}
+                ? 'Mon travail repose sur un équilibre entre esthétique et fonctionnalité. Spécialisé en conception digitale, je développe des identités visuelles percutantes, des expériences interactives fluides et des animations captivantes. J’accompagne les entreprises dans la création d’univers graphiques cohérents et impactants, toujours avec un regard pointu sur les tendances et l’innovation.'
+                : 'My work is built on a balance between aesthetics and functionality. Specializing in digital design, I craft striking visual identities, seamless interactive experiences, and captivating animations. I help businesses create cohesive and impactful visual universes, always with a sharp eye on trends and innovation.'}
             </p>
           </div>
           <div ref={animationRefs.description2} className="w-full pt-14 sm:w-3/5">
@@ -196,8 +198,8 @@ export default function Page() {
             </h5>
             <p className="text2 pt-6">
               {isFrench
-                ? 'Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus orci. Felis turpis ut tortor neque a.'
-                : 'Est et id suspendisse nullam consequat nisl augue. At posuere ac nec ac. Proin est augue massa ultrices massa id facilisis. Quam facilisis tellus ut ipsum. Dui vulputate netus mauris lorem volutpat. Lobortis laoreet metus ultrices cum eu ut lectus risus orci. Felis turpis ut tortor neque a.'}
+                ? "En parallèle, je pratique le triathlon qui m'apprend la résilience, l'organisation et l'adaptation. Je trouve aussi une grande satisfaction à explorer l'univers de la photographie, où chaque image est l'occasion de saisir l'énergie et l'esthétique du mouvement, que ce soit dans le sport ou dans la vie de tous les jours."
+                : 'In parallel, I practice triathlon, which teaches me resilience, organization, and adaptation. I also find great satisfaction in exploring the world of photography, where each image is an opportunity to capture the energy and aesthetics of movement, whether in sports or everyday life.'}
             </p>
           </div>
         </div>
@@ -212,7 +214,7 @@ export default function Page() {
             alt="About me"
             className="h-full w-full object-cover"
             height={1080}
-            src="/images/JB.jpeg"
+            src="/images/about/jerome-bezeau.webp"
             width={1920}
             priority
           />

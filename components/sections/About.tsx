@@ -53,14 +53,14 @@ const About = () => {
         trigger={wrapperSectionRef}
       >
         {isFrench
-          ? 'Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem consectetur semper pellentesque diam molestie sodales sit.'
-          : 'Morbi pellentesque vestibulum tristique massa. Cursus urna eu ac lectus. Iaculis amet sem consectetur semper pellentesque diam molestie sodales sit.'}
+          ? 'Je conçois des identités visuelles, des sites web et des animations en motion design pour des marques qui veulent marquer les esprits. Un design impactant, une direction artistique soignée et des expériences immersives.'
+          : 'I design visual identities, websites, and motion graphics for brands that want to make an impact. Thoughtful art direction, immersive experiences, and a sharp eye for detail.'}
       </AnimatedText>
       <Button className="w-fit" href="/about" type="a">
         {isFrench ? 'EN SAVOIR PLUS' : 'MORE ABOUT ME'}
       </Button>
       <div
-        className="cursor-button flex flex-col items-center gap-2 self-center pt-y-default md:absolute md:bottom-[20%]"
+        className="cursor-button flex flex-col items-center gap-2 self-center pt-y-default"
         onClick={() => window.scrollTo({ top: window.innerHeight * 1.9, behavior: 'smooth' })}
         onMouseLeave={(e) => useResetMagnet(e)}
         onMouseMove={(e) => useMagnet(e, 1)}

@@ -43,13 +43,15 @@ const TimeDisplay = ({ isFrench }: { isFrench: boolean }) => {
   const hours = isFrench ? time.hours : time.hours % 12 || 12;
 
   return (
-    <div className="flex items-baseline gap-1">
+    <div className="flex items-center gap-1">
       {isFrench ? 'IL EST ' : 'IT IS '}
-      <MotionNumber className="inline-block w-6" format={numberFormat} value={hours} />
-      :
-      <MotionNumber className="inline-block w-6" format={numberFormat} value={time.minutes} />
-      :
-      <MotionNumber className="inline-block w-6" format={numberFormat} value={time.seconds} />
+      <p className="text-black">
+        <MotionNumber className="inline-block w-6" format={numberFormat} value={hours} />
+        :
+        <MotionNumber className="inline-block w-6" format={numberFormat} value={time.minutes} />
+        :
+        <MotionNumber className="inline-block w-6" format={numberFormat} value={time.seconds} />
+      </p>
       {!isFrench && ` ${time.hours >= 12 ? 'PM' : 'AM'}`}
       {isFrench ? ' ICI !' : ' HERE!'}
     </div>

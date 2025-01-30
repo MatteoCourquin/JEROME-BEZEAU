@@ -1,6 +1,7 @@
 import AnimatedText, { AnimatedTextRef } from '@/components/atoms/AnimatedText';
 import Contact from '@/components/sections/Contact';
 import WorksGallery from '@/components/sections/WorksGallery';
+import SEO from '@/components/SEO';
 import { useLanguage } from '@/providers/language.provider';
 import { fetchWorks } from '@/services/works.sevices';
 import { Work } from '@/types';
@@ -63,6 +64,7 @@ export default function Page({ works }: { works: Work[] }) {
 
   return (
     <>
+      <SEO title={'Jérôme BEZEAU • ' + (isFrench ? 'Projets' : 'Work')} />
       <div
         ref={titleRef}
         className="fixed top-0 flex w-full flex-col items-center justify-center px-x-default pt-header"
