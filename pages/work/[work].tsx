@@ -106,7 +106,7 @@ export default function Page({ work }: { work: Work }) {
         image={work.ogImage ? urlFor(work.ogImage).toString() : undefined}
         title={'Jérôme BEZEAU • ' + work.title}
       />
-      <section className="min-h-screen overflow-hidden pt-header">
+      <section className="min-h-[calc(100vh-150px)] overflow-hidden pt-header">
         <div className="grid grid-cols-1 gap-y-half-default gap-x-5 px-x-default pb-y-default pt-y-half-default lg:grid-cols-12">
           <div className="uppercase lg:col-span-6">
             <AnimatedText
@@ -207,7 +207,11 @@ export default function Page({ work }: { work: Work }) {
             }
             if (section.sectionType === SECTIONS_TYPES.VIDEO && section.video) {
               return (
-                <Video key={section.sectionType + index} className="h-full w-full object-cover">
+                <Video
+                  key={section.sectionType + index}
+                  className="h-full w-full object-cover"
+                  controls
+                >
                   <source src={section.video} type="video/webm" />
                   <source src={section.video} type="video/mp4" />
                 </Video>

@@ -4,10 +4,12 @@ const Video = ({
   poster,
   className,
   children,
+  controls = false,
 }: {
   poster?: string;
   className?: string;
   children: ReactNode;
+  controls?: boolean;
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -46,6 +48,7 @@ const Video = ({
       aria-hidden="true"
       aria-label="Presentation work video"
       className={className}
+      controls={controls}
       data-webkit-playsinline="true"
       poster={poster}
       preload="auto"
