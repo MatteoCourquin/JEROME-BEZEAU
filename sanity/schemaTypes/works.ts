@@ -172,7 +172,7 @@ export const works = defineType({
       type: 'file',
       description: 'The main video of the work.',
       options: {
-        accept: 'video/webm, video/mp4',
+        accept: 'video/mp4',
       },
       fieldset: 'mediaInfo',
     }),
