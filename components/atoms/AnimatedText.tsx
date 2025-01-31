@@ -30,6 +30,7 @@ interface AnimatedTextProps extends HTMLAttributes<HTMLElement> {
   trigger?: MutableRefObject<HTMLElement | null>;
   isRandomAnim?: boolean;
   isScrubAnim?: boolean;
+  havePadding?: boolean;
 }
 
 export interface AnimatedTextRef {
@@ -48,6 +49,7 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
       isRandomAnim = false,
       onMouseEnter,
       onMouseLeave,
+      havePadding = true,
       ...props
     },
     ref,
@@ -173,8 +175,17 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
                     key={`${wordIndex}-${letterIndex}`}
                     className="letter-anim relative inline-block"
                   >
-                    <span className="red-500 relative inline-block pt-[40%]">{letter}</span>
-                    <span className="blue-500 absolute left-0 top-0 inline-block translate-y-full pt-[40%]">
+                    <span
+                      className={clsx('red-500 relative inline-block', havePadding && 'pt-[40%]')}
+                    >
+                      {letter}
+                    </span>
+                    <span
+                      className={clsx(
+                        'blue-500 absolute left-0 top-0 inline-block translate-y-full',
+                        havePadding && 'pt-[40%]',
+                      )}
+                    >
                       {letter}
                     </span>
                   </span>

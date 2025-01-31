@@ -111,7 +111,8 @@ export default function Page({ work }: { work: Work }) {
           <div className="uppercase lg:col-span-6">
             <AnimatedText
               ref={titleRef}
-              className="w-full translate-y-[25%] whitespace-nowrap text-center uppercase md:text-left"
+              className="w-full translate-y-[25%] whitespace-nowrap text-center uppercase md:whitespace-normal md:text-left"
+              havePadding={false}
               isRandomAnim={true}
               variant="h1"
               style={{
@@ -159,24 +160,26 @@ export default function Page({ work }: { work: Work }) {
               </div>
             </div>
           </div>
-          {work.credits && (
-            <div className="row-start-4 flex flex-col pt-y-half-default sm:pt-0 lg:col-span-4 lg:-col-end-1 lg:row-span-2 lg:row-start-2">
-              <p className="pb-10">CREDITS :</p>
-              <ul className="flex flex-col gap-3">
-                {work.credits.map((credit, index) => (
-                  <Credits
-                    key={credit.author.name + index}
-                    ref={(el) => {
-                      creditsRefs.current[index] = el;
-                    }}
-                    author={credit.author.name}
-                    href={credit.author.websiteUrl}
-                    role={isFrench ? credit.role.labelFr : credit.role.labelEn}
-                  />
-                ))}
-              </ul>
-            </div>
-          )}
+          <div className="row-start-4 flex flex-col pt-y-half-default sm:pt-0 lg:col-span-4 lg:-col-end-1 lg:row-span-2 lg:row-start-2">
+            {work.credits && (
+              <>
+                <p className="pb-10">CREDITS :</p>
+                <ul className="flex flex-col gap-3">
+                  {work.credits.map((credit, index) => (
+                    <Credits
+                      key={credit.author.name + index}
+                      ref={(el) => {
+                        creditsRefs.current[index] = el;
+                      }}
+                      author={credit.author.name}
+                      href={credit.author.websiteUrl}
+                      role={isFrench ? credit.role.labelFr : credit.role.labelEn}
+                    />
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
         </div>
       </section>
       {work.sections && (

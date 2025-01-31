@@ -12,18 +12,19 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import gsap from 'gsap';
 import CustomEase from 'gsap/dist/CustomEase';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
 
-  // eslint-disable-next-line no-console
-  console.log(
-    '%c Code by Matteo Courquin: https://matteocourquin.com/',
-    'border: 1px solid #ccc; padding: 4px;',
-  );
+  useEffect(() => {
+    console.info(
+      '%c Code by Matteo Courquin: https://matteocourquin.com/',
+      'border: 1px solid #ccc; padding: 4px;',
+    );
+  }, []);
 
   return (
     <AppProvider>
