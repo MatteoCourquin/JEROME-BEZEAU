@@ -219,7 +219,7 @@ const DraggablePhotos = ({ photo }: { photo: Photo }) => {
                 >
                   <Image
                     alt={photo.title + index}
-                    className="pointer-events-none h-auto w-full select-none"
+                    className="pointer-events-none h-full w-full select-none object-contain"
                     draggable={false}
                     height={1080}
                     src={urlFor(image).toString()}

@@ -26,8 +26,8 @@ const SliderPhotographyDesktop = ({
 }: SliderPhotographyProps) => {
   const containerRef = useRef(null);
   const backgroundRef = useRef(null);
-  const wrapperImageRef = useRef(null);
-  const imageRef = useRef(null);
+  const wrapperImagesRef = useRef(null);
+  const imagesRefs = useRef<(HTMLImageElement | null)[]>([]);
 
   const buttonPreviousRef = useRef(null);
   const buttonNextRef = useRef(null);
@@ -48,7 +48,7 @@ const SliderPhotographyDesktop = ({
         },
       )
       .fromTo(
-        wrapperImageRef.current,
+        wrapperImagesRef.current,
         {
           opacity: 0,
           transformOrigin: 'center center',
@@ -78,41 +78,60 @@ const SliderPhotographyDesktop = ({
   }, []);
 
   const goToSlide = (isNext: boolean) => {
+    const currentImage = imagesRefs.current[activeIndex];
+    const nextIndex = (activeIndex + (isNext ? 1 : -1) + photos.length) % photos.length;
+    const nextImage = imagesRefs.current[nextIndex];
+
+    if (!currentImage || !nextImage) return;
+
     gsap
       .timeline()
-      .to(wrapperImageRef.current, {
+      .to(wrapperImagesRef.current, {
         scaleX: 0,
         transformOrigin: isNext ? 'left center' : 'right center',
         ease: 'power2.inOut',
         onUpdate: () => {
-          const currentScale = gsap.getProperty(wrapperImageRef.current, 'scaleX');
+          const currentScale = gsap.getProperty(wrapperImagesRef.current, 'scaleX');
           if (currentScale !== 0) {
-            gsap.set(imageRef.current, {
-              scaleX: 1 / Number(currentScale),
-              transformOrigin: isNext ? 'left center' : 'right center',
+            imagesRefs.current.forEach((img, index) => {
+              if (img) {
+                gsap.set(img, {
+                  scaleX: 1 / Number(currentScale),
+                  transformOrigin: isNext ? 'left center' : 'right center',
+                  visibility: index === activeIndex ? 'visible' : 'hidden',
+                });
+              }
             });
           }
         },
       })
       .add(() => {
-        gsap.set(imageRef.current, { scaleX: 1 });
-        setActiveIndex((prev) => {
-          const nextIndex = prev + (isNext ? 1 : -1);
-          return (nextIndex + photos.length) % photos.length;
+        imagesRefs.current.forEach((img, index) => {
+          if (img) {
+            gsap.set(img, {
+              scaleX: 1,
+              visibility: index === nextIndex ? 'visible' : 'hidden',
+            });
+          }
         });
+        setActiveIndex(nextIndex);
       })
-      .set(wrapperImageRef.current, {
+      .set(wrapperImagesRef.current, {
         transformOrigin: isNext ? 'right center' : 'left center',
       })
-      .to(wrapperImageRef.current, {
+      .to(wrapperImagesRef.current, {
         scaleX: 1,
         ease: 'power2.inOut',
         onUpdate: () => {
-          const currentScale = gsap.getProperty(wrapperImageRef.current, 'scaleX');
+          const currentScale = gsap.getProperty(wrapperImagesRef.current, 'scaleX');
           if (currentScale !== 0) {
-            gsap.set(imageRef.current, {
-              scaleX: 1 / Number(currentScale),
-              transformOrigin: isNext ? 'right center' : 'left center',
+            imagesRefs.current.forEach((img, index) => {
+              if (img && index === nextIndex) {
+                gsap.set(img, {
+                  scaleX: 1 / Number(currentScale),
+                  transformOrigin: isNext ? 'right center' : 'left center',
+                });
+              }
             });
           }
         },
@@ -121,9 +140,9 @@ const SliderPhotographyDesktop = ({
 
   const goToNext = () => goToSlide(true);
   const goToPrevious = () => goToSlide(false);
-  const handdleClose = () => setIsOpen(false);
+  const handleClose = () => setIsOpen(false);
 
-  useShortcut('Escape', handdleClose);
+  useShortcut('Escape', handleClose);
   useShortcut('ArrowRight', goToNext);
   useShortcut('ArrowLeft', goToPrevious);
 
@@ -137,6 +156,10 @@ const SliderPhotographyDesktop = ({
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    imagesRefs.current = imagesRefs.current.slice(0, photos.length);
+  }, [photos.length]);
+
   return (
     <div
       ref={containerRef}
@@ -145,12 +168,12 @@ const SliderPhotographyDesktop = ({
       <div
         ref={backgroundRef}
         className="absolute inset-0 -z-10 h-full w-full backdrop-blur-lg"
-        onClick={handdleClose}
+        onClick={handleClose}
       />
 
       <Button
         ref={buttonPreviousRef}
-        aria-label="Next image"
+        aria-label="Previous image"
         className="group/button-next absolute left-x-double-default z-10 shrink-0 lg:static"
         isIcon={true}
         type="button"
@@ -161,27 +184,35 @@ const SliderPhotographyDesktop = ({
 
       <div
         className="relative flex h-full w-full items-center justify-center"
-        onClick={handdleClose}
+        onClick={handleClose}
         onMouseLeave={useResetMagnet}
         onMouseMove={(e) => useMagnet(e, 1)}
       >
-        <div ref={wrapperImageRef} className="h-full w-full overflow-hidden">
-          <Image
-            ref={imageRef}
-            alt="Picture of project photography"
-            className="pointer-events-none h-full w-full select-none object-contain"
-            height={1080}
-            src={urlFor(photos[activeIndex]).toString()}
-            width={1920}
-            onContextMenu={(e) => e.preventDefault()}
-            onDragStart={(e) => e.preventDefault()}
-          />
+        <div ref={wrapperImagesRef} className="h-full w-full overflow-hidden">
+          {photos.map((photo, index) => (
+            <Image
+              key={index}
+              ref={(el) => {
+                if (!imagesRefs.current) return;
+                imagesRefs.current[index] = el;
+              }}
+              alt="Picture of project photography"
+              className="pointer-events-none absolute h-full w-full select-none object-contain"
+              height={1080}
+              priority={true}
+              src={urlFor(photo).toString()}
+              style={{ visibility: index === activeIndex ? 'visible' : 'hidden' }}
+              width={1920}
+              onContextMenu={(e) => e.preventDefault()}
+              onDragStart={(e) => e.preventDefault()}
+            />
+          ))}
         </div>
       </div>
 
       <Button
         ref={buttonNextRef}
-        aria-label="Previous image"
+        aria-label="Next image"
         className="group/button-previous absolute right-x-double-default z-10 shrink-0 lg:static"
         isIcon={true}
         type="button"
