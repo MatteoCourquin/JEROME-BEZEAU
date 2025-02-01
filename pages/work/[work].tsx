@@ -191,7 +191,10 @@ export default function Page({ work }: { work: Work }) {
               section.text.contentFr
             ) {
               return (
-                <div key={section.sectionType + index} className="w-full py-y-default md:w-1/2">
+                <div
+                  key={section.sectionType + index}
+                  className="w-full px-x-half-default py-y-default md:w-2/3 md:py-y-double-default lg:w-1/2"
+                >
                   <RichText value={isFrench ? section.text.contentFr : section.text.contentEn} />
                 </div>
               );

@@ -15,7 +15,7 @@ const RichText = forwardRef<HTMLDivElement, RichTextProps>(({ value, className }
         value={value}
         components={{
           block: {
-            h5: ({ children }) => <h4 className="heading4">{children}</h4>,
+            h5: ({ children }) => <h4 className="heading5">{children}</h4>,
             normal: ({ children }) => <p>{children}</p>,
           },
           marks: {
