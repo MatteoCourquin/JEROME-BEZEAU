@@ -29,7 +29,7 @@ const SEO = ({
       <meta content={description} name="twitter:description" />
       <meta content={image} name="twitter:image" />
 
-      {/* <meta content="6n81QjyK4C02a8g9mMeuhdHqnAcjhHRxsGVdgXVGQ2Y" name="google-site-verification" /> */}
+      <meta content="8ruSCHfaoov8L5KZxcFqoSWmkdh17EutE0FaNb2Fxq0" name="google-site-verification" />
 
       <meta
         content="Art Director, Digital designer, Web designer, Graphic designer, UI/UX designer, Front-end developer, Creative developer, Motion designer, Paris, France, Portfolio, Freelance, Jérôme BEZEAU"
