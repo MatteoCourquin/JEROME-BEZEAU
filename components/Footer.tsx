@@ -113,7 +113,7 @@ const Footer = () => {
             {isFrench ? 'Développé de zéro par ' : 'Developed from scratch by '}
             <a
               className="link cursor-button link_white-80"
-              href="https://matteo.courqu.in/"
+              href="https://matteocourquin.com/"
               target="_blank"
             >
               Matteo Courquin
