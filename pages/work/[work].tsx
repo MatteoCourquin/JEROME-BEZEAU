@@ -3,17 +3,16 @@ import RichText from '@/components/atoms/RichText';
 import Tag, { TAG_VARIANT } from '@/components/atoms/Tag';
 import Video from '@/components/atoms/Video';
 import Credits, { AnimatedCreditRef } from '@/components/Credits';
-import SEO from '@/components/SEO';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useLanguage } from '@/providers/language.provider';
-import { urlFor } from '@/sanity/lib/image';
 import { fetchPaths, fetchSingleWork } from '@/services/works.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
-import { Work, SECTIONS_TYPES } from '@/types';
+import { SECTIONS_TYPES, Work } from '@/types';
 import { formatDateToYear } from '@/utils';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRef } from 'react';
 
@@ -102,10 +101,14 @@ export default function Page({ work }: { work: Work }) {
 
   return (
     <>
-      <SEO
-        image={work.ogImage ? urlFor(work.ogImage).toString() : undefined}
-        title={'Jérôme BEZEAU • ' + work.title}
-      />
+      <Head>
+        <title>{'Jérôme BEZEAU • ' + work.title}</title>
+        <link href={'https://www.jeromebezeau.com/work/' + work.slug.current} rel="canonical" />
+        <meta
+          content={'https://www.jeromebezeau.com/work/' + work.slug.current}
+          property="og:url"
+        />
+      </Head>
       <section className="min-h-[calc(100vh-150px)] overflow-hidden pt-header">
         <div className="grid grid-cols-1 gap-y-half-default gap-x-5 px-x-default pb-y-default pt-y-half-default lg:grid-cols-12">
           <div className="uppercase lg:col-span-6">

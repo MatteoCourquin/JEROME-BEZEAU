@@ -12,6 +12,7 @@ Allow: /contact
 Disallow: /api/
 Disallow: /_next/
 Disallow: /static/
+Disallow: /studio
 Crawl-delay: 1
 Sitemap: https://www.jeromebezeau.com/sitemap.xml`;
 

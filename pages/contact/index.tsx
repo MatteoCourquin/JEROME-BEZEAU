@@ -3,11 +3,11 @@ import ContactForm from '@/components/ContactForm';
 import Call, { AnimatedCallRef } from '@/components/sections/contact/Call';
 import Loaction, { AnimatedLocationRef } from '@/components/sections/contact/Location';
 import Mail, { AnimatedMailRef } from '@/components/sections/contact/Mail';
-import SEO from '@/components/SEO';
 import { useParallax } from '@/hooks/useParallax';
 import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import Head from 'next/head';
 import { useRef } from 'react';
 
 export default function Page() {
@@ -46,7 +46,11 @@ export default function Page() {
 
   return (
     <>
-      <SEO title="Jérôme BEZEAU • Contact" />
+      <Head>
+        <title>Jérôme BEZEAU • Contact</title>
+        <link href="https://www.jeromebezeau.com/contact/" rel="canonical" />
+        <meta content="https://www.jeromebezeau.com/contact/" property="og:url" />
+      </Head>
       <section
         ref={sectionRef}
         className="relative grid min-h-screen grid-cols-1 gap-x-5 px-x-default pb-y-default pt-header md:grid-cols-12"

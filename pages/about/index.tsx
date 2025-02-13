@@ -1,7 +1,6 @@
 import AnimatedText, { AnimatedTextRef } from '@/components/atoms/AnimatedText';
 import CardSkills from '@/components/CardSkills';
 import Contact from '@/components/sections/Contact';
-import SEO from '@/components/SEO';
 import { SKILLS } from '@/constants';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useParallax } from '@/hooks/useParallax';
@@ -9,6 +8,7 @@ import { useTouchDevice } from '@/hooks/useTouchDevice';
 import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
@@ -114,7 +114,11 @@ export default function Page() {
 
   return (
     <>
-      <SEO title={'Jérôme BEZEAU • ' + (isFrench ? 'À propos' : 'About')} />
+      <Head>
+        <title>{'Jérôme BEZEAU • ' + (isFrench ? 'À propos' : 'About')}</title>
+        <link href="https://www.jeromebezeau.com/about/" rel="canonical" />
+        <meta content="https://www.jeromebezeau.com/about/" property="og:url" />
+      </Head>
       <section className="relative grid min-h-screen grid-cols-1 gap-x-[10%] px-x-default pb-y-default pt-header lg:grid-cols-[5fr,6fr]">
         <div ref={descriptionRef} className="flex flex-col pt-y-default lg:pb-52">
           <AnimatedText

@@ -1,17 +1,27 @@
 import DraggablePhotos from '@/components/DraggablePhotos';
 import ListPhotos from '@/components/ListPhotos';
-import SEO from '@/components/SEO';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { fetchPaths, fetchSinglePhoto } from '@/services/photos.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { Photo } from '@/types';
 import { GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 
 export default function Page({ photo }: { photo: Photo }) {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
   return (
     <>
-      <SEO title={'Jérôme BEZEAU • ' + photo.title} />
+      <Head>
+        <title>{'Jérôme BEZEAU • ' + photo.title}</title>
+        <link
+          href={'https://www.jeromebezeau.com/photography/' + photo.slug.current}
+          rel="canonical"
+        />
+        <meta
+          content={'https://www.jeromebezeau.com/photography/' + photo.slug.current}
+          property="og:url"
+        />
+      </Head>
       {isTablet ? <ListPhotos photo={photo} /> : <DraggablePhotos photo={photo} />}
     </>
   );

@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     .map(
       (work: Work) => `
   <url>
-    <loc>https://www.jeromebezeau.com/work/${work.slug}</loc>
+    <loc>https://www.jeromebezeau.com/work/${work.slug.current}</loc>
     <lastmod>${work.updatedAt}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     .map(
       (photo: Photo) => `
   <url>
-    <loc>https://www.jeromebezeau.com/photography/${photo.slug}</loc>
+    <loc>https://www.jeromebezeau.com/photography/${photo.slug.current}</loc>
     <lastmod>${photo.updatedAt}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

@@ -4,7 +4,6 @@ const SEO = ({
   title = 'Jérôme BEZEAU',
   description = 'Art Director & Digital designer',
   image = '/open-graph-image.png',
-  url = 'https://jeromebezeau.com',
 }) => {
   return (
     <Head>
@@ -19,10 +18,9 @@ const SEO = ({
 
       <meta content={title} property="og:title" />
       <meta content={description} property="og:description" />
-      <meta content={url} property="og:url" />
       <meta content={image} property="og:image" />
       <meta content="website" property="og:type" />
-      <meta content="Matteo Courquin" property="og:site_name" />
+      <meta content="Jérôme BEZEAU" property="og:site_name" />
 
       <meta content="summary_large_image" name="twitter:card" />
       <meta content={title} name="twitter:title" />
@@ -36,7 +34,6 @@ const SEO = ({
         name="keywords"
       />
 
-      <link href={url} rel="canonical" />
       <link href="/favicon.svg" rel="icon" />
       <link href="/fonts" rel="preconnect" />
       <link

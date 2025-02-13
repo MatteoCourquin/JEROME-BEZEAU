@@ -1,11 +1,11 @@
 import ScrollerPhotographyDesktop from '@/components/sections/ScrollerPhotographyDesktop';
 import ScrollerPhotographyMobile from '@/components/sections/ScrollerPhotographyMobile';
-import SEO from '@/components/SEO';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useLanguage } from '@/providers/language.provider';
 import { fetchPhotos } from '@/services/photos.sevices';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { Photo } from '@/types';
+import Head from 'next/head';
 
 export default function Page({ photos }: { photos: Photo[] }) {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
@@ -13,7 +13,11 @@ export default function Page({ photos }: { photos: Photo[] }) {
 
   return (
     <>
-      <SEO title={'Jérôme BEZEAU • ' + (isFrench ? 'Photographie' : 'Photography')} />
+      <Head>
+        <title>{'Jérôme BEZEAU • ' + (isFrench ? 'Photographie' : 'Photography')}</title>
+        <link href="https://www.jeromebezeau.com/photography/" rel="canonical" />
+        <meta content="https://www.jeromebezeau.com/photography/" property="og:url" />
+      </Head>
       {isTablet ? (
         <ScrollerPhotographyMobile photos={photos} />
       ) : (

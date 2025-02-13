@@ -1,12 +1,12 @@
 import AnimatedText, { AnimatedTextRef } from '@/components/atoms/AnimatedText';
 import Contact from '@/components/sections/Contact';
 import WorksGallery from '@/components/sections/WorksGallery';
-import SEO from '@/components/SEO';
 import { useLanguage } from '@/providers/language.provider';
 import { fetchWorks } from '@/services/works.sevices';
 import { Work } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import Head from 'next/head';
 import { useRef } from 'react';
 
 export default function Page({ works }: { works: Work[] }) {
@@ -64,7 +64,11 @@ export default function Page({ works }: { works: Work[] }) {
 
   return (
     <>
-      <SEO title={'Jérôme BEZEAU • ' + (isFrench ? 'Projets' : 'Work')} />
+      <Head>
+        <title>{'Jérôme BEZEAU • ' + (isFrench ? 'Projets' : 'Work')}</title>
+        <link href="https://www.jeromebezeau.com/work" rel="canonical" />
+        <meta content="https://www.jeromebezeau.com/work" property="og:url" />
+      </Head>
       <div
         ref={titleRef}
         className="fixed top-0 flex w-full flex-col items-center justify-center px-x-default pt-header"

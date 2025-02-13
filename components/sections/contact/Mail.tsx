@@ -29,7 +29,7 @@ const Mail = forwardRef<AnimatedMailRef, { className?: string }>(({ className },
       </h3>
       <a
         className="link link_white-80 inline-block w-fit"
-        href="contact@jeromebezeau.com"
+        href="mailto:contact@jeromebezeau.com"
         onMouseLeave={(e) => useResetMagnet(e)}
         onMouseMove={(e) => useMagnet(e, 1)}
       >
