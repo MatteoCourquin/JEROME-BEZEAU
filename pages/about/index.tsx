@@ -158,10 +158,10 @@ export default function Page() {
         >
           <Image
             ref={imageRef}
-            alt="About me"
+            alt="Jérôme Bezeau"
             className="h-full w-full object-cover"
             height={1080}
-            src="/images/about/jerome-bezeau.webp"
+            src="/images/about/jerome-bezeau.jpg"
             width={1920}
             priority
           />

@@ -40,15 +40,17 @@ const Hero = () => {
 
   return (
     <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-x-default py-y-default text-left sm:items-center sm:text-center">
-      <Image
-        ref={imageRef}
-        alt="Jérôme Bezeau background"
-        className="absolute inset-0 -z-[1] h-screen w-screen object-cover"
-        height={1080}
-        src="/images/jerome-bezeau.webp"
-        width={1920}
-        priority
-      />
+      <div ref={imageRef} className="absolute inset-0 -z-[1] h-screen w-screen">
+        <Image
+          alt="Jérôme Bezeau"
+          className="absolute -z-10 h-full w-full object-cover object-[80%] lg:object-right"
+          height={1080}
+          src="/images/jerome-bezeau.jpg"
+          width={1920}
+          priority
+        />
+        <div className="absolute z-10 h-full w-full bg-black object-cover opacity-40" />
+      </div>
 
       <div ref={wrapperTitleRef}>
         <AnimatedText ref={titleRef} className="h-fit" isRandomAnim={true} variant="h1">
