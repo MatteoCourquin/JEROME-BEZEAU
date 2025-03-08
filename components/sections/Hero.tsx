@@ -49,7 +49,7 @@ const Hero = () => {
           width={1920}
           priority
         />
-        <div className="absolute z-10 h-full w-full bg-black object-cover opacity-40" />
+        {/* <div className="absolute z-10 h-full w-full bg-black object-cover opacity-40" /> */}
       </div>
 
       <div ref={wrapperTitleRef}>

@@ -181,8 +181,9 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
                       {letter}
                     </span>
                     <span
+                      aria-hidden="true"
                       className={clsx(
-                        'blue-500 absolute left-0 top-0 inline-block translate-y-full',
+                        'blue-500 absolute left-0 top-0 inline-block translate-y-full select-none',
                         havePadding && 'pt-[40%]',
                       )}
                     >

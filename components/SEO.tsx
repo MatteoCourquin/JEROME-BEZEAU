@@ -3,7 +3,7 @@ import Head from 'next/head';
 const SEO = ({
   title = 'Jérôme BEZEAU',
   description = 'Art Director & Digital designer',
-  image = '/open-graph-image.png',
+  image = '/og-image.png',
 }) => {
   return (
     <Head>
