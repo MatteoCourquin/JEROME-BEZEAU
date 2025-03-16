@@ -13,12 +13,9 @@ export default function Page({ photo }: { photo: Photo }) {
     <>
       <Head>
         <title>{'Jérôme BEZEAU • ' + photo.title}</title>
-        <link
-          href={'https://www.jeromebezeau.com/photography/' + photo.slug.current}
-          rel="canonical"
-        />
+        <link href={'https://jeromebezeau.com/photography/' + photo.slug.current} rel="canonical" />
         <meta
-          content={'https://www.jeromebezeau.com/photography/' + photo.slug.current}
+          content={'https://jeromebezeau.com/photography/' + photo.slug.current}
           property="og:url"
         />
       </Head>

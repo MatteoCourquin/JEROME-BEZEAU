@@ -15,8 +15,8 @@ export default function Page({ photos }: { photos: Photo[] }) {
     <>
       <Head>
         <title>{'Jérôme BEZEAU • ' + (isFrench ? 'Photographie' : 'Photography')}</title>
-        <link href="https://www.jeromebezeau.com/photography/" rel="canonical" />
-        <meta content="https://www.jeromebezeau.com/photography/" property="og:url" />
+        <link href="https://jeromebezeau.com/photography/" rel="canonical" />
+        <meta content="https://jeromebezeau.com/photography/" property="og:url" />
       </Head>
       {isTablet ? (
         <ScrollerPhotographyMobile photos={photos} />

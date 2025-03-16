@@ -66,8 +66,8 @@ export default function Page({ works }: { works: Work[] }) {
     <>
       <Head>
         <title>{'Jérôme BEZEAU • ' + (isFrench ? 'Projets' : 'Work')}</title>
-        <link href="https://www.jeromebezeau.com/work" rel="canonical" />
-        <meta content="https://www.jeromebezeau.com/work" property="og:url" />
+        <link href="https://jeromebezeau.com/work" rel="canonical" />
+        <meta content="https://jeromebezeau.com/work" property="og:url" />
       </Head>
       <div
         ref={titleRef}

@@ -116,8 +116,8 @@ export default function Page() {
     <>
       <Head>
         <title>{'Jérôme BEZEAU • ' + (isFrench ? 'À propos' : 'About')}</title>
-        <link href="https://www.jeromebezeau.com/about/" rel="canonical" />
-        <meta content="https://www.jeromebezeau.com/about/" property="og:url" />
+        <link href="https://jeromebezeau.com/about/" rel="canonical" />
+        <meta content="https://jeromebezeau.com/about/" property="og:url" />
       </Head>
       <section className="relative grid min-h-screen grid-cols-1 gap-x-[10%] px-x-default pb-y-default pt-header lg:grid-cols-[5fr,6fr]">
         <div ref={descriptionRef} className="flex flex-col pt-y-default lg:pb-52">

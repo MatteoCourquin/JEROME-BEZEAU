@@ -103,11 +103,8 @@ export default function Page({ work }: { work: Work }) {
     <>
       <Head>
         <title>{'Jérôme BEZEAU • ' + work.title}</title>
-        <link href={'https://www.jeromebezeau.com/work/' + work.slug.current} rel="canonical" />
-        <meta
-          content={'https://www.jeromebezeau.com/work/' + work.slug.current}
-          property="og:url"
-        />
+        <link href={'https://jeromebezeau.com/work/' + work.slug.current} rel="canonical" />
+        <meta content={'https://jeromebezeau.com/work/' + work.slug.current} property="og:url" />
       </Head>
       <section className="min-h-[calc(100vh-150px)] overflow-hidden pt-header">
         <div className="grid grid-cols-1 gap-y-half-default gap-x-5 px-x-default pb-y-default pt-y-half-default lg:grid-cols-12">

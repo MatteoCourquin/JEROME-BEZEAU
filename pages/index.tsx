@@ -11,8 +11,8 @@ export default function Page({ works }: { works: Work[] }) {
     <>
       <Head>
         <title>Jérôme BEZEAU</title>
-        <link href="https://www.jeromebezeau.com" rel="canonical" />
-        <meta content="https://www.jeromebezeau.com" property="og:url" />
+        <link href="https://jeromebezeau.com" rel="canonical" />
+        <meta content="https://jeromebezeau.com" property="og:url" />
       </Head>
       <Hero />
       <About />

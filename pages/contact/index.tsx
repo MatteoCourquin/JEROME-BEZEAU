@@ -48,8 +48,8 @@ export default function Page() {
     <>
       <Head>
         <title>Jérôme BEZEAU • Contact</title>
-        <link href="https://www.jeromebezeau.com/contact/" rel="canonical" />
-        <meta content="https://www.jeromebezeau.com/contact/" property="og:url" />
+        <link href="https://jeromebezeau.com/contact/" rel="canonical" />
+        <meta content="https://jeromebezeau.com/contact/" property="og:url" />
       </Head>
       <section
         ref={sectionRef}
