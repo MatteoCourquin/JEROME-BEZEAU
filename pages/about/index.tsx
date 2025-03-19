@@ -161,7 +161,7 @@ export default function Page() {
             alt="Jérôme Bezeau"
             className="h-full w-full object-cover"
             height={1080}
-            src="/images/about/jerome-bezeau.jpg"
+            src="/images/about/jerome-bezeau.webp"
             width={1920}
             priority
           />
