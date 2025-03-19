@@ -1,12 +1,12 @@
-import { fetchPaths as fetchProjectPaths } from '@/services/photos.sevices';
-import { fetchPaths as fetchPhotoPaths } from '@/services/works.sevices';
+import { fetchPaths as fetchPhotoPaths } from '@/services/photos.sevices';
+import { fetchPaths as fetchWorkPaths } from '@/services/works.sevices';
 import { Photo, Work } from '@/types';
 import { GetServerSideProps } from 'next';
 
 const Sitemap = () => null;
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const works = await fetchProjectPaths();
+  const works = await fetchWorkPaths();
   const photos = await fetchPhotoPaths();
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -18,25 +18,25 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
         http://www.w3.org/1999/xhtml 
         http://www.w3.org/2002/08/xhtml/xhtml1-strict.xsd">
   <url>
-    <loc>https://www.jeromebezeau.com</loc>
+    <loc>https://jeromebezeau.com</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.jeromebezeau.com/work</loc>
+    <loc>https://jeromebezeau.com/work</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.jeromebezeau.com/about</loc>
+    <loc>https://jeromebezeau.com/about</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.jeromebezeau.com/contact</loc>
+    <loc>https://jeromebezeau.com/contact</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     .map(
       (work: Work) => `
   <url>
-    <loc>https://www.jeromebezeau.com/work/${work.slug.current}</loc>
+    <loc>https://jeromebezeau.com/work/${work.slug}</loc>
     <lastmod>${work.updatedAt}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     .map(
       (photo: Photo) => `
   <url>
-    <loc>https://www.jeromebezeau.com/photography/${photo.slug.current}</loc>
+    <loc>https://jeromebezeau.com/photography/${photo.slug}</loc>
     <lastmod>${photo.updatedAt}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

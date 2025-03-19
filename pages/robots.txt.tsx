@@ -14,7 +14,7 @@ Disallow: /_next/
 Disallow: /static/
 Disallow: /studio
 Crawl-delay: 1
-Sitemap: https://www.jeromebezeau.com/sitemap.xml`;
+Sitemap: https://jeromebezeau.com/sitemap.xml`;
 
   res.setHeader('Content-Type', 'text/plain');
   res.write(robots);
