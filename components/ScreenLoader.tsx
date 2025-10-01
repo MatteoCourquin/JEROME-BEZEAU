@@ -24,6 +24,7 @@ export default function ScreenLoader() {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
+    lockScroll(true);
     setColumnsNumbers(isTablet ? 6 : 12);
   }, []);
 
