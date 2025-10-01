@@ -12,14 +12,12 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import gsap from 'gsap';
 import CustomEase from 'gsap/dist/CustomEase';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import { usePathname } from 'next/navigation';
 import { ReactNode, useEffect } from 'react';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
-  const pathname = usePathname();
 
   useEffect(() => {
     console.info(
@@ -36,7 +34,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <SocialMedia />
       <main>{children}</main>
       <Footer />
-      {pathname !== '/' && <Background />}
+      <Background />
       <Analytics />
       <SpeedInsights />
     </AppProvider>

@@ -1,9 +1,11 @@
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { BREAKPOINTS } from '@/tailwind.config';
 import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const Background = () => {
+  const pathname = usePathname();
   const isMobile = useMatchMedia(BREAKPOINTS.SM);
   const isTablet = useMatchMedia(BREAKPOINTS.LG);
 
@@ -22,8 +24,9 @@ const Background = () => {
   return (
     <div
       className={clsx(
-        'fixed inset-0 -z-10 grid h-screen w-screen grid-cols-12 gap-x-5 px-x-default',
+        'fixed inset-0 -z-10 grid h-screen w-screen grid-cols-12 gap-x-5 px-x-default delay-1000',
         `grid-cols-${columnsNumbers}`,
+        pathname === '/' && 'opacity-0',
       )}
     >
       {[...Array(columnsNumbers)].map((_, i) => (
