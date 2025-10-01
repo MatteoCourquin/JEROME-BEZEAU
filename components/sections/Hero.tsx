@@ -40,7 +40,7 @@ const Hero = () => {
 
   useGSAP(() => {
     revealAnimation();
-  });
+  }, [isFrench]);
 
   return (
     <section

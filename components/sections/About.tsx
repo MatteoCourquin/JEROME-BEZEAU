@@ -41,13 +41,13 @@ const About = () => {
       .timeline({
         scrollTrigger: {
           trigger: wrapperSectionRef.current,
-          start: 'top 50%',
+          start: 'top 40%',
           toggleActions: 'play none none reverse',
         },
       })
       .add(textAnimationTitle)
       .add(textAnimationDescription, '-=0.6');
-  }, []);
+  }, [isFrench]);
 
   const createScrubAnimation = useCallback(() => {
     if (!wrapperSectionRef.current || !wrapperColumnsRef.current) return;
