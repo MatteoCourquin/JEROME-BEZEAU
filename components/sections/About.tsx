@@ -81,7 +81,10 @@ const About = () => {
   }, []);
 
   useGSAP(() => {
-    createScrubAnimation();
+    requestAnimationFrame(() => {
+      scrollTriggerRef.current?.refresh();
+      createScrubAnimation();
+    });
   }, []);
 
   useEffect(() => {
