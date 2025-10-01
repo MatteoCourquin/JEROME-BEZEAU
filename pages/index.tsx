@@ -14,6 +14,7 @@ export default function Page({ works }: { works: Work[] }) {
         <link href="https://jeromebezeau.com" rel="canonical" />
         <meta content="https://jeromebezeau.com" property="og:url" />
       </Head>
+      <div className="h-screen w-screen"></div>
       <Hero />
       <About />
       <WorksPreview works={works} />
