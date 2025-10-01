@@ -2,17 +2,27 @@ import Cursor from '@/components/Cursor';
 import PageTransition from '@/components/PageTransition';
 import ScreenLoader from '@/components/ScreenLoader';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
+import { useScrollLock } from '@/hooks/useToggleScroll';
 import Layout from '@/layout/default';
 import '@/styles/main.scss';
 import { AnimatePresence } from 'framer-motion';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
-import { StrictMode } from 'react';
+import { StrictMode, useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
   const pathname = usePathname();
   const isScreenLoader = useIsScreenLoader();
+  const { lockScroll } = useScrollLock();
+
+  useEffect(() => {
+    if (isScreenLoader) {
+      lockScroll(true);
+    } else {
+      lockScroll(false);
+    }
+  }, [isScreenLoader]);
 
   return (
     <StrictMode>
