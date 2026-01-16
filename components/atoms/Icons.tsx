@@ -169,3 +169,20 @@ export const IconChevronBottom = ({ className }: { className?: string }) => (
     />
   </svg>
 );
+
+export const IconChevron = ({
+  className,
+  direction,
+}: {
+  className?: string;
+  direction: 'up' | 'down' | 'left' | 'right';
+}) => {
+  const icons = {
+    up: IconChevronTop,
+    down: IconChevronBottom,
+    left: IconChevronLeft,
+    right: IconChevronRight,
+  };
+  const IconComponent = icons[direction];
+  return <IconComponent className={className} />;
+};

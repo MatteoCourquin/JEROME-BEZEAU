@@ -2,6 +2,7 @@ import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
 import Link from 'next/link';
 import {
   ComponentPropsWithRef,
@@ -24,32 +25,45 @@ interface ButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'type'> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ type, target, href, children, isIcon, disabled, className, onClick, ...props }, ref) => {
-    const arrowRef = useRef(null);
+    const arrowRefs = {
+      first: useRef(null),
+      second: useRef(null),
+    };
+    const textRef = useRef(null);
+
+    const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
     const { contextSafe } = useGSAP();
-    const animArrow = contextSafe(() => {
-      gsap
-        .timeline({ paused: true })
-        .to(arrowRef.current, {
-          x: 20,
-          y: -20,
-          duration: 0.15,
-          opacity: 0,
+
+    const setupAnimation = contextSafe(() => {
+      const splitText = new SplitText(textRef.current, {
+        type: 'chars, words',
+      });
+
+      timelineRef.current = gsap
+        .timeline({ paused: true, defaults: { duration: 0.6, ease: 'power3.inOut' } })
+        .to(arrowRefs.second.current, {
+          scale: 0,
         })
-        .to(arrowRef.current, {
-          x: -20,
-          y: 20,
-          duration: 0.15,
-          opacity: 0,
-        })
-        .to(arrowRef.current, {
-          x: 0,
-          y: 0,
-          opacity: 1,
-          duration: 0.15,
-        })
-        .play();
+        .to(
+          splitText.chars,
+          {
+            x: 24,
+          },
+          '-=0.5',
+        )
+        .to(
+          arrowRefs.first.current,
+          {
+            scale: 1,
+          },
+          '-=0.5',
+        );
     });
+
+    useGSAP(() => {
+      setupAnimation();
+    }, []);
 
     const Tag = type === 'a' ? Link : ('button' as ElementType);
 
@@ -61,9 +75,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           disabled && 'opacity-50',
           className,
         )}
-        onMouseEnter={animArrow}
-        onMouseLeave={useResetMagnet}
         onMouseMove={(e: MouseEvent<HTMLElement>) => useMagnet(e, 1)}
+        onMouseEnter={() => {
+          timelineRef.current?.play();
+        }}
+        onMouseLeave={() => {
+          timelineRef.current?.reverse();
+        }}
         {...(type === 'a'
           ? {
               href,
@@ -88,9 +106,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             children
           ) : (
             <>
-              <div className="pt-0.5">{children}</div>
-              <div ref={arrowRef} className="-rotate-45">
-                <IconArrow className="transition-colors duration-300 group-hover/button:!fill-black" />
+              <div ref={arrowRefs.first} className="absolute origin-bottom-left scale-0">
+                <IconArrow className="-rotate-45 transition-colors duration-300 group-hover/button:!fill-black" />
+              </div>
+              <div ref={textRef} className="pt-0.5">
+                {children}
+              </div>
+              <div ref={arrowRefs.second} className="origin-top-right">
+                <IconArrow className="-rotate-45 transition-colors duration-300 group-hover/button:!fill-black" />
               </div>
             </>
           )}

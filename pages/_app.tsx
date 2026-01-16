@@ -1,4 +1,3 @@
-import Cursor from '@/components/Cursor';
 import PageTransition from '@/components/PageTransition';
 import ScreenLoader from '@/components/ScreenLoader';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
@@ -26,7 +25,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <StrictMode>
-      <Cursor />
       {pathname?.includes('studio') ? (
         <Component {...pageProps} />
       ) : (
