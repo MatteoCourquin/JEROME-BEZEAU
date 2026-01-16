@@ -8,7 +8,7 @@ import { useTouchDevice } from '@/hooks/useTouchDevice';
 import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-// import { SplitText } from 'gsap/SplitText';
+import { SplitText } from 'gsap/SplitText';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
@@ -63,15 +63,15 @@ export default function Page() {
 
     if (titleAnim) timeline.add(titleAnim);
 
-    // splitTextRefs.description1.current = new SplitText(animationRefs.description1.current, {
-    //   type: 'words',
-    // });
-    // splitTextRefs.description2.current = new SplitText(animationRefs.description2.current, {
-    //   type: 'words',
-    // });
+    splitTextRefs.description1.current = new SplitText(animationRefs.description1.current, {
+      type: 'words',
+    });
+    splitTextRefs.description2.current = new SplitText(animationRefs.description2.current, {
+      type: 'words',
+    });
 
     timeline.from(
-      [animationRefs.description1.current, animationRefs.description2.current],
+      [splitTextRefs.description1.current.words, splitTextRefs.description2.current.words],
       {
         y: 30,
         opacity: 0,
