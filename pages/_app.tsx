@@ -8,7 +8,7 @@ import { AnimatePresence } from 'framer-motion';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
-import { StrictMode, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
   const pathname = usePathname();
@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [isScreenLoader]);
 
   return (
-    <StrictMode>
+    <>
       {pathname?.includes('studio') ? (
         <Component {...pageProps} />
       ) : (
@@ -45,6 +45,6 @@ export default function App({ Component, pageProps }: AppProps) {
           </AnimatePresence>
         </Layout>
       )}
-    </StrictMode>
+    </>
   );
 }

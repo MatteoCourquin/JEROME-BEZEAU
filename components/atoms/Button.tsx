@@ -14,6 +14,8 @@ import {
 } from 'react';
 import { IconArrow } from './Icons';
 
+gsap.registerPlugin(SplitText);
+
 interface ButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'type'> {
   type: 'a' | 'button' | 'submit';
   isIcon?: boolean;
