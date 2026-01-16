@@ -143,7 +143,9 @@ const About = () => {
         <AnimatedText
           ref={descriptionRef}
           className="subtitle overflow-hidden !text-white md:w-2/3"
+          endColor="#ffffff1f"
           isScrubAnim={true}
+          startColor="#ffffff66"
           trigger={wrapperSectionRef}
         >
           {isFrench

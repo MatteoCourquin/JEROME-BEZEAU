@@ -12,9 +12,10 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import gsap from 'gsap';
 import CustomEase from 'gsap/dist/CustomEase';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 import { ReactNode, useEffect } from 'react';
 
-gsap.registerPlugin(ScrollTrigger, CustomEase);
+gsap.registerPlugin(ScrollTrigger, CustomEase, SplitText);
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);

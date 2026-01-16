@@ -1,6 +1,7 @@
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
 import {
   createElement,
   forwardRef,
@@ -31,6 +32,8 @@ interface AnimatedTextProps extends HTMLAttributes<HTMLElement> {
   isRandomAnim?: boolean;
   isScrubAnim?: boolean;
   havePadding?: boolean;
+  startColor?: string;
+  endColor?: string;
 }
 
 export interface AnimatedTextRef {
@@ -44,12 +47,14 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
       as,
       className,
       children,
-      trigger,
+      trigger: _trigger,
       isScrubAnim = false,
       isRandomAnim = false,
       onMouseEnter,
       onMouseLeave,
       havePadding = true,
+      startColor = '#ffffff66',
+      endColor = '#ffffff1f',
       ...props
     },
     ref,
@@ -57,6 +62,8 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
     const { contextSafe } = useGSAP();
     const animatedTextRef = useRef<HTMLElement>(null);
     const timeoutRef = useRef<NodeJS.Timeout>();
+    const splitInstanceRef = useRef<SplitText | null>(null);
+    const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
     useImperativeHandle(ref, () => ({
       textAnimation: () =>
@@ -74,26 +81,78 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
         ),
     }));
 
-    useEffect(() => {
-      if (isScrubAnim && animatedTextRef.current && trigger?.current) {
-        const descriptionWords = animatedTextRef.current.querySelectorAll('.anim-text');
+    const scrollAnimation = contextSafe(() => {
+      if (!animatedTextRef.current) return;
 
-        gsap.set(descriptionWords, { opacity: 0.12 });
+      const splitWord = new SplitText(animatedTextRef.current, {
+        type: 'words',
+      });
 
-        gsap.to(descriptionWords, {
-          opacity: 0.4,
-          stagger: 0.3,
-          duration: 0.2,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: trigger.current,
-            start: 'top top',
-            end: 'bottom 80%',
-            scrub: true,
-          },
+      splitInstanceRef.current = splitWord;
+
+      const words = splitWord.words || [];
+      if (!words.length) return;
+
+      words.forEach((word, index) => {
+        const element = word as HTMLElement;
+        element.style.position = 'relative';
+        element.style.overflow = 'hidden';
+        element.style.display = 'inline-block';
+        element.style.background = `linear-gradient(to right, ${startColor}, ${startColor} 50%, ${endColor} 50%)`;
+        element.style.backgroundClip = 'text';
+        element.style.webkitBackgroundClip = 'text';
+        element.style.webkitTextFillColor = 'transparent';
+        element.style.backgroundPosition = '100% 100%';
+        element.style.backgroundSize = '200% 100%';
+
+        // Ajouter un espace après chaque mot sauf le dernier
+        if (index < words.length - 1) {
+          element.style.marginRight = '0.25em';
+        }
+      });
+
+      gsap.set(words, { backgroundPosition: '100% 100%' });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: animatedTextRef.current,
+          start: 'top 80%',
+          end: 'bottom 30%',
+          scrub: true,
+        },
+      });
+
+      timelineRef.current = tl;
+
+      words.forEach((word) => {
+        tl.to(word, {
+          backgroundPosition: '0% 100%',
+          ease: 'none',
+          duration: 1,
         });
+      });
+    });
+
+    const cleanup = contextSafe(() => {
+      if (splitInstanceRef.current) {
+        splitInstanceRef.current.revert();
+        splitInstanceRef.current = null;
       }
-    }, [children]);
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    });
+
+    useGSAP(() => {
+      if (isScrubAnim) {
+        cleanup();
+        scrollAnimation();
+      }
+      return () => {
+        cleanup();
+      };
+    }, [isScrubAnim, children, startColor, endColor]);
 
     const trainAnimEnter = contextSafe(() => {
       if (!animatedTextRef.current) return;
