@@ -10,12 +10,21 @@ import { AppProvider } from '@/providers/root';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import CustomEase from 'gsap/dist/CustomEase';
 import { usePathname } from 'next/navigation';
 import { ReactNode, useEffect } from 'react';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger, CustomEase);
+    }
+  }, []);
 
   useEffect(() => {
     console.info(
