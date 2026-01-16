@@ -1,6 +1,6 @@
 import Background from '@/components/Background';
 import Burger from '@/components/Burger';
-import Footer from '@/components/Footer';
+import Cursor from '@/components/Cursor';
 import Header from '@/components/Header';
 import SEO from '@/components/SEO';
 import SocialMedia from '@/components/SocialMedia';
@@ -29,12 +29,12 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
   return (
     <AppProvider>
+      <Cursor />
       <SEO />
       {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js" /> */}
       {isTablet ? <Burger /> : <Header />}
       <SocialMedia />
       <main>{children}</main>
-      <Footer />
       <Background />
       <Analytics />
       <SpeedInsights />

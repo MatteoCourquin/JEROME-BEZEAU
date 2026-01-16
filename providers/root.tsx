@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { CursorProvider } from './cursor.provider';
 import { LanguageProvider } from './language.provider';
 import { QueryProvider } from './query.provider';
 import { SmoothScrollProvider } from './smooth-scroll.provider';
@@ -11,7 +12,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   return (
     <QueryProvider>
       <LanguageProvider>
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <CursorProvider>
+          <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        </CursorProvider>
       </LanguageProvider>
     </QueryProvider>
   );

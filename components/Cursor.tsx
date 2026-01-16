@@ -1,154 +1,60 @@
-import { useTouchDevice } from '@/hooks/useTouchDevice';
+import { isTouchDevice } from '@/hooks/useTouchDevice';
+import { CURSOR_STATE, useCursor } from '@/providers/cursor.provider';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { usePathname } from 'next/navigation';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
-import {
-  IconChevronBottom,
-  IconChevronLeft,
-  IconChevronRight,
-  IconChevronTop,
-} from './atoms/Icons';
+import { useCallback, useEffect, useRef } from 'react';
+import { IconChevron } from './atoms/Icons';
 
-enum CURSOR_STATE {
-  DEFAULT = 'DEFAULT',
-  SEE_MORE = 'SEE_MORE',
-  BUTTON = 'BUTTON',
-  DRAG = 'DRAG',
-}
-
-const CursorArrows = memo(({ isActive }: { isActive: boolean }) => (
-  <>
-    <div
-      className={clsx(
-        'pointer-events-none absolute left-1/2 top-0 -translate-x-1/2',
-        !isActive && 'arrow-top',
-      )}
-    >
-      <IconChevronTop
-        className={clsx(
-          'pointer-events-none transition-transform duration-75',
-          isActive && 'translate-y-2',
-        )}
-      />
-    </div>
-    <div
-      className={clsx(
-        'pointer-events-none absolute right-0 top-1/2 -translate-y-1/2',
-        !isActive && 'arrow-right',
-      )}
-    >
-      <IconChevronRight
-        className={clsx(
-          'pointer-events-none transition-transform duration-75',
-          isActive && '-translate-x-2',
-        )}
-      />
-    </div>
-    <div
-      className={clsx(
-        'pointer-events-none absolute bottom-0 right-1/2 translate-x-1/2',
-        !isActive && 'arrow-bottom',
-      )}
-    >
-      <IconChevronBottom
-        className={clsx(
-          'pointer-events-none transition-transform duration-75',
-          isActive && '-translate-y-2',
-        )}
-      />
-    </div>
-    <div
-      className={clsx(
-        'pointer-events-none absolute bottom-1/2 left-0 translate-y-1/2',
-        !isActive && 'arrow-left',
-      )}
-    >
-      <IconChevronLeft
-        className={clsx(
-          'pointer-events-none transition-transform duration-75',
-          isActive && 'translate-x-2',
-        )}
-      />
-    </div>
-  </>
-));
-
-const Cursor = memo(() => {
-  if (useTouchDevice()) return null;
-
+const Cursor = () => {
   const { contextSafe } = useGSAP();
   const pathname = usePathname();
-  const pointerRef = useRef<HTMLDivElement>(null);
+  const { cursorState, isActive, setIsActive, changeToPointer, changeToDefault, setCursorState } =
+    useCursor();
+  const pointerRefs = {
+    primary: useRef<HTMLDivElement>(null),
+    secondary: useRef<HTMLDivElement>(null),
+  };
   const observerRef = useRef<MutationObserver | null>(null);
-  const clickSoundRef = useRef<HTMLAudioElement | null>(null);
-  // const hoverSoundRef = useRef<HTMLAudioElement | null>(null);
-
-  const [cursorState, setCursorState] = useState(CURSOR_STATE.DEFAULT);
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    clickSoundRef.current = new Audio('/sounds/click.mp3');
-    // hoverSoundRef.current = new Audio('/sounds/hover.mp3');
-    clickSoundRef.current.volume = 0.5;
-    // hoverSoundRef.current.volume = 0.2;
-  }, []);
 
   const cursorStateHandlers = {
-    changeToSeeMore: useCallback(() => setCursorState(CURSOR_STATE.SEE_MORE), []),
-    changeToButton: useCallback(() => setCursorState(CURSOR_STATE.BUTTON), []),
-    changeToDefault: useCallback(() => setCursorState(CURSOR_STATE.DEFAULT), []),
-    changeToDrag: useCallback(() => setCursorState(CURSOR_STATE.DRAG), []),
+    changeToButton: useCallback(() => changeToPointer(), []),
+    changeToDefault: useCallback(() => changeToDefault(), []),
   };
 
   const cursorHandlers = {
     moveCursor: contextSafe((e: MouseEvent) => {
-      if (!pointerRef.current) return;
-      pointerRef.current.style.opacity = '1';
-      gsap.to(pointerRef.current, {
-        duration: 0.1,
+      if (!pointerRefs.primary.current || !pointerRefs.secondary.current) return;
+      pointerRefs.primary.current.style.opacity = '1';
+      pointerRefs.secondary.current.style.opacity = '1';
+      gsap.to([pointerRefs.primary.current, pointerRefs.secondary.current], {
+        duration: (i: number) => 0.3 * (i + 1),
         x: e.clientX,
         y: e.clientY,
+        ease: 'power2.out',
       });
     }),
-    handleMouseDown: useCallback(() => setIsActive(true), []),
-    handleMouseUp: useCallback(() => setIsActive(false), []),
+    handleMouseDown: useCallback(() => {
+      setIsActive(true);
+    }, []),
+    handleMouseUp: useCallback(() => {
+      setIsActive(false);
+    }, []),
   };
-
-  const playClicSound = () => {
-    if (!clickSoundRef.current) return;
-    clickSoundRef.current.currentTime = 0;
-    clickSoundRef.current.play();
-  };
-
-  // const playHoverSound = () => {
-  //   if (!hoverSoundRef.current) return;
-  //   hoverSoundRef.current.currentTime = 0;
-  //   hoverSoundRef.current.play();
-  // };
 
   const manageCursorEvents = useCallback(
     (event: 'addEventListener' | 'removeEventListener') => {
       const elements = {
-        seeMore: document.querySelectorAll('.cursor-see-more'),
-        button: document.querySelectorAll('.cursor-button'),
-        drag: document.querySelectorAll('.cursor-drag'),
+        button: document.querySelectorAll('.cursor-pointer'),
       };
 
       Object.entries({
-        seeMore: cursorStateHandlers.changeToSeeMore,
         button: cursorStateHandlers.changeToButton,
-        drag: cursorStateHandlers.changeToDrag,
       }).forEach(([key, handler]) => {
         elements[key as keyof typeof elements].forEach((el) => {
           el[event]('mouseover', handler);
           el[event]('mouseleave', cursorStateHandlers.changeToDefault);
-
-          if (key === 'button') {
-            el[event]('mousedown', playClicSound);
-            // el[event]('mouseenter', playHoverSound);
-          }
         });
       });
     },
@@ -156,6 +62,9 @@ const Cursor = memo(() => {
   );
 
   useEffect(() => {
+    // Ne pas ajouter les event listeners sur les appareils tactiles
+    if (isTouchDevice()) return;
+
     observerRef.current = new MutationObserver(() => {
       manageCursorEvents('removeEventListener');
       manageCursorEvents('addEventListener');
@@ -181,34 +90,76 @@ const Cursor = memo(() => {
   useEffect(() => {
     setTimeout(() => {
       setCursorState(CURSOR_STATE.DEFAULT);
-    }, 1400);
-  }, [pathname]);
+    }, 500);
+  }, [pathname, setCursorState]);
+
+  if (isTouchDevice()) return null;
 
   return (
-    <div ref={pointerRef} className="pointer-events-none fixed left-0 top-0 z-[9999] opacity-0">
+    <>
       <div
+        ref={pointerRefs.primary}
         className={clsx(
-          'pointer-events-none absolute h-[120px] w-[120px] -translate-x-1/2 -translate-y-1/2 transition-all',
-          cursorState === CURSOR_STATE.DEFAULT && 'scale-[0.1] grayscale backdrop-invert',
-          cursorState === CURSOR_STATE.BUTTON && 'scale-50 rounded-full border-2 border-white-80',
-          cursorState === CURSOR_STATE.SEE_MORE &&
-            'scale-100 rounded-full bg-white-40 backdrop-blur-lg',
-          cursorState === CURSOR_STATE.DRAG && 'scale-100 bg-transparent',
+          'pointer-events-none fixed left-0 top-0 z-[9999] flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center mix-blend-difference',
         )}
       >
-        {cursorState === CURSOR_STATE.DRAG && <CursorArrows isActive={isActive} />}
-        <span
+        <div
           className={clsx(
-            'pointer-events-none inline-block w-full scale-0 text-center leading-[120px] text-white',
-            (cursorState === CURSOR_STATE.SEE_MORE || cursorState === CURSOR_STATE.DRAG) &&
-              'scale-100',
+            'h-2 w-2 rounded-full bg-white transition-all',
+            isActive && 'scale-75',
+            cursorState === CURSOR_STATE.POINTER && 'scale-150',
+            cursorState === CURSOR_STATE.JOYSTICK && 'scale-0',
+          )}
+        />
+        <div
+          className={clsx(
+            cursorState === CURSOR_STATE.JOYSTICK ? 'scale-100' : 'scale-0',
+            'absolute transition-transform duration-300',
           )}
         >
-          {cursorState === CURSOR_STATE.SEE_MORE ? 'SEE MORE' : 'DRAG'}
-        </span>
+          DRAG
+        </div>
       </div>
-    </div>
+      <div
+        ref={pointerRefs.secondary}
+        className={clsx(
+          'pointer-events-none fixed left-0 top-0 z-[9999] flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center mix-blend-difference',
+        )}
+      >
+        <div
+          className={clsx(
+            'h-10 w-10 rounded-full border border-white transition-all',
+            cursorState === CURSOR_STATE.DEFAULT && 'scale-100',
+            cursorState === CURSOR_STATE.POINTER && 'scale-0',
+            cursorState === CURSOR_STATE.JOYSTICK && 'scale-0',
+          )}
+        />
+        <div
+          className={clsx(
+            'absolute flex items-center justify-center transition-transform duration-300',
+            cursorState === CURSOR_STATE.JOYSTICK ? 'scale-100' : 'scale-0',
+          )}
+        >
+          <IconChevron
+            className="absolute h-4 w-4 translate-x-20 fill-white opacity-40"
+            direction="right"
+          />
+          <IconChevron
+            className="absolute h-4 w-4 translate-y-20 fill-white opacity-40"
+            direction="down"
+          />
+          <IconChevron
+            className="absolute h-4 w-4 -translate-x-20 fill-white opacity-40"
+            direction="left"
+          />
+          <IconChevron
+            className="absolute h-4 w-4 -translate-y-20 fill-white opacity-40"
+            direction="up"
+          />
+        </div>
+      </div>
+    </>
   );
-});
+};
 
 export default Cursor;
