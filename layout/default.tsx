@@ -1,6 +1,7 @@
 import Background from '@/components/Background';
 import Burger from '@/components/Burger';
 import Cursor from '@/components/Cursor';
+import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SEO from '@/components/SEO';
 import SocialMedia from '@/components/SocialMedia';
@@ -9,16 +10,12 @@ import { AppProvider } from '@/providers/root';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import gsap from 'gsap';
-import CustomEase from 'gsap/dist/CustomEase';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
+import { usePathname } from 'next/navigation';
 import { ReactNode, useEffect } from 'react';
-
-gsap.registerPlugin(ScrollTrigger, CustomEase, SplitText);
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
+  const pathname = usePathname();
 
   useEffect(() => {
     console.info(
@@ -27,14 +24,16 @@ const Layout = ({ children }: { children: ReactNode }) => {
     );
   }, []);
 
+  const isPhotographyPage = /^\/photography\/.+/.test(pathname);
+
   return (
     <AppProvider>
       <Cursor />
       <SEO />
-      {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js" /> */}
       {isTablet ? <Burger /> : <Header />}
       <SocialMedia />
       <main>{children}</main>
+      {!isPhotographyPage && <Footer />}
       <Background />
       <Analytics />
       <SpeedInsights />
