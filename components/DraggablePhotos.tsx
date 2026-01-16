@@ -1,25 +1,23 @@
 import SliderPhotographyDesktop from '@/components/sections/SliderPhotographyDesktop';
 import { urlFor } from '@/sanity/lib/image';
 import { Photo } from '@/types';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import InfiniteDragGrid from './InfiniteDragGrid';
 
 const DraggablePhotos = ({ photo }: { photo: Photo }) => {
   const sectionRef = useRef(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+  // const gridRef = useRef<HTMLDivElement>(null);
 
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useGSAP(() => {
-    gsap
-      .timeline()
-      .fromTo(sectionRef.current, { scale: 2 }, { scale: 1, duration: 2.2, ease: 'power3.out' })
-      .fromTo(gridRef.current, { gap: 200 }, { gap: 50, duration: 2.2, ease: 'power3.out' }, '<');
-  });
+  // useGSAP(() => {
+  //   gsap
+  //     .timeline()
+  //     .fromTo(sectionRef.current, { scale: 2 }, { scale: 1, duration: 2.2, ease: 'power3.out' });
+  //     .fromTo(gridRef.current, { gap: 200 }, { gap: 50, duration: 2.2, ease: 'power3.out' }, '<');
+  // });
 
   const handleImageClick = (index: number) => {
     setActiveIndex(index);
@@ -29,7 +27,7 @@ const DraggablePhotos = ({ photo }: { photo: Photo }) => {
   return (
     <>
       <section ref={sectionRef} className="fixed z-0 h-screen w-screen overflow-hidden">
-        <h1 className="text-shadow absolute top-y-default z-10 w-full select-none px-x-default py-y-default text-center">
+        <h1 className="text-shadow pointer-events-none absolute top-y-default z-10 w-full select-none px-x-default py-y-default text-center">
           {photo.title}
         </h1>
         <InfiniteDragGrid unZoomOnDrag>
