@@ -10,12 +10,15 @@ import { AppProvider } from '@/providers/root';
 import { BREAKPOINTS } from '@/tailwind.config';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { usePathname } from 'next/navigation';
+import gsap from 'gsap';
+import CustomEase from 'gsap/dist/CustomEase';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { ReactNode, useEffect } from 'react';
+
+gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
-  const pathname = usePathname();
 
   useEffect(() => {
     console.info(
@@ -23,17 +26,15 @@ const Layout = ({ children }: { children: ReactNode }) => {
       'border: 1px solid #ccc; padding: 4px;',
     );
   }, []);
-
-  const isPhotographyPage = /^\/photography\/.+/.test(pathname);
-
   return (
     <AppProvider>
-      <Cursor />
       <SEO />
+      <Cursor />
+      {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js" /> */}
       {isTablet ? <Burger /> : <Header />}
       <SocialMedia />
       <main>{children}</main>
-      {!isPhotographyPage && <Footer />}
+      <Footer />
       <Background />
       <Analytics />
       <SpeedInsights />

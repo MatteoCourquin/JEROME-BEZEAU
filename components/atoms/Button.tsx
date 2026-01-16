@@ -2,7 +2,6 @@ import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { SplitText } from 'gsap/SplitText';
 import Link from 'next/link';
 import {
   ComponentPropsWithRef,
@@ -13,8 +12,6 @@ import {
   useRef,
 } from 'react';
 import { IconArrow } from './Icons';
-
-gsap.registerPlugin(SplitText);
 
 interface ButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'type'> {
   type: 'a' | 'button' | 'submit';
@@ -38,17 +35,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const { contextSafe } = useGSAP();
 
     const setupAnimation = contextSafe(() => {
-      const splitText = new SplitText(textRef.current, {
-        type: 'chars, words',
-      });
-
       timelineRef.current = gsap
         .timeline({ paused: true, defaults: { duration: 0.6, ease: 'power3.inOut' } })
         .to(arrowRefs.second.current, {
           scale: 0,
         })
         .to(
-          splitText.chars,
+          textRef.current,
           {
             x: 24,
           },
