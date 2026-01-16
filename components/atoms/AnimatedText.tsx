@@ -1,7 +1,7 @@
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { SplitText } from 'gsap/SplitText';
+// import { SplitText } from 'gsap/SplitText';
 import {
   createElement,
   forwardRef,
@@ -81,57 +81,57 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
         ),
     }));
 
-    const scrollAnimation = contextSafe(() => {
-      if (!animatedTextRef.current) return;
+    // const scrollAnimation = contextSafe(() => {
+    //   if (!animatedTextRef.current) return;
 
-      const splitWord = new SplitText(animatedTextRef.current, {
-        type: 'words',
-      });
+    //   const splitWord = new SplitText(animatedTextRef.current, {
+    //     type: 'words',
+    //   });
 
-      splitInstanceRef.current = splitWord;
+    //   splitInstanceRef.current = splitWord;
 
-      const words = splitWord.words || [];
-      if (!words.length) return;
+    //   const words = splitWord.words || [];
+    //   if (!words.length) return;
 
-      words.forEach((word, index) => {
-        const element = word as HTMLElement;
-        element.style.position = 'relative';
-        element.style.overflow = 'hidden';
-        element.style.display = 'inline-block';
-        element.style.background = `linear-gradient(to right, ${startColor}, ${startColor} 50%, ${endColor} 50%)`;
-        element.style.backgroundClip = 'text';
-        element.style.webkitBackgroundClip = 'text';
-        element.style.webkitTextFillColor = 'transparent';
-        element.style.backgroundPosition = '100% 100%';
-        element.style.backgroundSize = '200% 100%';
+    //   words.forEach((word, index) => {
+    //     const element = word as HTMLElement;
+    //     element.style.position = 'relative';
+    //     element.style.overflow = 'hidden';
+    //     element.style.display = 'inline-block';
+    //     element.style.background = `linear-gradient(to right, ${startColor}, ${startColor} 50%, ${endColor} 50%)`;
+    //     element.style.backgroundClip = 'text';
+    //     element.style.webkitBackgroundClip = 'text';
+    //     element.style.webkitTextFillColor = 'transparent';
+    //     element.style.backgroundPosition = '100% 100%';
+    //     element.style.backgroundSize = '200% 100%';
 
-        // Ajouter un espace après chaque mot sauf le dernier
-        if (index < words.length - 1) {
-          element.style.marginRight = '0.25em';
-        }
-      });
+    //     // Ajouter un espace après chaque mot sauf le dernier
+    //     if (index < words.length - 1) {
+    //       element.style.marginRight = '0.25em';
+    //     }
+    //   });
 
-      gsap.set(words, { backgroundPosition: '100% 100%' });
+    //   gsap.set(words, { backgroundPosition: '100% 100%' });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: animatedTextRef.current,
-          start: 'top 80%',
-          end: 'bottom 30%',
-          scrub: true,
-        },
-      });
+    //   const tl = gsap.timeline({
+    //     scrollTrigger: {
+    //       trigger: animatedTextRef.current,
+    //       start: 'top 80%',
+    //       end: 'bottom 30%',
+    //       scrub: true,
+    //     },
+    //   });
 
-      timelineRef.current = tl;
+    //   timelineRef.current = tl;
 
-      words.forEach((word) => {
-        tl.to(word, {
-          backgroundPosition: '0% 100%',
-          ease: 'none',
-          duration: 1,
-        });
-      });
-    });
+    //   words.forEach((word) => {
+    //     tl.to(word, {
+    //       backgroundPosition: '0% 100%',
+    //       ease: 'none',
+    //       duration: 1,
+    //     });
+    //   });
+    // });
 
     const cleanup = contextSafe(() => {
       if (splitInstanceRef.current) {
@@ -147,7 +147,7 @@ const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(
     useGSAP(() => {
       if (isScrubAnim) {
         cleanup();
-        scrollAnimation();
+        // scrollAnimation();
       }
       return () => {
         cleanup();
