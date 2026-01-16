@@ -74,8 +74,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         onMouseEnter={() => {
           timelineRef.current?.play();
         }}
-        onMouseLeave={() => {
+        onMouseLeave={(e: MouseEvent<HTMLElement>) => {
           timelineRef.current?.reverse();
+          useResetMagnet(e);
         }}
         {...(type === 'a'
           ? {
