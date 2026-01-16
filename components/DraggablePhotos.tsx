@@ -26,7 +26,7 @@ const DraggablePhotos = ({ photo }: { photo: Photo }) => {
 
   return (
     <>
-      <section ref={sectionRef} className="fixed z-0 h-screen w-screen overflow-hidden">
+      <section ref={sectionRef} className="fixed z-20 h-screen w-screen overflow-hidden bg-black">
         <h1 className="text-shadow pointer-events-none absolute top-y-default z-10 w-full select-none px-x-default py-y-default text-center">
           {photo.title}
         </h1>

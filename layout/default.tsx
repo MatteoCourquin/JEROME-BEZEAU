@@ -25,7 +25,6 @@ const Layout = ({ children }: { children: ReactNode }) => {
       'border: 1px solid #ccc; padding: 4px;',
     );
   }, []);
-
   return (
     <AppProvider>
       <SEO />
